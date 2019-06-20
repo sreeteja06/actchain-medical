@@ -152,6 +152,34 @@ class MedicineContract extends Contract {
         await ctx.stub.putState(medicineId, buffer);
     }
 
+    async sendRequest(ctx, medicineId, reuesterId){
+        const exists = await this.medicineExists(ctx, medicineId);
+        if (!exists) {
+            throw new Error(
+                `The medicine ${medicineId} does not exist`
+            );
+        }
+        const asset = await this.readMedicine(ctx, medicineId);
+        asset.request = reuesterId;
+        const buffer = Buffer.from(JSON.stringify(asset));
+        await ctx.stub.putState(medicineId, buffer);
+    }
+
+    async acceptRequest(ctx, medicineId, logiID){
+        const exists = await this.medicineExists(ctx, medicineId);
+        if (!exists) {
+            throw new Error(
+                `The medicine ${medicineId} does not exist`
+            );
+        }
+        const asset = await this.readMedicine(ctx, medicineId);
+        asset.logistics = logiID;
+        asset.sendTo = asset.request;
+        asset.owner = '';
+        const buffer = Buffer.from(JSON.stringify(asset));
+        await ctx.stub.putState(medicineId, buffer);
+    }
+
     async addExtraCondition(
         ctx,
         medicineId,
