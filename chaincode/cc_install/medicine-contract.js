@@ -5,73 +5,75 @@
 'use strict';
 
 const shim = require('fabric-shim');
-// const util = require('util');
+// eslint-disable-next-line no-unused-vars
+const util = require('util');
 
 // eslint-disable-next-line no-unused-vars
-async function queryByString(stub, queryString) {
-    console.log('============= START : queryByString ===========');
-    console.log('##### queryByString queryString: ' + queryString);
 
-    // CouchDB Query
-    let iterator = await stub.getQueryResult(queryString);
-    let allResults = [];
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-        let res = await iterator.next();
-
-        if (res.value && res.value.value.toString()) {
-            let jsonRes = {};
-            console.log('##### queryByString iterator: ' + res.value.value.toString('utf8'));
-
-            jsonRes.Key = res.value.key;
-            try {
-                jsonRes.Record = JSON.parse(res.value.value.toString('utf8'));
-            }
-            catch (err) {
-                console.log('##### queryByString error: ' + err);
-                jsonRes.Record = res.value.value.toString('utf8');
-            }
-            allResults.push(jsonRes);
-        }
-        if (res.done) {
-            await iterator.close();
-            console.log('##### queryByString all results: ' + JSON.stringify(allResults));
-            console.log('============= END : queryByString ===========');
-            return Buffer.from(JSON.stringify(allResults));
-        }
-    }
-}
 
 let MedicineContract = class {
+    async queryByString(stub, queryString) {
+        console.log('============= START : queryByString ===========');
+        console.log('##### queryByString queryString: ' + queryString);
+
+        // CouchDB Query
+        let iterator = await stub.getQueryResult(queryString);
+        let allResults = [];
+        // eslint-disable-next-line no-constant-condition
+        while (true) {
+            let res = await iterator.next();
+
+            if (res.value && res.value.value.toString()) {
+                let jsonRes = {};
+                console.log(
+                    '##### queryByString iterator: ' +
+                        res.value.value.toString('utf8')
+                );
+
+                jsonRes.Key = res.value.key;
+                try {
+                    jsonRes.Record = JSON.parse(
+                        res.value.value.toString('utf8')
+                    );
+                } catch (err) {
+                    console.log('##### queryByString error: ' + err);
+                    jsonRes.Record = res.value.value.toString('utf8');
+                }
+                allResults.push(jsonRes);
+            }
+            if (res.done) {
+                await iterator.close();
+                console.log(
+                    '##### queryByString all results: ' +
+                        JSON.stringify(allResults)
+                );
+                console.log('============= END : queryByString ===========');
+                return Buffer.from(JSON.stringify(allResults));
+            }
+        }
+    }
+
     async Init(stub) {
-        console.log(
-            '=========== Init: Instantiated / Upgraded ngo chaincode ==========='
-        );
+        console.info('=========== Instantiated fabcar chaincode ===========');
         return shim.success();
     }
 
     async Invoke(stub) {
-        console.log('============= START : Invoke ===========');
         let ret = stub.getFunctionAndParameters();
-        console.log('##### Invoke args: ' + JSON.stringify(ret));
+        console.info(ret);
 
         let method = this[ret.fcn];
         if (!method) {
-            console.error(
-                '##### Invoke - error: no chaincode function with name: ' +
-                    ret.fcn +
-                    ' found'
-            );
+            console.error('no function of name:' + ret.fcn + ' found');
             throw new Error(
-                'No chaincode function with name: ' + ret.fcn + ' found'
+                'Received unknown function ' + ret.fcn + ' invocation'
             );
         }
         try {
-            let response = await method(stub, ret.params);
-            console.log('##### Invoke response payload: ' + response);
-            return shim.success(response);
+            let payload = await method(stub, ret.params);
+            return shim.success(payload);
         } catch (err) {
-            console.log('##### Invoke - error: ' + err);
+            console.log(err);
             return shim.error(err);
         }
     }
@@ -121,12 +123,12 @@ let MedicineContract = class {
     }
 
     async queryUsingCouchDB(stub, query) {
-        let result = await queryByString(stub, query);
+        let result = await this.queryByString(stub, query);
         return result.toString();
     }
 
     async getMedicinesByOwner(stub, owner) {
-        let result = await queryByString(
+        let result = await this.queryByString(
             stub,
             '{"selector":{"owner":{"$eq":"' + owner + '"}}}'
         );
@@ -175,7 +177,7 @@ let MedicineContract = class {
     }
 
     async getRecievedMedicines(stub, id) {
-        let result = await queryByString(
+        let result = await this.queryByString(
             stub,
             '{"selector":{"sendTo":{"$eq":"' + id + '"}}}'
         );
@@ -208,7 +210,7 @@ let MedicineContract = class {
     }
 
     async getRequests(stub, id) {
-        let result = await queryByString(
+        let result = await this.queryByString(
             stub,
             '{"selector":{"request":"true", "owner":"' + id + '"}}'
         );
@@ -216,7 +218,7 @@ let MedicineContract = class {
     }
 
     async getSentRequests(stub, id) {
-        let result = await queryByString(
+        let result = await this.queryByString(
             stub,
             '{"selector":{"requestID":{"$eq":"' + id + '"}}}'
         );
@@ -350,4 +352,4 @@ let MedicineContract = class {
     }
 };
 
-module.exports = MedicineContract;
+shim.start(new MedicineContract());
