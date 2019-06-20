@@ -2,7 +2,7 @@
     "name": "actchain-medical",
     "version": "0.0.1",
     "description": "My Smart Contract",
-    "main": "index.js",
+    "main": "medicine-contract.js",
     "engines": {
         "node": ">=8",
         "npm": ">=5"
