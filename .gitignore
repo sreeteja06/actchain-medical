@@ -1,0 +1,4 @@
+/chaincode-shim
+/chaincode/node_modules
+/api/node_modules
+/api/wallet
