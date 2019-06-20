@@ -137,6 +137,14 @@ class MedicineContract extends Contract {
         await ctx.stub.putState(medicineId, buffer);
     }
 
+    async getRecievedMedicines(ctx, id){
+        let result = await queryByString(
+            ctx,
+            '{"selector":{"sendTo":{"$eq":"' + id + '"}}}'
+        );
+        return result.toString();
+    }
+
     async acceptMedicine(ctx, medicineId){
         const exists = await this.medicineExists(ctx, medicineId);
         if (!exists) {
@@ -160,9 +168,26 @@ class MedicineContract extends Contract {
             );
         }
         const asset = await this.readMedicine(ctx, medicineId);
-        asset.request = reuesterId;
+        asset.requestId = reuesterId;
+        asset.request = 'true';
         const buffer = Buffer.from(JSON.stringify(asset));
         await ctx.stub.putState(medicineId, buffer);
+    }
+
+    async getRequests(ctx, id){
+        let result = await queryByString(
+            ctx,
+            '{"selector":{"request":"true", "owner":"'+id+'"}}'
+        );
+        return result.toString();
+    }
+
+    async getSentRequests(ctx, id){
+        let result = await queryByString(
+            ctx,
+            '{"selector":{"requestID":{"$eq":"'+ id +'"}}}'
+        );
+        return result.toString();
     }
 
     async acceptRequest(ctx, medicineId, logiID){
@@ -174,7 +199,9 @@ class MedicineContract extends Contract {
         }
         const asset = await this.readMedicine(ctx, medicineId);
         asset.logistics = logiID;
-        asset.sendTo = asset.request;
+        asset.sendTo = asset.requestId;
+        asset.requestId = '';
+        asset.request = '';
         asset.owner = '';
         const buffer = Buffer.from(JSON.stringify(asset));
         await ctx.stub.putState(medicineId, buffer);
