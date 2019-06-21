@@ -2,3 +2,4 @@
 /chaincode/node_modules
 /api/node_modules
 /api/wallet
+/api/connection
