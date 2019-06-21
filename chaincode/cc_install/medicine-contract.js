@@ -10,7 +10,6 @@ const util = require('util');
 
 // eslint-disable-next-line no-unused-vars
 
-
 let MedicineContract = class {
     async queryByString(stub, queryString) {
         console.log('============= START : queryByString ===========');
@@ -83,64 +82,71 @@ let MedicineContract = class {
         console.log('============= END : Initialize Ledger ===========');
     }
 
-    async medicineExists(stub, medicineId) {
-        const buffer = await stub.getState(medicineId);
+    async medicineExists(stub, args) {
+        args = JSON.parse(args);
+        const buffer = await stub.getState(args.medicinID);
         return !!buffer && buffer.length > 0;
     }
     //MedicineID - M_date_name_batch_box_serial
-    async createMedicine(
-        stub,
-        medicineId,
-        name,
-        owner,
-        expDate,
-        location,
-        extraConditionsName,
-        extraConditionsRequiredValue,
-        extraConditionsCondition
-    ) {
-        const exists = await this.medicineExists(stub, medicineId);
+    /**
+     *
+     * @param {*} stub
+     * @param {*} medicineId
+     * @param {*} name
+     * @param {*} owner
+     * @param {*} expDate
+     * @param {*} location
+     * @param {*} extraConditionsName
+     * @param {*} extraConditionsRequiredValue
+     * @param {*} extraConditionsCondition
+     */
+    async createMedicine(stub, args) {
+        args = JSON.parse(args);
+        const exists = await this.medicineExists(stub, args.medicineId);
         if (exists) {
-            throw new Error(`The medicine ${medicineId} already exists`);
+            throw new Error(`The medicine ${args.medicineId} already exists`);
         }
         let medicine = {};
         medicine.docType = 'medicine';
-        medicine.name = name;
-        medicine.owner = owner;
-        medicine.expDate = expDate;
-        medicine.location = location;
+        medicine.name = args.name;
+        medicine.owner = args.owner;
+        medicine.expDate = args.expDate;
+        medicine.location = args.location;
         medicine.logistics = '';
         medicine.sendTo = '';
         medicine.extraConditions = {
-            [extraConditionsName]: {
-                required: extraConditionsRequiredValue,
+            [args.extraConditionsName]: {
+                required: args.extraConditionsRequiredValue,
                 present: '',
-                condition: extraConditionsCondition
+                condition: args.extraConditionsCondition
             }
         };
         const buffer = Buffer.from(JSON.stringify(medicine));
-        await stub.putState(medicineId, buffer);
+        await stub.putState(args.medicineId, buffer);
     }
 
-    async queryUsingCouchDB(stub, query) {
-        let result = await this.queryByString(stub, query);
+    async queryUsingCouchDB(stub, args) {
+        args = JSON.parse(args);
+        let result = await this.queryByString(stub, args.query);
         return result.toString();
     }
 
-    async getMedicinesByOwner(stub, owner) {
+    async getMedicinesByOwner(stub, args) {
+        args = JSON.parse(args);
         let result = await this.queryByString(
             stub,
-            '{"selector":{"owner":{"$eq":"' + owner + '"}}}'
+            '{"selector":{"owner":{"$eq":"' + args.owner + '"}}}'
         );
         return result.toString();
     }
 
-    async readMedicine(stub, medicineId) {
-        const exists = await this.medicineExists(stub, medicineId);
+    async readMedicine(stub, args) {
+        args = JSON.parse(args);
+        const exists = await this.medicineExists(stub, args.medicineId);
         if (!exists) {
-            throw new Error(`The medicine ${medicineId} does not exist`);
+            throw new Error(`The medicine ${args.medicineId} does not exist`);
         }
-        const buffer = await stub.getState(medicineId);
+        const buffer = await stub.getState(args.medicineId);
         const asset = JSON.parse(buffer.toString());
         return asset;
     }
@@ -152,128 +158,168 @@ let MedicineContract = class {
      * @param {} newLocation - {latitude, longitude}
      */
 
-    async updateLocation(stub, medicineId, newLocation) {
-        const exists = await this.medicineExists(stub, medicineId);
+    async updateLocation(stub, args) {
+        args = JSON.parse(args);
+        const exists = await this.medicineExists(stub, args.medicineId);
         if (!exists) {
-            throw new Error(`The medicine ${medicineId} does not exist`);
+            throw new Error(`The medicine ${args.medicineId} does not exist`);
         }
-        const asset = await this.readMedicine(stub, medicineId);
-        asset.location = newLocation;
+        const asset = await this.readMedicine(stub, args.medicineId);
+        asset.location = args.newLocation;
         const buffer = Buffer.from(JSON.stringify(asset));
-        await stub.putState(medicineId, buffer);
+        await stub.putState(args.medicineId, buffer);
+    }
+    /**
+     *
+     * @param {*} stub
+     * @param {*} medicineId
+     * @param {*} sendTo
+     * @param {*} logiID
+     */
+    async sendMedicine(stub, args) {
+        args = JSON.parse(args);
+        const exists = await this.medicineExists(stub, args.medicineId);
+        if (!exists) {
+            throw new Error(`The medicine ${args.medicineId} does not exist`);
+        }
+        const asset = await this.readMedicine(stub, args.medicineId);
+        asset.logistics = args.logiID;
+        asset.sendTo = args.sendTo;
+        // asset.owner = '';
+        const buffer = Buffer.from(JSON.stringify(asset));
+        await stub.putState(args.medicineId, buffer);
     }
 
-    async sendMedicine(stub, medicineId, sendTo, logiID) {
-        const exists = await this.medicineExists(stub, medicineId);
-        if (!exists) {
-            throw new Error(`The medicine ${medicineId} does not exist`);
-        }
-        const asset = await this.readMedicine(stub, medicineId);
-        asset.logistics = logiID;
-        asset.sendTo = sendTo;
-        asset.owner = '';
-        const buffer = Buffer.from(JSON.stringify(asset));
-        await stub.putState(medicineId, buffer);
-    }
-
-    async getRecievedMedicines(stub, id) {
+    async getRecievedMedicines(stub, args) {
+        args = JSON.parse(args);
         let result = await this.queryByString(
             stub,
-            '{"selector":{"sendTo":{"$eq":"' + id + '"}}}'
+            '{"selector":{"sendTo":{"$eq":"' + args.id + '"}}}'
         );
         return result.toString();
     }
 
-    async acceptMedicine(stub, medicineId) {
-        const exists = await this.medicineExists(stub, medicineId);
+    async acceptMedicine(stub, args) {
+        args = JSON.parse(args);
+        const exists = await this.medicineExists(stub, args.medicineId);
         if (!exists) {
-            throw new Error(`The medicine ${medicineId} does not exist`);
+            throw new Error(`The medicine ${args.medicineId} does not exist`);
         }
-        const asset = await this.readMedicine(stub, medicineId);
+        const asset = await this.readMedicine(stub, args.medicineId);
         asset.owner = asset.sendTo;
         asset.logistics = '';
         asset.sendTo = '';
         const buffer = Buffer.from(JSON.stringify(asset));
-        await stub.putState(medicineId, buffer);
+        await stub.putState(args.medicineId, buffer);
     }
 
-    async sendRequest(stub, medicineId, reuesterId) {
-        const exists = await this.medicineExists(stub, medicineId);
+    /**
+     *
+     * @param {*} stub
+     * @param {*} medicineId
+     * @param {*} reuesterId
+     */
+    async sendRequest(stub, args) {
+        args = JSON.parse(args);
+        const exists = await this.medicineExists(stub, args.medicineId);
         if (!exists) {
-            throw new Error(`The medicine ${medicineId} does not exist`);
+            throw new Error(`The medicine ${args.medicineId} does not exist`);
         }
-        const asset = await this.readMedicine(stub, medicineId);
-        asset.requestId = reuesterId;
+        const asset = await this.readMedicine(stub, args.medicineId);
+        asset.requestId = args.reuesterId;
         asset.request = 'true';
         const buffer = Buffer.from(JSON.stringify(asset));
-        await stub.putState(medicineId, buffer);
+        await stub.putState(args.medicineId, buffer);
     }
 
-    async getRequests(stub, id) {
+    async getRequests(stub, args) {
+        args = JSON.parse(args);
         let result = await this.queryByString(
             stub,
-            '{"selector":{"request":"true", "owner":"' + id + '"}}'
+            '{"selector":{"request":"true", "owner":"' + args.id + '"}}'
         );
         return result.toString();
     }
 
-    async getSentRequests(stub, id) {
+    async getSentRequests(stub, args) {
+        args = JSON.parse(args);
         let result = await this.queryByString(
             stub,
-            '{"selector":{"requestID":{"$eq":"' + id + '"}}}'
+            '{"selector":{"requestID":{"$eq":"' + args.id + '"}}}'
         );
         return result.toString();
     }
 
-    async acceptRequest(stub, medicineId, logiID) {
-        const exists = await this.medicineExists(stub, medicineId);
+    /**
+     *
+     * @param {*} stub
+     * @param {*} medicineId
+     * @param {*} logiID
+     */
+    async acceptRequest(stub, args) {
+        args = JSON.parse(args);
+        const exists = await this.medicineExists(stub, args.medicineId);
         if (!exists) {
-            throw new Error(`The medicine ${medicineId} does not exist`);
+            throw new Error(`The medicine ${args.medicineId} does not exist`);
         }
-        const asset = await this.readMedicine(stub, medicineId);
-        asset.logistics = logiID;
+        const asset = await this.readMedicine(stub, args.medicineId);
+        asset.logistics = args.logiID;
         asset.sendTo = asset.requestId;
         asset.requestId = '';
         asset.request = '';
-        asset.owner = '';
+        // asset.owner = '';
         const buffer = Buffer.from(JSON.stringify(asset));
-        await stub.putState(medicineId, buffer);
+        await stub.putState(args.medicineId, buffer);
     }
 
-    async addExtraCondition(
-        stub,
-        medicineId,
-        extraConditionsName,
-        extraConditionsRequiredValue,
-        extraConditionsCondition
-    ) {
-        const exists = await this.medicineExists(stub, medicineId);
+    /**
+     *
+     * @param {*} stub
+     * @param {*} medicineId
+     * @param {*} extraConditionsName
+     * @param {*} extraConditionsRequiredValue
+     * @param {*} extraConditionsCondition
+     */
+    async addExtraCondition(stub, args) {
+        args = JSON.parse(args);
+        const exists = await this.medicineExists(stub, args.medicineId);
         if (!exists) {
-            throw new Error(`The medicine ${medicineId} does not exist`);
+            throw new Error(`The medicine ${args.medicineId} does not exist`);
         }
-        const asset = await this.readMedicine(stub, medicineId);
-        asset.extraConditions[extraConditionsName] = {
-            required: extraConditionsRequiredValue,
+        const asset = await this.readMedicine(stub, args.medicineId);
+        asset.extraConditions[args.extraConditionsName] = {
+            required: args.extraConditionsRequiredValue,
             present: '',
-            condition: extraConditionsCondition
+            condition: args.extraConditionsCondition
         };
         const buffer = Buffer.from(JSON.stringify(asset));
-        await stub.putState(medicineId, buffer);
+        await stub.putState(args.medicineId, buffer);
     }
 
-    async updateExtraCondition(stub, medicineId, conditionName, updateValue) {
-        const exists = await this.medicineExists(stub, medicineId);
+    /**
+     *
+     * @param {*} stub
+     * @param {*} medicineId
+     * @param {*} conditionName
+     * @param {*} updateValue
+     */
+    async updateExtraCondition(stub, args) {
+        args = JSON.parse(args);
+        const exists = await this.medicineExists(stub, args.medicineId);
         if (!exists) {
-            throw new Error(`The medicine ${medicineId} does not exist`);
+            throw new Error(
+                `The medicine ${args.medicineId} does not exist`
+            );
         }
-        const asset = await this.readMedicine(stub, medicineId);
-        asset.extraConditions[conditionName].present = updateValue;
+        const asset = await this.readMedicine(stub, args.medicineId);
+        asset.extraConditions[args.conditionName].present =
+            args.updateValue;
         const buffer = Buffer.from(JSON.stringify(asset));
-        await stub.putState(medicineId, buffer);
+        await stub.putState(args.medicineId, buffer);
         if (asset.extraConditions.condition === 'greater') {
             if (
-                asset.extraConditions[conditionName].present <=
-                asset.extraConditions[conditionName].required
+                asset.extraConditions[args.conditionName].present <=
+                asset.extraConditions[args.conditionName].required
             ) {
                 return JSON.parse('{condition: true}');
             } else {
@@ -281,8 +327,8 @@ let MedicineContract = class {
             }
         } else if (asset.extraConditions.condition === 'lesser') {
             if (
-                asset.extraConditions[conditionName].present >=
-                asset.extraConditions[conditionName].required
+                asset.extraConditions[args.conditionName].present >=
+                asset.extraConditions[args.conditionName].required
             ) {
                 return JSON.parse('{condition: true}');
             } else {
@@ -290,8 +336,9 @@ let MedicineContract = class {
             }
         } else if (asset.extraConditions.condition === 'equal') {
             if (
-                asset.extraConditions[conditionName].present ===
-                asset.extraConditions[conditionName].required
+                asset.extraConditions[args.conditionName]
+                    .present ===
+                asset.extraConditions[args.conditionName].required
             ) {
                 return JSON.parse('{condition: true}');
             } else {
@@ -300,19 +347,23 @@ let MedicineContract = class {
         }
     }
 
-    async getHistory(stub, medicineId) {
-        console.log(medicineId);
-        let x = await stub.getHistoryForKey(medicineId);
+    async getHistory(stub, args) {
+        args = JSON.parse(args);
+        console.log(args.medicineId);
+        let x = await stub.getHistoryForKey(args.medicineId);
         console.log(x.response);
         return x.response;
     }
 
-    async deleteMedicine(stub, medicineId) {
-        const exists = await this.medicineExists(stub, medicineId);
+    async deleteMedicine(stub, args) {
+        args = JSON.parse(args);
+        const exists = await this.medicineExists(stub, args.medicineId);
         if (!exists) {
-            throw new Error(`The medicine ${medicineId} does not exist`);
+            throw new Error(
+                `The medicine ${args.medicineId} does not exist`
+            );
         }
-        await stub.deleteState(medicineId);
+        await stub.deleteState(args.medicineId);
     }
 
     async getTxID(stub) {
@@ -321,8 +372,9 @@ let MedicineContract = class {
         return x;
     }
 
-    async getStateValidationParameter(stub, key) {
-        let x = await stub.getStateValidationParameter(key);
+    async getStateValidationParameter(stub, args) {
+        args = JSON.parse(args);
+        let x = await stub.getStateValidationParameter(args.key);
         console.log(x);
         return x;
     }
