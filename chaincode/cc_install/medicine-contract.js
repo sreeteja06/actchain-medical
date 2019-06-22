@@ -9,45 +9,45 @@ const shim = require('fabric-shim');
 const util = require('util');
 
 // eslint-disable-next-line no-unused-vars
-let queryByString = (stub, queryString) => {
-    console.log('============= START : queryByString ===========');
-    console.log('##### queryByString queryString: ' + queryString);
-    // CouchDB Query
-    let iterator = await stub.getQueryResult(queryString);
-    let allResults = [];
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-        let res = await iterator.next();
-        if (res.value && res.value.value.toString()) {
-            let jsonRes = {};
-            console.log(
-                '##### queryByString iterator: ' +
-                    res.value.value.toString('utf8')
-            );
-            jsonRes.Key = res.value.key;
-            try {
-                jsonRes.Record = JSON.parse(
-                    res.value.value.toString('utf8')
-                );
-            } catch (err) {
-                console.log('##### queryByString error: ' + err);
-                jsonRes.Record = res.value.value.toString('utf8');
-            }
-            allResults.push(jsonRes);
-        }
-        if (res.done) {
-            await iterator.close();
-            console.log(
-                '##### queryByString all results: ' +
-                    JSON.stringify(allResults)
-            );
-            console.log('============= END : queryByString ===========');
-            return Buffer.from(JSON.stringify(allResults));
-        }
-    }
-}
 
 let MedicineContract = class {
+    queryByString = async (stub, queryString) => {
+        console.log('============= START : queryByString ===========');
+        console.log('##### queryByString queryString: ' + queryString);
+        // CouchDB Query
+        let iterator = await stub.getQueryResult(queryString);
+        let allResults = [];
+        // eslint-disable-next-line no-constant-condition
+        while (true) {
+            let res = await iterator.next();
+            if (res.value && res.value.value.toString()) {
+                let jsonRes = {};
+                console.log(
+                    '##### queryByString iterator: ' +
+                        res.value.value.toString('utf8')
+                );
+                jsonRes.Key = res.value.key;
+                try {
+                    jsonRes.Record = JSON.parse(
+                        res.value.value.toString('utf8')
+                    );
+                } catch (err) {
+                    console.log('##### queryByString error: ' + err);
+                    jsonRes.Record = res.value.value.toString('utf8');
+                }
+                allResults.push(jsonRes);
+            }
+            if (res.done) {
+                await iterator.close();
+                console.log(
+                    '##### queryByString all results: ' +
+                        JSON.stringify(allResults)
+                );
+                console.log('============= END : queryByString ===========');
+                return Buffer.from(JSON.stringify(allResults));
+            }
+        }
+    }
 
     async Init(stub) {
         console.info('=========== Instantiated fabcar chaincode ===========');
@@ -130,7 +130,7 @@ let MedicineContract = class {
 
     async getMedicinesByOwner(stub, args) {
         args = JSON.parse(args);
-        let result = await queryByString(
+        let result = await this.queryByString(
             stub,
             '{"selector":{"owner":{"$eq":"' + args.owner + '"}}}'
         );
@@ -177,7 +177,7 @@ let MedicineContract = class {
 
     async getRecievedMedicines(stub, args) {
         args = JSON.parse(args);
-        let result = await queryByString(
+        let result = await this.queryByString(
             stub,
             '{"selector":{"sendTo":{"$eq":"' + args.id + '"}}}'
         );
@@ -211,7 +211,7 @@ let MedicineContract = class {
 
     async getRequests(stub, args) {
         args = JSON.parse(args);
-        let result = await queryByString(
+        let result = await this.queryByString(
             stub,
             '{"selector":{"request":"true", "owner":"' + args.id + '"}}'
         );
@@ -220,7 +220,7 @@ let MedicineContract = class {
 
     async getSentRequests(stub, args) {
         args = JSON.parse(args);
-        let result = await queryByString(
+        let result = await this.queryByString(
             stub,
             '{"selector":{"requestID":{"$eq":"' + args.id + '"}}}'
         );
