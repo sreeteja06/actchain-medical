@@ -90,23 +90,6 @@ let Chaincode = class {
     }
     async initLedger(stub, args) {
         console.log('============= START : Initialize Ledger ===========');
-        let medicine = {};
-        medicine.docType = 'medicine';
-        medicine.name = 'critic';
-        medicine.owner = 'activa';
-        medicine.expDate = '10/08/1998';
-        medicine.location = 'hyd';
-        medicine.logistics = '';
-        medicine.sendTo = '';
-        medicine.extraConditions = {
-            temp: {
-                required: '45',
-                present: '',
-                condition: 'lesser'
-            }
-        };
-        const buffer = Buffer.from(JSON.stringify(medicine));
-        await stub.putState('001', buffer);
         console.log('============= END : Initialize Ledger ===========');
     }
     async createMedicine(stub, args) {
@@ -115,9 +98,6 @@ let Chaincode = class {
             console.log(
                 '##### createMedicine arguments: ' + JSON.stringify(args)
             );
-
-            // args is passed as a JSON string
-            // let json = JSON.parse(args);
             let medicine = {};
             medicine.docType = 'medicine';
             medicine.name = args[1];
@@ -126,13 +106,13 @@ let Chaincode = class {
             medicine.location = args[4];
             medicine.logistics = '';
             medicine.sendTo = '';
-            // medicine.extraConditions = {
-            //     [json.extraConditionsName]: {
-            //         required: json.extraConditionsRequiredValue,
-            //         present: '',
-            //         condition: json.extraConditionsCondition
-            //     }
-            // };
+            medicine.extraConditions = {
+                [args[5]]: { //extraconditionname
+                    required: args[6],//extraconditionrequiredvalue
+                    present: '',
+                    condition: args[7] //extra condition contdition
+                }
+            };
             const buffer = Buffer.from(JSON.stringify(medicine));
             await stub.putState(args[0].toString(), buffer);
         }catch(err){
@@ -147,148 +127,137 @@ let Chaincode = class {
     }
 
     async getMedicinesByOwner(stub, args) {
-        let json = JSON.parse(args);
         let result = await this.queryByString(
             stub,
-            '{"selector":{"owner":{"$eq":"' + json.owner + '"}}}'
+            '{"selector":{"owner":{"$eq":"' + args[0] + '"}}}'      //owner
         );
         return result.toString();
     }
 
     async readMedicine(stub, args) {
-        let json = JSON.parse(args);
-        const buffer = await stub.getState(json.medicineId.toString());
+        const buffer = await stub.getState(args[0].toString()); //medicineID
         const asset = JSON.parse(buffer.toString());
         return asset;
     }
 
     async updateLocation(stub, args) {
         let json = JSON.parse(args);
-        const asset = await this.readMedicine(stub, json.medicineId.toString());
-        asset.location = json.newLocation;
+        const asset = await this.readMedicine(stub, args[0].toString()); //medicineID
+        asset.location = args[1];      //NEwLocation
         const buffer = Buffer.from(JSON.stringify(asset));
-        await stub.putState(json.medicineId.toString(), buffer);
+        await stub.putState(args[0].toString(), buffer);
     }
 
     async sendMedicine(stub, args) {
         let json = JSON.parse(args);
-        const asset = await this.readMedicine(stub, json.medicineId.toString());
-        asset.logistics = json.logiID;
-        asset.sendTo = json.sendTo;
+        const asset = await this.readMedicine(stub, args[0].toString());    //medicineID
+        asset.logistics = args[1];      //logisticsID
+        asset.sendTo = args[2];         //SendTo id
         // asset.owner = '';
         const buffer = Buffer.from(JSON.stringify(asset));
         await stub.putState(json.medicineId.toString(), buffer);
     }
 
     async getRecievedMedicines(stub, args) {
-        let json = JSON.parse(args);
         let result = await this.queryByString(
             stub,
-            '{"selector":{"sendTo":{"$eq":"' + json.id + '"}}}'
+            '{"selector":{"sendTo":{"$eq":"' + args[0] + '"}}}' //id who eants to get the recieved medicines
         );
         return result.toString();
     }
 
     async acceptMedicine(stub, args) {
-        let json = JSON.parse(args);
-        const asset = await this.readMedicine(stub, json.medicineId.toString());
+        const asset = await this.readMedicine(stub, args[0].toString());    //medicine id
         asset.owner = asset.sendTo;
         asset.logistics = '';
         asset.sendTo = '';
         const buffer = Buffer.from(JSON.stringify(asset));
-        await stub.putState(json.medicineId.toString(), buffer);
+        await stub.putState(args[0].toString(), buffer);
     }
 
     async sendRequest(stub, args) {
-        let json = JSON.parse(args);
-        const asset = await this.readMedicine(stub, json.medicineId.toString());
-        asset.requestId = json.reuesterId;
+        const asset = await this.readMedicine(stub, args[0].toString());  //medicineID
+        asset.requestId = args[1];              //the id of who is sending the request
         asset.request = 'true';
         const buffer = Buffer.from(JSON.stringify(asset));
-        await stub.putState(json.medicineId.toString(), buffer);
+        await stub.putState(args[0].toString(), buffer);
     }
 
     async getRequests(stub, args) {
-        let json = JSON.parse(args);
         let result = await this.queryByString(
             stub,
-            '{"selector":{"request":"true", "owner":"' + json.id + '"}}'
+            '{"selector":{"request":"true", "owner":"' + args[0] + '"}}'        //id of who needs to get the requests
         );
         return result.toString();
     }
 
     async getSentRequests(stub, args) {
-        let json = JSON.parse(args);
         let result = await this.queryByString(
             stub,
-            '{"selector":{"requestID":{"$eq":"' + json.id + '"}}}'
+            '{"selector":{"requestID":{"$eq":"' + args[0] + '"}}}'          //id of the person
         );
         return result.toString();
     }
 
     async acceptRequest(stub, args) {
-        let json = JSON.parse(args);
-        const asset = await this.readMedicine(stub, json.medicineId.toString());
-        asset.logistics = json.logiID;
+        const asset = await this.readMedicine(stub, args[0].toString());        //medicineid
+        asset.logistics = args[1];  //logistists id
         asset.sendTo = asset.requestId;
         asset.requestId = '';
         asset.request = '';
         // asset.owner = '';
         const buffer = Buffer.from(JSON.stringify(asset));
-        await stub.putState(json.medicineId.toString(), buffer);
+        await stub.putState(args[0].toString(), buffer);
     }
 
     async addExtraCondition(stub, args) {
-        let json = JSON.parse(args);
-        const asset = await this.readMedicine(stub, json.medicineId.toString());
-        asset.extraConditions[json.extraConditionsName] = {
-            required: json.extraConditionsRequiredValue,
+        const asset = await this.readMedicine(stub, args[0].toString());    //medicineID
+        asset.extraConditions[args[1]] = {             //extra condition name
+            required: args[2],                //extra condition required value
             present: '',
-            condition: json.extraConditionsCondition
+            condition: args[3]                    //ectra condtion condtion
         };
         const buffer = Buffer.from(JSON.stringify(asset));
-        await stub.putState(json.medicineId.toString(), buffer);
+        await stub.putState(args[0].toString(), buffer);
     }
 
     async updateExtraCondition(stub, args) {
-        let json = JSON.parse(args);
-        const asset = await this.readMedicine(stub, json.medicineId.toString());
-        asset.extraConditions[json.conditionName].present = json.updateValue;
+        const asset = await this.readMedicine(stub, args[0].toString());    //medicineID
+        asset.extraConditions[args[1]].present = args[2];       // conditionname //update value
         const buffer = Buffer.from(JSON.stringify(asset));
-        await stub.putState(json.medicineId.toString(), buffer);
+        await stub.putState(args[0].toString(), buffer);
         if (asset.extraConditions.condition === 'greater') {
             if (
-                asset.extraConditions[json.conditionName].present <=
-                asset.extraConditions[json.conditionName].required
+              asset.extraConditions[args[1]].present <= //condition name
+              asset.extraConditions[args[1]].required
             ) {
-                return JSON.parse('{condition: true}');
+              return JSON.parse('{condition: true}');
             } else {
-                return JSON.parse('{condition: false}');
+              return JSON.parse('{condition: false}');
             }
         } else if (asset.extraConditions.condition === 'lesser') {
             if (
-                asset.extraConditions[json.conditionName].present >=
-                asset.extraConditions[json.conditionName].required
+              asset.extraConditions[args[1]].present >=
+              asset.extraConditions[args[1]].required
             ) {
-                return JSON.parse('{condition: true}');
+              return JSON.parse('{condition: true}');
             } else {
-                return JSON.parse('{condition: false}');
+              return JSON.parse('{condition: false}');
             }
         } else if (asset.extraConditions.condition === 'equal') {
             if (
-                asset.extraConditions[json.conditionName].present ===
-                asset.extraConditions[json.conditionName].required
+              asset.extraConditions[args[1]].present ===
+              asset.extraConditions[args[1]].required
             ) {
-                return JSON.parse('{condition: true}');
+              return JSON.parse('{condition: true}');
             } else {
-                return JSON.parse('{condition: false}');
+              return JSON.parse('{condition: false}');
             }
         }
     }
 
     async deleteMedicine(stub, args) {
-        let json = JSON.parse(args);
-        await stub.deleteState(json.medicineId.toString());
+        await stub.deleteState(args[0].toString()); //medicineID
     }
 
     async getChannelID(stub) {
@@ -304,16 +273,7 @@ let Chaincode = class {
     }
 
     async queryHistoryForKey(stub, args) {
-        console.log('============= START : queryHistoryForKey ===========');
-        console.log(
-            '##### queryHistoryForKey arguments: ' + JSON.stringify(args)
-        );
-
-        // args is passed as a JSON string
-        let json = JSON.parse(args);
-        let key = json['key'];
-        console.log('##### queryHistoryForKey key: ' + key);
-        let historyIterator = await stub.getHistoryForKey(key);
+        let historyIterator = await stub.getHistoryForKey(args[0]); //medicineID
         console.log(
             '##### queryHistoryForKey historyIterator: ' +
                 util.inspect(historyIterator)
