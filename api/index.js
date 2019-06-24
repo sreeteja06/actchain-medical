@@ -14,7 +14,7 @@ var blockListener = require('./helpers/blocklistener');
 
 hfc.addConfigFile('./connection/config.json');
 var host = 'localhost';
-var username = 'praneeth';
+var username = 'praneeth2';
 var orgName = 'm-MCIZNCJNQRDKZPNRQ2AHBE7G6M';
 var channelName = hfc.getConfigSetting('channelName');
 var chaincodeName = hfc.getConfigSetting('chaincodeName');
@@ -159,7 +159,8 @@ app.get(
       extraConditionsRequiredValue: req.body.extraConditionsRequiredValue,
       extraConditionsCondition: req.body.extraConditionsCondition
     };
-    args = JSON.stringify(args);
+    // args = JSON.stringify(args);
+    args = ['002', 'hello', 'pee', '23-04-19', 'tel'];
     const fn = 'createMedicine';
     // let username = req.body.username;
     // let orgName = req.body.orgName;
@@ -212,7 +213,21 @@ app.get('/getSentRequests', awaitHandler(async (req, res) => {}));
 app.get('/acceptRequest', awaitHandler(async (req, res) => {}));
 app.get('/addExtraCondition', awaitHandler(async (req, res) => {}));
 app.get('/updateExtraCondition', awaitHandler(async (req, res) => {}));
-app.get('/getHistory', awaitHandler(async (req, res) => {}));
+app.get('/getChannelID', awaitHandler(async (req, res) => {
+  let args = '';
+  let fn = 'getChannelID';
+  let message = await query.queryChaincode(
+    peers,
+    channelName,
+    chaincodeName,
+    args,
+    fn,
+    username,
+    orgName
+  );
+  res.send(message);
+
+}));
 app.get('/deleteMedicine', awaitHandler(async (req, res) => {}));
 
 app.use(function(error, req, res, next) {
