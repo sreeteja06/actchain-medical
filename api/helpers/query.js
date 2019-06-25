@@ -18,7 +18,7 @@ var queryChaincode = async function(peers, channelName, chaincodeName, args, fcn
 			targets : peers, 
 			chaincodeId: chaincodeName,
 			fcn: fcn,
-			args: [JSON.stringify(args)]
+			args: args
 		};
 
 		console.log('##### queryChaincode - Query request to Fabric %s', JSON.stringify(request));
@@ -37,6 +37,9 @@ var queryChaincode = async function(peers, channelName, chaincodeName, args, fcn
 				let message = util.format('##### queryChaincode - error in query result: %s', responses[0].toString('utf8'));
 				console.log(message);
 				throw new Error(message);	
+			}
+			if(responses.length === 1){
+				return responses[0].toString('utf-8');
 			}
             // we will only use the first response. We strip out the Fabric key and just return the payload
             let json = JSON.parse(responses[0].toString('utf8'));

@@ -149,18 +149,16 @@ app.post(
 app.get(
   '/createMedicine',
   awaitHandler(async (req, res) => {
-    let args = {
-      medicineId: req.body.medicineId,
-      name: req.body.name,
-      owner: req.body.username,
-      expDate: req.body.expDate,
-      location: req.body.location,
-      extraConditionsName: req.body.extraConditionsName,
-      extraConditionsRequiredValue: req.body.extraConditionsRequiredValue,
-      extraConditionsCondition: req.body.extraConditionsCondition
-    };
-    // args = JSON.stringify(args);
-    args = ['002', 'hello', 'pee', '23-04-19', 'tel'];
+    let args = [];
+    args.push(req.body.medicineId);
+    args.push(req.body.name);
+    args.push(req.body.username);
+    args.push(req.body.expDate);
+    args.push(req.body.location);
+    args.push(req.body.extraConditionsName);
+    args.push(req.body.extraConditionsRequiredValue);
+    args.push(req.body.extraConditionsCondition);
+    // args = ['002', 'hello', 'pee', '23-04-19', 'tel'];
     const fn = 'createMedicine';
     // let username = req.body.username;
     // let orgName = req.body.orgName;
@@ -178,17 +176,290 @@ app.get(
   })
 );
 
-app.get('/medicineExists', awaitHandler(async (req, res)=>{
-  let args = {
-    medicineId: req.body.medicineId
-  };
+app.get(
+  '/medicineInfo',
+  awaitHandler(async (req, res) => {
+    let args = [];
+    console.log('req Body of the request ' + JSON.stringify(req.body));
+    args.push(req.body.medicineId);
+    const fn = 'readMedicine';
+    let message = await query.queryChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
 
-  args = JSON.stringify(args);
-  const fn = 'medicineExists';
+app.get(
+  '/getMedicinesByOwner',
+  awaitHandler(async (req, res) => {
+    let args = [];
+    console.log('req Body of the request ' + JSON.stringify(req.body));
+    args.push(req.body.id);
+    const fn = 'getMedicinesByOwner';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+    console.log(args);
+    let message = await query.queryChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
+
+app.get(
+  '/updateLocation',
+  awaitHandler(async (req, res) => {
+    let args = [];
+    args.push(req.body.medicineId);
+    args.push(req.body.location);
+    const fn = 'updateLocation';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
+app.get(
+  '/sendMedicine',
+  awaitHandler(async (req, res) => {
+    let args = [];
+    args.push(req.body.medicineId);
+    args.push(req.body.logistics);
+    args.push(req.body.sendTo);
+    const fn = 'sendMedicine';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
+app.get(
+  '/getRecievedMedicines',
+  awaitHandler(async (req, res) => {
+    let args = [];
+    console.log('req Body of the request ' + JSON.stringify(req.body));
+    args.push(req.body.id);
+    const fn = 'getRecievedMedicines';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+    console.log(args);
+    let message = await query.queryChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
+app.get(
+  '/acceptMedicine',
+  awaitHandler(async (req, res) => {
+    let args = [];
+    args.push(req.body.medicineId);
+    args.push(req.body.id);
+    const fn = 'acceptMedicine';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
+app.get(
+  '/sendRequest',
+  awaitHandler(async (req, res) => {
+    let args = [];
+    args.push(req.body.medicineId);
+    args.push(req.body.id);
+    const fn = 'sendRequest';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
+app.get(
+  '/getRequests',
+  awaitHandler(async (req, res) => {
+    let args = [];
+    console.log('req Body of the request ' + JSON.stringify(req.body));
+    args.push(req.body.id);
+    const fn = 'getRequests';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+    console.log(args);
+    let message = await query.queryChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
+app.get(
+  '/getSentRequests',
+  awaitHandler(async (req, res) => {
+    let args = [];
+    console.log('req Body of the request ' + JSON.stringify(req.body));
+    args.push(req.body.id);
+    const fn = 'getSentRequests';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+    console.log(args);
+    let message = await query.queryChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
+app.get('/acceptRequest', awaitHandler(async (req, res) => {
+  let args = [];
+  args.push(req.body.medicineId);
+  args.push(req.body.id);
+  args.push(req.body.logisId);
+  const fn = 'acceptRequest';
   // let username = req.body.username;
   // let orgName = req.body.orgName;
 
-  let message = await query.queryChaincode(
+  let message = await invoke.invokeChaincode(
+    peers,
+    channelName,
+    chaincodeName,
+    args,
+    fn,
+    username,
+    orgName
+  );
+  res.send(message);
+}));
+app.get('/addExtraCondition', awaitHandler(async (req, res) => {
+  let args = [];
+  args.push(req.body.medicineId);
+  args.push(req.body.extraConditionName);
+  args.push(req.body.extraConditionsRequiredValue);
+  args.push(req.body.extraConditionsCondition);
+  const fn = 'addExtraCondition';
+  // let username = req.body.username;
+  // let orgName = req.body.orgName;
+
+  let message = await invoke.invokeChaincode(
+    peers,
+    channelName,
+    chaincodeName,
+    args,
+    fn,
+    username,
+    orgName
+  );
+  res.send(message);
+}));
+app.get('/updateExtraCondition', awaitHandler(async (req, res) => {
+  let args = [];
+  args.push(req.body.medicineId);
+  args.push(req.body.extraConditionName);
+  args.push(req.body.extraConditionsUpdateValue);
+  const fn = 'updateExtraCondition';
+  // let username = req.body.username;
+  // let orgName = req.body.orgName;
+
+  let message = await invoke.invokeChaincode(
+    peers,
+    channelName,
+    chaincodeName,
+    args,
+    fn,
+    username,
+    orgName
+  );
+  res.send(message);
+}));
+app.get(
+  '/getChannelID',
+  awaitHandler(async (req, res) => {
+    let args = [];
+    let fn = 'getChannelID';
+    let message = await query.queryChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message.toString());
+  })
+);
+app.get('/deleteMedicine', awaitHandler(async (req, res) => {
+  let args = [];
+  args.push(req.body.medicineId);
+  const fn = 'deleteMedicine';
+  // let username = req.body.username;
+  // let orgName = req.body.orgName;
+
+  let message = await invoke.invokeChaincode(
     peers,
     channelName,
     chaincodeName,
@@ -200,22 +471,13 @@ app.get('/medicineExists', awaitHandler(async (req, res)=>{
   res.send(message);
 }));
 
-app.get('/readMedicine', awaitHandler(async (req, res) => {
-
-}));
-app.get('/updateLocation', awaitHandler(async (req, res) => {}));
-app.get('/sendMedicine', awaitHandler(async (req, res) => {}));
-app.get('/getRecievedMedicines', awaitHandler(async (req, res) => {}));
-app.get('/acceptMedicine', awaitHandler(async (req, res) => {}));
-app.get('/sendRequest', awaitHandler(async (req, res) => {}));
-app.get('/getRequests', awaitHandler(async (req, res) => {}));
-app.get('/getSentRequests', awaitHandler(async (req, res) => {}));
-app.get('/acceptRequest', awaitHandler(async (req, res) => {}));
-app.get('/addExtraCondition', awaitHandler(async (req, res) => {}));
-app.get('/updateExtraCondition', awaitHandler(async (req, res) => {}));
-app.get('/getChannelID', awaitHandler(async (req, res) => {
-  let args = '';
-  let fn = 'getChannelID';
+app.get('/getCreator', awaitHandler(async (req, res)=>{
+  let args = [];
+  console.log('req Body of the request ' + JSON.stringify(req.body));
+  const fn = 'getCreator';
+  // let username = req.body.username;
+  // let orgName = req.body.orgName;
+  console.log(args);
   let message = await query.queryChaincode(
     peers,
     channelName,
@@ -226,9 +488,30 @@ app.get('/getChannelID', awaitHandler(async (req, res) => {
     orgName
   );
   res.send(message);
+}))
 
-}));
-app.get('/deleteMedicine', awaitHandler(async (req, res) => {}));
+app.get(
+  '/getHistory',
+  awaitHandler(async (req, res) => {
+    let args = [];
+    console.log('req Body of the request ' + JSON.stringify(req.body));
+    args.push(req.body.medicineId);
+    const fn = 'queryHistoryForKey';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+    console.log(args);
+    let message = await query.queryChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
 
 app.use(function(error, req, res, next) {
   res.status(500).json({ error: error.toString() });
