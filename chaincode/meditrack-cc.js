@@ -122,26 +122,21 @@ let Chaincode = class {
 
     async queryUsingCouchDB(stub, args) {
         let json = JSON.parse(args);
-        let result = await queryByString(stub, json.query.toString());
-        return result.toString();
+        return await queryByString(stub, json.query.toString());
     }
 
     async getMedicinesByOwner(stub, args) {
-        let result = await this.queryByString(
+        return await this.queryByString(
             stub,
             '{"selector":{"owner":{"$eq":"' + args[0] + '"}}}'      //owner
         );
-        return result.toString();
     }
 
-    async readMedicine(stub, args) {
-        const buffer = await stub.getState(args[0].toString()); //medicineID
-        const asset = JSON.parse(buffer.toString());
-        return asset;
+    async readMedicine(stub, args) { //medicineID
+        return queryByKey(stub, args[0].toString());
     }
 
     async updateLocation(stub, args) {
-        let json = JSON.parse(args);
         const asset = await this.readMedicine(stub, args[0].toString()); //medicineID
         asset.location = args[1];      //NEwLocation
         const buffer = Buffer.from(JSON.stringify(asset));
@@ -159,11 +154,10 @@ let Chaincode = class {
     }
 
     async getRecievedMedicines(stub, args) {
-        let result = await this.queryByString(
+        return await this.queryByString(
             stub,
             '{"selector":{"sendTo":{"$eq":"' + args[0] + '"}}}' //id who eants to get the recieved medicines
         );
-        return result.toString();
     }
 
     async acceptMedicine(stub, args) {
@@ -184,19 +178,17 @@ let Chaincode = class {
     }
 
     async getRequests(stub, args) {
-        let result = await this.queryByString(
+        return await this.queryByString(
             stub,
             '{"selector":{"request":"true", "owner":"' + args[0] + '"}}'        //id of who needs to get the requests
         );
-        return result.toString();
     }
 
     async getSentRequests(stub, args) {
-        let result = await this.queryByString(
+        return await this.queryByString(
             stub,
             '{"selector":{"requestID":{"$eq":"' + args[0] + '"}}}'          //id of the person
         );
-        return result.toString();
     }
 
     async acceptRequest(stub, args) {
@@ -263,13 +255,13 @@ let Chaincode = class {
     async getChannelID(stub) {
         let x = await stub.getChannelID();
         console.log(x);
-        return x;
+        return Buffer.from(x.toString());
     }
 
     async getCreator(stub) {
         let x = await stub.getCreator();
         console.log(x);
-        return x;
+        return Buffer.from(x.toString());
     }
 
     async queryHistoryForKey(stub, args) {
