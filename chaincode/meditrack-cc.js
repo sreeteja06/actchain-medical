@@ -126,7 +126,7 @@ let Chaincode = class {
     }
 
     async getMedicinesByOwner(stub, args) {
-        return await this.queryByString(
+        return await queryByString(
             stub,
             '{"selector":{"owner":{"$eq":"' + args[0] + '"}}}'      //owner
         );
@@ -153,7 +153,7 @@ let Chaincode = class {
     }
 
     async getRecievedMedicines(stub, args) {
-        return await this.queryByString(
+        return await queryByString(
             stub,
             '{"selector":{"sendTo":{"$eq":"' + args[0] + '"}}}' //id who eants to get the recieved medicines
         );
@@ -179,14 +179,14 @@ let Chaincode = class {
     }
 
     async getRequests(stub, args) {
-        return await this.queryByString(
+        return await queryByString(
             stub,
             '{"selector":{"request":"true", "owner":"' + args[0] + '"}}'        //id of who needs to get the requests
         );
     }
 
     async getSentRequests(stub, args) {
-        return await this.queryByString(
+        return await queryByString(
             stub,
             '{"selector":{"requestID":{"$eq":"' + args[0] + '"}}}'          //id of the person
         );
