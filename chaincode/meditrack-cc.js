@@ -16,38 +16,74 @@ async function queryByKey(stub, key) {
 }
 
 async function queryByString(stub, queryString) {
-    console.log('============= START : queryByString ===========');
-    console.log('##### queryByString queryString: ' + queryString);
-    // CouchDB Query
-    let iterator = await stub.getQueryResult(queryString);
-    let allResults = [];
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-        let res = await iterator.next();
-        if (res.value && res.value.value.toString()) {
-            let jsonRes = {};
-            console.log(
-                '##### queryByString iterator: ' +
-                    res.value.value.toString('utf8')
-            );
-            jsonRes.Key = res.value.key;
-            try {
-                jsonRes.Record = JSON.parse(res.value.value.toString('utf8'));
-            } catch (err) {
-                console.log('##### queryByString error: ' + err);
-                jsonRes.Record = res.value.value.toString('utf8');
-            }
-            allResults.push(jsonRes);
-        }
-        if (res.done) {
-            await iterator.close();
-            console.log(
-                '##### queryByString all results: ' + JSON.stringify(allResults)
-            );
-            console.log('============= END : queryByString ===========');
-            return Buffer.from(JSON.stringify(allResults));
-        }
+  console.log('============= START : queryByString ===========');
+  console.log('##### queryByString queryString: ' + queryString);
+
+  let jsonQueryString = JSON.parse(queryString);
+
+  let iterator = await stub.getStateByRange("", "");
+
+  // Iterator handling is identical for both CouchDB and LevelDB result sets, with the
+  // exception of the filter handling in the commented section below
+  let allResults = [];
+  while (true) {
+    let res = await iterator.next();
+
+    if (res.value && res.value.value.toString()) {
+      let jsonRes = {};
+      console.log(
+        '##### queryByString iterator: ' + res.value.value.toString('utf8')
+      );
+
+      jsonRes.Key = res.value.key;
+      try {
+        jsonRes.Record = JSON.parse(res.value.value.toString('utf8'));
+      } catch (err) {
+        console.log('##### queryByString error: ' + err);
+        jsonRes.Record = res.value.value.toString('utf8');
+      }
+      // ******************* LevelDB filter handling ******************************************
+      // LevelDB: additional code required to filter out records we don't need
+      // Check that each filter condition in jsonQueryString can be found in the iterator json
+      // If we are using CouchDB, this isn't required as rich query supports selectors
+      let jsonRecord = jsonQueryString['selector'];
+    //   // If there is only a docType, no need to filter, just return all
+    //   console.log(
+    //     '##### queryByString jsonRecord - number of JSON keys: ' +
+    //       Object.keys(jsonRecord).length
+    //   );
+      if (Object.keys(jsonRecord).length == 1) {
+        allResults.push(jsonRes);
+        continue;
+      }
+      for (var key in jsonRecord) {
+          if (key == 'docType') {
+            continue;
+          }
+          console.log(
+            '##### queryByString json iterator has key: ' + jsonRes.Record[key]
+          );
+          if (
+            !(jsonRes.Record[key] && jsonRes.Record[key] == jsonRecord[key])
+          ) {
+            // we do not want this record as it does not match the filter criteria
+            continue;
+          }
+          allResults.push(jsonRes);
+      }
+      // ******************* End LevelDB filter handling ******************************************
+      // For CouchDB, push all results
+      // allResults.push(jsonRes);
     }
+    if (res.done) {
+      await iterator.close();
+      console.log(
+        '##### queryByString all results: ' + JSON.stringify(allResults)
+      );
+      console.log('============= END : queryByString ===========');
+      return Buffer.from(JSON.stringify(allResults));
+    }
+  }
 }
 
 /************************************************************************************************
@@ -126,9 +162,11 @@ let Chaincode = class {
     }
 
     async getMedicinesByOwner(stub, args) {
+        let queryString =
+          '{"selector": {"docType":"medicine", "owner":"'+args[0]+'"}}';
         return await queryByString(
             stub,
-            '{"selector":{"owner":{"$eq":"' + args[0] + '"}}}'      //owner
+            queryString      //owner
         );
     }
 
@@ -137,14 +175,16 @@ let Chaincode = class {
     }
 
     async updateLocation(stub, args) {
-        const asset = await this.readMedicine(stub, args[0].toString()); //medicineID
+        let asset = await queryByKey(stub, args[0].toString()); //medicineID
+        asset = JSON.parse(asset.toString());
         asset.location = args[1];      //NEwLocation
         const buffer = Buffer.from(JSON.stringify(asset));
         await stub.putState(args[0].toString(), buffer);
     }
 
     async sendMedicine(stub, args) {
-        const asset = await this.readMedicine(stub, args[0].toString());    //medicineID
+        let asset = await queryByKey(stub, args[0].toString());    //medicineID
+        asset = JSON.parse(asset.toString());
         asset.logistics = args[1];      //logisticsID
         asset.sendTo = args[2];         //SendTo id
         // asset.owner = '';
@@ -153,14 +193,19 @@ let Chaincode = class {
     }
 
     async getRecievedMedicines(stub, args) {
+        let queryString =
+          '{"selector": {"docType": "medicine", "sendTo": "' +
+          args[0].toString() +
+          '"}}';
         return await queryByString(
             stub,
-            '{"selector":{"sendTo":{"$eq":"' + args[0] + '"}}}' //id who eants to get the recieved medicines
+            queryString //id who eants to get the recieved medicines
         );
     }
 
     async acceptMedicine(stub, args) {
-        const asset = await this.readMedicine(stub, args[0].toString());    //medicine id
+        let asset = await queryByKey(stub, args[0].toString());    //medicine id
+        asset = JSON.parse(asset.toString());
         if(args[1].toString() == asset.sendTo.toString()){                                        //id of who accepts the medicines
             asset.owner = asset.sendTo;
             asset.logistics = '';
@@ -171,7 +216,8 @@ let Chaincode = class {
     }
 
     async sendRequest(stub, args) {
-        const asset = await this.readMedicine(stub, args[0].toString());  //medicineID
+        let asset = await queryByKey(stub, args[0].toString());  //medicineID
+        asset = JSON.parse(asset.toString());
         asset.requestId = args[1];              //the id of who is sending the request
         asset.request = 'true';
         const buffer = Buffer.from(JSON.stringify(asset));
@@ -179,22 +225,31 @@ let Chaincode = class {
     }
 
     async getRequests(stub, args) {
+        let queryString =
+          '{"selector": {"docType": "medicine", "owner": "' +
+          args[0].toString() +
+          '"}}';
         return await queryByString(
             stub,
-            '{"selector":{"request":"true", "owner":"' + args[0] + '"}}'        //id of who needs to get the requests
+            queryString        //id of who needs to get the requests
         );
     }
 
     async getSentRequests(stub, args) {
+        let queryString =
+          '{"selector": {"docType": "medicine", "requestId": "' +
+          args[0].toString() +
+          '"}}';
         return await queryByString(
             stub,
-            '{"selector":{"requestID":{"$eq":"' + args[0] + '"}}}'          //id of the person
+            queryString          //id of the person
         );
     }
 
     async acceptRequest(stub, args) {
-        const asset = await this.readMedicine(stub, args[0].toString());        //medicineid
-        if(asset.owner.toString == args[1].toString()){                         //id
+        let asset = await queryByKey(stub, args[0].toString());        //medicineid
+        asset = JSON.parse(asset.toString());
+        if(asset.owner.toString() == args[1].toString()){                         //id
             asset.logistics = args[2];  //logistists id
             asset.sendTo = asset.requestId;
             asset.requestId = '';
@@ -206,7 +261,8 @@ let Chaincode = class {
     }
 
     async addExtraCondition(stub, args) {
-        const asset = await this.readMedicine(stub, args[0].toString());    //medicineID
+        let asset = await queryByKey(stub, args[0].toString());    //medicineID
+        asset = JSON.parse(asset.toString());
         asset.extraConditions[args[1]] = {             //extra condition name
             required: args[2],                //extra condition required value
             present: '',
@@ -217,7 +273,8 @@ let Chaincode = class {
     }
 
     async updateExtraCondition(stub, args) {
-        const asset = await this.readMedicine(stub, args[0].toString());    //medicineID
+        let asset = await queryByKey(stub, args[0].toString());    //medicineID
+        asset = JSON.parse(asset.toString());
         asset.extraConditions[args[1]].present = args[2];       // conditionname //update value
         const buffer = Buffer.from(JSON.stringify(asset));
         await stub.putState(args[0].toString(), buffer);
