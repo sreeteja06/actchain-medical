@@ -144,13 +144,12 @@ let Chaincode = class {
     }
 
     async sendMedicine(stub, args) {
-        let json = JSON.parse(args);
         const asset = await this.readMedicine(stub, args[0].toString());    //medicineID
         asset.logistics = args[1];      //logisticsID
         asset.sendTo = args[2];         //SendTo id
         // asset.owner = '';
         const buffer = Buffer.from(JSON.stringify(asset));
-        await stub.putState(json.medicineId.toString(), buffer);
+        await stub.putState(args[0].toString(), buffer);
     }
 
     async getRecievedMedicines(stub, args) {
@@ -162,9 +161,11 @@ let Chaincode = class {
 
     async acceptMedicine(stub, args) {
         const asset = await this.readMedicine(stub, args[0].toString());    //medicine id
-        asset.owner = asset.sendTo;
-        asset.logistics = '';
-        asset.sendTo = '';
+        if(args[1].toString() == asset.sendTo.toString()){                                        //id of who accepts the medicines
+            asset.owner = asset.sendTo;
+            asset.logistics = '';
+            asset.sendTo = '';
+        }
         const buffer = Buffer.from(JSON.stringify(asset));
         await stub.putState(args[0].toString(), buffer);
     }
@@ -193,10 +194,12 @@ let Chaincode = class {
 
     async acceptRequest(stub, args) {
         const asset = await this.readMedicine(stub, args[0].toString());        //medicineid
-        asset.logistics = args[1];  //logistists id
-        asset.sendTo = asset.requestId;
-        asset.requestId = '';
-        asset.request = '';
+        if(asset.owner.toString == args[1].toString()){                         //id
+            asset.logistics = args[2];  //logistists id
+            asset.sendTo = asset.requestId;
+            asset.requestId = '';
+            asset.request = '';
+        }
         // asset.owner = '';
         const buffer = Buffer.from(JSON.stringify(asset));
         await stub.putState(args[0].toString(), buffer);
