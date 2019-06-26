@@ -14,8 +14,8 @@ var blockListener = require('./helpers/blocklistener');
 
 hfc.addConfigFile('./connection/config.json');
 var host = 'localhost';
-var username = 'praneeth2';
-var orgName = 'm-COIRCFGUEBC27J4TCUOOCSB4ZE';
+var username = 'sree';
+var orgName = 'm-OUELIBUUXBGFJA3CKI5JE437PM';
 var channelName = hfc.getConfigSetting('channelName');
 var chaincodeName = hfc.getConfigSetting('chaincodeName');
 var peers = hfc.getConfigSetting('peers');
@@ -146,7 +146,7 @@ app.post(
   })
 );
 
-app.get(
+app.post(
   '/createMedicine',
   awaitHandler(async (req, res) => {
     let args = [];
@@ -180,8 +180,8 @@ app.get(
   '/medicineInfo',
   awaitHandler(async (req, res) => {
     let args = [];
-    console.log('req Body of the request ' + JSON.stringify(req.body));
-    args.push(req.body.medicineId);
+    console.log('req query of the request ' + JSON.stringify(req.query));
+    args.push(req.query.medicineId);
     const fn = 'readMedicine';
     let message = await query.queryChaincode(
       peers,
@@ -200,8 +200,8 @@ app.get(
   '/getMedicinesByOwner',
   awaitHandler(async (req, res) => {
     let args = [];
-    console.log('req Body of the request ' + JSON.stringify(req.body));
-    args.push(req.body.id);
+    console.log('req query of the request ' + JSON.stringify(req.query));
+    args.push(req.query.id);
     const fn = 'getMedicinesByOwner';
     // let username = req.body.username;
     // let orgName = req.body.orgName;
@@ -219,7 +219,7 @@ app.get(
   })
 );
 
-app.get(
+app.post(
   '/updateLocation',
   awaitHandler(async (req, res) => {
     let args = [];
@@ -241,7 +241,7 @@ app.get(
     res.send(message);
   })
 );
-app.get(
+app.post(
   '/sendMedicine',
   awaitHandler(async (req, res) => {
     let args = [];
@@ -268,8 +268,8 @@ app.get(
   '/getRecievedMedicines',
   awaitHandler(async (req, res) => {
     let args = [];
-    console.log('req Body of the request ' + JSON.stringify(req.body));
-    args.push(req.body.id);
+    console.log('req query of the request ' + JSON.stringify(req.query));
+    args.push(req.query.id);
     const fn = 'getRecievedMedicines';
     // let username = req.body.username;
     // let orgName = req.body.orgName;
@@ -286,7 +286,7 @@ app.get(
     res.send(message);
   })
 );
-app.get(
+app.post(
   '/acceptMedicine',
   awaitHandler(async (req, res) => {
     let args = [];
@@ -308,7 +308,7 @@ app.get(
     res.send(message);
   })
 );
-app.get(
+app.post(
   '/sendRequest',
   awaitHandler(async (req, res) => {
     let args = [];
@@ -334,8 +334,8 @@ app.get(
   '/getRequests',
   awaitHandler(async (req, res) => {
     let args = [];
-    console.log('req Body of the request ' + JSON.stringify(req.body));
-    args.push(req.body.id);
+    console.log('req query of the request ' + JSON.stringify(req.query));
+    args.push(req.query.id);
     const fn = 'getRequests';
     // let username = req.body.username;
     // let orgName = req.body.orgName;
@@ -356,8 +356,8 @@ app.get(
   '/getSentRequests',
   awaitHandler(async (req, res) => {
     let args = [];
-    console.log('req Body of the request ' + JSON.stringify(req.body));
-    args.push(req.body.id);
+    console.log('req query of the request ' + JSON.stringify(req.query));
+    args.push(req.query.id);
     const fn = 'getSentRequests';
     // let username = req.body.username;
     // let orgName = req.body.orgName;
@@ -374,7 +374,7 @@ app.get(
     res.send(message);
   })
 );
-app.get('/acceptRequest', awaitHandler(async (req, res) => {
+app.post('/acceptRequest', awaitHandler(async (req, res) => {
   let args = [];
   args.push(req.body.medicineId);
   args.push(req.body.id);
@@ -394,7 +394,7 @@ app.get('/acceptRequest', awaitHandler(async (req, res) => {
   );
   res.send(message);
 }));
-app.get('/addExtraCondition', awaitHandler(async (req, res) => {
+app.post('/addExtraCondition', awaitHandler(async (req, res) => {
   let args = [];
   args.push(req.body.medicineId);
   args.push(req.body.extraConditionName);
@@ -415,7 +415,7 @@ app.get('/addExtraCondition', awaitHandler(async (req, res) => {
   );
   res.send(message);
 }));
-app.get('/updateExtraCondition', awaitHandler(async (req, res) => {
+app.post('/updateExtraCondition', awaitHandler(async (req, res) => {
   let args = [];
   args.push(req.body.medicineId);
   args.push(req.body.extraConditionName);
@@ -452,7 +452,7 @@ app.get(
     res.send(message.toString());
   })
 );
-app.get('/deleteMedicine', awaitHandler(async (req, res) => {
+app.delete('/deleteMedicine', awaitHandler(async (req, res) => {
   let args = [];
   args.push(req.body.medicineId);
   const fn = 'deleteMedicine';
@@ -473,7 +473,7 @@ app.get('/deleteMedicine', awaitHandler(async (req, res) => {
 
 app.get('/getCreator', awaitHandler(async (req, res)=>{
   let args = [];
-  console.log('req Body of the request ' + JSON.stringify(req.body));
+  console.log('req query of the request ' + JSON.stringify(req.query));
   const fn = 'getCreator';
   // let username = req.body.username;
   // let orgName = req.body.orgName;
@@ -494,8 +494,8 @@ app.get(
   '/getHistory',
   awaitHandler(async (req, res) => {
     let args = [];
-    console.log('req Body of the request ' + JSON.stringify(req.body));
-    args.push(req.body.medicineId);
+    console.log('req query of the request ' + JSON.stringify(req.query));
+    args.push(req.query.medicineId);
     const fn = 'queryHistoryForKey';
     // let username = req.body.username;
     // let orgName = req.body.orgName;
