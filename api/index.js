@@ -172,6 +172,9 @@ app.post(
       username,
       orgName
     );
+
+    await blockListener.startBlockListener(channelName, username, orgName, wss);
+
     res.send(message);
   })
 );
@@ -238,6 +241,9 @@ app.post(
       username,
       orgName
     );
+
+    await blockListener.startBlockListener(channelName, username, orgName, wss);
+
     res.send(message);
   })
 );
@@ -261,6 +267,9 @@ app.post(
       username,
       orgName
     );
+
+    await blockListener.startBlockListener(channelName, username, orgName, wss);
+
     res.send(message);
   })
 );
@@ -305,6 +314,9 @@ app.post(
       username,
       orgName
     );
+
+    await blockListener.startBlockListener(channelName, username, orgName, wss);
+
     res.send(message);
   })
 );
@@ -374,67 +386,85 @@ app.get(
     res.send(message);
   })
 );
-app.post('/acceptRequest', awaitHandler(async (req, res) => {
-  let args = [];
-  args.push(req.body.medicineId);
-  args.push(req.body.id);
-  args.push(req.body.logisId);
-  const fn = 'acceptRequest';
-  // let username = req.body.username;
-  // let orgName = req.body.orgName;
+app.post(
+  '/acceptRequest',
+  awaitHandler(async (req, res) => {
+    let args = [];
+    args.push(req.body.medicineId);
+    args.push(req.body.id);
+    args.push(req.body.logisId);
+    const fn = 'acceptRequest';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
 
-  let message = await invoke.invokeChaincode(
-    peers,
-    channelName,
-    chaincodeName,
-    args,
-    fn,
-    username,
-    orgName
-  );
-  res.send(message);
-}));
-app.post('/addExtraCondition', awaitHandler(async (req, res) => {
-  let args = [];
-  args.push(req.body.medicineId);
-  args.push(req.body.extraConditionName);
-  args.push(req.body.extraConditionsRequiredValue);
-  args.push(req.body.extraConditionsCondition);
-  const fn = 'addExtraCondition';
-  // let username = req.body.username;
-  // let orgName = req.body.orgName;
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
 
-  let message = await invoke.invokeChaincode(
-    peers,
-    channelName,
-    chaincodeName,
-    args,
-    fn,
-    username,
-    orgName
-  );
-  res.send(message);
-}));
-app.post('/updateExtraCondition', awaitHandler(async (req, res) => {
-  let args = [];
-  args.push(req.body.medicineId);
-  args.push(req.body.extraConditionName);
-  args.push(req.body.extraConditionsUpdateValue);
-  const fn = 'updateExtraCondition';
-  // let username = req.body.username;
-  // let orgName = req.body.orgName;
+    await blockListener.startBlockListener(channelName, username, orgName, wss);
 
-  let message = await invoke.invokeChaincode(
-    peers,
-    channelName,
-    chaincodeName,
-    args,
-    fn,
-    username,
-    orgName
-  );
-  res.send(message);
-}));
+    res.send(message);
+  })
+);
+app.post(
+  '/addExtraCondition',
+  awaitHandler(async (req, res) => {
+    let args = [];
+    args.push(req.body.medicineId);
+    args.push(req.body.extraConditionName);
+    args.push(req.body.extraConditionsRequiredValue);
+    args.push(req.body.extraConditionsCondition);
+    const fn = 'addExtraCondition';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+
+    await blockListener.startBlockListener(channelName, username, orgName, wss);
+
+    res.send(message);
+  })
+);
+app.post(
+  '/updateExtraCondition',
+  awaitHandler(async (req, res) => {
+    let args = [];
+    args.push(req.body.medicineId);
+    args.push(req.body.extraConditionName);
+    args.push(req.body.extraConditionsUpdateValue);
+    const fn = 'updateExtraCondition';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+
+    await blockListener.startBlockListener(channelName, username, orgName, wss);
+
+    res.send(message);
+  })
+);
 app.get(
   '/getChannelID',
   awaitHandler(async (req, res) => {
@@ -452,43 +482,52 @@ app.get(
     res.send(message.toString());
   })
 );
-app.delete('/deleteMedicine', awaitHandler(async (req, res) => {
-  let args = [];
-  args.push(req.body.medicineId);
-  const fn = 'deleteMedicine';
-  // let username = req.body.username;
-  // let orgName = req.body.orgName;
+app.delete(
+  '/deleteMedicine',
+  awaitHandler(async (req, res) => {
+    let args = [];
+    args.push(req.body.medicineId);
+    const fn = 'deleteMedicine';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
 
-  let message = await invoke.invokeChaincode(
-    peers,
-    channelName,
-    chaincodeName,
-    args,
-    fn,
-    username,
-    orgName
-  );
-  res.send(message);
-}));
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
 
-app.get('/getCreator', awaitHandler(async (req, res)=>{
-  let args = [];
-  console.log('req query of the request ' + JSON.stringify(req.query));
-  const fn = 'getCreator';
-  // let username = req.body.username;
-  // let orgName = req.body.orgName;
-  console.log(args);
-  let message = await query.queryChaincode(
-    peers,
-    channelName,
-    chaincodeName,
-    args,
-    fn,
-    username,
-    orgName
-  );
-  res.send(message);
-}))
+    await blockListener.startBlockListener(channelName, username, orgName, wss);
+
+    res.send(message);
+  })
+);
+
+app.get(
+  '/getCreator',
+  awaitHandler(async (req, res) => {
+    let args = [];
+    console.log('req query of the request ' + JSON.stringify(req.query));
+    const fn = 'getCreator';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+    console.log(args);
+    let message = await query.queryChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
 
 app.get(
   '/getHistory',

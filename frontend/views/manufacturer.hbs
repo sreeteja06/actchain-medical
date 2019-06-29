@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>MediTrack</title>
+	<!-- for-mobile-apps -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="Logistic Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+
+	<script>
+		addEventListener( "load", function () {
+			setTimeout( hideURLbar, 0 );
+		}, false );
+
+		function hideURLbar() {
+			window.scrollTo( 0, 1 );
+		}
+	</script>
+
+	<!-- css files -->
+	<link href="css/bootstrap.css" rel='stylesheet' type='text/css' /><!-- bootstrap css -->
+	<link href="css/style.css" rel='stylesheet' type='text/css' /><!-- custom css -->
+	<link href="css/font-awesome.min.css" rel="stylesheet"><!-- fontawesome css -->
+	<link
+		href="//fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=devanagari,latin-ext"
+		rel="stylesheet">
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		.row {
+			display: -ms-flexbox;
+			/* IE10 */
+			display: flex;
+			-ms-flex-wrap: wrap;
+			/* IE10 */
+			flex-wrap: wrap;
+			margin: 0 -16px;
+		}
+
+		.col-25 {
+			-ms-flex: 25%;
+			/* IE10 */
+			flex: 25%;
+		}
+
+		.col-50 {
+			-ms-flex: 50%;
+			/* IE10 */
+			flex: 50%;
+		}
+
+		.col-75 {
+			-ms-flex: 75%;
+			/* IE10 */
+			flex: 75%;
+		}
+
+		.col-25,
+		.col-50,
+		.col-75 {
+			padding: 0 16px;
+		}
+
+		.container1 {
+			background-color: #f2f2f2;
+			padding: 5px 20px 15px 20px;
+			border: 1px solid lightgrey;
+			border-radius: 3px;
+		}
+
+		input[type=text] {
+			width: 100%;
+			margin-bottom: 20px;
+			padding: 12px;
+			border: 1px solid #ccc;
+			border-radius: 3px;
+		}
+
+		label {
+			margin-bottom: 10px;
+			display: block;
+		}
+
+		.icon-container {
+			margin-bottom: 20px;
+			padding: 7px 0;
+			font-size: 24px;
+		}
+
+		.btn {
+			background-color: #4CAF50;
+			color: white;
+			padding: 12px;
+			margin: 10px 0;
+			border: none;
+			width: 100%;
+			border-radius: 3px;
+			cursor: pointer;
+			font-size: 17px;
+		}
+
+		.btn:hover {
+			background-color: #45a049;
+		}
+
+		a {
+			color: #2196F3;
+		}
+
+		hr {
+			border: 1px solid lightgrey;
+		}
+
+		span.price {
+			float: right;
+			color: grey;
+		}
+
+		/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
+		@media (max-width: 800px) {
+			.row {
+				flex-direction: column-reverse;
+			}
+
+			.col-25 {
+				margin-bottom: 20px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<!-- //header -->
+	<header>
+		<div class="" style="background-color: black " width="100%">
+
+			<nav class="pt-2" style="margin-top: 0.5%;padding-bottom: 13px">
+				<div id="logo">
+					<h1> <a href="/"><span> <img src="cardiogram.svg" height="30px"></span> MediTrack</a></h1>
+				</div>
+				<label for="drop" class="toggle">Menu</label>
+				<input type="checkbox" id="drop" />
+				<ul class="menu mt-md-2 ml-auto">
+					<li class="mr-lg-4 mr-2 active"><a href="/">Home</a></li>
+					<li class="mr-lg-4 mr-2"><a href="about.html">About Us</a></li>
+					<li class="mr-lg-4 mr-2"><a href="services.html">Services</a></li>
+					<li class="mr-lg-3 mr-2 p-0">
+					</li>
+					<li class="mr-lg-4 mr-2"><a href="contact.html">Contact</a></li>
+
+				</ul>
+			</nav>
+			<!-- //nav -->
+		</div>
+	</header>
+	<!-- //header -->
+	<!--footer --><br><br><br><br>
+	<br><br>
+
+	<form action="/manu-create" method="GET" style="margin-left: 23%">
+
+		<div class="row">
+			<div class="">
+				<h3>Create medicine</h3>
+				<label for="Medicine"><i class="fa fa-user"></i> Medicine name</label>
+				<input type="text" id="name" name="name">
+				<label for="email"><i class="fa fa-envelope"></i> medicine ID</label>
+				<input type="text" id="med_id" name="medicineId">
+				<label for="adr"><i class="fa fa-address-card-o"></i> Location</label>
+				<input type="text" id="adr" name="location">
+				<label for="city"><i class="fa fa-institution"></i> Expiry</label>
+				<input type="text" id="expiry" name="expiry">
+
+				<div class="">
+					<div class="" width="100%">
+						<label for="condition">Extra Conditions Name</label>
+						<input type="text" id="conditon_name" name="conditon_name">
+					</div>
+
+
+				</div>
+				<div class="row">
+					<div class="col-50">
+						<label for="value">Conditions Value</label>
+						<input type="text" id="condition" name="conditionvalue">
+					</div>
+					<div class="col-50">
+						<label for="zip">Condition</label>
+						<select name="ConditionCondition">
+							<option value="lesser ">lesser</option>
+							<option value="greater ">greater</option>
+							<option value="equal">equal</option>
+
+						</select>
+					</div>
+
+				</div>
+				<input type="submit" value="create" style="background-color:rgb(255, 206, 47)">
+			</div>
+
+
+
+
+
+	</form>
+	<form action="/sendMedicine" method="GET" style="margin-left: 20%">
+		<div class="row">
+			<div class="">
+				<h3>Send medicine</h3>
+				<label for="Medicine"><i class="fa fa-user"></i> Medicine ID</label>
+				<input type="text" id="fname" name="medicineId">
+				<label for="email"><i class="fa fa-envelope"></i> Send To:</label>
+				<input type="text" id="email" name="sendTo">
+				<label for="logistics"><i class="fa fa-ship"></i> Logistics:</label>
+				<input type="text" id="logistics" name="logistics">
+				<input type="submit" value="Send" style="background-color:rgb(255, 206, 47) ">
+			</div>
+		</div>
+	</form>
+	<form style="margin-top: 28%;margin-left: -17% ">
+		<div class="row">
+			<div class=""><br>
+				<h3>Track Orders</h3>
+				<label for="Medicine"><i class="fa fa-user"></i> Medicine ID</label>
+				<input type="text" id="fname" name="firstname">
+
+
+				<a href="web/track.html"> <input type="submit" value="Track"
+						style="background-color:rgb(255, 206, 47)"><br>
+			</div>
+		</div>
+	</form>
+
+
+
+
+
+
+
+	</form>
+
+	<br>
+	</div>
+	</div>
+	</section>
+
+	<br><br>
+	<div class="footer footer_w3layouts_section_1its py-5" id="subscribe">
+		<div class="container pt-sm-4">
+			<div class="row footer-grid">
+				<div class="col-md-5 footer-grid_section_1its_w3">
+					<div class="footer-title">
+						<h3>Who we are</h3>
+					</div>
+					<div class="footer-text">
+						<p>We MediTrack are blockchain enabled Trackering managemnet system.we Track Medicines Straight
+							From the Manufacturer to you </p>
+						<ul class="social_section_1info">
+							<li><a href="#" class="w3_facebook"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="#" class="w3_twitter"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="#" class="w3_instagram"><i class="fa fa-instagram"></i></a></li>
+							<li><a href="#" class="w3_google"><i class="fa fa-google-plus"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-5 footer-grid_section_1its_w3 mt-md-0 mt-4">
+					<div class="footer-title">
+						<h3>Links</h3>
+					</div>
+					<ul class="links">
+						<li><a href="about.html">About Our Company</a></li>
+						<li><a href="services.html">Logistics Services</a></li>
+						<li><a href="#">Terms & Conditions</a></li>
+						<li><a href="#">Privicy Policy</a></li>
+					</ul>
+				</div>
+				<div class="col-md-4 col-sm-7 footer-grid_section_1its_w3 mt-md-0 mt-4">
+					<div class="footer-title">
+						<h3>Subscribe</h3>
+					</div>
+					<div class="footer-text">
+						<p>By subscribing to our mailing list you will get latest news and updates from us.</p>
+						<form action="#" method="post">
+							<input type="email" name="Email" placeholder="Enter your email..." required="">
+							<button class="btn1"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+							<div class="clearfix"> </div>
+						</form>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<!-- move top -->
+			<div class="move-to-top text-center">
+				<a href="#home" class="move-top"><span class="fa fa-angle-double-up" aria-hidden="true"></span></a>
+			</div>
+			<!-- //move top -->
+			<div class="copyright">
+				<p>© 2019 mediTrack. All Rights Reserved </p>
+			</div>
+		</div>
+	</div>
+	<!-- //footer -->
+
+</body>
+
+</html>
