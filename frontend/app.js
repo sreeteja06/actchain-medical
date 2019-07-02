@@ -18,8 +18,31 @@ app.get('/manufacturer', function(req, res) {
   res.render('manufacturer');
 });
 
-app.get('/distro', function(req, res) {
-  res.render('distributor');
+app.get('/transactions', function(req, res) {
+  res.render('transactions');
+});
+
+app.get('/pharmacy', function(req, res) {
+  res.render('pharmacy');
+});
+
+app.get('/distro', async function(req, res) {
+  let response;
+  try{
+    response = await axios.get(
+      'http://ec2-3-81-170-231.compute-1.amazonaws.com:3000/getRequests?id=sree'
+    );
+    // console.log(response.data)
+    for (var i = 0; i < response.data.length; i++) {
+      if (response.data[i].Record.request != "true") {
+        response.data.splice(i, 1);
+      }
+    }
+    res.render('distributor', {data: JSON.parse(JSON.stringify(response.data))});
+  }catch(e){
+    console.log(e)
+    res.send(500)
+  }
 });
 // distributor
 app.get('/manu-create', async (req, res) => {
@@ -65,6 +88,24 @@ app.get('/sendMedicine', async (req, res) => {
   }
 });
 
+app.get('/acceptRequest', async(req, res)=>{
+  let response;
+  try {
+    response = await axios.post(
+      'http://ec2-3-81-170-231.compute-1.amazonaws.com:3000/acceptRequest',
+      {
+        medicineId: req.query.medicineId,
+        logisId: req.query.logisId,
+        id: req.query.id
+      }
+    );
+    res.render('tx', { data: response.data });
+  } catch (e) {
+    console.log(e);
+    res.sendStatus(500);
+  }
+})
+
 app.get('/acceptMedicine', async (req, res) => {
   try {
     response = await axios.post(
@@ -84,11 +125,6 @@ app.get('/acceptMedicine', async (req, res) => {
 app.get('/medicineInfo', (req, res) => {
   const medicineId = req.query.medicineId;
   res.send(res.query);
-});
-
-app.get('/acceptMedicine', (req, res) => {
-  const medicineId = req.query.medicineId;
-  const id = req.query.medicineId;
 });
 
 app.listen(3001, () => {

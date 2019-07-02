@@ -221,34 +221,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="">
 				<h3>Pharmary Requests</h3><br><br>
 				<div class="row">
+					{{#each data}}
 					<div class="card"><br><br><br>
 						<center><img src="download.png" alt="John" style="width:50% " height="120px"></center><br><br>
-						<h2>P-ID:34737675</h2>
-						<p class="title">M-ID:12344535</p>
-						<p>Harvard Pharmacy</p>
-
-						<p><button>Accept</button></p>
+						<h2>P-ID:{{this.Record.requestId}}</h2>
+						<p class="title">M-ID:{{this.Key}}</p>
+						{{!-- <p>Harvard Pharmacy</p> --}}
+							<input type="hidden" name="id" value="sree">
+							<input type="hidden" name="medicineId" value="{{this.Key}}">
+							<h2><a href="/acceptRequest?id=sree&medicineId={{this.Key}}&logisId=22">Accept</a></h2>
 					</div>
-					<div class="card"><br><br><br>
-						<center><img src="download.png" alt="John" style="width:50% " height="120px"></center><br><br>
-						<h2>P-id:24324324</h2>
-						<p class="title">M-ID:3524324</p>
-						<p>archan hospital</p>
-
-						<p><button>Accept</button></p>
-					</div>
-					<div class="card"><br><br><br>
-						<center><img src="download.png" alt="John" style="width:50% " height="120px"></center><br><br>
-						<h2>P-ID:32443243</h2>
-						<p class="title">M-ID:46776787</p>
-						<p>Care Hospital</p>
-
-						<p><button>Accept</button></p>
-					</div>
+					{{/each}}
 				</div>
 			</div>
 
-
+	<script>
+		function acceptRequest(mID){
+			//id = sree
+			//mid
+			console.log(mid);
+			logisId = document.getElementById("logisId").value;
+			location.href = '/acceptRequest';
+		}
+	</script>
 
 
 

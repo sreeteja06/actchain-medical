@@ -228,7 +228,7 @@ let Chaincode = class {
         let queryString =
           '{"selector": {"docType": "medicine", "owner": "' +
           args[0].toString() +
-          '"}}';
+          '","request":"true"}}';
         return await queryByString(
             stub,
             queryString        //id of who needs to get the requests
