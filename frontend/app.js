@@ -18,8 +18,18 @@ app.get('/manufacturer', function(req, res) {
   res.render('manufacturer');
 });
 
-app.get('/transactions', function(req, res) {
-  res.render('transactions');
+app.get('/transactions', async function(req, res) {
+  let response;
+  try {
+    response = await axios.get(
+      'http://ec2-3-81-170-231.compute-1.amazonaws.com:3000/getHistory?medicineId=001',
+    );
+    // res.send(response.data);
+    res.render('transactions', { data: response.data });
+  } catch (e) {
+    console.log(e);
+    res.sendStatus(500);
+  }
 });
 
 app.get('/pharmacy', function(req, res) {

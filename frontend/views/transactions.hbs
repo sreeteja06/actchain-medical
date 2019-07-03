@@ -392,7 +392,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<!-- //nav -->
 	</div>
 	<center>
-		<div style="background-color:#36304a;height: px;color: white; font-size: 40px">Medicine ID:38479256475</div>
+		<div style="background-color:#36304a;height: px;color: white; font-size: 40px">Medicine ID:001</div>
 	</center>
 
 	<div class="limiter">
@@ -400,131 +400,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="wrap-table100">
 				<div class="table100">
 					<table>
-
 						<thead>
 							<tr class="table100-head">
 								<th class="column1">TimeStamp</th>
 								<th class="column2">Tx ID</th>
-								<th class="column3">Is del</th>
+								<th class="column3">Owner</th>
 								<th class="column4">Name</th>
 								<th class="column5">Location</th>
 								<th class="column6">Logistics</th>
 							</tr>
 						</thead>
 						<tbody>
+							{{#each data}}
 							<tr>
-								<td class="column1">2017-09-29 01:22</td>
-								<td class="column2">200398</td>
-								<td class="column3">Yes</td>
-								<td class="column4">Name</td>
-								<td class="column5">Hyderabad</td>
-								<td class="column6">XpressBee</td>
+								<td class="column1">{{this.Timestamp.seconds.low}}</td>
+								<td class="column2">{{this.TxId}}</td>
+								<td class="column3">{{this.Record.owner}}</td>
+								<td class="column4">{{this.Record.name}}</td>
+								<td class="column5">{{this.Record.location}}</td>
+								<td class="column6">{{this.Record.logistics}}</td>
 							</tr>
-							<tr>
-								<td class="column1">2017-09-29 01:22</td>
-								<td class="column2">200398</td>
-								<td class="column3">Yes</td>
-								<td class="column4">Name</td>
-								<td class="column5">Hyderabad</td>
-								<td class="column6">XpressBee</td>
-							</tr>
-							<tr>
-								<td class="column1">2017-09-29 01:22</td>
-								<td class="column2">200398</td>
-								<td class="column3">Yes</td>
-								<td class="column4">Name</td>
-								<td class="column5">Hyderabad</td>
-								<td class="column6">XpressBee</td>
-							</tr>
-							<tr>
-								<td class="column1">2017-09-29 01:22</td>
-								<td class="column2">200398</td>
-								<td class="column3">NO</td>
-								<td class="column4">Name</td>
-								<td class="column5">Hyderabad</td>
-								<td class="column6">XpressBee</td>
-							</tr>
-							<tr>
-								<td class="column1">2017-09-29 01:22</td>
-								<td class="column2">200398</td>
-								<td class="column3">NO</td>
-								<td class="column4">Name</td>
-								<td class="column5">Hyderabad</td>
-								<td class="column6">XpressBee</td>
-							</tr>
-							<tr>
-								<td class="column1">2017-09-29 01:22</td>
-								<td class="column2">200398</td>
-								<td class="column3">Yes</td>
-								<td class="column4">Name</td>
-								<td class="column5">Hyderabad</td>
-								<td class="column6">XpressBee</td>
-							</tr>
-							<tr>
-								<td class="column1">2017-09-29 01:22</td>
-								<td class="column2">200398</td>
-								<td class="column3">No</td>
-								<td class="column4">Name</td>
-								<td class="column5">Hyderabad</td>
-								<td class="column6">XpressBee</td>
-							</tr>
-							<tr>
-								<td class="column1">2017-09-29 01:22</td>
-								<td class="column2">200398</td>
-								<td class="column3">YES</td>
-								<td class="column4">Name</td>
-								<td class="column5">Hyderabad</td>
-								<td class="column6">XpressBee</td>
-							</tr>
-							<tr>
-								<td class="column1">2017-09-29 01:22</td>
-								<td class="column2">200398</td>
-								<td class="column3">No</td>
-								<td class="column4">Name</td>
-								<td class="column5">Hyderabad</td>
-								<td class="column6">XpressBee</td>
-							</tr>
-							<tr>
-								<td class="column1">2017-09-29 01:22</td>
-								<td class="column2">200398</td>
-								<td class="column3">No</td>
-								<td class="column4">Name</td>
-								<td class="column5">Hyderabad</td>
-								<td class="column6">XpressBee</td>
-							</tr>
-							<tr>
-								<td class="column1">2017-09-29 01:22</td>
-								<td class="column2">200398</td>
-								<td class="column3">no</td>
-								<td class="column4">Name</td>
-								<td class="column5">Hyderabad</td>
-								<td class="column6">XpressBee</td>
-							</tr>
-							<tr>
-								<td class="column1">2017-09-29 01:22</td>
-								<td class="column2">200398</td>
-								<td class="column3">yes</td>
-								<td class="column4">Name</td>
-								<td class="column5">Hyderabad</td>
-								<td class="column6">XpressBee</td>
-							</tr>
-							<tr>
-								<td class="column1">2017-09-29 01:22</td>
-								<td class="column2">200398</td>
-								<td class="column3">no</td>
-								<td class="column4">Name</td>
-								<td class="column5">Hyderabad</td>
-								<td class="column6">XpressBee</td>
-							</tr>
-							<tr>
-								<td class="column1">2017-09-29 01:22</td>
-								<td class="column2">200398</td>
-								<td class="column3">yes</td>
-								<td class="column4">Name</td>
-								<td class="column5">Hyderabad</td>
-								<td class="column6">XpressBee</td>
-							</tr>
-
+							{{/each}}
 						</tbody>
 					</table>
 				</div>
