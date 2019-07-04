@@ -1,0 +1,23 @@
+version: '2'
+services:
+  clidistro:
+    container_name: clidistro
+    image: hyperledger/fabric-tools:1.2.0
+    tty: true
+    environment:
+      - GOPATH=/opt/gopath
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_LOGGING_LEVEL=info # Set logging level to debug for more verbose logging
+      - CORE_PEER_ID=clidistro
+      - CORE_CHAINCODE_KEEPALIVE=10
+      - CORE_PEER_LOCALMSPID=m-X3Z64F6RHRAD7C534DW3DMIBHY
+      - CORE_PEER_MSPCONFIGPATH=/opt/home/dist-admin-msp
+      - CORE_PEER_ADDRESS=nd-dvyusdsxtjgcfbt2bebbtdo7ay.m-x3z64f6rhrad7c534dw3dmibhy.n-mpl3ejibsfgi3d2sbonw2a6cfu.managedblockchain.us-east-1.amazonaws.com:30006
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem
+      - CORE_PEER_TLS_ENABLED=true
+    working_dir: /opt/home
+    command: /bin/bash
+    volumes:
+        - /var/run/:/host/var/run/
+        - /home/ec2-user/fabric-samples/chaincode:/opt/gopath/src/github.com/
+        - /home/ec2-user:/opt/home
