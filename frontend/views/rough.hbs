@@ -137,7 +137,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		}
 
 		.container-table100 {
-			display: hidden;
 			width: 100%;
 			min-height: 100vh;
 			background: #c850c0;
@@ -393,9 +392,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<!-- //nav -->
 	</div>
 	<center>
-		<div style="background-color:#36304a;height: px;color: white; font-size: 40px">Medicine ID:{{id}}</div>
+		<div style="background-color:#36304a;height: px;color: white; font-size: 40px">
+            <form action="/transactions" method="GET" style="margin-left: 20%">Medicine ID:<input type="text" id="medid" name="medicineId">
+				<input type="submit" value="Send" style="background-color:rgb(255, 206, 47) "></form></div>
 	</center>
-
+{{!-- 
 	<div class="limiter">
 		<div class="container-table100">
 			<div class="wrap-table100">
@@ -429,7 +430,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 	</div>
 
-	</center>
+	</center> --}}
 
 	<br><br>
 
