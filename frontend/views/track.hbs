@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Actmed</title>
+    <style id="applicationStylesheet" type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --web-view-ids: Web_1366___14;
+        }
+
+        #Web_1366___14 * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #Web_1366___14 {
+            position: absolute;
+            box-sizing: border-box;
+            background: #E5E5E5;
+            width: 1366px;
+            height: 768px;
+            background-color: rgba(255, 255, 255, 1);
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            --web-view-name: Web 1366 – 14;
+            --web-view-id: Web_1366___14;
+            --web-enable-deep-linking: true;
+        }
+
+        #Rectangle_112 {
+            opacity: 0.69;
+            filter: drop-shadow(3px 18px 13px rgba(0, 0, 0, 0.161));
+            fill: rgba(147, 214, 255, 0.161);
+        }
+
+        .Rectangle_112 {
+            position: absolute;
+            overflow: visible;
+            width: 1406px;
+            height: 807px;
+            left: -3px;
+            top: 0px;
+        }
+
+        #Rectangle_58 {
+            opacity: 0.5;
+            filter: drop-shadow(0px 5px 16px rgba(21, 125, 189, 1));
+            fill: rgba(255, 255, 255, 1);
+        }
+
+        .Rectangle_58 {
+            position: absolute;
+            overflow: visible;
+            width: 1412px;
+            height: 150px;
+            left: 0px;
+            top: 0px;
+        }
+
+        #Rectangle_113 {
+            opacity: 0.5;
+            filter: drop-shadow(0px 5px 16px rgba(21, 125, 189, 1));
+            fill: rgba(255, 255, 255, 1);
+        }
+
+        .Rectangle_113 {
+            position: absolute;
+            overflow: visible;
+            width: 404px;
+            height: 226px;
+            left: 65px;
+            top: 271px;
+        }
+
+        #Rectangle_116 {
+            opacity: 0.5;
+            filter: drop-shadow(0px 5px 16px rgba(21, 125, 189, 1));
+            fill: rgba(255, 255, 255, 1);
+        }
+
+        .Rectangle_116 {
+            position: absolute;
+            overflow: visible;
+            width: 1276px;
+            height: 343px;
+            left: 65px;
+            top: 473px;
+        }
+
+        #Rectangle_114 {
+            opacity: 0.5;
+            filter: drop-shadow(0px 5px 16px rgba(21, 125, 189, 1));
+            fill: rgba(255, 255, 255, 1);
+        }
+
+        .Rectangle_114 {
+            position: absolute;
+            overflow: visible;
+            width: 404px;
+            height: 226px;
+            left: 501px;
+            top: 271px;
+        }
+
+        #Rectangle_115 {
+            opacity: 0.5;
+            filter: drop-shadow(0px 5px 16px rgba(21, 125, 189, 1));
+            fill: rgba(255, 255, 255, 1);
+        }
+
+        .Rectangle_115 {
+            position: absolute;
+            overflow: visible;
+            width: 404px;
+            height: 226px;
+            left: 937px;
+            top: 271px;
+        }
+
+        #Ellipse_12 {
+            opacity: 0.4;
+            fill: rgba(147, 214, 255, 1);
+            stroke: rgb(112, 112, 112);
+            stroke-width: 1px;
+            stroke-linejoin: miter;
+            stroke-linecap: butt;
+            stroke-miterlimit: 4;
+            shape-rendering: auto;
+        }
+
+        .Ellipse_12 {
+            position: absolute;
+            overflow: visible;
+            width: 60px;
+            height: 60px;
+            left: 231px;
+            top: 126px;
+        }
+
+        #Manufacturer {
+            position: absolute;
+            left: 219px;
+            top: 209px;
+            overflow: visible;
+            width: 121px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            color: rgba(0, 55, 91, 1);
+        }
+
+        #Created {
+            filter: drop-shadow(0px 3px 6px rgba(147, 214, 255, 1));
+            position: absolute;
+            left: 81px;
+            top: 275px;
+            overflow: visible;
+            width: 71px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            color: rgba(0, 55, 91, 1);
+        }
+
+        #Supplied_ {
+            filter: drop-shadow(0px 3px 6px rgba(147, 214, 255, 1));
+            position: absolute;
+            left: 534px;
+            top: 275px;
+            overflow: visible;
+            width: 83px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            color: rgba(0, 55, 91, 1);
+        }
+
+        #Pending {
+            filter: drop-shadow(0px 3px 6px rgba(147, 214, 255, 1));
+            position: absolute;
+            left: 975px;
+            top: 275px;
+            overflow: visible;
+            width: 74px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            color: rgba(0, 55, 91, 1);
+        }
+
+        #Overview {
+            position: absolute;
+            left: 96px;
+            top: 34px;
+            overflow: visible;
+            width: 124px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 30px;
+            color: rgba(0, 55, 91, 1);
+            text-decoration: true;
+        }
+
+        #Logistics {
+            position: absolute;
+            left: 509px;
+            top: 209px;
+            overflow: visible;
+            width: 82px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            color: rgba(0, 55, 91, 1);
+        }
+
+        #Create_ {
+            position: absolute;
+            left: 276px;
+            top: 34px;
+            overflow: visible;
+            width: 97px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 30px;
+            color: rgba(0, 55, 91, 1);
+        }
+
+        #Distributor {
+            position: absolute;
+            left: 771px;
+            top: 209px;
+            overflow: visible;
+            width: 94px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            color: rgba(0, 55, 91, 1);
+        }
+
+        #Track {
+            position: absolute;
+            left: 464px;
+            top: 32px;
+            overflow: visible;
+            width: 76px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 30px;
+            color: rgba(0, 55, 91, 1);
+        }
+
+        #Pharmacy {
+            position: absolute;
+            left: 1054px;
+            top: 209px;
+            overflow: visible;
+            width: 91px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            color: rgba(0, 55, 91, 1);
+        }
+
+        #Line_4 {
+            fill: transparent;
+            stroke: rgb(0, 55, 91);
+            stroke-width: 1px;
+            stroke-linejoin: miter;
+            stroke-linecap: butt;
+            stroke-miterlimit: 4;
+            shape-rendering: auto;
+        }
+
+        .Line_4 {
+            overflow: visible;
+            position: absolute;
+            top: 155.5px;
+            left: 276.5px;
+            width: 837px;
+            height: 1px;
+        }
+
+        #Ellipse_13 {
+            fill: rgba(147, 214, 255, 1);
+            stroke: rgb(112, 112, 112);
+            stroke-width: 1px;
+            stroke-linejoin: miter;
+            stroke-linecap: butt;
+            stroke-miterlimit: 4;
+            shape-rendering: auto;
+        }
+
+        .Ellipse_13 {
+            position: absolute;
+            overflow: visible;
+            width: 30px;
+            height: 30px;
+            left: 246px;
+            top: 140px;
+        }
+
+        #Ellipse_11 {
+            fill: rgba(147, 214, 255, 1);
+            stroke: rgb(112, 112, 112);
+            stroke-width: 1px;
+            stroke-linejoin: miter;
+            stroke-linecap: butt;
+            stroke-miterlimit: 4;
+            shape-rendering: auto;
+        }
+
+        .Ellipse_11 {
+            position: absolute;
+            overflow: visible;
+            width: 30px;
+            height: 30px;
+            left: 534px;
+            top: 140px;
+        }
+
+        #Ellipse_10 {
+            fill: rgba(255, 255, 255, 1);
+            stroke: rgb(112, 112, 112);
+            stroke-width: 1px;
+            stroke-linejoin: miter;
+            stroke-linecap: butt;
+            stroke-miterlimit: 4;
+            shape-rendering: auto;
+        }
+
+        .Ellipse_10 {
+            position: absolute;
+            overflow: visible;
+            width: 30px;
+            height: 30px;
+            left: 796px;
+            top: 140px;
+        }
+
+        #Ellipse_9 {
+            fill: rgba(255, 255, 255, 1);
+            stroke: rgb(112, 112, 112);
+            stroke-width: 1px;
+            stroke-linejoin: miter;
+            stroke-linecap: butt;
+            stroke-miterlimit: 4;
+            shape-rendering: auto;
+        }
+
+        .Ellipse_9 {
+            position: absolute;
+            overflow: visible;
+            width: 30px;
+            height: 30px;
+            left: 1084px;
+            top: 140px;
+        }
+
+        #Rectangle_117 {
+            fill: rgba(255, 255, 255, 1);
+        }
+
+        .Rectangle_117 {
+            position: absolute;
+            overflow: visible;
+            width: 1228px;
+            height: 40px;
+            left: 65px;
+            top: 535px;
+        }
+
+        #Rectangle_120 {
+            fill: rgba(255, 255, 255, 1);
+        }
+
+        .Rectangle_120 {
+            position: absolute;
+            overflow: visible;
+            width: 1228px;
+            height: 40px;
+            left: 65px;
+            top: 615px;
+        }
+
+        #Rectangle_118 {
+            fill: rgba(255, 255, 255, 1);
+            stroke: rgb(147, 214, 255);
+            stroke-width: 1px;
+            stroke-linejoin: miter;
+            stroke-linecap: butt;
+            stroke-miterlimit: 4;
+            shape-rendering: auto;
+        }
+
+        .Rectangle_118 {
+            position: absolute;
+            overflow: visible;
+            width: 1230px;
+            height: 40px;
+            left: 65px;
+            top: 575px;
+        }
+
+        #Rectangle_119 {
+            fill: rgba(255, 255, 255, 1);
+            stroke: rgb(147, 214, 255);
+            stroke-width: 1px;
+            stroke-linejoin: miter;
+            stroke-linecap: butt;
+            stroke-miterlimit: 4;
+            shape-rendering: auto;
+        }
+
+        .Rectangle_119 {
+            position: absolute;
+            overflow: visible;
+            width: 1230px;
+            height: 40px;
+            left: 65px;
+            top: 655px;
+        }
+
+        #Rectangle_121 {
+            opacity: 0.28;
+            fill: url(#LinearGradientFill1);
+        }
+
+        .Rectangle_121 {
+            position: absolute;
+            overflow: visible;
+            width: 222px;
+            height: 31px;
+            left: 1033px;
+            top: 30px;
+        }
+
+        #Search_ {
+            position: absolute;
+            left: 1045px;
+            top: 32px;
+            overflow: visible;
+            width: 67px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            color: rgba(16, 66, 101, 1);
+        }
+
+        #Profile {
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            left: 1278.885px;
+            top: 32px;
+            overflow: visible;
+        }
+
+        #Union_1 {
+            fill: rgba(0, 55, 91, 1);
+        }
+
+        .Union_1 {
+            transform: matrix(1, 0, 0, 1, 0, 0);
+            overflow: visible;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 26px;
+            height: 26px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="Web_1366___14">
+        <svg class="Rectangle_112">
+            <rect id="Rectangle_112" rx="0" ry="0" x="0" y="0" width="1367" height="768">
+            </rect>
+        </svg>
+        <svg class="Rectangle_58">
+            <rect id="Rectangle_58" rx="0" ry="0" x="0" y="0" width="1364" height="102">
+            </rect>
+        </svg>
+        <svg class="Rectangle_113">
+            <rect id="Rectangle_113" rx="0" ry="0" x="0" y="0" width="356" height="178">
+            </rect>
+        </svg>
+        <svg class="Rectangle_116">
+            <rect id="Rectangle_116" rx="0" ry="0" x="0" y="0" width="1228" height="295">
+            </rect>
+        </svg>
+        <svg class="Rectangle_114">
+            <rect id="Rectangle_114" rx="0" ry="0" x="0" y="0" width="356" height="178">
+            </rect>
+        </svg>
+        <svg class="Rectangle_115">
+            <rect id="Rectangle_115" rx="0" ry="0" x="0" y="0" width="356" height="178">
+            </rect>
+        </svg>
+        <svg class="Ellipse_12">
+            <ellipse id="Ellipse_12" rx="30" ry="30" cx="30" cy="30">
+            </ellipse>
+        </svg>
+        <div id="Manufacturer">
+            <span>Manufacturer</span>
+        </div>
+        <div id="Created">
+            <span>Created</span>
+        </div>
+        <div id="Supplied_">
+            <span>Supplied </span>
+        </div>
+        <div id="Pending">
+            <span>Pending</span>
+        </div>
+        <div id="Overview">
+            <span>Overview</span>
+        </div>
+        <div id="Logistics">
+            <span>Logistics</span>
+        </div>
+        <div id="Create_">
+            <span>Create </span>
+        </div>
+        <div id="Distributor">
+            <span>Distributor</span>
+        </div>
+        <div id="Track">
+            <span>Track</span>
+        </div>
+        <div id="Pharmacy">
+            <span>Pharmacy</span>
+        </div>
+        <svg class="Line_4">
+            <path id="Line_4" d="M 0 0 L 837 0">
+            </path>
+        </svg>
+        <svg class="Ellipse_13">
+            <ellipse id="Ellipse_13" rx="15" ry="15" cx="15" cy="15">
+            </ellipse>
+        </svg>
+        <svg class="Ellipse_11">
+            <ellipse id="Ellipse_11" rx="15" ry="15" cx="15" cy="15">
+            </ellipse>
+        </svg>
+        <svg class="Ellipse_10">
+            <ellipse id="Ellipse_10" rx="15" ry="15" cx="15" cy="15">
+            </ellipse>
+        </svg>
+        <svg class="Ellipse_9">
+            <ellipse id="Ellipse_9" rx="15" ry="15" cx="15" cy="15">
+            </ellipse>
+        </svg>
+        <svg class="Rectangle_117">
+            <rect id="Rectangle_117" rx="0" ry="0" x="0" y="0" width="1228" height="40">
+            </rect>
+        </svg>
+        <svg class="Rectangle_120">
+            <rect id="Rectangle_120" rx="0" ry="0" x="0" y="0" width="1228" height="40">
+            </rect>
+        </svg>
+        <svg class="Rectangle_118">
+            <rect id="Rectangle_118" rx="0" ry="0" x="0" y="0" width="1230" height="40">
+            </rect>
+        </svg>
+        <svg class="Rectangle_119">
+            <rect id="Rectangle_119" rx="0" ry="0" x="0" y="0" width="1230" height="40">
+            </rect>
+        </svg>
+        <svg class="Rectangle_121">
+            <linearGradient spreadMethod="pad" id="LinearGradientFill1" x1="0.0855855867266655" x2="0.93603515625"
+                y1="0" y2="0">
+                <stop offset="0" stop-color="#93d6ff" stop-opacity="1"></stop>
+                <stop offset="1" stop-color="#bce4ff" stop-opacity="1"></stop>
+            </linearGradient>
+            <rect id="Rectangle_121" rx="0" ry="0" x="0" y="0" width="222" height="31">
+            </rect>
+        </svg>
+        <div id="Search_">
+            <span>Search </span>
+        </div>
+        <div id="Profile">
+            <svg class="Union_1" viewBox="0 0 26 26">
+                <path id="Union_1"
+                    d="M 0 26.00030517578125 L 0 22.75067138671875 C 0 19.17486572265625 5.850001811981201 16.24981689453125 13.00016689300537 16.24981689453125 C 20.15033149719238 16.24981689453125 26.00033378601074 19.17486572265625 26.00033378601074 22.75067138671875 L 26.00033378601074 26.00030517578125 L 0 26.00030517578125 Z M 6.499351978302002 6.50079345703125 C 6.499351978302002 2.910400390625 9.409728050231934 0 13.00016689300537 0 C 16.58914184570313 0 19.49951934814453 2.910400390625 19.49951934814453 6.50079345703125 C 19.49951934814453 10.08978271484375 16.58914184570313 13.00018310546875 13.00016689300537 13.00018310546875 C 9.409728050231934 13.00018310546875 6.499351978302002 10.08978271484375 6.499351978302002 6.50079345703125 Z">
+                </path>
+            </svg>
+        </div>
+    </div>
+</body>
+
+</html>
