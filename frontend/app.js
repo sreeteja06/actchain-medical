@@ -18,19 +18,28 @@ app.get('/manufacturer', function(req, res) {
   res.render('manufacturer');
 });
 
+app.get('/transactionid',function(req,res){
+  res.render('transactionid');
+});
+
 app.get('/transactions', async function(req, res) {
   let response;
+  let id;
   try {
+   id = req.query.medid;
+  
     response = await axios.get(
-      'http://ec2-3-81-170-231.compute-1.amazonaws.com:3000/getHistory?medicineId=001',
+      `http://ec2-3-81-170-231.compute-1.amazonaws.com:3000/getHistory?medicineId=${id}`,
     );
-    // res.send(response.data);
-    res.render('transactions', { data: response.data });
+    
+    res.render('transactions', { data: response.data ,id});
   } catch (e) {
     console.log(e);
     res.sendStatus(500);
   }
 });
+
+
 
 app.get('/pharmacy', function(req, res) {
   res.render('pharmacy');
@@ -137,6 +146,25 @@ app.get('/medicineInfo', (req, res) => {
   res.send(res.query);
 });
 
-app.listen(3001, () => {
+app.get('/track',async(req,res)=>{
+  let response;
+  let id;
+  try {
+   id = req.query.medid;
+  
+    response = await axios.get(
+      `http://ec2-3-81-170-231.compute-1.amazonaws.com:3000/medicineInfo?medicineId=${id}`,
+    );
+    //console.log(response);
+    res.render('track', { data: response.data ,id});
+    //console.log(response);
+  } catch (e) {
+    console.log(e);
+    res.sendStatus(500);
+  }
+});
+
+app.listen(3000, () => {
   console.log(`starting server`);
 });
+
