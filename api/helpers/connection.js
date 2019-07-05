@@ -34,6 +34,7 @@ async function getClientForOrg(userorg, username) {
         util.format('##### getClient - User was not found :', username)
       );
     } else {
+      console.log("util inspect user"+util.inspect(user));
       console.log(
         '##### getClient - User %s was found to be registered and enrolled',
         username
@@ -90,13 +91,13 @@ var getRegisteredUser = async function(username, userorg, isJson) {
       );
       let secret = await caClient.register(
         {
-          enrollmentID: username
+          enrollmentID: username,
         },
         adminUserObj
       );
       console.log(
         '##### getRegisteredUser - Successfully got the secret for user %s',
-        username
+        secret
       );
       user = await client.setUserContext({
         username: username,
@@ -106,6 +107,7 @@ var getRegisteredUser = async function(username, userorg, isJson) {
         '##### getRegisteredUser - Successfully enrolled username %s  and setUserContext on the client object',
         username
       );
+      console.log('register user utils' + util.inspect(user))
     }
     if (user && user.isEnrolled) {
       if (isJson && isJson === true) {

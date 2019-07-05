@@ -4,3 +4,5 @@
 /api/wallet
 /api/connection
 /frontend/node_modules
+/fabric/crypto-config
+/fabric/channel-artifacts

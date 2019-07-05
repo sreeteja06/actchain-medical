@@ -1,0 +1,45 @@
+OrdererOrgs:
+
+  - Name: Orderer
+    Domain: meditrack.com
+
+    Specs:
+      - Hostname: orderer
+
+PeerOrgs:
+
+  - Name: manu
+    Domain: manu.meditrack.com
+
+    Template:
+      Count: 1
+
+    Users:
+      Count: 3
+
+  - Name: logi
+    Domain: logi.meditrack.com
+
+    Template:
+      Count: 1
+
+    Users:
+      Count: 3
+
+  - Name: dist
+    Domain: dist.meditrack.com
+
+    Template:
+      Count: 1
+
+    Users:
+      Count: 3
+
+  - Name: phar
+    Domain: phar.meditrack.com
+
+    Template:
+      Count: 1
+
+    Users:
+      Count: 3

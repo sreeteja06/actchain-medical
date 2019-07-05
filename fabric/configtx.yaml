@@ -1,0 +1,124 @@
+Organizations:
+
+  - &OrdererOrg
+
+      Name: OrdererOrg
+
+      ID: OrdererMSP
+
+      MSPDir: crypto-config/ordererOrganizations/meditrack.com/msp
+
+      AdminPrincipal: Role.MEMBER
+
+  - &manu
+
+      Name: manu
+
+      ID: manuMSP
+
+      MSPDir: crypto-config/peerOrganizations/manu.meditrack.com/msp
+
+      AdminPrincipal: Role.MEMBER
+
+      AnchorPeers:
+
+        - Host: peer0.manu.meditrack.com
+          Port: 7051
+
+  - &logi
+
+      Name: logi
+
+      ID: logiMSP
+
+      MSPDir: crypto-config/peerOrganizations/logi.meditrack.com/msp
+
+      AdminPrincipal: Role.MEMBER
+
+      AnchorPeers:
+
+        - Host: peer0.logi.meditrack.com
+          Port: 7051
+
+  - &dist
+
+      Name: dist
+
+      ID: distMSP
+
+      MSPDir: crypto-config/peerOrganizations/dist.meditrack.com/msp
+
+      AdminPrincipal: Role.MEMBER
+
+      AnchorPeers:
+
+        - Host: peer0.dist.meditrack.com
+          Port: 7051
+
+  - &phar
+
+      Name: phar
+
+      ID: pharMSP
+
+      MSPDir: crypto-config/peerOrganizations/phar.meditrack.com/msp
+
+      AdminPrincipal: Role.MEMBER
+
+      AnchorPeers:
+
+        - Host: peer0.phar.meditrack.com
+          Port: 7051
+
+Orderer: &OrdererDefaults
+
+  OrdererType: kafka
+
+  Addresses:
+    - orderer.meditrack.com:7050
+
+  BatchTimeout: 2s
+
+  BatchSize:
+
+    MaxMessageCount: 10
+    AbsoluteMaxBytes: 98 MB
+    PreferredMaxBytes: 512 KB
+
+  Kafka:
+    Brokers:
+      - kafka0:9092
+      - kafka1:9092
+      - kafka2:9092
+      - kafka3:9092
+
+  Organizations:
+
+Application: &ApplicationDefaults
+
+  Organizations:
+
+Profiles:
+
+  ProfileTest:
+    Orderer:
+      <<: *OrdererDefaults
+      Organizations:
+        - *OrdererOrg
+    Consortiums:
+      ComposerConsortium:
+        Organizations:
+          - *manu
+          - *logi
+          - *dist
+          - *phar
+
+  ChannelTest:
+    Consortium: ComposerConsortium
+    Application:
+      <<: *ApplicationDefaults
+      Organizations:
+          - *manu
+          - *logi
+          - *dist
+          - *phar
