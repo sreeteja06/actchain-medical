@@ -56,6 +56,7 @@ class MedicineContract extends Contract {
         ctx,
         medicineId,
         name,
+        manufacturer,
         owner,
         expDate,
         location,
@@ -70,10 +71,12 @@ class MedicineContract extends Contract {
         let medicine = {};
         medicine.docType = 'medicine';
         medicine.name = name;
+        medicine.manufacturer = manufacturer;
         medicine.owner = owner;
         medicine.expDate = expDate;
         medicine.location = location;
         medicine.logistics = '';
+        medicine.logiRecieved= 'false';
         medicine.sendTo = '';
         medicine.extraConditions = {
             [extraConditionsName]: {
@@ -95,6 +98,14 @@ class MedicineContract extends Contract {
         let result = await queryByString(
             ctx,
             '{"selector":{"owner":{"$eq":"' + owner + '"}}}'
+        );
+        return result.toString();
+    }
+
+    async getMedicinesByManufacturer(ctx, manufacturer) {
+        let result = await queryByString(
+            ctx,
+            '{"selector":{"manufacturer":{"$eq":"' + manufacturer + '"}}}'
         );
         return result.toString();
     }
@@ -148,6 +159,20 @@ class MedicineContract extends Contract {
         return result.toString();
     }
 
+    async acceptMedicineBylogi(ctx, medicineId) {
+        const exists = await this.medicineExists(ctx, medicineId);
+        if (!exists) {
+            throw new Error(`The medicine ${medicineId} does not exist`);
+        }
+        const asset = await this.readMedicine(ctx, medicineId);
+        //asset.owner = asset.sendTo;
+        //asset.logistics = '';
+        //asset.sendTo = '';
+        asset.logiRecieved='true';
+        const buffer = Buffer.from(JSON.stringify(asset));
+        await ctx.stub.putState(medicineId, buffer);
+    }
+
     async acceptMedicine(ctx, medicineId) {
         const exists = await this.medicineExists(ctx, medicineId);
         if (!exists) {
@@ -157,6 +182,7 @@ class MedicineContract extends Contract {
         asset.owner = asset.sendTo;
         asset.logistics = '';
         asset.sendTo = '';
+        asset.logiRecieved='false';
         const buffer = Buffer.from(JSON.stringify(asset));
         await ctx.stub.putState(medicineId, buffer);
     }
