@@ -167,7 +167,7 @@ services:
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
       - CORE_PEER_ID=peer0.manu.meditrack.com
       - CORE_PEER_ADDRESS=peer0.manu.meditrack.com:7051
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=$NETWORK_NAME
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_meditrack
       - CORE_PEER_LOCALMSPID=manuMSP
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
@@ -223,7 +223,7 @@ services:
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
       - CORE_PEER_ID=peer0.logi.meditrack.com
       - CORE_PEER_ADDRESS=peer0.logi.meditrack.com:7051
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=$NETWORK_NAME
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_meditrack
       - CORE_PEER_LOCALMSPID=logiMSP
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
@@ -279,7 +279,7 @@ services:
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
       - CORE_PEER_ID=peer0.dist.meditrack.com
       - CORE_PEER_ADDRESS=peer0.dist.meditrack.com:7051
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=$NETWORK_NAME
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_meditrack
       - CORE_PEER_LOCALMSPID=distMSP
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
@@ -335,7 +335,7 @@ services:
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
       - CORE_PEER_ID=peer0.phar.meditrack.com
       - CORE_PEER_ADDRESS=peer0.phar.meditrack.com:7051
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=$NETWORK_NAME
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_meditrack
       - CORE_PEER_LOCALMSPID=pharMSP
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB

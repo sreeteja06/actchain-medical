@@ -17,7 +17,7 @@ Organizations:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-        AnchorPeers:
+        AnchorPeers: 
             - Host: nd-rernbicxujh5tcw5poivnfm3zq.m-ouelibuuxbgfja3cki5je437pm.n-mpl3ejibsfgi3d2sbonw2a6cfu.managedblockchain.us-east-1.amazonaws.com
               Port: 30003
         
