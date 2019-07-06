@@ -38,15 +38,15 @@ services:
             - ORDERER_GENERAL_GENESISMETHOD=file
             - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/configs/genesis.block
             - CONFIGTX_ORDERER_ORDERERTYPE=solo
-            - CONFIGTX_ORDERER_BATCHSIZE_MAXMESSAGECOUNT=${CONFIGTX_ORDERER_BATCHSIZE_MAXMESSAGECOUNT}
-            - CONFIGTX_ORDERER_BATCHTIMEOUT=${CONFIGTX_ORDERER_BATCHTIMEOUT}
+            - CONFIGTX_ORDERER_BATCHSIZE_MAXMESSAGECOUNT=10
+            - CONFIGTX_ORDERER_BATCHTIMEOUT=2s
             - CONFIGTX_ORDERER_ADDRESSES=[127.0.0.1:7050]
             # TLS settings
-            - ORDERER_GENERAL_TLS_ENABLED=${ORDERER_GENERAL_TLS_ENABLED}
-            - ORDERER_GENERAL_TLS_PRIVATEKEY=${ORDERER_GENERAL_TLS_PRIVATEKEY}
-            - ORDERER_GENERAL_TLS_CERTIFICATE=${ORDERER_GENERAL_TLS_CERTIFICATE}
+            - ORDERER_GENERAL_TLS_ENABLED=false
+            - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/tls/server.key
+            - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/tls/server.crt
             - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/tls/ca.crt]
-            - ORDERER_TLS_CLIENTAUTHREQUIRED=${ORDERER_TLS_CLIENTAUTHREQUIRED}
+            - ORDERER_TLS_CLIENTAUTHREQUIRED=false
             - ORDERER_TLS_CLIENTROOTCAS_FILES=/var/hyperledger/users/Admin@example.com/tls/ca.crt
             - ORDERER_TLS_CLIENTCERT_FILE=/var/hyperledger/users/Admin@example.com/tls/client.crt
             - ORDERER_TLS_CLIENTKEY_FILE=/var/hyperledger/users/Admin@example.com/tls/client.key
@@ -75,14 +75,16 @@ services:
             - CORE_PEER_PROFILE_ENABLED=true
             - CORE_PEER_MSPCONFIGPATH=/var/hyperledger/msp
             #- CORE_LEDGER_STATE_STATEDATABASE=LevelDB
-            - CORE_LOGGING_LEVEL=DEBUG
-            - CORE_LOGGING_GOSSIP=${CORE_LOGGING_GOSSIP}
+            - FABRIC_LOGGING_SPEC=info
+            - CORE_CHAINCODE_LOGGING_SHIM=debug
+            - CORE_CHAINCODE_LOGGING_LEVEL=debug
+            - CORE_LOGGING_GOSSIP=WARNING
             - CORE_LOGGING_MSP=DEBUG
             # TLS settings
-            - CORE_PEER_TLS_ENABLED=${CORE_PEER_TLS_ENABLED}
-            - CORE_PEER_TLS_CLIENTAUTHREQUIRED=${CORE_PEER_TLS_CLIENTAUTHREQUIRED}
-            - CORE_PEER_TLS_CERT_FILE=${CORE_PEER_TLS_CERT_FILE}
-            - CORE_PEER_TLS_KEY_FILE=${CORE_PEER_TLS_KEY_FILE}
+            - CORE_PEER_TLS_ENABLED=false
+            - CORE_PEER_TLS_CLIENTAUTHREQUIRED=false
+            - CORE_PEER_TLS_CERT_FILE=/var/hyperledger/tls/server.crt
+            - CORE_PEER_TLS_KEY_FILE=/var/hyperledger/tls/server.key
             - CORE_PEER_TLS_ROOTCERT_FILE=/var/hyperledger/tls/ca.crt
         volumes:
             - /var/run/:/host/var/run/
