@@ -4,7 +4,7 @@ function gen_needed(){
 mkdir channel-artifacts
 export CHANNEL_NAME=ourchannel
 export FABRIC_CFG_PATH=$PWD
-./cryptogen generate --config=./crypto-config.yaml
+# ./cryptogen generate --config=./crypto-config.yaml
 ./configtxgen -profile ProfileTest -outputBlock ./channel-artifacts/genesis.block
 ./configtxgen -profile ChannelTest -outputCreateChannelTx ./channel-artifacts/channel.tx  -channelID ourchannel
 ./configtxgen -profile ChannelTest -outputAnchorPeersUpdate ./channel-artifacts/manuMSPanchors.tx -channelID ourchannel -asOrg manu
@@ -25,7 +25,7 @@ docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@phar.me
 
 function clean_it() {
 docker rm -f $(docker ps -a -q)
-rm -rf crypto-config/*
+# rm -rf crypto-config/*
 rm -rf channel-artifacts/*
 }
 
@@ -40,12 +40,20 @@ sleep 20
 join_channel
 
 function install_chaincode(){
-    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@manu.meditrack.com/msp" peer0.manu.meditrack.com peer chaincode install -l node -n exam2 -p /etc/hyperledger/chaincode/ -v v0
+    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@manu.meditrack.com/msp" peer0.manu.meditrack.com peer chaincode install -l node -n exam1 -p /etc/hyperledger/chaincode/chaincode1 -v v0
     docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@logi.meditrack.com/msp" peer0.logi.meditrack.com peer chaincode install -l node -n exam -p /etc/hyperledger/chaincode -v v0
 }
 
 function instantiate_chaincode(){
-    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@manu.meditrack.com/msp" peer0.manu.meditrack.com peer chaincode instantiate -l node -o orderer.meditrack.com:7050 -C ourchannel -n exam2 -v v0 -c '{"Args":["init"]}'
+    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@manu.meditrack.com/msp" peer0.manu.meditrack.com peer chaincode instantiate -l node -o orderer.meditrack.com:7050 -C ourchannel -n exam1 -v v0 -c '{"Args":["init"]}'
+}
+
+function queryChaincode(){
+    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@manu.meditrack.com/msp" peer0.manu.meditrack.com peer chaincode query -C ourchannel -n exam -c '{"Args":["getChannelID"]}'
+}
+
+function checkInstantiated(){
+    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@manu.meditrack.com/msp" peer0.manu.meditrack.com peer chaincode -C ourchannel list --instantiated
 }
 
 function checkPortStatus(){

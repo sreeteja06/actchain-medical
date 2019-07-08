@@ -7,10 +7,10 @@ async function getClientForOrg(userorg, username) {
     userorg,
     username
   );
-  let config = './connection/connection-profile.yaml';
+  let config = './config/connectionProfile.yaml';
 //   let orgLower = userorg.toLowerCase();
   let clientConfig =
-    './connection/client-manufacturer.yaml';
+    './config/client-manu.yaml';
 
   console.log(
     '##### getClient - Loading connection profiles from file: %s and %s',
@@ -34,7 +34,6 @@ async function getClientForOrg(userorg, username) {
         util.format('##### getClient - User was not found :', username)
       );
     } else {
-      console.log("util inspect user"+util.inspect(user));
       console.log(
         '##### getClient - User %s was found to be registered and enrolled',
         username
@@ -77,8 +76,8 @@ var getRegisteredUser = async function(username, userorg, isJson) {
         util.inspect(admins)
       );
       let adminUserObj = await client.setUserContext({
-        username: 'mediTrack',
-        password: 'mediTrack123'
+        username: 'admin',
+        password: 'adminpw'
       });
       console.log(
         '##### getRegisteredUser - Got adminUserObj property %s',
@@ -130,6 +129,8 @@ var getRegisteredUser = async function(username, userorg, isJson) {
     return 'failed ' + error.toString();
   }
 };
+
+
 
 exports.getClientForOrg = getClientForOrg;
 exports.getRegisteredUser = getRegisteredUser;
