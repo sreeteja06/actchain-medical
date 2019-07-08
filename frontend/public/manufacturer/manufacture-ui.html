@@ -16,7 +16,7 @@
 
 
     <!-- Custom styles for this template -->
-    <link href="../css/manu.css" rel="stylesheet">
+    <link href="../css/dashboard.css" rel="stylesheet">
 
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -28,7 +28,7 @@
 
 <body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top" style="padding: 5px">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
@@ -38,7 +38,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Medi Track</a>
+                <a class="navbar-brand " href="#" style="color: white;display: inline-block"><img style="display: inline;margin-right: 4px"src="cardiogram.svg" height="30px" width="30px">Meditrack</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -54,115 +54,97 @@
         </div>
     </nav>
 
-    <div class="container-fluid">
-        <div class="row">
+    <div class="container-fluid" style="padding: 5px">
+        <div class="row" >
             <div class="col-sm-3 col-md-2 sidebar">
-                <ul class="nav nav-sidebar">
-                    <li class="active"><a href="#">Manufactured<span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">Supplied</a></li>
-                    <li><a href="#">Pending</a></li>
+                <ul class="nav nav-sidebar" style="padding: 5px;font-size:16px">
+                    <li class="active"><a href="#">Manufactured <span class="sr-only">(current)</span></a></li>
+                    
+                    <li><a href="#">Supplied medicine</a></li>
+                    
                 </ul>
-                <ul class="nav nav-sidebar">
-                    <li><a href="">Create Medicine</a></li>
-                    <li><a href="">Track Medicine</a></li>
-                    <li><a href="">History of Medicine</a></li>
+                <ul class="nav nav-sidebar" style="padding: 5px;font-size: 16px">
+                    <li><a href="create.html">Create medine</a></li>
+                    <li><a href="">Track Medicines</a></li>
+                    <li><a href="">History of Medicines</a></li>
+                   
                 </ul>
+
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <h1 class="page-header">Manufacturer</h1>
+                <h1 class="page-header">Dashboard</h1>
 
-
-                <!-- <h2 class="sub-header">Created</h2> -->
+                <h2 class="sub-header">Medicines Manufactured</h2>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Name</th>
+                                <th>M-ID</th>
+                                <th>Medine name</th>
+                                <th>expiry</th>
                                 <th>Location</th>
-                                <th>Exp Date</th>
-                                <th>Send</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>1,001</td>
-                                <td>Lorem</td>
-                                <td>ipsum</td>
-                                <td>dolor</td>
-                                <td><button type="button" class="btn btn-primary btn-xs">send</button></td>
-                                
-                            </tr>
-                            <tr>
-                                <td>1,002</td>
-                                <td>amet</td>
-                                <td>consectetur</td>
-                                <td>adipiscing</td>
+                                <td>12345</td>
+                                <td>Paracetemol</td>
+                                <td>20-12-2018</td>
+                                <td>Hyderabad</td>
                                 <td><button type="button" class="btn btn-primary btn-xs">send</button></td>
                             </tr>
                             <tr>
-                                <td>1,003</td>
-                                <td>Integer</td>
-                                <td>nec</td>
-                                <td>odio</td>
+                                <td>32573</td>
+                                <td>Ciproflaxin</td>
+                                <td>20-12-2019</td>
+                                <td>Secunderabad</td>
+                                <td><button type="button" class="btn btn-primary btn-xs">send</button></td>
+                            </tr> 
+                            <tr>
+                                <td>12345</td>
+                                <td>Paracetemol</td>
+                                <td>20-12-2018</td>
+                                <td>hyderabad</td>
                                 <td><button type="button" class="btn btn-primary btn-xs">send</button></td>
                             </tr>
                             <tr>
-                                <td>1,003</td>
-                                <td>libero</td>
-                                <td>Sed</td>
-                                <td>cursus</td>
+                                <td>32573</td>
+                                <td>Ciproflaxin</td>
+                                <td>20-12-2019</td>
+                                <td>Secunderabad</td>
+                                <td><button type="button" class="btn btn-primary btn-xs">send</button></td>
+                            </tr> 
+                            <tr>
+                                <td>12345</td>
+                                <td>Paracetemol</td>
+                                <td>20-12-2018</td>
+                                <td>hyderabad</td>
                                 <td><button type="button" class="btn btn-primary btn-xs">send</button></td>
                             </tr>
                             <tr>
-                                <td>1,004</td>
-                                <td>dapibus</td>
-                                <td>diam</td>
-                                <td>Sed</td>
+                                <td>32573</td>
+                                <td>Ciproflaxin</td>
+                                <td>20-12-2019</td>
+                                <td>Secunderabad</td>
+                                <td><button type="button" class="btn btn-primary btn-xs">send</button></td>
+                            </tr> 
+                            <tr>
+                                <td>12345</td>
+                                <td>Paracetemol</td>
+                                <td>20-12-2018</td>
+                                <td>hyderabad</td>
                                 <td><button type="button" class="btn btn-primary btn-xs">send</button></td>
                             </tr>
                             <tr>
-                                <td>1,005</td>
-                                <td>Nulla</td>
-                                <td>quis</td>
-                                <td>sem</td>
+                                <td>32573</td>
+                                <td>Ciproflaxin</td>
+                                <td>20-12-2019</td>
+                                <td>Secunderabad</td>
                                 <td><button type="button" class="btn btn-primary btn-xs">send</button></td>
-                            </tr>
-                            <tr>
-                                <td>1,006</td>
-                                <td>nibh</td>
-                                <td>elementum</td>
-                                <td>imperdiet</td>
-                                <td><button type="button" class="btn btn-primary btn-xs">send</button></td>
-                            </tr>
-                            <tr>
-                                <td>1,007</td>
-                                <td>sagittis</td>
-                                <td>ipsum</td>
-                                <td>Praesent</td>
-                                <td><button type="button" class="btn btn-primary btn-xs">send</button></td>
-                            </tr>
-                            <tr>
-                                <td>1,008</td>
-                                <td>Fusce</td>
-                                <td>nec</td>
-                                <td>tellus</td>
-                                <td><button type="button" class="btn btn-primary btn-xs">send</button></td>
-                            </tr>
-                            <tr>
-                                <td>1,009</td>
-                                <td>augue</td>
-                                <td>semper</td>
-                                <td>porta</td>
-                                <td><button type="button" class="btn btn-primary btn-xs">send</button></td>
-                            </tr>
-                            <tr>
-                                <td>1,010</td>
-                                <td>massa</td>
-                                <td>Vestibulum</td>
-                                <td>lacinia</td>
-                                <td><button type="button" class="btn btn-primary btn-xs">send</button></td>
-                            </tr>
+                            </tr> 
+                            
+                           
                         </tbody>
                     </table>
                 </div>

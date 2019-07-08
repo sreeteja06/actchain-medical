@@ -6,3 +6,4 @@
 /frontend/node_modules
 /fabric/crypto-config
 /fabric/channel-artifacts
+frontend/package-lock.json
