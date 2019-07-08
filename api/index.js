@@ -12,10 +12,10 @@ var query = require('./helpers/query');
 var invoke = require('./helpers/invoke');
 var blockListener = require('./helpers/blocklistener');
 
-hfc.addConfigFile('./connection/config.json');
+hfc.addConfigFile('./config/config.json');
 var host = 'localhost';
-var username = 'sree';
-var orgName = 'm-OUELIBUUXBGFJA3CKI5JE437PM';
+var username = 'M001';
+var orgName = 'manu';
 var channelName = hfc.getConfigSetting('channelName');
 var chaincodeName = hfc.getConfigSetting('chaincodeName');
 var peers = hfc.getConfigSetting('peers');
