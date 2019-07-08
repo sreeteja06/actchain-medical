@@ -146,6 +146,9 @@ services:
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_NAME=ca.manu.meditrack.com
+      - FABRIC_CA_SERVER_TLS_ENABLED=false
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.manu.meditrack.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/eb0bc5116d33e9b31d3d01c9337bc96037bda0c622c3bb1fe10485d20c5ef489_sk
     ports:
       - "7054:7054"
     command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.manu.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
@@ -167,11 +170,12 @@ services:
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
       - CORE_PEER_ID=peer0.manu.meditrack.com
       - CORE_PEER_ADDRESS=peer0.manu.meditrack.com:7051
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=$NETWORK_NAME
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_meditrack
       - CORE_PEER_LOCALMSPID=manuMSP
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb0:5984
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.manu.meditrack.com:7051
     ports:
       - 7051:7051
       - 7053:7053
@@ -202,6 +206,9 @@ services:
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_NAME=ca.logi.meditrack.com
+      # - FABRIC_CA_SERVER_TLS_ENABLED=true
+      # - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.logi.meditrack.com-cert.pem
+      # - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/a85a9dde3f192f6775ed263a2ff5d7b6c7c7470c524d41bb79d0924477d66a47_sk
     ports:
       - "8054:7054"
     command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.logi.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
@@ -223,11 +230,12 @@ services:
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
       - CORE_PEER_ID=peer0.logi.meditrack.com
       - CORE_PEER_ADDRESS=peer0.logi.meditrack.com:7051
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=$NETWORK_NAME
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_meditrack
       - CORE_PEER_LOCALMSPID=logiMSP
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb1:5984
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.logi.meditrack.com:8051
     ports:
       - 8051:7051
       - 8053:7053
@@ -258,6 +266,9 @@ services:
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_NAME=ca.dist.meditrack.com
+      # - FABRIC_CA_SERVER_TLS_ENABLED=true
+      # - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.dist.meditrack.com-cert.pem
+      # - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/f9d540337b7766ede53b02cb932e72e2dd9849c10eb92b1cf8474d21e70c347b_sk
     ports:
       - "9054:7054"
     command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.dist.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
@@ -279,11 +290,12 @@ services:
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
       - CORE_PEER_ID=peer0.dist.meditrack.com
       - CORE_PEER_ADDRESS=peer0.dist.meditrack.com:7051
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=$NETWORK_NAME
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_meditrack
       - CORE_PEER_LOCALMSPID=distMSP
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb2:5984
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.dist.meditrack.com:9051
     ports:
       - 9051:7051
       - 9053:7053
@@ -314,6 +326,9 @@ services:
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_NAME=ca.phar.meditrack.com
+      # - FABRIC_CA_SERVER_TLS_ENABLED=true
+      # - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.phar.meditrack.com-cert.pem
+      # - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/42162406e175cb9637b0c8fecc54537ce796f34108b8ab9140768b7215d2459c_sk
     ports:
       - "10054:7054"
     command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.phar.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
@@ -335,11 +350,12 @@ services:
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
       - CORE_PEER_ID=peer0.phar.meditrack.com
       - CORE_PEER_ADDRESS=peer0.phar.meditrack.com:7051
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=$NETWORK_NAME
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_meditrack
       - CORE_PEER_LOCALMSPID=pharMSP
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb3:5984
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.phar.meditrack.com:10051
     ports:
       - 10051:7051
       - 10053:7053

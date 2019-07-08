@@ -1,8 +1,7 @@
-/chaincode-shim
 /chaincode/node_modules
 /api/node_modules
 /api/wallet
-/api/connection
+/api/config
 /frontend/node_modules
 /fabric/crypto-config
 /fabric/channel-artifacts

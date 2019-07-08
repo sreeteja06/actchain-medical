@@ -10,6 +10,7 @@ Organizations:
 
       AdminPrincipal: Role.MEMBER
 
+
   - &manu
 
       Name: manu
