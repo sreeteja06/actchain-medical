@@ -15,17 +15,14 @@ async function queryByKey(stub, key) {
   return resultAsBytes;
 }
 
-async function queryByString(stub, queryString) {
+async function queryByString(stuv, queryString) {
   console.log('============= START : queryByString ===========');
   console.log('##### queryByString queryString: ' + queryString);
 
-  let jsonQueryString = JSON.parse(queryString);
-
-  let iterator = await stub.getStateByRange('', '');
-
-  // Iterator handling is identical for both CouchDB and LevelDB result sets, with the
-  // exception of the filter handling in the commented section below
+  // CouchDB Query
+  let iterator = await stub.getQueryResult(queryString);
   let allResults = [];
+  // eslint-disable-next-line no-constant-condition
   while (true) {
     let res = await iterator.next();
 
@@ -42,36 +39,7 @@ async function queryByString(stub, queryString) {
         console.log('##### queryByString error: ' + err);
         jsonRes.Record = res.value.value.toString('utf8');
       }
-      // ******************* LevelDB filter handling ******************************************
-      // LevelDB: additional code required to filter out records we don't need
-      // Check that each filter condition in jsonQueryString can be found in the iterator json
-      // If we are using CouchDB, this isn't required as rich query supports selectors
-      let jsonRecord = jsonQueryString['selector'];
-      //   // If there is only a docType, no need to filter, just return all
-      //   console.log(
-      //     '##### queryByString jsonRecord - number of JSON keys: ' +
-      //       Object.keys(jsonRecord).length
-      //   );
-      if (Object.keys(jsonRecord).length == 1) {
-        allResults.push(jsonRes);
-        continue;
-      }
-      for (var key in jsonRecord) {
-        if (key == 'docType') {
-          continue;
-        }
-        console.log(
-          '##### queryByString json iterator has key: ' + jsonRes.Record[key]
-        );
-        if (!(jsonRes.Record[key] && jsonRes.Record[key] == jsonRecord[key])) {
-          // we do not want this record as it does not match the filter criteria
-          continue;
-        }
-        allResults.push(jsonRes);
-      }
-      // ******************* End LevelDB filter handling ******************************************
-      // For CouchDB, push all results
-      // allResults.push(jsonRes);
+      allResults.push(jsonRes);
     }
     if (res.done) {
       await iterator.close();
@@ -157,8 +125,7 @@ let Chaincode = class {
   }
 
   async getMedicinesByOwner(stub, args) {
-    let queryString =
-      '{"selector": {"docType":"medicine", "owner":"' + args[0] + '"}}';
+    let queryString = '{"selector":{"owner":{"$eq":"' + args[0] + '"}}}';
     return await queryByString(
       stub,
       queryString //owner
@@ -189,10 +156,7 @@ let Chaincode = class {
   }
 
   async getRecievedMedicines(stub, args) {
-    let queryString =
-      '{"selector": {"docType": "medicine", "sendTo": "' +
-      args[0].toString() +
-      '"}}';
+    let queryString = '{"selector":{"sendTo":{"$eq":"' + args[0] + '"}}}';
     return await queryByString(
       stub,
       queryString //id who eants to get the recieved medicines
@@ -223,9 +187,7 @@ let Chaincode = class {
 
   async getRequests(stub, args) {
     let queryString =
-      '{"selector": {"docType": "medicine", "owner": "' +
-      args[0].toString() +
-      '","request":"true"}}';
+      '{"selector":{"request":"true", "owner":"' + args[0] + '"}}';
     return await queryByString(
       stub,
       queryString //id of who needs to get the requests
@@ -233,10 +195,7 @@ let Chaincode = class {
   }
 
   async getSentRequests(stub, args) {
-    let queryString =
-      '{"selector": {"docType": "medicine", "requestId": "' +
-      args[0].toString() +
-      '"}}';
+    let queryString = '{"selector":{"requestID":{"$eq":"' + args[0] + '"}}}';
     return await queryByString(
       stub,
       queryString //id of the person
