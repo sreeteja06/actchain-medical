@@ -15,7 +15,7 @@ async function queryByKey(stub, key) {
   return resultAsBytes;
 }
 
-async function queryByString(stuv, queryString) {
+async function queryByString(stub, queryString) {
   console.log('============= START : queryByString ===========');
   console.log('##### queryByString queryString: ' + queryString);
 
@@ -97,6 +97,7 @@ let Chaincode = class {
       console.log('============= START : createMedicine ===========');
       console.log('##### createMedicine arguments: ' + JSON.stringify(args));
       let medicine = {};
+      stuv;
       medicine.docType = 'medicine';
       medicine.name = args[1];
       medicine.owner = args[2];
