@@ -1,6 +1,7 @@
 /chaincode/node_modules
 /api/node_modules
 /api/wallet
+/api/cred
 /api/config
 /frontend/node_modules
 /fabric/crypto-config
