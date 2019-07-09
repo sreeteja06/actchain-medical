@@ -97,7 +97,6 @@ let Chaincode = class {
       console.log('============= START : createMedicine ===========');
       console.log('##### createMedicine arguments: ' + JSON.stringify(args));
       let medicine = {};
-      stuv;
       medicine.docType = 'medicine';
       medicine.name = args[1];
       medicine.holder = args[2];
