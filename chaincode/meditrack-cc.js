@@ -84,7 +84,7 @@ let Chaincode = class {
       console.log('##### Invoke response payload: ' + response);
       return shim.success(response);
     } catch (err) {
-      console.log('##### Invoke - error: ' + err);
+      console.log('##### Invoke - error: ' + err.stack);
       return shim.error(err);
     }
   }

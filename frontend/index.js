@@ -13,25 +13,27 @@ app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.get('/suplied', function(req, res){
-    // let response;
-    // let id;
-    // try {
-    //  id = req.query.medid;
-    
-    //   response = await axios.get(
-    //     `http://localhost:3000/getHistory?medicineId=${id}`,
-    //   );
-      
-    //   res.render('transactions', { data: response.data ,id});
-    // } catch (e) {
-    //   console.log(e);
-    //   res.sendStatus(500);
-    // }
-    res.render('suplied');
+   let response;
+    try{
+      response=await axios.get('http://localhost:3000/getMedicinesByOwner?id=M001')
+    }catch(e){
+      console.log(e);
+      res.sendStatus(500);
+    }
+    console.log(response);
+    res.render('suplied',{data:response.data});
 });
 
-app.get('/manufacturer',function(req,res){
-    res.render('manufacturer');
+app.get('/manufacturer',async function(req,res){
+    let response;
+    try{
+      response=await axios.get('http://localhost:3000/getMedicinesByOwner?id=M001')
+    }catch(e){
+      console.log(e);
+      res.sendStatus(500);
+    }
+    console.log(response);
+    res.render('manufacturer',{data:response.data});
 });
 
 app.get('/create',function(req,res){
@@ -55,7 +57,7 @@ app.get('/createMed', async (req, res) => {
           orgName: 'manu'
         }
       );
-      console.log(response.data);
+      
       res.render('tx', { data: response.data });
     } catch (e) {
       console.log(e);
