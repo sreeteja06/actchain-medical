@@ -134,15 +134,15 @@
         <div class="row" >
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size:16px">
-                    <li ><a href="distributor.html">Incoming Requests <span class="sr-only">(current)</span></a></li>
-                    
-                    <li ><a href="stock.html">Stock</a></li>
-                    <li class="active"><a href="#">Recieving</a></li>
+                  
+                        <li class="active"><a href="request.html">Request</a></li>
+                    <li ><a href="pharmacy.html">Stock</a></li>
+                    <li ><a href="requested.html">Requested</a></li>
                     
                 </ul>
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size: 16px">
                    
-                    <li><a href="Delivered.html">Delivered</a></li>
+                    <li><a href="recieved.html">Recieved</a></li>
                     <li><a href="../manufacturer/track.html">Track Medicine</a></li>
                    
                 </ul>
@@ -155,46 +155,45 @@
                         <div class="col-xs-6 col-sm-3 placeholder">
                             <img src="../download.png"
                                 width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                            <h4>D-Id :327587545M</h4>
+                            <h4>P-Id :327587545M</h4>
                             <span class="text-muted"></span>
                         </div>
                         
                     </div>
-                <h2 class="sub-header">Pending</h2>
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>M-ID</th>
-                                <th>Medine name</th>
-                                <th>Expiry</th>
-                                <th>Timestamp</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                          
-                            <tr>
-                                <td>12345</td>
-                                <td>Paracetemol</td>
-                                <td>20-12-2018</td>
-                                <td>20-12-2018</td>
-                                <td><button type="button" class="btn btn-primary btn-xs" onclick="openForm()">Accept</button></td>
-                                </tr>
-                          
-                           
-                        </tbody>
-                    </table>
-                    
-                    <script>
-                        function agreeForm() {
-                          document.getElementById("myForm")
-                        }
-                        
-                        function denyForm() {
-                          document.getElementById("myForm").style.display = "none";
-                        }
-                        </script>
+                <h2 class="sub-header">Request Medicines</h2>
+                <form class="text-center" style="color: #757575;display: inline-block">
+
+                        <div class="form-row">
+                            <div class="col">
+                                <!-- First name -->
+                                <div class="md-form">
+                                    
+                                    <label for="materialRegisterFormFirstName">Medicine name</label>
+                                    <input type="text" id="materialRegisterFormFirstName" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <!-- Last name -->
+                                <div class="md-form">
+                                    
+                                    <label for="materialRegisterFormLastName">Medicine ID</label>
+                                    <input type="email" id="materialRegisterFormLastName" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+            
+                        <!-- E-mail -->
+                        <div class="md-form mt-0">
+                                <label for="materialRegisterFormEmail">Logistics</label>
+                            <input type="text" id="materialRegisterFormEmail" class="form-control" >
+                            
+                        </div>
+                      <br>
+                       <input type="submit" value="request">
+                    </form >
+                    <!-- Form -->
+                            <!-- Form -->
+                
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

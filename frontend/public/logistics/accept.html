@@ -134,15 +134,15 @@
         <div class="row" >
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size:16px">
-                    <li ><a href="distributor.html">Incoming Requests <span class="sr-only">(current)</span></a></li>
+                    <li class="active"><a href="#">Requests</a></li>
                     
-                    <li ><a href="stock.html">Stock</a></li>
-                    <li class="active"><a href="#">Recieving</a></li>
+                    <li><a href="logistics.html">Stock</a></li>
+                    <li><a href="recievedL.html">Recieved</a></li>
                     
                 </ul>
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size: 16px">
                    
-                    <li><a href="Delivered.html">Delivered</a></li>
+                    <li><a href="deliveredP.html">Delivered</a></li>
                     <li><a href="../manufacturer/track.html">Track Medicine</a></li>
                    
                 </ul>
@@ -160,15 +160,15 @@
                         </div>
                         
                     </div>
-                <h2 class="sub-header">Pending</h2>
+                <h2 class="sub-header">Incoming Requests</h2>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>M-ID</th>
                                 <th>Medine name</th>
-                                <th>Expiry</th>
-                                <th>Timestamp</th>
+                                <th>Requested By</th>
+                                
                                 <th></th>
                             </tr>
                         </thead>
@@ -178,9 +178,9 @@
                                 <td>12345</td>
                                 <td>Paracetemol</td>
                                 <td>20-12-2018</td>
-                                <td>20-12-2018</td>
-                                <td><button type="button" class="btn btn-primary btn-xs" onclick="openForm()">Accept</button></td>
-                                </tr>
+                                <td>hyderabad</td>
+                                <td><button type="button" class="btn btn-success btn-xs">Accept</button><button type="button" style="margin-left: 5px" class="btn btn-danger btn-xs">Deny</button></td>
+                            </tr>
                           
                            
                         </tbody>

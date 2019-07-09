@@ -134,15 +134,14 @@
         <div class="row" >
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size:16px">
-                    <li ><a href="distributor.html">Incoming Requests <span class="sr-only">(current)</span></a></li>
-                    
-                    <li ><a href="stock.html">Stock</a></li>
-                    <li class="active"><a href="#">Recieving</a></li>
+                    <li ><a href="accept.html">Requests</li>
+                    <li class="active"><a href="">Stock</a></li>
+                    <li><a href="recievedL.html">Recieved</li>
                     
                 </ul>
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size: 16px">
                    
-                    <li><a href="Delivered.html">Delivered</a></li>
+                    <li><a href="deliveredP.html">Delivered</a></li>
                     <li><a href="../manufacturer/track.html">Track Medicine</a></li>
                    
                 </ul>
@@ -160,44 +159,35 @@
                         </div>
                         
                     </div>
-                <h2 class="sub-header">Pending</h2>
+                <h2 class="sub-header">Logistics</h2>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
                             <tr>
+                                    <th>L-ID</th>
                                 <th>M-ID</th>
                                 <th>Medine name</th>
                                 <th>Expiry</th>
                                 <th>Timestamp</th>
-                                <th></th>
+                                <th>Location</th>
                             </tr>
                         </thead>
                         <tbody>
                           
                             <tr>
+                                    <td>12xac345</td>
                                 <td>12345</td>
                                 <td>Paracetemol</td>
                                 <td>20-12-2018</td>
                                 <td>20-12-2018</td>
-                                <td><button type="button" class="btn btn-primary btn-xs" onclick="openForm()">Accept</button></td>
+                               <td>hyderabad</td>
                                 </tr>
                           
                            
                         </tbody>
                     </table>
                     
-                    <script>
-                        function agreeForm() {
-                          document.getElementById("myForm")
-                        }
-                        
-                        function denyForm() {
-                          document.getElementById("myForm").style.display = "none";
-                        }
-                        </script>
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+                   
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"
         integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
         crossorigin="anonymous"></script>
