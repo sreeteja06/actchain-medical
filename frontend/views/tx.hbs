@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>MediTrack</title>
+    <!-- for-mobile-apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Logistic Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+
+    <script>
+        addEventListener( "load", function () {
+            setTimeout( hideURLbar, 0 );
+        }, false );
+
+        function hideURLbar() {
+            window.scrollTo( 0, 1 );
+        }
+    </script>
+
+    <!-- css files -->
+    <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' /><!-- bootstrap css -->
+    <link
+        href="//fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=devanagari,latin-ext"
+        rel="stylesheet">
+    <style>
+
+        .container1 {
+            background-color: #f3aaaa;
+            padding: 5px 20px 15px 20px;
+            border: 1px solid lightgrey;
+            border-radius: 3px;
+            align-content: center;
+            margin-left: 40%;
+        }
+
+        input[type=text] {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        label {
+            margin-bottom: 10px;
+            display: block;
+        }
+
+
+
+        span.price {
+            float: right;
+            color: grey;
+        }
+    </style>
+</head>
+
+<body style="background-color: #f1d3d3">
+    <!-- //header -->
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" style="padding: 5px">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand " href="/" style="color: white;display: inline-block"><img
+                        style="display: inline;margin-right: 4px" src="cardiogram.svg" height="30px"
+                        width="30px">Meditrack</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Settings</a></li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Help</a></li>
+                </ul>
+                <form class="navbar-form navbar-right">
+                    <input type="text" class="form-control" placeholder="Search...">
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <br><br><br>
+
+    <div class="container1" style="height: 30%x;width:20%;text-align:center;padding-top: 20px">
+        <h3 style="text-align: center">Block Number</h3><br>
+        <h1 style="text-align: center">{{data.blockNo}}</h1>
+        <br>
+        <label>Transactions ID</label><br>
+        <input type="text" id="blockNumber" value="{{data.transactionId}}" readonly />
+
+
+
+    </div>
+    </div>
+
+
+    <br><br>
+
+</body>
+
+</html>

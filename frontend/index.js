@@ -12,6 +12,10 @@ app.set('view engine', 'hbs');
 
 app.use(express.static(path.join(__dirname, '/public')));
 
+app.get('/', (req, res)=>{
+  res.send('Yet do to');
+});
+
 app.get('/suplied', function(req, res){
     // let response;
     // let id;
@@ -30,8 +34,16 @@ app.get('/suplied', function(req, res){
     res.render('suplied');
 });
 
-app.get('/manufacturer',function(req,res){
-    res.render('manufacturer');
+app.get('/manufacturer',async function(req,res){
+    let response;
+    try{
+      response=await axios.get('http://localhost:3000/getMedicinesByOwner?id=M001')
+    }catch(e){
+      console.log(e);
+      res.sendStatus(500);
+    }
+    console.log(response);
+    res.render('manufacturer',{data:response.data});
 });
 
 app.get('/create',function(req,res){
@@ -46,7 +58,7 @@ app.get('/createMed', async (req, res) => {
         {
           medicineId: req.query.medid,
           name: req.query.medname,
-          username: 'm001',
+          username: 'M001',
           expDate: req.query.exp,
           location: req.query.loc,
           extraConditionsName: '0',
@@ -55,7 +67,7 @@ app.get('/createMed', async (req, res) => {
           orgName: 'manu'
         }
       );
-      console.log(response.data);
+      
       res.render('tx', { data: response.data });
     } catch (e) {
       console.log(e);
@@ -80,6 +92,8 @@ app.get('/sendMed',async function(req,res){
       res.sendStatus(500);
     }
 });
+
+
 
 
 
