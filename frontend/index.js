@@ -12,7 +12,7 @@ app.set('view engine', 'hbs');
 
 app.use(express.static(path.join(__dirname, '/public')));
 
-app.get('/suplied', function(req, res){
+app.get('/suplied', async function(req, res){
    let response;
     try{
       response=await axios.get('http://localhost:3000/getMedicinesByOwner?id=M001')
@@ -38,6 +38,18 @@ app.get('/manufacturer',async function(req,res){
 
 app.get('/create',function(req,res){
     res.render('create');
+});
+
+app.get('/history',function(req,res){
+  res.render('history');
+});
+
+app.get('/',function(req,res){
+  res.render('login');
+});
+
+app.get('/track',function(req,res){
+  res.render('track');
 });
 
 app.get('/createMed', async (req, res) => {
@@ -83,8 +95,21 @@ app.get('/sendMed',async function(req,res){
     }
 });
 
+// logistics
 
+//recieved 
 
+app.get('/accept', function(req,res){
+  // let response;
+  // try{
+  //   response=await axios.get('http://localhost:3000/getMedicinesByOwner?id=M001')
+  // }catch(e){
+  //   console.log(e);
+  //   res.sendStatus(500);
+  // }
+  // console.log(response);
+  res.render('accept',/*{data:response.data}*/);
+});
 
 
 app.listen(4000, ()=>{
