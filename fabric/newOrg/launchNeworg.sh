@@ -12,7 +12,7 @@ cd ../ && cp -r crypto-config/ordererOrganizations newOrg/crypto-config/
 docker exec peer0.manu.meditrack.com peer channel fetch config config_block.pb -o orderer.meditrack.com:7050 -c ourchannel
 
 #get the file from the docker to the local
-docker cp 29f467d0e082:/opt/gopath/src/github.com/hyperledger/fabric/config_block.pb ./
+docker cp peer0.manu.meditrack.com:/opt/gopath/src/github.com/hyperledger/fabric/config_block.pb ./
 
 #Convert the Configuration to JSON and Trim It Down
 ./configtxlator proto_decode --input config_block.pb --type common.Block | jq .data.data[0].payload.data.config > config.json
@@ -42,7 +42,7 @@ echo '{"payload":{"header":{"channel_header":{"channel_id":"ourchannel", "type":
 ./configtxlator proto_encode --input neworg_update_in_envelope.json --type common.Envelope --output neworg_update_in_envelope.pb
 
 #copy the file to docker
-docker cp ./neworg_update_in_envelope.pb 29f467d0e082:/opt/gopath/src/github.com/hyperledger/fabric/
+docker cp ./neworg_update_in_envelope.pb peer0.manu.meditrack.com:/opt/gopath/src/github.com/hyperledger/fabric/
 
 
 #Sign and Submit the Config Update
@@ -50,24 +50,25 @@ docker cp ./neworg_update_in_envelope.pb 29f467d0e082:/opt/gopath/src/github.com
 #The modification policy (mod_policy) for our channel Application group is set to the default of “MAJORITY”, which means that we need a majority of existing org admins to sign it. Because we have only two orgs – Org1 and Org2 – and the majority of two is two, we need both of them to sign. Without both signatures, the ordering service will reject the transaction for failing to fulfill the policy.
 docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@manu.meditrack.com/msp" peer0.manu.meditrack.com peer channel signconfigtx -f neworg_update_in_envelope.pb
 
-docker cp 29f467d0e082:/opt/gopath/src/github.com/hyperledger/fabric/neworg_update_in_envelope.pb ./
-docker cp ./neworg_update_in_envelope.pb cb109d6d39bf:/opt/gopath/src/github.com/hyperledger/fabric/
+docker cp peer0.manu.meditrack.com:/opt/gopath/src/github.com/hyperledger/fabric/neworg_update_in_envelope.pb ./
+docker cp ./neworg_update_in_envelope.pb peer0.dist.meditrack.com:/opt/gopath/src/github.com/hyperledger/fabric/
 
 docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@dist.meditrack.com/msp" peer0.dist.meditrack.com peer channel signconfigtx -f neworg_update_in_envelope.pb
 
-docker cp cb109d6d39bf:/opt/gopath/src/github.com/hyperledger/fabric/neworg_update_in_envelope.pb ./
-docker cp ./neworg_update_in_envelope.pb c39b3dc202d3:/opt/gopath/src/github.com/hyperledger/fabric/
+docker cp peer0.dist.meditrack.com:/opt/gopath/src/github.com/hyperledger/fabric/neworg_update_in_envelope.pb ./
+docker cp ./neworg_update_in_envelope.pb peer0.logi.meditrack.com:/opt/gopath/src/github.com/hyperledger/fabric/
 
 docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@logi.meditrack.com/msp" peer0.logi.meditrack.com peer channel signconfigtx -f neworg_update_in_envelope.pb
 
-docker cp c39b3dc202d3:/opt/gopath/src/github.com/hyperledger/fabric/neworg_update_in_envelope.pb ./
-docker cp ./neworg_update_in_envelope.pb 0c1998da36e9:/opt/gopath/src/github.com/hyperledger/fabric/
+docker cp peer0.logi.meditrack.com:/opt/gopath/src/github.com/hyperledger/fabric/neworg_update_in_envelope.pb ./
+docker cp ./neworg_update_in_envelope.pb peer0.phar.meditrack.com:/opt/gopath/src/github.com/hyperledger/fabric/
 
 docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@phar.meditrack.com/msp" peer0.phar.meditrack.com peer channel signconfigtx -f neworg_update_in_envelope.pb
 
-docker cp 0c1998da36e9:/opt/gopath/src/github.com/hyperledger/fabric/neworg_update_in_envelope.pb ./
-docker cp ./neworg_update_in_envelope.pb 29f467d0e082:/opt/gopath/src/github.com/hyperledger/fabric/
+docker cp peer0.phar.meditrack.com:/opt/gopath/src/github.com/hyperledger/fabric/neworg_update_in_envelope.pb ./
+docker cp ./neworg_update_in_envelope.pb peer0.manu.meditrack.com:/opt/gopath/src/github.com/hyperledger/fabric/
 
 
 #Send the update call
 docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@manu.meditrack.com/msp" peer0.manu.meditrack.com peer channel update -f neworg_update_in_envelope.pb -c ourchannel -o orderer.meditrack.com:7050
+
