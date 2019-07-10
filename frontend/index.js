@@ -12,6 +12,7 @@ app.set('view engine', 'hbs');
 
 app.use(express.static(path.join(__dirname, '/public')));
 
+
 app.get('/suplied', async function(req, res){
    let response;
     try{
@@ -22,7 +23,9 @@ app.get('/suplied', async function(req, res){
     }
     console.log(response);
     res.render('suplied',{data:response.data});
-});
+
+
+
 
 app.get('/manufacturer',async function(req,res){
     let response;
@@ -60,7 +63,7 @@ app.get('/createMed', async (req, res) => {
         {
           medicineId: req.query.medid,
           name: req.query.medname,
-          username: 'm001',
+          username: 'M001',
           expDate: req.query.exp,
           location: req.query.loc,
           extraConditionsName: '0',

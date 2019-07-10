@@ -55,23 +55,20 @@
     </nav>
 
     <div class="container-fluid" style="padding: 5px">
-        <div class="row" style="padding: ">
+        <div class="row" >
             <div class="col-sm-3 col-md-2 sidebar" style="padding: ">
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size:16px">
-                    <li class=""><a href="/manufacturer">Manufactured <span class="sr-only">(current)</span></a></li>
+                    <li class=""><a href="#">Manufactured <span class="sr-only">(current)</span></a></li>
                     
-                    <li class="active"><a href="/supplied">Supplied medicine</a></li>
+                    <li class="active"><a href="#">Supplied medicine</a></li>
                     
                 </ul>
 
                 
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size: 16px">
-                    <li><a href="/create">Create medine</a></li>
-
-                    <li><a href="/track">Track Medicines</a></li>
-                    <li><a href="/history">History of Medicines</a></li>
-
-                   
+                    <li><a href="">Create medine</a></li>
+                    <li><a href="">Track Medicines</a></li>
+                    <li><a href="">History of Medicines</a></li>
                    
                 </ul>
 
@@ -79,7 +76,7 @@
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 <h1 class="page-header">Dashboard</h1>
 
-                <div class="row placeholders" style="margin-left: -110px">
+                <div class="row placeholders" >
                     <div class="col-xs-6 col-sm-3 placeholder">
                         <img src="download.png"
                             width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
@@ -102,15 +99,67 @@
                             </tr>
                         </thead>
                         <tbody>
-                        {{#each data}}
                             <tr>
-                                <td>{{this.Key}}</td>
-                                <td>{{this.Record.name}}</td>
-                                <td>{{this.Record.expDate}}</td>
-                                <td>{{this.Record.location}}</td>
-                                <td>{{this.Record.holder}}</td>
+                                <td>12345</td>
+                                <td>Paracetemol</td>
+                                <td>20-12-2018</td>
+                                <td>Hyderabad</td>
+                                <td>D-ID0r87yw94</td>
+                               
                             </tr>
-                        {{/each}}
+                            <tr>
+                                <td>32573</td>
+                                <td>Ciproflaxin</td>
+                                <td>20-12-2019</td>
+                                <td>Secunderabad</td>
+                              <td>P-iD:q793rt8awe</td>
+                            </tr> 
+                            <tr>
+                                <td>12345</td>
+                                <td>Paracetemol</td>
+                                <td>20-12-2018</td>
+                                <td>Hyderabad</td>
+                                <td>D-ID0r87yw94</td>
+                               
+                            </tr>
+                            <tr>
+                                <td>32573</td>
+                                <td>Ciproflaxin</td>
+                                <td>20-12-2019</td>
+                                <td>Secunderabad</td>
+                              <td>P-iD:q793rt8awe</td>
+                            </tr> 
+                            <tr>
+                                <td>12345</td>
+                                <td>Paracetemol</td>
+                                <td>20-12-2018</td>
+                                <td>Hyderabad</td>
+                                <td>D-ID0r87yw94</td>
+                               
+                            </tr>
+                            <tr>
+                                <td>32573</td>
+                                <td>Ciproflaxin</td>
+                                <td>20-12-2019</td>
+                                <td>Secunderabad</td>
+                              <td>P-iD:q793rt8awe</td>
+                            </tr> 
+                            <tr>
+                                <td>12345</td>
+                                <td>Paracetemol</td>
+                                <td>20-12-2018</td>
+                                <td>Hyderabad</td>
+                                <td>D-ID0r87yw94</td>
+                               
+                            </tr>
+                            <tr>
+                                <td>32573</td>
+                                <td>Ciproflaxin</td>
+                                <td>20-12-2019</td>
+                                <td>Secunderabad</td>
+                              <td>P-iD:q793rt8awe</td>
+                            </tr> 
+                           
                            
                         </tbody>
                     </table>

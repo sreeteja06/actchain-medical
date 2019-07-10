@@ -42,6 +42,8 @@ join_channel
 function install_chaincode(){
     docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@manu.meditrack.com/msp" peer0.manu.meditrack.com peer chaincode install -l node -n exam5 -p /etc/hyperledger/chaincode/ -v v0
     docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@logi.meditrack.com/msp" peer0.logi.meditrack.com peer chaincode install -l node -n exam1 -p /etc/hyperledger/chaincode/ -v v0
+    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@phar.meditrack.com/msp" peer0.phar.meditrack.com peer chaincode install -l node -n exam1 -p /etc/hyperledger/chaincode/ -v v0
+    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@dist.meditrack.com/msp" peer0.dist.meditrack.com peer chaincode install -l node -n exam1 -p /etc/hyperledger/chaincode/ -v v0
 }
 
 function instantiate_chaincode(){

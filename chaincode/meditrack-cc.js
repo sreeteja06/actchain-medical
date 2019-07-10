@@ -97,7 +97,6 @@ let Chaincode = class {
       console.log('============= START : createMedicine ===========');
       console.log('##### createMedicine arguments: ' + JSON.stringify(args));
       let medicine = {};
-      stuv;
       medicine.docType = 'medicine';
       medicine.name = args[1];
       medicine.holder = args[2];
@@ -115,6 +114,7 @@ let Chaincode = class {
           condition: args[7] //extra condition contdition
         }
       };
+      console.log(medicine);
       const buffer = Buffer.from(JSON.stringify(medicine));
       await stub.putState(args[0].toString(), buffer);
     } catch (err) {

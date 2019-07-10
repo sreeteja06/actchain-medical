@@ -10,7 +10,7 @@ async function getClientForOrg(userorg, username) {
   let config = './config/connectionProfile.yaml';
 //   let orgLower = userorg.toLowerCase();
   let clientConfig =
-    './config/client-manu.yaml';
+    './config/client-'+ userorg +'.yaml';
 
   console.log(
     '##### getClient - Loading connection profiles from file: %s and %s',
