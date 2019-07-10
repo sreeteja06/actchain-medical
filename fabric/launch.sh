@@ -33,18 +33,19 @@ function start_network() {
 docker-compose -f docker-compose.yml up -d && docker ps
 }
 
-clean_it
-gen_needed
-start_network
-sleep 20
-join_channel
-
 function update_anchorPeers(){
     docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@manu.meditrack.com/msp" peer0.manu.meditrack.com peer channel update -f /etc/hyperledger/configtx/manuMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
     docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@dist.meditrack.com/msp" peer0.dist.meditrack.com peer channel update -f /etc/hyperledger/configtx/distMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
     docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@logi.meditrack.com/msp" peer0.logi.meditrack.com peer channel update -f /etc/hyperledger/configtx/logiMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
     docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@phar.meditrack.com/msp" peer0.phar.meditrack.com peer channel update -f /etc/hyperledger/configtx/pharMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
 }
+
+clean_it
+gen_needed
+start_network
+sleep 20
+join_channel
+update_anchorPeers
 
 function install_chaincode(){
     docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@manu.meditrack.com/msp" peer0.manu.meditrack.com peer chaincode install -l node -n exam5 -p /etc/hyperledger/chaincode/ -v v0

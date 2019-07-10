@@ -8,7 +8,7 @@ services:
     container_name: kafka4
     extends:
       file: docker-compose-base.yml
-      services: kafka
+      service: kafka
     environment:
       - KAFKA_BROKER_ID=4
       - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
@@ -22,8 +22,9 @@ services:
 
   zookeeper3:
     container_name: zookeeper3
-    extends: docker-compose-base.yml
-    service: zookeeper
+    extends:
+      file: docker-compose-base.yml
+      service: zookeeper
     environment:
       - ZOO_MY_ID=4
       - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888 server.4=zookeeper3:2888:3888
@@ -39,7 +40,7 @@ services:
       - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.neworg.meditrack.com-cert.pem
       - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/04d5e1c579356b3b7de3547c19307a80f5891a92824917ecce9b4a80613d8184_sk
     ports:
-      - '7054:7054'
+      - '11054:7054'
     command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.neworg.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
     volumes:
       - ./crypto-config/peerOrganizations/neworg.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config

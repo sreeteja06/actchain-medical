@@ -7,6 +7,7 @@ export FABRIC_CFG_PATH=$PWD && ../configtxgen -printOrg neworgMSP > ../channel-a
 #ort the Orderer Org’s MSP material into the neworg crypto-config directory.
 cd ../ && cp -r crypto-config/ordererOrganizations newOrg/crypto-config/
 
+cd newOrg
 #fetch the channel block configaration
 #This command saves the binary protobuf channel configuration block to config_block.pb
 docker exec peer0.manu.meditrack.com peer channel fetch config config_block.pb -o orderer.meditrack.com:7050 -c ourchannel
@@ -72,3 +73,16 @@ docker cp ./neworg_update_in_envelope.pb peer0.manu.meditrack.com:/opt/gopath/sr
 #Send the update call
 docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@manu.meditrack.com/msp" peer0.manu.meditrack.com peer channel update -f neworg_update_in_envelope.pb -c ourchannel -o orderer.meditrack.com:7050
 
+#start the neworg containers
+docker-compose -f docker-compose.yml up -d
+
+#we are passing a 0 to indicate that we want the first block on the channel’s ledger (i.e. the genesis block). If we simply passed the peer channel fetch config command, then we would have received block 5 – the updated config with Org3 defined. However, we can’t begin our ledger with a downstream block – we must start with block 0.
+docker exec peer0.neworg.meditrack.com peer channel fetch 0 ourchannel.block -o orderer.meditrack.com:7050 -c ourchannel
+
+#Issue the peer channel join command and pass in the genesis block – mychannel.block:
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@neworg.meditrack.com/msp" peer0.neworg.meditrack.com peer channel join -b ourchannel.block
+
+docker cp -r ../../chaincode peer0.neworg.meditrack.com:/etc/hyperledger/chaincode
+
+#install chaincode
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@neworg.meditrack.com/msp" peer0.neworg.meditrack.com peer chaincode install -l node -n exam5 -p /etc/hyperledger/chaincode/chaincode -v v0
