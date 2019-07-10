@@ -14,7 +14,7 @@ var blockListener = require('./helpers/blocklistener');
 
 hfc.addConfigFile('./config/config.json');
 var host = 'localhost';
-var username = 'M001';
+var username = 'M002';
 var orgName = 'manu';
 var channelName = hfc.getConfigSetting('channelName');
 var chaincodeName = hfc.getConfigSetting('chaincodeName');

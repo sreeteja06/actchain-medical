@@ -134,13 +134,13 @@
         <div class="row" >
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size:16px">
-                    <li class="active"><a href="#">Manufactured <span class="sr-only">(current)</span></a></li>
+                    <li class="active"><a href="/manufacturer">Manufactured <span class="sr-only">(current)</span></a></li>
                     
-                    <li><a href="#">Supplied medicine</a></li>
+                    <li><a href="/suplied">Supplied medicine</a></li>
                     
                 </ul>
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size: 16px">
-                    <li><a href="create.html">Create medine</a></li>
+                    <li><a href="/create">Create medine</a></li>
                     <li><a href="">Track Medicines</a></li>
                     <li><a href="">History of Medicines</a></li>
                    
@@ -172,110 +172,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                          
+                          {{#each data}}
                             <tr>
-                                <td>12345</td>
-                                <td>Paracetemol</td>
-                                <td>20-12-2018</td>
-                                <td>hyderabad</td>
-                                <td><button type="button" class="btn btn-primary btn-xs" onclick="openForm()">send</button></td>
+                                <td>{{this.Key}}</td>
+                                <td>{{this.Record.name}}</td>
+                                <td>{{this.Record.expDate}}</td>
+                                <td>{{this.Record.location}}</td>
+                                <td><button type="button" class="btn btn-primary btn-xs" onclick="openForm({{this.Key}})">send</button></td>
                             </tr>
-                            <tr>
-                                <td>32573</td>
-                                <td>Ciproflaxin</td>
-                                <td>20-12-2019</td>
-                                <td>Secunderabad</td>
-                                <td><button type="button" class="btn btn-primary btn-xs" onclick="openForm()">send</button></td>
-                            </tr> 
-                            <tr>
-                                <td>12345</td>
-                                <td>Paracetemol</td>
-                                <td>20-12-2018</td>
-                                <td>hyderabad</td>
-                                <td><button type="button" class="btn btn-primary btn-xs" onclick="openForm()">send</button></td>
-                            </tr>
-                            <tr>
-                                <td>32573</td>
-                                <td>Ciproflaxin</td>
-                                <td>20-12-2019</td>
-                                <td>Secunderabad</td>
-                                <td><button type="button" class="btn btn-primary btn-xs" onclick="openForm()">send</button></td>
-                            </tr> <tr>
-                                <td>12345</td>
-                                <td>Paracetemol</td>
-                                <td>20-12-2018</td>
-                                <td>hyderabad</td>
-                                <td><button type="button" class="btn btn-primary btn-xs" onclick="openForm()">send</button></td>
-                            </tr>
-                            <tr>
-                                <td>32573</td>
-                                <td>Ciproflaxin</td>
-                                <td>20-12-2019</td>
-                                <td>Secunderabad</td>
-                                <td><button type="button" class="btn btn-primary btn-xs" onclick="openForm()">send</button></td>
-                            </tr> <tr>
-                                <td>12345</td>
-                                <td>Paracetemol</td>
-                                <td>20-12-2018</td>
-                                <td>hyderabad</td>
-                                <td><button type="button" class="btn btn-primary btn-xs" onclick="openForm()">send</button></td>
-                            </tr>
-                            <tr>
-                                <td>32573</td>
-                                <td>Ciproflaxin</td>
-                                <td>20-12-2019</td>
-                                <td>Secunderabad</td>
-                                <td><button type="button" class="btn btn-primary btn-xs" onclick="openForm()">send</button></td>
-                            </tr> <tr>
-                                <td>12345</td>
-                                <td>Paracetemol</td>
-                                <td>20-12-2018</td>
-                                <td>hyderabad</td>
-                                <td><button type="button" class="btn btn-primary btn-xs" onclick="openForm()">send</button></td>
-                            </tr>
-                            <tr>
-                                <td>32573</td>
-                                <td>Ciproflaxin</td>
-                                <td>20-12-2019</td>
-                                <td>Secunderabad</td>
-                                <td><button type="button" class="btn btn-primary btn-xs" onclick="openForm()">send</button></td>
-                            </tr> <tr>
-                                <td>12345</td>
-                                <td>Paracetemol</td>
-                                <td>20-12-2018</td>
-                                <td>hyderabad</td>
-                                <td><button type="button" class="btn btn-primary btn-xs" onclick="openForm()">send</button></td>
-                            </tr>
-                            <tr>
-                                <td>32573</td>
-                                <td>Ciproflaxin</td>
-                                <td>20-12-2019</td>
-                                <td>Secunderabad</td>
-                                <td><button type="button" class="btn btn-primary btn-xs" onclick="openForm()">send</button></td>
-                            </tr> <tr>
-                                <td>12345</td>
-                                <td>Paracetemol</td>
-                                <td>20-12-2018</td>
-                                <td>hyderabad</td>
-                                <td><button type="button" class="btn btn-primary btn-xs" onclick="openForm()">send</button></td>
-                            </tr>
-                            <tr>
-                                <td>32573</td>
-                                <td>Ciproflaxin</td>
-                                <td>20-12-2019</td>
-                                <td>Secunderabad</td>
-                                <td><button type="button" class="btn btn-primary btn-xs" onclick="openForm()">send</button></td>
-                            </tr> 
-                            
-                           
+                            {{/each}}
                         </tbody>
                     </table>
                     <div class="form-popup" id="myForm" style="display: none">
-                        <form action="/action_page.php" class="form-container">
+                        <form action="/sendMed" class="form-container">
                           <h1>Send Medicine</h1>
                       
                           <label for="email"><b>Medicine ID</b></label>
-                          <input type="text" placeholder="Enter Medicine ID" name="medid" value="" required>
+                          <input type="text" placeholder="Enter Medicine ID" name="medid" id="medid" value="" required readonly>
                       
                           <label for="psw"><b>Logistics</b></label>
                           <input type="text" placeholder="Enter Logistics" name="logi" required>
@@ -288,7 +201,8 @@
                         </form>
                       </div>
                     <script>
-                        function openForm() {
+                        function openForm(Key) {
+                          document.getElementById("medid").value = Key;
                           document.getElementById("myForm").style.display = "block";
                         }
                         

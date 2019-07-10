@@ -114,6 +114,7 @@ let Chaincode = class {
           condition: args[7] //extra condition contdition
         }
       };
+      console.log(medicine);
       const buffer = Buffer.from(JSON.stringify(medicine));
       await stub.putState(args[0].toString(), buffer);
     } catch (err) {
