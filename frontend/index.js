@@ -98,7 +98,25 @@ app.get('/sendMed',async function(req,res){
 });
 
 // logistics
-
+app.get('/acceptRes',async function(req,res){
+  let response;
+  console.log("==========================================================================================================")
+  try {
+    response = await axios.post( 'http://localhost:3000/logisticsAcceptMedicine',
+      {
+        medid: req.query.medid,
+        logiId: req.query.logiId,
+       
+      }
+    );
+    
+   
+  } catch (e) {
+    console.log(e);
+    res.sendStatus(500);
+  }
+  res.render('tx', { data: response.data });
+});
 //recieved 
 
 
@@ -143,7 +161,7 @@ app.get('/sendReq',async function(req,res){
 });
 
 //recieve list of logistics
-app.get('/accept', async function(req,res){
+app.get('/recievingList', async function(req,res){
   let response;
   try{
     response = await axios.get('http://localhost:3000/logisticRecievingList?id=l001');
@@ -151,8 +169,6 @@ app.get('/accept', async function(req,res){
     console.log(err);
     res.sendStatus(500);
   }
-  console.log(response);
-  
   res.render('accept',{data:response.data});
 })
 //distributor
@@ -169,7 +185,7 @@ app.get('/distributor', async function(req, res){
    res.render('distributor',{data:response.data});
  });
 
-app.get('/acceptReq',async function(req,res){
+app.get('/acceptReq', async function(req,res){
   let response;
   try{
     response=await axios.post('http://localhost:3000/acceptRequest',

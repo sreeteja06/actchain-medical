@@ -122,7 +122,7 @@ let Chaincode = class {
     }
   }
   async logisticRecievingList(stub,args){
-    let queryString = '{"selector":{"requestLogistics":{"$eq":"' + args[0] + '"}}}';
+    let queryString = '{"selector":{"requestLogistics":"' + args[0] + '"}}}';
     return await queryByString(
       stub,
       queryString //owner
