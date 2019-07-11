@@ -48,7 +48,7 @@ join_channel
 update_anchorPeers
 
 function install_chaincode(){
-    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@manu.meditrack.com/msp" peer0.manu.meditrack.com peer chaincode install -l node -n exam5 -p /etc/hyperledger/chaincode/ -v v0
+    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@manu.meditrack.com/msp" peer0.manu.meditrack.com peer chaincode install -l node -n exam5 -p /etc/hyperledger/chaincode/ -v v1
     docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@logi.meditrack.com/msp" peer0.logi.meditrack.com peer chaincode install -l node -n exam1 -p /etc/hyperledger/chaincode/ -v v0
     docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@phar.meditrack.com/msp" peer0.phar.meditrack.com peer chaincode install -l node -n exam1 -p /etc/hyperledger/chaincode/ -v v0
     docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@dist.meditrack.com/msp" peer0.dist.meditrack.com peer chaincode install -l node -n exam1 -p /etc/hyperledger/chaincode/ -v v0
@@ -59,11 +59,15 @@ function instantiate_chaincode(){
 }
 
 function queryChaincode(){
-    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@manu.meditrack.com/msp" peer0.manu.meditrack.com peer chaincode query -C ourchannel -n exam1 -c '{"Args":["getChannelID"]}'
+    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@manu.meditrack.com/msp" peer0.manu.meditrack.com peer chaincode query -C ourchannel -n exam5 -c '{"Args":["getChannelID"]}'
 }
 
 function checkInstantiated(){
     docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@manu.meditrack.com/msp" peer0.manu.meditrack.com peer chaincode -C ourchannel list --instantiated
+}
+
+function updateChaincode(){
+    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@manu.meditrack.com/msp" peer0.manu.meditrack.com peer chaincode upgrade -l node -o orderer.meditrack.com:7050 -C ourchannel -n exam5 -v v1 -c '{"Args":["init"]}'
 }
 
 function checkPortStatus(){

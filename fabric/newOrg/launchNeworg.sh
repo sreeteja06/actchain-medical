@@ -82,7 +82,19 @@ docker exec peer0.neworg.meditrack.com peer channel fetch 0 ourchannel.block -o 
 #Issue the peer channel join command and pass in the genesis block – mychannel.block:
 docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@neworg.meditrack.com/msp" peer0.neworg.meditrack.com peer channel join -b ourchannel.block
 
+#get the channels the peer joinded
+docker exec peer0.neworg.meditrack.com peer channel list
+
 docker cp -r ../../chaincode peer0.neworg.meditrack.com:/etc/hyperledger/chaincode
 
 #install chaincode
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@neworg.meditrack.com/msp" peer0.neworg.meditrack.com peer chaincode install -l node -n exam5 -p /etc/hyperledger/chaincode/chaincode -v v0
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@neworg.meditrack.com/msp" peer0.neworg.meditrack.com peer chaincode install -l node -n exam5 -p /etc/hyperledger/chaincode/ -v v1
+
+#check instantiated
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@neworg.meditrack.com/msp" peer0.neworg.meditrack.com peer chaincode -C ourchannel list --instantiated
+
+#upgrade chaincode
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@manu.meditrack.com/msp" peer0.manu.meditrack.com peer chaincode upgrade -l node -o orderer.meditrack.com:7050 -C ourchannel -n exam5 -v v1 -c '{"Args":["init"]}'
+
+#query chiancode
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@neworg.meditrack.com/msp" peer0.neworg.meditrack.com peer chaincode query -C ourchannel -n exam5 -c '{"Args":["getChannelID"]}'

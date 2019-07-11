@@ -381,88 +381,89 @@ services:
     networks:
       - meditrack
   
-  kafka4:
-    container_name: kafka4
-    extends:
-      file: docker-compose-base.yml
-      service: kafka
-    environment:
-      - KAFKA_BROKER_ID=4
-      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
-      - KAFKA_MESSAGE_MAX_BYTES=103809024
-      - KAFKA_REPLICA_FETCH_MAX_BYTES=103809024
-      - KAFKA_REPLICA_FETCH_RESPONSE_MAX_BYTES=103809024
-    depends_on:
-      - zookeeper3
-    networks:
-      - meditrack
+  # kafka4:
+  #   container_name: kafka4
+  #   extends:
+  #     file: docker-compose-base.yml
+  #     service: kafka
+  #   environment:
+  #     - KAFKA_BROKER_ID=4
+  #     - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
+  #     - KAFKA_MESSAGE_MAX_BYTES=103809024
+  #     - KAFKA_REPLICA_FETCH_MAX_BYTES=103809024
+  #     - KAFKA_REPLICA_FETCH_RESPONSE_MAX_BYTES=103809024
+  #   depends_on:
+  #     - zookeeper3
+  #   networks:
+  #     - meditrack
 
-  zookeeper3:
-    container_name: zookeeper3
-    extends:
-      file: docker-compose-base.yml
-      service: zookeeper
-    environment:
-      - ZOO_MY_ID=4
-      - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888 server.4=zookeeper3:2888:3888
-    networks:
-      - meditrack
+  # zookeeper3:
+  #   container_name: zookeeper3
+  #   extends:
+  #     file: docker-compose-base.yml
+  #     service: zookeeper
+  #   environment:
+  #     - ZOO_MY_ID=4
+  #     - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888 server.4=zookeeper3:2888:3888
+  #   networks:
+  #     - meditrack
 
-  ca.neworg.meditrack.com:
-    image: hyperledger/fabric-ca:latest
-    environment:
-      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
-      - FABRIC_CA_SERVER_CA_NAME=ca.neworg.meditrack.com
-      - FABRIC_CA_SERVER_TLS_ENABLED=false
-      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.neworg.meditrack.com-cert.pem
-      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/04d5e1c579356b3b7de3547c19307a80f5891a92824917ecce9b4a80613d8184_sk
-    ports:
-      - '11054:7054'
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.neworg.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
-    volumes:
-      - ./crypto-config/peerOrganizations/neworg.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
-    container_name: ca.neworg.meditrack.com
-    networks:
-      - meditrack
+  # ca.neworg.meditrack.com:
+  #   image: hyperledger/fabric-ca:latest
+  #   environment:
+  #     - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+  #     - FABRIC_CA_SERVER_CA_NAME=ca.neworg.meditrack.com
+  #     - FABRIC_CA_SERVER_TLS_ENABLED=false
+  #     - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.neworg.meditrack.com-cert.pem
+  #     - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/04d5e1c579356b3b7de3547c19307a80f5891a92824917ecce9b4a80613d8184_sk
+  #   ports:
+  #     - '11054:7054'
+  #   command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.neworg.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
+  #   volumes:
+  #     - ./crypto-config/peerOrganizations/neworg.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
+  #   container_name: ca.neworg.meditrack.com
+  #   networks:
+  #     - meditrack
 
-  peer0.neworg.meditrack.com:
-    container_name: peer0.neworg.meditrack.com
-    image: hyperledger/fabric-peer:latest
-    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
-    command: peer node start
-    environment:
-      - FABRIC_LOGGING_SPEC=info
-      - CORE_CHAINCODE_LOGGING_SHIM=debug
-      - CORE_CHAINCODE_LOGGING_LEVEL=debug
-      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
-      - CORE_PEER_ID=peer0.neworg.meditrack.com
-      - CORE_PEER_ADDRESS=peer0.neworg.meditrack.com:7051
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_meditrack
-      - CORE_PEER_LOCALMSPID=neworgMSP
-      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
-      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
-      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb4:5984
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.neworg.meditrack.com:11051
-    ports:
-      - 11051:7051
-      - 11053:7053
-    volumes:
-      - /var/run/:/host/var/run/
-      - ./channel-artifacts:/etc/hyperledger/configtx
-      - ../../chaincode:/etc/hyperledger/chaincode
-      - ./crypto-config/peerOrganizations/neworg.meditrack.com/peers/peer0.neworg.meditrack.com/msp:/etc/hyperledger/peer/msp
-      - ./crypto-config/peerOrganizations/neworg.meditrack.com/users:/etc/hyperledger/msp/users
-    depends_on:
-      - couchdb4
-    networks:
-      - meditrack
+  # peer0.neworg.meditrack.com:
+  #   container_name: peer0.neworg.meditrack.com
+  #   image: hyperledger/fabric-peer:latest
+  #   working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+  #   command: peer node start
+  #   environment:
+  #     - FABRIC_LOGGING_SPEC=info
+  #     - CORE_CHAINCODE_LOGGING_SHIM=debug
+  #     - CORE_CHAINCODE_LOGGING_LEVEL=debug
+  #     - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+  #     - CORE_PEER_ID=peer0.neworg.meditrack.com
+  #     - CORE_PEER_ADDRESS=peer0.neworg.meditrack.com:7051
+  #     - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_meditrack
+  #     - CORE_PEER_LOCALMSPID=neworgMSP
+  #     - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
+  #     - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+  #     - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb4:5984
+  #     - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.neworg.meditrack.com:11051
+  #   ports:
+  #     - 11051:7051
+  #     - 11053:7053
+  #   volumes:
+  #     - /var/run/:/host/var/run/
+  #     - ./channel-artifacts:/etc/hyperledger/configtx
+  #     - ../../chaincode:/etc/hyperledger/chaincode
+  #     - ./crypto-config/peerOrganizations/neworg.meditrack.com/peers/peer0.neworg.meditrack.com/msp:/etc/hyperledger/peer/msp
+  #     - ./crypto-config/peerOrganizations/neworg.meditrack.com/users:/etc/hyperledger/msp/users
+  #   depends_on:
+  #     - orderer.meditrack.com
+  #     - couchdb4
+  #   networks:
+  #     - meditrack
 
-  couchdb4:
-    container_name: couchdb4
-    image: hyperledger/fabric-couchdb:latest
-    ports:
-      - 9984:5984
-    environment:
-      DB_URL: http://localhost:9984/member_db
-    networks:
-      - meditrack
+  # couchdb4:
+  #   container_name: couchdb4
+  #   image: hyperledger/fabric-couchdb:latest
+  #   ports:
+  #     - 9984:5984
+  #   environment:
+  #     DB_URL: http://localhost:9984/member_db
+  #   networks:
+  #     - meditrack

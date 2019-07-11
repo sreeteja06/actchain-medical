@@ -1,7 +1,8 @@
 version: '2'
 
 networks:
-  meditrack:
+  fabric_meditrack:
+    external: true
 
 services:
   kafka4:
@@ -18,7 +19,7 @@ services:
     depends_on:
       - zookeeper3
     networks:
-      - meditrack
+      - fabric_meditrack
 
   zookeeper3:
     container_name: zookeeper3
@@ -29,7 +30,7 @@ services:
       - ZOO_MY_ID=4
       - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888 server.4=zookeeper3:2888:3888
     networks:
-      - meditrack
+      - fabric_meditrack
 
   ca.neworg.meditrack.com:
     image: hyperledger/fabric-ca:latest
@@ -46,7 +47,7 @@ services:
       - ./crypto-config/peerOrganizations/neworg.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
     container_name: ca.neworg.meditrack.com
     networks:
-      - meditrack
+      - fabric_meditrack
 
   peer0.neworg.meditrack.com:
     container_name: peer0.neworg.meditrack.com
@@ -78,7 +79,7 @@ services:
     depends_on:
       - couchdb4
     networks:
-      - meditrack
+      - fabric_meditrack
 
   couchdb4:
     container_name: couchdb4
@@ -88,4 +89,4 @@ services:
     environment:
       DB_URL: http://localhost:9984/member_db
     networks:
-      - meditrack
+      - fabric_meditrack
