@@ -7,3 +7,4 @@
 /fabric/crypto-config
 /fabric/channel-artifacts
 frontend/package-lock.json
+/fabric/newOrg/crypto-config
