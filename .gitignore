@@ -8,3 +8,5 @@
 /fabric/channel-artifacts
 frontend/package-lock.json
 /fabric/newOrg/crypto-config
+chaincode/package-lock.json
+chaincode/npm-install-27776.sh
