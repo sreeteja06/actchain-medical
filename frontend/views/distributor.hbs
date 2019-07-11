@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Logistics | meditrack</title>
+    <title>Delivered | meditrack</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -134,15 +134,15 @@
         <div class="row" >
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size:16px">
-                    <li class="active"><a href="#">Recieved</a></li>
+                    <li class="active"><a href="#">Incoming Requests <span class="sr-only">(current)</span></a></li>
                     
-                    <li><a href="logistics.html">Stock</a></li>
-                    <li><a href="recievedL.html">Recieved</a></li>
+                    <li><a href="stock.html">Stock</a></li>
+                    <li><a href="pending.html">Recieving</a></li>
                     
                 </ul>
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size: 16px">
                    
-                    <li><a href="deliveredP.html">Delivered</a></li>
+                    <li><a href="Delivered.html">Delivered</a></li>
                     <li><a href="../manufacturer/track.html">Track Medicine</a></li>
                    
                 </ul>
@@ -160,7 +160,7 @@
                         </div>
                         
                     </div>
-                <h2 class="sub-header">Recieved</h2>
+                <h2 class="sub-header">Incoming Requests</h2>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
@@ -173,22 +173,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                          
+                          {{#each data}}
                             <tr>
-                                <td></td>
-                                <td>Paracetemol</td>
-                                <td>20-12-2018</td>
-                                <td>hyderabad</td>
-                                <td><button type="button" class="btn btn-success btn-xs">Recieved</button></td>
+                                <td>{{this.Key}}</td>
+                                <td>{{this.Record.name}}</td>
+                                <td>{{this.Record.requestId}}</td>
+                                
+                                <td><a href="/acceptreq?medicineId={{this.Key}}&id={{this.Record.requestId}}"><button type="button" class="btn btn-success btn-xs">Accept</button></a><button type="button" style="margin-left: 5px" class="btn btn-danger btn-xs">Deny</button></td>
                             </tr>
                           
-                           
+                           {{/each}}
                         </tbody>
                     </table>
                     
                     <script>
                         function agreeForm() {
-                          document.getElementById("myForm")
+                          document.getElementById("mQuery: true
+        ledgerQuyForm")
                         }
                         
                         function denyForm() {

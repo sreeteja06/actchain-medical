@@ -386,6 +386,21 @@ app.post(
     res.send(message);
   })
 );
+app.get('logisticRecievingList',awaitHandler(async(req,res)=>{
+let args = [];
+console.log('req query of the request ' + JSON.stringify(req.query))
+args.push(req.query.id);
+const fn = 'logisticRecievingList';
+const message = await queryChaincode( peers,
+  channelName,
+  chaincodeName,
+  args,
+  fn,
+  username,
+  orgName);
+
+  res.send(message);
+}));
 app.get(
   '/getRequests',
   awaitHandler(async (req, res) => {

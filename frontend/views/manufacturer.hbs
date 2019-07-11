@@ -182,7 +182,7 @@
                                 <td>{{this.Record.name}}</td>
                                 <td>{{this.Record.expDate}}</td>
                                 <td>{{this.Record.location}}</td>
-                                <td><button type="button" class="btn btn-primary btn-xs" onclick="openForm({{this.Key}})">send</button></td>
+                                <td><button type="button" class="btn btn-primary btn-xs" onclick="openform({{this.key}})">send</button></td>
                             </tr>
                             {{/each}}
                         </tbody>
@@ -205,9 +205,11 @@
                         </form>
                       </div>
                     <script>
-                        function openForm(Key) {
+                        function openform(key) {
+                          console.log("done");
                           document.getElementById("medid").value = Key;
                           document.getElementById("myForm").style.display = "block";
+                          
                         }
                         
                         function closeForm() {
