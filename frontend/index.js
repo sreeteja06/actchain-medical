@@ -23,8 +23,7 @@ app.get('/suplied', async function(req, res){
     }
     console.log(response);
     res.render('suplied',{data:response.data});
-
-
+  });
 
 
 app.get('/manufacturer',async function(req,res){
@@ -99,23 +98,110 @@ app.get('/sendMed',async function(req,res){
 });
 
 // logistics
-
+app.get('/acceptRes',async function(req,res){
+  let response;
+  console.log("==========================================================================================================")
+  try {
+    response = await axios.post( 'http://localhost:3000/logisticsAcceptMedicine',
+      {
+        medid: req.query.medid,
+        logiId: req.query.logiId,
+       
+      }
+    );
+    
+   
+  } catch (e) {
+    console.log(e);
+    res.sendStatus(500);
+  }
+  res.render('tx', { data: response.data });
+});
 //recieved 
 
-app.get('/accept', function(req,res){
-  // let response;
-  // try{
-  //   response=await axios.get('http://localhost:3000/getMedicinesByOwner?id=M001')
-  // }catch(e){
-  //   console.log(e);
-  //   res.sendStatus(500);
-  // }
-  // console.log(response);
-  res.render('accept',/*{data:response.data}*/);
+
+
+// pharmacy
+
+app.get('/request',function(req,res){
+  res.render('request');
+});
+;
+
+app.get('/requested',async function(req,res){
+  console.log('requested')
+  let response;
+    try{
+      response=await axios.get('http://localhost:3000/getSentRequests?id=P001')
+    }catch(e){
+      console.log(e);
+      res.sendStatus(500);
+    }
+    console.log(response.data);
+    res.render('requested',{data:response.data});
 });
 
+
+//send Request
+
+app.get('/sendReq',async function(req,res){
+  let response;
+    try {
+      response = await axios.post(
+        'http://localhost:3000/sendRequest',
+        {
+          medicineId: req.query.medid,
+          id: 'P001',
+        });
+      res.render('tx', { data: response.data });
+    } catch (e) {
+      console.log(e);
+      res.sendStatus(500);
+    }
+});
+
+//recieve list of logistics
+app.get('/recievingList', async function(req,res){
+  let response;
+  try{
+    response = await axios.get('http://localhost:3000/logisticRecievingList?id=l001');
+  }catch(err){
+    console.log(err);
+    res.sendStatus(500);
+  }
+  res.render('accept',{data:response.data});
+})
+//distributor
+app.get('/distributor', async function(req, res){
+  let response;
+   try{
+     response=await axios.get('http://localhost:3000/getRequests?id=M002');
+   }catch(e){
+     console.log(e);
+     res.sendStatus(500);
+   }
+   console.log(response);
+   console.log(response.data);
+   res.render('distributor',{data:response.data});
+ });
+
+app.get('/acceptReq', async function(req,res){
+  let response;
+  try{
+    response=await axios.post('http://localhost:3000/acceptRequest',
+    {
+      medicineId: req.query.medicineId,
+	    id: req.query.id,
+	    logisId: 'l001',
+    });
+    res.render('tx', { data: response.data });
+  }catch(e){
+    console.log(e);
+    res.sendStatus(500);
+  }
+});
 
 app.listen(4000, ()=>{
     console.log(`****************** SERVER STARTED ************************
 ***************  Listening on: http://localhost:4000  ******************`)
-})
+});

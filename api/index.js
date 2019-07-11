@@ -248,13 +248,10 @@ app.get(
 app.post('/logisticsAcceptMedicine', awaitHandler(async (req, res)=>{
   let args = [];
   console.log('req query of the request ' + JSON.stringify(req.body));
-  args.push(req.body.medicineId);
-  args.push(req.body.logiId)
+  args.push(req.body.medid);
+  args.push(req.body.logiId);
   const fn = 'logisticsAcceptMedicine';
-  // let username = req.body.username;
-  // let orgName = req.body.orgName;
-  console.log(args);
-  let message = await query.queryChaincode(
+  let message = await invoke.invokeChaincode(
     peers,
     channelName,
     chaincodeName,
@@ -386,6 +383,21 @@ app.post(
     res.send(message);
   })
 );
+app.get('/logisticRecievingList',awaitHandler(async(req,res)=>{
+let args = [];
+console.log('req query of the request ' + JSON.stringify(req.query))
+args.push(req.query.id);
+const fn = 'logisticRecievingList';
+const message = await query.queryChaincode( peers,
+  channelName,
+  chaincodeName,
+  args,
+  fn,
+  username,
+  orgName);
+
+  res.send(message);
+}));
 app.get(
   '/getRequests',
   awaitHandler(async (req, res) => {

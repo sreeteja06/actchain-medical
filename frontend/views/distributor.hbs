@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard Template for Bootstrap</title>
+    <title>Delivered | meditrack</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -113,7 +113,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand " href="#" style="color: white;display: inline-block"><img style="display: inline;margin-right: 4px"src="cardiogram.svg" height="30px" width="30px">Meditrack</a>
+                <a class="navbar-brand " href="#" style="color: white;display: inline-block"><img style="display: inline;margin-right: 4px"src="../cardiogram.svg" height="30px" width="30px">Meditrack</a>
             </div>
             
             <div id="navbar" class="navbar-collapse collapse">
@@ -134,19 +134,16 @@
         <div class="row" >
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size:16px">
-                    <li class="active"><a href="/manufacturer">Manufactured <span class="sr-only">(current)</span></a></li>
+                    <li class="active"><a href="#">Incoming Requests <span class="sr-only">(current)</span></a></li>
                     
-                    <li><a href="/suplied">Supplied medicine</a></li>
+                    <li><a href="stock.html">Stock</a></li>
+                    <li><a href="pending.html">Recieving</a></li>
                     
                 </ul>
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size: 16px">
-                    <li><a href="/create">Create medine</a></li>
-
-                    <li><a href="/track">Track Medicines</a></li>
-                    <li><a href="/history">History of Medicines</a></li>
-
-                    
-
+                   
+                    <li><a href="Delivered.html">Delivered</a></li>
+                    <li><a href="../manufacturer/track.html">Track Medicine</a></li>
                    
                 </ul>
 
@@ -156,22 +153,22 @@
                 
                     <div class="row placeholders" style="margin-left: -110px">
                         <div class="col-xs-6 col-sm-3 placeholder">
-                            <img src="download.png"
+                            <img src="../download.png"
                                 width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                            <h4>M-Id :327587545M</h4>
+                            <h4>D-Id :327587545M</h4>
                             <span class="text-muted"></span>
                         </div>
                         
                     </div>
-                <h2 class="sub-header">Medicines Manufactured</h2>
+                <h2 class="sub-header">Incoming Requests</h2>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>M-ID</th>
                                 <th>Medine name</th>
-                                <th>expiry</th>
-                                <th>Location</th>
+                                <th>Requested By</th>
+                                
                                 <th></th>
                             </tr>
                         </thead>
@@ -180,39 +177,22 @@
                             <tr>
                                 <td>{{this.Key}}</td>
                                 <td>{{this.Record.name}}</td>
-                                <td>{{this.Record.expDate}}</td>
-                                <td>{{this.Record.location}}</td>
-                                <td><button type="button" class="btn btn-primary btn-xs" onclick="openform({{this.key}})">send</button></td>
+                                <td>{{this.Record.requestId}}</td>
+                                
+                                <td><a href="/acceptreq?medicineId={{this.Key}}&id={{this.Record.requestId}}"><button type="button" class="btn btn-success btn-xs">Accept</button></a><button type="button" style="margin-left: 5px" class="btn btn-danger btn-xs">Deny</button></td>
                             </tr>
-                            {{/each}}
+                          
+                           {{/each}}
                         </tbody>
                     </table>
-                    <div class="form-popup" id="myForm" style="display: none">
-                        <form action="/sendMed" class="form-container">
-                          <h1>Send Medicine</h1>
-                      
-                          <label for="email"><b>Medicine ID</b></label>
-                          <input type="text" placeholder="Enter Medicine ID" name="medid" id="medid" value="" required readonly>
-                      
-                          <label for="psw"><b>Logistics</b></label>
-                          <input type="text" placeholder="Enter Logistics" name="logi" required>
-
-                          <label for="psw"><b>Send to</b></label>
-                          <input type="text" placeholder="Enter Distributor/Pharmacy" name="sendto" required>
-                      
-                          <button action="/sendMed" type="submit" class="btn" onclick="closeForm()">Send</button>
-                          <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
-                        </form>
-                      </div>
+                    
                     <script>
-                        function openform(key) {
-                          console.log("done");
-                          document.getElementById("medid").value = Key;
-                          document.getElementById("myForm").style.display = "block";
-                          
+                        function agreeForm() {
+                          document.getElementById("mQuery: true
+        ledgerQuyForm")
                         }
                         
-                        function closeForm() {
+                        function denyForm() {
                           document.getElementById("myForm").style.display = "none";
                         }
                         </script>

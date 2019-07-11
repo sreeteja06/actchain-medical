@@ -121,7 +121,14 @@ let Chaincode = class {
       return shim.error(err);
     }
   }
-
+  async logisticRecievingList(stub,args){
+    let queryString = '{"selector":{"requestLogistics":"' + args[0] + '"}}}';
+    return await queryByString(
+      stub,
+      queryString //owner
+    );
+    
+  }
   async queryUsingCouchDB(stub, args) {
     let json = JSON.parse(args);
     return await queryByString(stub, json.query.toString());
@@ -134,6 +141,7 @@ let Chaincode = class {
       queryString //owner
     );
   }
+  
 
   async getMedicinesByHolder(stub, args) {
     let queryString = '{"selector":{"holder":{"$eq":"' + args[0] + '"}}}';
@@ -176,7 +184,13 @@ let Chaincode = class {
     const buffer = Buffer.from(JSON.stringify(asset));
     await stub.putState(args[0].toString(), buffer);
   }
-
+   async logisticRecieved(stub,args){
+     let asset = await queryByKey(stub,args[0].toString());
+     asset = JSON.parse(asset.toString());
+     asset.owner=asset.logistics;
+     asset.requestlogistics="";
+     await stub.putState(args[0].toString(),Buffer.from(JSON.stringify(asset)));
+   }
   async getRecievedMedicines(stub, args) {
     let queryString = '{"selector":{"sendTo":{"$eq":"' + args[0] + '"}}}';
     return await queryByString(
@@ -218,12 +232,13 @@ let Chaincode = class {
   }
 
   async getSentRequests(stub, args) {
-    let queryString = '{"selector":{"requestID":{"$eq":"' + args[0] + '"}}}';
+    let queryString = '{"selector":{"requestId":{"$eq":"' + args[0] + '"}}}';
     return await queryByString(
       stub,
       queryString //id of the person
     );
   }
+  
 
   async acceptRequest(stub, args) {
     let asset = await queryByKey(stub, args[0].toString()); //medicineid
@@ -362,3 +377,5 @@ let Chaincode = class {
 
 };
 shim.start(new Chaincode());
+
+

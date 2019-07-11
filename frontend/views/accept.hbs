@@ -167,22 +167,21 @@
                             <tr>
                                 <th>M-ID</th>
                                 <th>Medine name</th>
-                                <th>Requested By</th>
-                                
-                                <th></th>
+                                <th>Sent By</th>        
+                                <th>send To</th>
                             </tr>
                         </thead>
                         <tbody>
-                          
+                          {{#each data}}
                             <tr>
-                                <td>12345</td>
-                                <td>Paracetemol</td>
-                                <td>20-12-2018</td>
-                                <td>hyderabad</td>
-                                <td><button type="button" class="btn btn-success btn-xs">Recieved</button></td>
+                                <td>{{this.Key}}</td>
+                                <td>{{this.Record.name}}</td>
+                                <td>{{this.Record.holder}}</td>
+                                <td>{{this.Record.sendTo}}</td>
+                            <td><a href="/acceptRes?medid={{this.Key}}&logiId={{this.Record.requestLogistics}}"><button  type="button" class="btn btn-success btn-xs">Recieved</button></td>
                             </tr>
                           
-                           
+                           {{/each}}
                         </tbody>
                     </table>
                     
