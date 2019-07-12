@@ -383,6 +383,20 @@ let Chaincode = class {
       }
     }
   }
+
+  async setPrivateMedicinePrice(stub, args){
+    let price = {
+      price: args[0]
+    }
+    const buffer = Buffer.from(JSON.stringify(price));
+    await stub.getPrivateData('PriceDetails', 'M001');
+    await stub.putPrivateData('PriceDetails', "M001" , buffer);
+  }
+
+  async getPrivateMedcinePrice(stub, args){
+    return await stub.getPrivateData('PriceDetails', 'M001');
+  }
+
 };
 shim.start(new Chaincode());
 
