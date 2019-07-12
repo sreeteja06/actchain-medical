@@ -202,13 +202,6 @@ let Chaincode = class {
     await stub.putState(args[0].toString(), buffer);
   }
 
-   async logisticRecieved(stub,args){
-     let asset = await queryByKey(stub,args[0].toString());
-     asset = JSON.parse(asset.toString());
-     asset.owner=asset.logistics;
-     asset.requestlogistics="";
-     await stub.putState(args[0].toString(),Buffer.from(JSON.stringify(asset)));
-   }
   async getRecievedMedicines(stub, args) {
     let queryString = '{"selector":{"sendTo":{"$eq":"' + args[0] + '"}}}';
     return await queryByString(
@@ -274,6 +267,16 @@ let Chaincode = class {
     // asset.owner = '';
     const buffer = Buffer.from(JSON.stringify(asset));
     await stub.putState(args[0].toString(), buffer);
+  }
+
+  async denyRequest(stub ,args){
+    let asset = await queryByKey(stub, args[0].toString()); //medicineid
+    if (args[1].toString() == asset.holder.toString()) {
+      asset.requestId = '';
+      asset.request = '';
+      const buffer = Buffer.from(JSON.stringify(asset));
+      await stub.putState(args[0].toString(), buffer);
+    }
   }
 
   async addExtraCondition(stub, args) {

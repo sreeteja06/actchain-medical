@@ -245,42 +245,47 @@ app.get(
   })
 );
 
-app.post('/logisticsAcceptMedicine', awaitHandler(async (req, res)=>{
-  let args = [];
-  console.log('req query of the request ' + JSON.stringify(req.body));
-  args.push(req.body.medid);
-  args.push(req.body.logiId)
-  const fn = 'logisticsAcceptMedicine';
-  let message = await invoke.invokeChaincode(
-    peers,
-    channelName,
-    chaincodeName,
-    args,
-    fn,
-    username,
-    orgName
-  );
-  res.send(message);
-}));
+app.post(
+  '/logisticsAcceptMedicine',
+  awaitHandler(async (req, res) => {
+    let args = [];
+    console.log('req query of the request ' + JSON.stringify(req.body));
+    args.push(req.body.medid);
+    args.push(req.body.logiId);
+    const fn = 'logisticsAcceptMedicine';
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
 
-app.post('/FinalAcceptMedicine', awaitHandler(async (req, res)=>{
-  let args = [];
-  console.log('req query of the request ' + JSON.stringify(req.body));
-  args.push(req.body.medid);
-  args.push(req.body.sendTo)
-  const fn = 'FinalAcceptMedicine';
-  let message = await invoke.invokeChaincode(
-    peers,
-    channelName,
-    chaincodeName,
-    args,
-    fn,
-    username,
-    orgName
-  );
-  res.send(message);
-}));
-
+app.post(
+  '/FinalAcceptMedicine',
+  awaitHandler(async (req, res) => {
+    let args = [];
+    console.log('req query of the request ' + JSON.stringify(req.body));
+    args.push(req.body.medid);
+    args.push(req.body.sendTo);
+    const fn = 'FinalAcceptMedicine';
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
 
 app.post(
   '/updateLocation',
@@ -402,24 +407,26 @@ app.post(
     res.send(message);
   })
 );
-app.get('/logisticRecievingList',awaitHandler(async(req,res)=>{
-let args = [];
-console.log('req query of the request ' + JSON.stringify(req.query))
-args.push(req.query.id);
-const fn = 'logisticRecievingList';
-const message = await query.queryChaincode( peers,
-  channelName,
-  chaincodeName,
-  args,
-  fn,
-  username,
-  orgName);
+app.get(
+  '/logisticRecievingList',
+  awaitHandler(async (req, res) => {
+    let args = [];
+    console.log('req query of the request ' + JSON.stringify(req.query));
+    args.push(req.query.id);
+    const fn = 'logisticRecievingList';
+    const message = await query.queryChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
 
-  res.send(message);
-}));
-
-
-
+    res.send(message);
+  })
+);
 
 app.get(
   '/getRequests',
@@ -473,7 +480,7 @@ app.get(
     console.log('req query of the request ' + JSON.stringify(req.query));
     args.push(req.query.id);
     const fn = 'recieveFromManu';
-  
+
     console.log(args);
     let message = await query.queryChaincode(
       peers,
@@ -513,6 +520,32 @@ app.post(
     res.send(message);
   })
 );
+app.post(
+  '/denyRequest',
+  awaitHandler(async (req, res) => {
+    let args = [];
+    args.push(req.body.medicineId);
+    args.push(req.body.distId);
+    const fn = 'denyRequest';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+
+    await blockListener.startBlockListener(channelName, username, orgName, wss);
+
+    res.send(message);
+  })
+);
+
 app.post(
   '/addExtraCondition',
   awaitHandler(async (req, res) => {
