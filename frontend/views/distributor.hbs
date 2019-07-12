@@ -134,15 +134,14 @@
         <div class="row" >
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size:16px">
-                    <li class="active"><a href="#">Incoming Requests <span class="sr-only">(current)</span></a></li>
+                    <li class="active"><a href="#">Incoming Requests(Pharmacy) <span class="sr-only">(current)</span></a></li>
                     
-                    <li><a href="stock.html">Stock</a></li>
-                    <li><a href="pending.html">Recieving</a></li>
+                    <li><a href="/stockdis">Stock</a></li>
+                    <li><a href="/recieveFromManu">Recieving(Manufacturer)</a></li>
                     
                 </ul>
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size: 16px">
                    
-                    <li><a href="Delivered.html">Delivered</a></li>
                     <li><a href="../manufacturer/track.html">Track Medicine</a></li>
                    
                 </ul>
@@ -179,23 +178,14 @@
                                 <td>{{this.Record.name}}</td>
                                 <td>{{this.Record.requestId}}</td>
                                 
-                                <td><a href="/acceptreq?medicineId={{this.Key}}&id={{this.Record.requestId}}"><button type="button" class="btn btn-success btn-xs">Accept</button></a><button type="button" style="margin-left: 5px" class="btn btn-danger btn-xs">Deny</button></td>
+                                <td><a href="/acceptReq?medicineId={{this.Key}}&id={{this.Record.requestId}}"><button type="button" class="btn btn-success btn-xs">Accept</button></a><button type="button" style="margin-left: 5px" class="btn btn-danger btn-xs">Deny</button></td>
                             </tr>
                           
                            {{/each}}
                         </tbody>
                     </table>
                     
-                    <script>
-                        function agreeForm() {
-                          document.getElementById("mQuery: true
-        ledgerQuyForm")
-                        }
-                        
-                        function denyForm() {
-                          document.getElementById("myForm").style.display = "none";
-                        }
-                        </script>
+                   
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

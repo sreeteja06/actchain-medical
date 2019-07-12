@@ -249,7 +249,7 @@ app.post('/logisticsAcceptMedicine', awaitHandler(async (req, res)=>{
   let args = [];
   console.log('req query of the request ' + JSON.stringify(req.body));
   args.push(req.body.medid);
-  args.push(req.body.logiId);
+  args.push(req.body.logiId)
   const fn = 'logisticsAcceptMedicine';
   let message = await invoke.invokeChaincode(
     peers,
@@ -262,6 +262,25 @@ app.post('/logisticsAcceptMedicine', awaitHandler(async (req, res)=>{
   );
   res.send(message);
 }));
+
+app.post('/FinalAcceptMedicine', awaitHandler(async (req, res)=>{
+  let args = [];
+  console.log('req query of the request ' + JSON.stringify(req.body));
+  args.push(req.body.medid);
+  args.push(req.body.sendTo)
+  const fn = 'FinalAcceptMedicine';
+  let message = await invoke.invokeChaincode(
+    peers,
+    channelName,
+    chaincodeName,
+    args,
+    fn,
+    username,
+    orgName
+  );
+  res.send(message);
+}));
+
 
 app.post(
   '/updateLocation',
@@ -398,6 +417,10 @@ const message = await query.queryChaincode( peers,
 
   res.send(message);
 }));
+
+
+
+
 app.get(
   '/getRequests',
   awaitHandler(async (req, res) => {
@@ -429,6 +452,28 @@ app.get(
     const fn = 'getSentRequests';
     // let username = req.body.username;
     // let orgName = req.body.orgName;
+    console.log(args);
+    let message = await query.queryChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
+
+app.get(
+  '/recieveFromManu',
+  awaitHandler(async (req, res) => {
+    let args = [];
+    console.log('req query of the request ' + JSON.stringify(req.query));
+    args.push(req.query.id);
+    const fn = 'recieveFromManu';
+  
     console.log(args);
     let message = await query.queryChaincode(
       peers,

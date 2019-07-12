@@ -105,16 +105,15 @@ app.get('/acceptRes',async function(req,res){
     response = await axios.post( 'http://localhost:3000/logisticsAcceptMedicine',
       {
         medid: req.query.medid,
-        logiId: req.query.logiId,
+        logiId: req.query.logiId
        
       }
-    );
-    
-   
+ ); 
   } catch (e) {
     console.log(e);
     res.sendStatus(500);
   }
+  Console.log(response.data);
   res.render('tx', { data: response.data });
 });
 //recieved 
@@ -123,13 +122,17 @@ app.get('/acceptRes',async function(req,res){
 
 // pharmacy
 
-app.get('/request',function(req,res){
-  res.render('request');
-});
-;
+app.get('/pharMaStock',async function(req,res){
+  let response;
+  try{ response = await axios.get('http://localhost:3000/getMedicinesByHolder?id=P001')
 
-app.get('/requested',async function(req,res){
-  console.log('requested')
+  }catch(e){console.log(e);res.sendStatus(500);}
+  res.render('pharMaStock',{data:response.data});
+});
+
+
+app.get('/pharMarequested',async function(req,res){
+
   let response;
     try{
       response=await axios.get('http://localhost:3000/getSentRequests?id=P001')
@@ -138,7 +141,7 @@ app.get('/requested',async function(req,res){
       res.sendStatus(500);
     }
     console.log(response.data);
-    res.render('requested',{data:response.data});
+    res.render('pharMarequested',{data:response.data});
 });
 
 
@@ -159,8 +162,8 @@ app.get('/sendReq',async function(req,res){
       res.sendStatus(500);
     }
 });
-
-//recieve list of logistics
+//////////////////////////////////logistics///////////////////////////////////////////////
+//logisticseve list of logistics
 app.get('/recievingList', async function(req,res){
   let response;
   try{
@@ -170,20 +173,62 @@ app.get('/recievingList', async function(req,res){
     res.sendStatus(500);
   }
   res.render('accept',{data:response.data});
-})
-//distributor
+});
+
+app.get('/stock', async function(req,res){
+  let response;
+  try{
+    response = await axios.get('http://localhost:3000/getMedicinesByHolder',{
+      id:'D001'
+    });
+  }catch(err){
+    console.log(err);
+    res.sendStatus(500);
+  }
+  
+  res.render('logiStock',{data:response.data});
+});
+
+
+
+
+/////////////////////////////////distributor/////////////////////////////////////
 app.get('/distributor', async function(req, res){
   let response;
    try{
-     response=await axios.get('http://localhost:3000/getRequests?id=M002');
+     response=await axios.get('http://localhost:3000/getRequests?id=D001');
    }catch(e){
      console.log(e);
      res.sendStatus(500);
    }
-   console.log(response);
-   console.log(response.data);
+  
+   
    res.render('distributor',{data:response.data});
  });
+
+ app.get('/stockdis', async function(req, res){
+  let response;
+   try{
+     response=await axios.get('http://localhost:3000/getMedicinesByHolder?id=D001');
+   }catch(e){
+     console.log(e);
+     res.sendStatus(500);
+   } 
+   console.log(response.data);
+   res.render('stockdis',{data:response.data});
+ });
+
+
+app.get('/recieveFromManu', async function(req,res){
+  let response;
+  try{
+    response =await axios.get('http://localhost:3000/recieveFromManu?id=D001');
+  }catch(e){console.log(e);
+    res.sendStatus(500);
+  }
+  res.render('DistRecieveManu',{data:response.data})
+});
+
 
 app.get('/acceptReq', async function(req,res){
   let response;
@@ -200,6 +245,25 @@ app.get('/acceptReq', async function(req,res){
     res.sendStatus(500);
   }
 });
+
+app.get('/acceptResFinal',async function(req,res){
+  let response;
+  console.log("==========================================================================================================")
+  try {
+    response = await axios.post( 'http://localhost:3000/FinalAcceptMedicine',
+      {
+        medid: req.query.medid,
+        sendTo: req.query.sendTo
+       
+      })
+  } catch (e) {
+    console.log(e);
+    res.sendStatus(500);
+  }
+  
+  res.render('tx', { data: response.data });
+});
+
 
 app.listen(4000, ()=>{
     console.log(`****************** SERVER STARTED ************************

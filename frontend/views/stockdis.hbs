@@ -134,15 +134,15 @@
         <div class="row" >
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size:16px">
-                    <li class="active"><a href="#">Incoming Requests <span class="sr-only">(current)</span></a></li>
+                    <li ><a href="/distributor">Incoming Requests(Pharmacy) <span class="sr-only">(current)</span></a></li>
                     
-                    <li><a href="stock.html">Stock</a></li>
-                    <li><a href="pending.html">Recieving</a></li>
+                    <li class="active"><a href="/stockdis">Stock</a></li>
+                    <li ><a href="">Recieving(Manufacturer)</a></li>
                     
                 </ul>
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size: 16px">
                    
-                    <li><a href="Delivered.html">Delivered</a></li>
+                    
                     <li><a href="../manufacturer/track.html">Track Medicine</a></li>
                    
                 </ul>
@@ -167,34 +167,26 @@
                             <tr>
                                 <th>M-ID</th>
                                 <th>Medine name</th>
-                                <th>Requested By</th>
+                                <th>sent From</th>
+                                <th>expiry</th>
                                 
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                          
+                          {{#each data}}
                             <tr>
-                                <td>12345</td>
-                                <td>Paracetemol</td>
-                                <td>20-12-2018</td>
-                                <td>hyderabad</td>
-                                <td><button type="button" class="btn btn-success btn-xs">Accept</button><button type="button" style="margin-left: 5px" class="btn btn-danger btn-xs">Deny</button></td>
+                                <td>{{this.Key}}</td>
+                                <td>{{this.Record.name}}</td>
+                                <td>{{this.Record.owner}}</td>
+                                <td>{{this.Record.expDate}}</td>
+                                <td><a href="/acceptResFinal?medid={{this.Key}}&sendTo={{this.Record.sendTo}}"><button type="button" class="btn btn-success btn-xs">Send</button></a></td>
                             </tr>
                           
-                           
+                           {{/each}}
                         </tbody>
                     </table>
                     
-                    <script>
-                        function agreeForm() {
-                          document.getElementById("myForm").style.display = "";
-                        }
-                        
-                        function denyForm() {
-                          document.getElementById("myForm").style.display = "none";
-                        }
-                        </script>
+                   
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

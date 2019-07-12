@@ -128,7 +128,9 @@ let Chaincode = class {
       queryString //owner
     );
     
+    
   }
+ 
   async queryUsingCouchDB(stub, args) {
     let json = JSON.parse(args);
     return await queryByString(stub, json.query.toString());
@@ -144,7 +146,7 @@ let Chaincode = class {
   
 
   async getMedicinesByHolder(stub, args) {
-    let queryString = '{"selector":{"holder":{"$eq":"' + args[0] + '"}}}';
+    let queryString = '{"selector":{"holder":"' + args[0] + '"}}}';
     return await queryByString(
       stub,
       queryString //holder
@@ -178,12 +180,28 @@ let Chaincode = class {
     let asset = await queryByKey(stub, args[0].toString()); //medicineID
     asset = JSON.parse(asset.toString());
     if (args[1].toString() == asset.requestLogistics.toString()) {
+      asset.holder=asset.requestLogistics;
       asset.logistics = asset.requestLogistics;
       asset.requestLogistics = '';
+      
     }
     const buffer = Buffer.from(JSON.stringify(asset));
     await stub.putState(args[0].toString(), buffer);
   }
+
+  async FinalAcceptMedicine(stub, args){
+    let asset = await queryByKey(stub, args[0].toString()); //medicineID
+    asset = JSON.parse(asset.toString());
+    
+      asset.holder=asset.sendTo;
+      asset.logistics = '';
+      asset.requestLogistics = '';
+      
+    
+    const buffer = Buffer.from(JSON.stringify(asset));
+    await stub.putState(args[0].toString(), buffer);
+  }
+
    async logisticRecieved(stub,args){
      let asset = await queryByKey(stub,args[0].toString());
      asset = JSON.parse(asset.toString());
@@ -199,7 +217,7 @@ let Chaincode = class {
     );
   }
 
-  async acceptMedicine(stub, args) {
+  async acceptMedicine(stub, args) {//again use for end pharmacy
     let asset = await queryByKey(stub, args[0].toString()); //medicine id
     asset = JSON.parse(asset.toString());
     if (args[1].toString() == asset.sendTo.toString()) {
@@ -239,17 +257,20 @@ let Chaincode = class {
     );
   }
   
-
+ async recieveFromManu(stub,args){
+  let queryString = '{"selector":{"sendTo":"' + args[0] + '"}}}';
+  return await queryByString(stub,queryString);
+ }
   async acceptRequest(stub, args) {
     let asset = await queryByKey(stub, args[0].toString()); //medicineid
     asset = JSON.parse(asset.toString());
-    if (asset.holder.toString() == args[1].toString()) {
+    
       //id
       asset.requestLogistics = args[2]; //logistists id
       asset.sendTo = asset.requestId;
       asset.requestId = '';
       asset.request = '';
-    }
+    
     // asset.owner = '';
     const buffer = Buffer.from(JSON.stringify(asset));
     await stub.putState(args[0].toString(), buffer);

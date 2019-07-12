@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Delivered | meditrack</title>
+    <title>Pharmacy|meditrack</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -134,15 +134,15 @@
         <div class="row" >
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size:16px">
-                    <li class="active"><a href="#">Incoming Requests <span class="sr-only">(current)</span></a></li>
-                    
-                    <li><a href="stock.html">Stock</a></li>
-                    <li><a href="pending.html">Recieving</a></li>
+                  
+                        <li ><a href="/pharMarequest">Request</a></li>
+                    <li class="active" ><a href="/pharmaStock">Stock</a></li>
+                    <li ><a href="/pharMarequested">Requested</a></li>
                     
                 </ul>
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size: 16px">
                    
-                    <li><a href="Delivered.html">Delivered</a></li>
+                  <li><a href="/history">History of Medicines</a></li>
                     <li><a href="../manufacturer/track.html">Track Medicine</a></li>
                    
                 </ul>
@@ -155,46 +155,40 @@
                         <div class="col-xs-6 col-sm-3 placeholder">
                             <img src="../download.png"
                                 width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                            <h4>D-Id :327587545M</h4>
+                            <h4>P-Id :327587545M</h4>p
                             <span class="text-muted"></span>
                         </div>
                         
                     </div>
-                <h2 class="sub-header">Incoming Requests</h2>
+                <h2 class="sub-header"> Medicines in Stock</h2>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
                             <tr>
+                               
                                 <th>M-ID</th>
                                 <th>Medine name</th>
-                                <th>Requested By</th>
+                                <th>Expiry</th>
+                                <th>Medicine from</th>
                                 
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                          
+                          {{#each data}}
                             <tr>
-                                <td>12345</td>
-                                <td>Paracetemol</td>
-                                <td>20-12-2018</td>
-                                <td>hyderabad</td>
-                                <td><button type="button" class="btn btn-success btn-xs">Accept</button><button type="button" style="margin-left: 5px" class="btn btn-danger btn-xs">Deny</button></td>
-                            </tr>
-                          
+                               
+                                <td>{{this.Key}}</td>
+                                <td>{{this.Record.name}}l</td>
+                                <td>{{this.Record.location}}</td>
+                                <td>{{this.Record.owner}}</td>
+                              
+                                </tr>
+                                {{/each}}
+                                
                            
                         </tbody>
                     </table>
-                    
-                    <script>
-                        function agreeForm() {
-                          document.getElementById("myForm").style.display = "";
-                        }
-                        
-                        function denyForm() {
-                          document.getElementById("myForm").style.display = "none";
-                        }
-                        </script>
+                   
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

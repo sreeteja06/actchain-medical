@@ -135,14 +135,14 @@
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size:16px">
                   
-                        <li ><a href="request.html">Request</a></li>
-                    <li ><a href="pharmacy.html">Stock</a></li>
-                    <li class="active"><a href="#">Requested</a></li>
+                        <li class="active"><a href="#">Request</a></li>
+                    <li ><a href="/pharMaStock">Stock</a></li>
+                    <li ><a href="/pharMarequested">Requested</a></li>
                     
                 </ul>
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size: 16px">
                    
-                    <li><a href="recieved.html">Recieved</a></li>
+                   <li><a href="/history">History of Medicines</a></li>
                     <li><a href="../manufacturer/track.html">Track Medicine</a></li>
                    
                 </ul>
@@ -160,35 +160,23 @@
                         </div>
                         
                     </div>
-                <h2 class="sub-header">Requested Medicines</h2>
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                               
-                                <th>M-ID</th>
-                                <th>Medine name</th>
-                                <th>Expiry</th>
-                               
-                                
-                            </tr>
-                        </thead>
-                        <tbody>
-                          {{#each data}}
-                            <tr>
-                               
-                                <td>{{this.Key}}</td>
-                                <td>{{this.Record.name}}l</td>
-                                <td>{{this.Record.location}}</td>
-                               
-                              
-                                </tr>
-                                {{/each}}
-                                
-                           
-                        </tbody>
-                    </table>
-                   
+                <h2 class="sub-header">Request Medicines</h2>
+                <form action="/sendReq" method="GET" class="text-center" style="color: #757575;display: inline-block">
+
+                          
+                        <!-- Med Id -->
+                        <div class="md-form mt-0">
+                                <label for="materialRegisterFormEmail">Medicinne id</label>
+                            <input type="text" id="medid" name="medid" class="form-control" >
+                            
+                        </div>
+                      <br>
+                      
+                       <input type="submit" value="request">
+                    </form >
+                    <!-- Form -->
+                            <!-- Form -->
+                
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

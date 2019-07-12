@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Pharmacy|meditrack</title>
+    <title>Delivered | meditrack</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -134,15 +134,15 @@
         <div class="row" >
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size:16px">
-                  
-                        <li class="active"><a href="request.html">Request</a></li>
-                    <li ><a href="pharmacy.html">Stock</a></li>
-                    <li ><a href="requested.html">Requested</a></li>
+                    <li ><a href="#">Incoming Requests(Pharmacy) <span class="sr-only">(current)</span></a></li>
+                    
+                    <li><a href="stock.html">Stock</a></li>
+                    <li class="active"><a href="">Recieving(Manufacturer)</a></li>
                     
                 </ul>
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size: 16px">
                    
-                    <li><a href="recieved.html">Recieved</a></li>
+                    <li><a href="Delivered.html">Delivered</a></li>
                     <li><a href="../manufacturer/track.html">Track Medicine</a></li>
                    
                 </ul>
@@ -155,28 +155,38 @@
                         <div class="col-xs-6 col-sm-3 placeholder">
                             <img src="../download.png"
                                 width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                            <h4>P-Id :327587545M</h4>
+                            <h4>D-Id :327587545M</h4>
                             <span class="text-muted"></span>
                         </div>
                         
                     </div>
-                <h2 class="sub-header">Request Medicines</h2>
-                <form action="/sendReq" method="GET" class="text-center" style="color: #757575;display: inline-block">
-
+                <h2 class="sub-header">Incoming Requests</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>M-ID</th>
+                                <th>Medine name</th>
+                                <th>logistics</th>
+                                
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          {{#each data}}
+                            <tr>
+                                <td>{{this.Key}}</td>
+                                <td>{{this.Record.name}}</td>
+                                <td>{{this.Record.requestLogistics}}</td>
+                                
+                                <td><a href="/acceptRes?medid={{this.Key}}&logiId={{this.Record.requestLogistics}}"><button type="button" class="btn btn-success btn-xs">Accept</button></a></td>
+                            </tr>
                           
-                        <!-- Med Id -->
-                        <div class="md-form mt-0">
-                                <label for="materialRegisterFormEmail">Medicinne id</label>
-                            <input type="text" id="medid" name="medid" class="form-control" >
-                            
-                        </div>
-                      <br>
-                      
-                       <input type="submit" value="request">
-                    </form >
-                    <!-- Form -->
-                            <!-- Form -->
-                
+                           {{/each}}
+                        </tbody>
+                    </table>
+                    
+                   
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
