@@ -177,14 +177,44 @@
                                 <td>{{this.Key}}</td>
                                 <td>{{this.Record.name}}</td>
                                 <td>{{this.Record.requestId}}</td>
-                                
-                                <td><a href="/acceptReq?medicineId={{this.Key}}&id={{this.Record.requestId}}"><button type="button" class="btn btn-success btn-xs">Accept</button></a><button type="button" style="margin-left: 5px" class="btn btn-danger btn-xs">Deny</button></td>
+                                 
+                                <td><button type="button" class="btn btn-primary btn-xs" onclick="openform({{this.key}}, {{this.Record.requestId}})">Accept</button>
+                                <button type="button" style="margin-left: 5px" class="btn btn-danger btn-xs">Deny</button></td>
                             </tr>
                           
                            {{/each}}
                         </tbody>
                     </table>
-                    
+
+            <div class="form-popup" id="myForm" style="display: none">
+                <form action="/sendMed" class="form-container">
+                    <h1>Send Medicine</h1>
+            
+                    <label for="email"><b>Medicine ID</b></label>
+                    <input type="text" placeholder="Enter Medicine ID" name="medid" id="medid" value="" required readonly>
+            
+                    <label for="psw"><b>Logistics</b></label>
+                    <input type="text" placeholder="Enter Logistics" name="logi" required>
+            
+                    <label for="psw"><b>Send to</b></label>
+                    <input type="text" placeholder="Enter Distributor/Pharmacy" name="sendto" id="sendto" required readonly>
+            
+                    <button action="/sendMed" type="submit" class="btn" onclick="closeForm()">Send</button>
+                    <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+                </form>
+            </div>
+            <script>
+                function openform( key, sendto ) {
+                    console.log( "done" );
+                    document.getElementById( "medid" ).value = key;
+                    document.getElementById( "sendto" ).value = sendto;
+                    document.getElementById( "myForm" ).style.display = "block";
+                }
+
+                function closeForm() {
+                    document.getElementById( "myForm" ).style.display = "none";
+                }
+            </script>
                    
     <!-- Bootstrap core JavaScript
     ================================================== -->
