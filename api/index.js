@@ -670,8 +670,6 @@ app.get(
     console.log('req query of the request ' + JSON.stringify(req.query));
     args.push(req.query.medicineId);
     const fn = 'queryHistoryForKey';
-    // let username = req.body.username;
-    // let orgName = req.body.orgName;
     console.log(args);
     let message = await query.queryChaincode(
       peers,

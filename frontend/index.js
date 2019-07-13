@@ -41,10 +41,43 @@ app.get('/manufacturer',async function(req,res){
 app.get('/create',function(req,res){
     res.render('create');
 });
-
-app.get('/history',function(req,res){
-  res.render('history');
+app.get('/historyindex',async function(req,res){
+ 
+  res.render('historyindex');
 });
+
+app.get('/history',async function(req,res){
+  let response;
+   console.log(req.query.medicineId);
+    try{
+      response = await axios.get(`http://localhost:3000/getHistory?medicineId=${req.query.medicineId}`);
+    }catch(e){
+      console.log(e);
+      res.sendStatus(500);
+    }
+    console.log(response);
+    res.render('history',{data:response.data} );
+  });
+  
+// app.get('/history',async function(req,res){
+//   let response;
+//   console.log("========================================================================================="+req.body);
+//   if(req.query.medid){
+//   console.log("========================================================================================="+req.query.medid);
+//     let medicineid= req.query.medid;
+//     try{
+//       response = await axios.get(`http://localhost:3000/getHistory?medicineid=014`);
+//     }catch(e){
+//       console.log(e);
+//       res.sendStatus(500);
+//     }
+//     console.log(response);
+//     res.render('history',{data:response.data});
+//   }
+//   else {
+//     res.render('history');
+//   }
+// });
 
 app.get('/',function(req,res){
   res.render('login');
@@ -84,7 +117,7 @@ app.get('/sendMed',async function(req,res){
     try {
       response = await axios.post(
         'http://localhost:3000/sendMedicine',
-        {
+        { medicineId: req.query.medid, medicineId: req.query.medid,
           medicineId: req.query.medid,
           logistics: req.query.logi,
           sendTo: req.query.sendto

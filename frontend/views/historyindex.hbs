@@ -81,41 +81,17 @@
                         <span class="text-muted"></span>
                     </div>
                     
-                </div>                                     
-                   </form><br><br>
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Transaction Id</th>
-                                <th>Time Stamp</th>
-                                
-                                <th>Medine name</th>
-                                <th>expiry</th>
-                                <th>holder</th>   
-                                <th>Send To</th>
-                                 <th>Location</th>    
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each data}}
-                            <tr>
-                                <td>{{this.TxId}}</td>
-                                <td>{{this.Timestamp.seconds.low}}</td>
-                               
-                                <td>{{this.Record.name}}</td>
-                                <td>{{this.Record.expDate}}</td>
-                                <td>{{this.Record.holder}}</td>
-                                 <td>{{this.Record.sendTo}}</td>
-                                <td>{{this.Record.location}}</td>
-                            </tr>
-                            {{/each}}
-                        </tbody>
-                    </table>
                 </div>
-            </div>
-        </div>
-    </div>
+
+                <h2 class="sub-header">Medicine Transaction</h2>
+                <form action="/history" method="GET" ><br>
+                    <label>Medicine Id</label>
+                    <input name="medicineId"id="medicineId" type="text">
+                    <input type="submit">
+                  
+                   
+                   </form><br><br>
+               
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
