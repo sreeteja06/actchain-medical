@@ -154,6 +154,16 @@ Orderer: &OrdererDefaults
 
   Organizations:
 
+Capabilities:
+  Channel: &ChannelCapabilities
+    V1_3: true
+  Orderer: &OrdererCapabilities
+    V1_1: true
+  Application: &ApplicationCapabilities
+    V1_3: true
+    V1_2: false
+    V1_1: false
+
 Application: &ApplicationDefaults
 
   Organizations:
@@ -165,6 +175,8 @@ Profiles:
       <<: *OrdererDefaults
       Organizations:
         - *OrdererOrg
+      Capabilities:
+        <<: *OrdererCapabilities
     Consortiums:
       ComposerConsortium:
         Organizations:
@@ -190,3 +202,5 @@ Profiles:
           - *pharmdeal
           - *apollo
           - *medplus
+      Capabilities:
+          <<: *ApplicationCapabilities

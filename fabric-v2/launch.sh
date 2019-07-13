@@ -39,6 +39,17 @@ docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@medplus
 docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@medplus.meditrack.com/msp" peer1.medplus.meditrack.com peer channel join -b /etc/hyperledger/configtx/ourchannel.block
 }
 
+function update_anchorPeers(){
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@cipla.meditrack.com/msp" peer0.cipla.meditrack.com peer channel update -f /etc/hyperledger/configtx/ciplaMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@drreddy.meditrack.com/msp" peer0.drreddy.meditrack.com peer channel update -f /etc/hyperledger/configtx/drreddyMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@dtdc.meditrack.com/msp" peer0.dtdc.meditrack.com peer channel update -f /etc/hyperledger/configtx/dtdcMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@bluedart.meditrack.com/msp" peer0.bluedart.meditrack.com peer channel update -f /etc/hyperledger/configtx/bluedartMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@emcure.meditrack.com/msp" peer0.emcure.meditrack.com peer channel update -f /etc/hyperledger/configtx/emcureMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@pharmdeal.meditrack.com/msp" peer0.pharmdeal.meditrack.com peer channel update -f /etc/hyperledger/configtx/pharmdealMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@apollo.meditrack.com/msp" peer0.apollo.meditrack.com peer channel update -f /etc/hyperledger/configtx/apolloMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@medplus.meditrack.com/msp" peer0.medplus.meditrack.com peer channel update -f /etc/hyperledger/configtx/medplusMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
+}
+
 function clean_it() {
 docker rm -f $(docker ps -a -q)
 rm -rf crypto-config/*
@@ -54,3 +65,16 @@ gen_needed
 start_network
 sleep 20
 join_channel
+update_anchorPeers
+
+function install_chaincode(){
+    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@cipla.meditrack.com/msp" peer0.cipla.meditrack.com peer chaincode install -l node -n test1 -p /etc/hyperledger/chaincode/ -v v0
+}
+
+function instantiate_chaincode(){
+    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@cipla.meditrack.com/msp" peer0.cipla.meditrack.com peer chaincode instantiate -l node -o orderer.meditrack.com:7050 -C ourchannel -n test1 -v v0 -c '{"Args":["init"]}'
+}
+
+function query_chaincode(){
+    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@cipla.meditrack.com/msp" peer0.cipla.meditrack.com peer chaincode query -C ourchannel -n test1 -c '{"Args":["getChannelID"]}'
+}
