@@ -1,11 +1,11 @@
-const { Peer } = require('fabric-client');
+/*
+ *     _____________  ___  
+      / ___/ ___/ _ \/ _ \ 
+     (__  ) /  /  __/  __/ 
+    /____/_/   \___/\___  
+ * File Created: Friday, 12th July 2019 9:36:26 pm
+ * Author: SreeTeja06 (sreeteja.muthyala@gmail.com)
 
-// let orgName = 'manu';
-// username = 'M001';
-
-// let config = '../config/connectionProfile.yaml';
-// let client = hfc.loadFromConfig(config);
-
-// console.log(client)
-let peer = new Peer("grpc://0.0.0.0:7051");
-console.log(peer.getName())
+ * All shall be well and all shall be well and all manner of things shall be well.
+ * Nope...we're doomed!
+ */

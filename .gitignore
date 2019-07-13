@@ -10,3 +10,5 @@ frontend/package-lock.json
 /fabric/newOrg/crypto-config
 chaincode/package-lock.json
 chaincode/npm-install-27776.sh
+/fabric-v2/crypto-config
+/fabric-v2/channel-artifacts

@@ -1,0 +1,81 @@
+OrdererOrgs:
+
+  - Name: Orderer
+    Domain: meditrack.com
+
+    Specs:
+      - Hostname: orderer
+
+PeerOrgs:
+
+  - Name: cipla
+    Domain: cipla.meditrack.com
+
+    Template:
+      Count: 2
+
+    Users:
+      Count: 3
+
+  - Name: drreddy
+    Domain: drreddy.meditrack.com
+
+    Template:
+      Count: 2
+
+    Users:
+      Count: 3
+
+  - Name: dtdc
+    Domain: dtdc.meditrack.com
+
+    Template:
+      Count: 2
+
+    Users:
+      Count: 3
+
+  - Name: bluedart
+    Domain: bluedart.meditrack.com
+
+    Template:
+      Count: 2
+
+    Users:
+      Count: 3
+
+  - Name: emcure
+    Domain: emcure.meditrack.com
+
+    Template:
+      Count: 2
+
+    Users:
+      Count: 3
+
+  - Name: pharmdeal
+    Domain: pharmdeal.meditrack.com
+
+    Template:
+      Count: 2
+
+    Users:
+      Count: 3
+
+  - Name: apollo
+    Domain: apollo.meditrack.com
+
+    Template:
+      Count: 2
+
+    Users:
+      Count: 3
+
+  - Name: medplus
+    Domain: medplus.meditrack.com
+
+    Template:
+      Count: 2
+
+    Users:
+      Count: 3

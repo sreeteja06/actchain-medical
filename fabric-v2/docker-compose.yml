@@ -1,0 +1,909 @@
+version: '2'
+
+networks:
+  meditrack:
+
+services:
+
+  orderer.meditrack.com:
+    container_name: orderer.meditrack.com
+    image: hyperledger/fabric-orderer:latest
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: orderer
+    environment:
+      - CONFIGTX_ORDERER_ORDERERTYPE=kafka
+      - CONFIGTX_ORDERER_KAFKA_BROKERS=[kafka0:9092,kafka1:9092,kafka2:9092,kafka3:9092]
+      - ORDERER_KAFKA_RETRY_SHORTINTERVAL=1s
+      - ORDERER_KAFKA_RETRY_SHORTTOTAL=30s
+      - ORDERER_KAFKA_VERBOSE=true
+      - ORDERER_GENERAL_LOGLEVEL=debug
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_GENESISMETHOD=file
+      - ORDERER_GENERAL_GENESISFILE=/etc/hyperledger/configtx/genesis.block
+      - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+      - ORDERER_GENERAL_LOCALMSPDIR=/etc/hyperledger/msp/orderer/msp
+    ports:
+      - 7050:7050
+    volumes:
+      - ./channel-artifacts:/etc/hyperledger/configtx
+      - ./crypto-config/ordererOrganizations/meditrack.com/orderers/orderer.meditrack.com/msp:/etc/hyperledger/msp/orderer/msp
+    depends_on:
+      - kafka0
+      - kafka1
+      - kafka2
+      - kafka3
+    networks:
+      - meditrack
+
+  kafka0:
+    container_name: kafka0
+    extends:
+        file: docker-compose-base.yml
+        service: kafka
+    environment:
+      - KAFKA_BROKER_ID=0
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
+      - KAFKA_MESSAGE_MAX_BYTES=103809024
+      - KAFKA_REPLICA_FETCH_MAX_BYTES=103809024
+      - KAFKA_REPLICA_FETCH_RESPONSE_MAX_BYTES=103809024
+    depends_on:
+      - zookeeper0
+      - zookeeper1
+      - zookeeper2
+    networks:
+      - meditrack
+
+  kafka1:
+    container_name: kafka1
+    extends:
+        file: docker-compose-base.yml
+        service: kafka
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
+      - KAFKA_MESSAGE_MAX_BYTES=103809024
+      - KAFKA_REPLICA_FETCH_MAX_BYTES=103809024
+      - KAFKA_REPLICA_FETCH_RESPONSE_MAX_BYTES=103809024
+    depends_on:
+      - zookeeper0
+      - zookeeper1
+      - zookeeper2
+    networks:
+      - meditrack
+
+  kafka2:
+    container_name: kafka2
+    extends:
+        file: docker-compose-base.yml
+        service: kafka
+    environment:
+      - KAFKA_BROKER_ID=2
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
+      - KAFKA_MESSAGE_MAX_BYTES=103809024
+      - KAFKA_REPLICA_FETCH_MAX_BYTES=103809024
+      - KAFKA_REPLICA_FETCH_RESPONSE_MAX_BYTES=103809024
+    depends_on:
+      - zookeeper0
+      - zookeeper1
+      - zookeeper2
+    networks:
+      - meditrack
+
+  kafka3:
+    container_name: kafka3
+    extends:
+        file: docker-compose-base.yml
+        service: kafka
+    environment:
+      - KAFKA_BROKER_ID=3
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
+      - KAFKA_MESSAGE_MAX_BYTES=103809024
+      - KAFKA_REPLICA_FETCH_MAX_BYTES=103809024
+      - KAFKA_REPLICA_FETCH_RESPONSE_MAX_BYTES=103809024
+    depends_on:
+      - zookeeper0
+      - zookeeper1
+      - zookeeper2
+    networks:
+      - meditrack
+
+  zookeeper0:
+    container_name: zookeeper0
+    extends:
+        file: docker-compose-base.yml
+        service: zookeeper
+    environment:
+      - ZOO_MY_ID=1
+      - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888
+    networks:
+      - meditrack
+
+  zookeeper1:
+    container_name: zookeeper1
+    extends:
+        file: docker-compose-base.yml
+        service: zookeeper
+    environment:
+      - ZOO_MY_ID=2
+      - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888
+    networks:
+      - meditrack
+
+  zookeeper2:
+    container_name: zookeeper2
+    extends:
+        file: docker-compose-base.yml
+        service: zookeeper
+    environment:
+      - ZOO_MY_ID=3
+      - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888
+    networks:
+      - meditrack
+
+  ca.cipla.meditrack.com:
+    image: hyperledger/fabric-ca:latest
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca.cipla.meditrack.com
+    ports:
+      - "7054:7054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.cipla.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/cipla.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.cipla.meditrack.com
+    networks:
+      - meditrack
+
+  peer0.cipla.meditrack.com:
+    container_name: peer0.cipla.meditrack.com
+    image: hyperledger/fabric-peer:latest
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: peer node start
+    environment:
+      - FABRIC_LOGGING_SPEC=info
+      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
+      - CORE_CHAINCODE_LOGGING_SHIM=debug
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_PEER_ID=peer0.cipla.meditrack.com
+      - CORE_PEER_ADDRESS=peer0.cipla.meditrack.com:7051
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_meditrack
+      - CORE_PEER_LOCALMSPID=ciplaMSP
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb0:5984
+    ports:
+      - 7051:7051
+      - 7053:7053
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./channel-artifacts:/etc/hyperledger/configtx
+      - ./crypto-config/peerOrganizations/cipla.meditrack.com/peers/peer0.cipla.meditrack.com/msp:/etc/hyperledger/peer/msp
+      - ./crypto-config/peerOrganizations/cipla.meditrack.com/users:/etc/hyperledger/msp/users
+    depends_on:
+      - orderer.meditrack.com
+      - couchdb0
+    networks:
+      - meditrack
+
+  couchdb0:
+    container_name: couchdb0
+    image: hyperledger/fabric-couchdb:latest
+    ports:
+      - 5984:5984
+    environment:
+      DB_URL: http://localhost:5984/member_db
+    networks:
+      - meditrack
+
+  peer1.cipla.meditrack.com:
+    container_name: peer1.cipla.meditrack.com
+    image: hyperledger/fabric-peer:latest
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: peer node start
+    environment:
+      - FABRIC_LOGGING_SPEC=info
+      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
+      - CORE_CHAINCODE_LOGGING_SHIM=debug
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_PEER_ID=peer1.cipla.meditrack.com
+      - CORE_PEER_ADDRESS=peer1.cipla.meditrack.com:7051
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_meditrack
+      - CORE_PEER_LOCALMSPID=ciplaMSP
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb1:5984
+    ports:
+      - 8051:7051
+      - 8053:7053
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./channel-artifacts:/etc/hyperledger/configtx
+      - ./crypto-config/peerOrganizations/cipla.meditrack.com/peers/peer1.cipla.meditrack.com/msp:/etc/hyperledger/peer/msp
+      - ./crypto-config/peerOrganizations/cipla.meditrack.com/users:/etc/hyperledger/msp/users
+    depends_on:
+      - orderer.meditrack.com
+      - couchdb1
+    networks:
+      - meditrack
+
+  couchdb1:
+    container_name: couchdb1
+    image: hyperledger/fabric-couchdb:latest
+    ports:
+      - 6984:5984
+    environment:
+      DB_URL: http://localhost:6984/member_db
+    networks:
+      - meditrack
+
+  ca.drreddy.meditrack.com:
+    image: hyperledger/fabric-ca:latest
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca.drreddy.meditrack.com
+    ports:
+      - "8054:7054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.drreddy.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/drreddy.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.drreddy.meditrack.com
+    networks:
+      - meditrack
+
+  peer0.drreddy.meditrack.com:
+    container_name: peer0.drreddy.meditrack.com
+    image: hyperledger/fabric-peer:latest
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: peer node start
+    environment:
+      - FABRIC_LOGGING_SPEC=info
+      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
+      - CORE_CHAINCODE_LOGGING_SHIM=debug
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_PEER_ID=peer0.drreddy.meditrack.com
+      - CORE_PEER_ADDRESS=peer0.drreddy.meditrack.com:7051
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_meditrack
+      - CORE_PEER_LOCALMSPID=drreddyMSP
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb2:5984
+    ports:
+      - 9051:7051
+      - 9053:7053
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./channel-artifacts:/etc/hyperledger/configtx
+      - ./crypto-config/peerOrganizations/drreddy.meditrack.com/peers/peer0.drreddy.meditrack.com/msp:/etc/hyperledger/peer/msp
+      - ./crypto-config/peerOrganizations/drreddy.meditrack.com/users:/etc/hyperledger/msp/users
+    depends_on:
+      - orderer.meditrack.com
+      - couchdb2
+    networks:
+      - meditrack
+
+  couchdb2:
+    container_name: couchdb2
+    image: hyperledger/fabric-couchdb:latest
+    ports:
+      - 7984:5984
+    environment:
+      DB_URL: http://localhost:7984/member_db
+    networks:
+      - meditrack
+
+  peer1.drreddy.meditrack.com:
+    container_name: peer1.drreddy.meditrack.com
+    image: hyperledger/fabric-peer:latest
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: peer node start
+    environment:
+      - FABRIC_LOGGING_SPEC=info
+      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
+      - CORE_CHAINCODE_LOGGING_SHIM=debug
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_PEER_ID=peer1.drreddy.meditrack.com
+      - CORE_PEER_ADDRESS=peer1.drreddy.meditrack.com:7051
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_meditrack
+      - CORE_PEER_LOCALMSPID=drreddyMSP
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb3:5984
+    ports:
+      - 10051:7051
+      - 10053:7053
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./channel-artifacts:/etc/hyperledger/configtx
+      - ./crypto-config/peerOrganizations/drreddy.meditrack.com/peers/peer1.drreddy.meditrack.com/msp:/etc/hyperledger/peer/msp
+      - ./crypto-config/peerOrganizations/drreddy.meditrack.com/users:/etc/hyperledger/msp/users
+    depends_on:
+      - orderer.meditrack.com
+      - couchdb3
+    networks:
+      - meditrack
+
+  couchdb3:
+    container_name: couchdb3
+    image: hyperledger/fabric-couchdb:latest
+    ports:
+      - 8984:5984
+    environment:
+      DB_URL: http://localhost:8984/member_db
+    networks:
+      - meditrack
+
+  ca.dtdc.meditrack.com:
+    image: hyperledger/fabric-ca:latest
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca.dtdc.meditrack.com
+    ports:
+      - "9054:7054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.dtdc.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/dtdc.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.dtdc.meditrack.com
+    networks:
+      - meditrack
+
+  peer0.dtdc.meditrack.com:
+    container_name: peer0.dtdc.meditrack.com
+    image: hyperledger/fabric-peer:latest
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: peer node start
+    environment:
+      - FABRIC_LOGGING_SPEC=info
+      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
+      - CORE_CHAINCODE_LOGGING_SHIM=debug
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_PEER_ID=peer0.dtdc.meditrack.com
+      - CORE_PEER_ADDRESS=peer0.dtdc.meditrack.com:7051
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_meditrack
+      - CORE_PEER_LOCALMSPID=dtdcMSP
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb4:5984
+    ports:
+      - 11051:7051
+      - 11053:7053
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./channel-artifacts:/etc/hyperledger/configtx
+      - ./crypto-config/peerOrganizations/dtdc.meditrack.com/peers/peer0.dtdc.meditrack.com/msp:/etc/hyperledger/peer/msp
+      - ./crypto-config/peerOrganizations/dtdc.meditrack.com/users:/etc/hyperledger/msp/users
+    depends_on:
+      - orderer.meditrack.com
+      - couchdb4
+    networks:
+      - meditrack
+
+  couchdb4:
+    container_name: couchdb4
+    image: hyperledger/fabric-couchdb:latest
+    ports:
+      - 9984:5984
+    environment:
+      DB_URL: http://localhost:9984/member_db
+    networks:
+      - meditrack
+
+  peer1.dtdc.meditrack.com:
+    container_name: peer1.dtdc.meditrack.com
+    image: hyperledger/fabric-peer:latest
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: peer node start
+    environment:
+      - FABRIC_LOGGING_SPEC=info
+      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
+      - CORE_CHAINCODE_LOGGING_SHIM=debug
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_PEER_ID=peer1.dtdc.meditrack.com
+      - CORE_PEER_ADDRESS=peer1.dtdc.meditrack.com:7051
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_meditrack
+      - CORE_PEER_LOCALMSPID=dtdcMSP
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb5:5984
+    ports:
+      - 12051:7051
+      - 12053:7053
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./channel-artifacts:/etc/hyperledger/configtx
+      - ./crypto-config/peerOrganizations/dtdc.meditrack.com/peers/peer1.dtdc.meditrack.com/msp:/etc/hyperledger/peer/msp
+      - ./crypto-config/peerOrganizations/dtdc.meditrack.com/users:/etc/hyperledger/msp/users
+    depends_on:
+      - orderer.meditrack.com
+      - couchdb5
+    networks:
+      - meditrack
+
+  couchdb5:
+    container_name: couchdb5
+    image: hyperledger/fabric-couchdb:latest
+    ports:
+      - 10984:5984
+    environment:
+      DB_URL: http://localhost:10984/member_db
+    networks:
+      - meditrack
+
+  ca.bluedart.meditrack.com:
+    image: hyperledger/fabric-ca:latest
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca.bluedart.meditrack.com
+    ports:
+      - "10054:7054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.bluedart.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/bluedart.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.bluedart.meditrack.com
+    networks:
+      - meditrack
+
+  peer0.bluedart.meditrack.com:
+    container_name: peer0.bluedart.meditrack.com
+    image: hyperledger/fabric-peer:latest
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: peer node start
+    environment:
+      - FABRIC_LOGGING_SPEC=info
+      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
+      - CORE_CHAINCODE_LOGGING_SHIM=debug
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_PEER_ID=peer0.bluedart.meditrack.com
+      - CORE_PEER_ADDRESS=peer0.bluedart.meditrack.com:7051
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_meditrack
+      - CORE_PEER_LOCALMSPID=bluedartMSP
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb6:5984
+    ports:
+      - 13051:7051
+      - 13053:7053
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./channel-artifacts:/etc/hyperledger/configtx
+      - ./crypto-config/peerOrganizations/bluedart.meditrack.com/peers/peer0.bluedart.meditrack.com/msp:/etc/hyperledger/peer/msp
+      - ./crypto-config/peerOrganizations/bluedart.meditrack.com/users:/etc/hyperledger/msp/users
+    depends_on:
+      - orderer.meditrack.com
+      - couchdb6
+    networks:
+      - meditrack
+
+  couchdb6:
+    container_name: couchdb6
+    image: hyperledger/fabric-couchdb:latest
+    ports:
+      - 11984:5984
+    environment:
+      DB_URL: http://localhost:11984/member_db
+    networks:
+      - meditrack
+
+  peer1.bluedart.meditrack.com:
+    container_name: peer1.bluedart.meditrack.com
+    image: hyperledger/fabric-peer:latest
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: peer node start
+    environment:
+      - FABRIC_LOGGING_SPEC=info
+      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
+      - CORE_CHAINCODE_LOGGING_SHIM=debug
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_PEER_ID=peer1.bluedart.meditrack.com
+      - CORE_PEER_ADDRESS=peer1.bluedart.meditrack.com:7051
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_meditrack
+      - CORE_PEER_LOCALMSPID=bluedartMSP
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb7:5984
+    ports:
+      - 14051:7051
+      - 14053:7053
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./channel-artifacts:/etc/hyperledger/configtx
+      - ./crypto-config/peerOrganizations/bluedart.meditrack.com/peers/peer1.bluedart.meditrack.com/msp:/etc/hyperledger/peer/msp
+      - ./crypto-config/peerOrganizations/bluedart.meditrack.com/users:/etc/hyperledger/msp/users
+    depends_on:
+      - orderer.meditrack.com
+      - couchdb7
+    networks:
+      - meditrack
+
+  couchdb7:
+    container_name: couchdb7
+    image: hyperledger/fabric-couchdb:latest
+    ports:
+      - 12984:5984
+    environment:
+      DB_URL: http://localhost:12984/member_db
+    networks:
+      - meditrack
+
+  ca.emcure.meditrack.com:
+    image: hyperledger/fabric-ca:latest
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca.emcure.meditrack.com
+    ports:
+      - "11054:7054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.emcure.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/emcure.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.emcure.meditrack.com
+    networks:
+      - meditrack
+
+  peer0.emcure.meditrack.com:
+    container_name: peer0.emcure.meditrack.com
+    image: hyperledger/fabric-peer:latest
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: peer node start
+    environment:
+      - FABRIC_LOGGING_SPEC=info
+      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
+      - CORE_CHAINCODE_LOGGING_SHIM=debug
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_PEER_ID=peer0.emcure.meditrack.com
+      - CORE_PEER_ADDRESS=peer0.emcure.meditrack.com:7051
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_meditrack
+      - CORE_PEER_LOCALMSPID=emcureMSP
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb8:5984
+    ports:
+      - 15051:7051
+      - 15053:7053
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./channel-artifacts:/etc/hyperledger/configtx
+      - ./crypto-config/peerOrganizations/emcure.meditrack.com/peers/peer0.emcure.meditrack.com/msp:/etc/hyperledger/peer/msp
+      - ./crypto-config/peerOrganizations/emcure.meditrack.com/users:/etc/hyperledger/msp/users
+    depends_on:
+      - orderer.meditrack.com
+      - couchdb8
+    networks:
+      - meditrack
+
+  couchdb8:
+    container_name: couchdb8
+    image: hyperledger/fabric-couchdb:latest
+    ports:
+      - 13984:5984
+    environment:
+      DB_URL: http://localhost:13984/member_db
+    networks:
+      - meditrack
+
+  peer1.emcure.meditrack.com:
+    container_name: peer1.emcure.meditrack.com
+    image: hyperledger/fabric-peer:latest
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: peer node start
+    environment:
+      - FABRIC_LOGGING_SPEC=info
+      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
+      - CORE_CHAINCODE_LOGGING_SHIM=debug
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_PEER_ID=peer1.emcure.meditrack.com
+      - CORE_PEER_ADDRESS=peer1.emcure.meditrack.com:7051
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_meditrack
+      - CORE_PEER_LOCALMSPID=emcureMSP
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb9:5984
+    ports:
+      - 16051:7051
+      - 16053:7053
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./channel-artifacts:/etc/hyperledger/configtx
+      - ./crypto-config/peerOrganizations/emcure.meditrack.com/peers/peer1.emcure.meditrack.com/msp:/etc/hyperledger/peer/msp
+      - ./crypto-config/peerOrganizations/emcure.meditrack.com/users:/etc/hyperledger/msp/users
+    depends_on:
+      - orderer.meditrack.com
+      - couchdb9
+    networks:
+      - meditrack
+
+  couchdb9:
+    container_name: couchdb9
+    image: hyperledger/fabric-couchdb:latest
+    ports:
+      - 14984:5984
+    environment:
+      DB_URL: http://localhost:14984/member_db
+    networks:
+      - meditrack
+
+  ca.pharmdeal.meditrack.com:
+    image: hyperledger/fabric-ca:latest
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca.pharmdeal.meditrack.com
+    ports:
+      - "12054:7054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.pharmdeal.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/pharmdeal.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.pharmdeal.meditrack.com
+    networks:
+      - meditrack
+
+  peer0.pharmdeal.meditrack.com:
+    container_name: peer0.pharmdeal.meditrack.com
+    image: hyperledger/fabric-peer:latest
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: peer node start
+    environment:
+      - FABRIC_LOGGING_SPEC=info
+      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
+      - CORE_CHAINCODE_LOGGING_SHIM=debug
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_PEER_ID=peer0.pharmdeal.meditrack.com
+      - CORE_PEER_ADDRESS=peer0.pharmdeal.meditrack.com:7051
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_meditrack
+      - CORE_PEER_LOCALMSPID=pharmdealMSP
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb10:5984
+    ports:
+      - 17051:7051
+      - 17053:7053
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./channel-artifacts:/etc/hyperledger/configtx
+      - ./crypto-config/peerOrganizations/pharmdeal.meditrack.com/peers/peer0.pharmdeal.meditrack.com/msp:/etc/hyperledger/peer/msp
+      - ./crypto-config/peerOrganizations/pharmdeal.meditrack.com/users:/etc/hyperledger/msp/users
+    depends_on:
+      - orderer.meditrack.com
+      - couchdb10
+    networks:
+      - meditrack
+
+  couchdb10:
+    container_name: couchdb10
+    image: hyperledger/fabric-couchdb:latest
+    ports:
+      - 15984:5984
+    environment:
+      DB_URL: http://localhost:15984/member_db
+    networks:
+      - meditrack
+
+  peer1.pharmdeal.meditrack.com:
+    container_name: peer1.pharmdeal.meditrack.com
+    image: hyperledger/fabric-peer:latest
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: peer node start
+    environment:
+      - FABRIC_LOGGING_SPEC=info
+      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
+      - CORE_CHAINCODE_LOGGING_SHIM=debug
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_PEER_ID=peer1.pharmdeal.meditrack.com
+      - CORE_PEER_ADDRESS=peer1.pharmdeal.meditrack.com:7051
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_meditrack
+      - CORE_PEER_LOCALMSPID=pharmdealMSP
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb11:5984
+    ports:
+      - 18051:7051
+      - 18053:7053
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./channel-artifacts:/etc/hyperledger/configtx
+      - ./crypto-config/peerOrganizations/pharmdeal.meditrack.com/peers/peer1.pharmdeal.meditrack.com/msp:/etc/hyperledger/peer/msp
+      - ./crypto-config/peerOrganizations/pharmdeal.meditrack.com/users:/etc/hyperledger/msp/users
+    depends_on:
+      - orderer.meditrack.com
+      - couchdb11
+    networks:
+      - meditrack
+
+  couchdb11:
+    container_name: couchdb11
+    image: hyperledger/fabric-couchdb:latest
+    ports:
+      - 16984:5984
+    environment:
+      DB_URL: http://localhost:16984/member_db
+    networks:
+      - meditrack
+
+  ca.apollo.meditrack.com:
+    image: hyperledger/fabric-ca:latest
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca.apollo.meditrack.com
+    ports:
+      - "13054:7054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.apollo.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/apollo.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.apollo.meditrack.com
+    networks:
+      - meditrack
+
+  peer0.apollo.meditrack.com:
+    container_name: peer0.apollo.meditrack.com
+    image: hyperledger/fabric-peer:latest
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: peer node start
+    environment:
+      - FABRIC_LOGGING_SPEC=info
+      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
+      - CORE_CHAINCODE_LOGGING_SHIM=debug
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_PEER_ID=peer0.apollo.meditrack.com
+      - CORE_PEER_ADDRESS=peer0.apollo.meditrack.com:7051
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_meditrack
+      - CORE_PEER_LOCALMSPID=apolloMSP
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb12:5984
+    ports:
+      - 19051:7051
+      - 19053:7053
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./channel-artifacts:/etc/hyperledger/configtx
+      - ./crypto-config/peerOrganizations/apollo.meditrack.com/peers/peer0.apollo.meditrack.com/msp:/etc/hyperledger/peer/msp
+      - ./crypto-config/peerOrganizations/apollo.meditrack.com/users:/etc/hyperledger/msp/users
+    depends_on:
+      - orderer.meditrack.com
+      - couchdb12
+    networks:
+      - meditrack
+
+  couchdb12:
+    container_name: couchdb12
+    image: hyperledger/fabric-couchdb:latest
+    ports:
+      - 17984:5984
+    environment:
+      DB_URL: http://localhost:17984/member_db
+    networks:
+      - meditrack
+
+  peer1.apollo.meditrack.com:
+    container_name: peer1.apollo.meditrack.com
+    image: hyperledger/fabric-peer:latest
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: peer node start
+    environment:
+      - FABRIC_LOGGING_SPEC=info
+      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
+      - CORE_CHAINCODE_LOGGING_SHIM=debug
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_PEER_ID=peer1.apollo.meditrack.com
+      - CORE_PEER_ADDRESS=peer1.apollo.meditrack.com:7051
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_meditrack
+      - CORE_PEER_LOCALMSPID=apolloMSP
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb13:5984
+    ports:
+      - 20051:7051
+      - 20053:7053
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./channel-artifacts:/etc/hyperledger/configtx
+      - ./crypto-config/peerOrganizations/apollo.meditrack.com/peers/peer1.apollo.meditrack.com/msp:/etc/hyperledger/peer/msp
+      - ./crypto-config/peerOrganizations/apollo.meditrack.com/users:/etc/hyperledger/msp/users
+    depends_on:
+      - orderer.meditrack.com
+      - couchdb13
+    networks:
+      - meditrack
+
+  couchdb13:
+    container_name: couchdb13
+    image: hyperledger/fabric-couchdb:latest
+    ports:
+      - 18984:5984
+    environment:
+      DB_URL: http://localhost:18984/member_db
+    networks:
+      - meditrack
+
+  ca.medplus.meditrack.com:
+    image: hyperledger/fabric-ca:latest
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca.medplus.meditrack.com
+    ports:
+      - "14054:7054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.medplus.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/medplus.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.medplus.meditrack.com
+    networks:
+      - meditrack
+
+  peer0.medplus.meditrack.com:
+    container_name: peer0.medplus.meditrack.com
+    image: hyperledger/fabric-peer:latest
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: peer node start
+    environment:
+      - FABRIC_LOGGING_SPEC=info
+      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
+      - CORE_CHAINCODE_LOGGING_SHIM=debug
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_PEER_ID=peer0.medplus.meditrack.com
+      - CORE_PEER_ADDRESS=peer0.medplus.meditrack.com:7051
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_meditrack
+      - CORE_PEER_LOCALMSPID=medplusMSP
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb14:5984
+    ports:
+      - 21051:7051
+      - 21053:7053
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./channel-artifacts:/etc/hyperledger/configtx
+      - ./crypto-config/peerOrganizations/medplus.meditrack.com/peers/peer0.medplus.meditrack.com/msp:/etc/hyperledger/peer/msp
+      - ./crypto-config/peerOrganizations/medplus.meditrack.com/users:/etc/hyperledger/msp/users
+    depends_on:
+      - orderer.meditrack.com
+      - couchdb14
+    networks:
+      - meditrack
+
+  couchdb14:
+    container_name: couchdb14
+    image: hyperledger/fabric-couchdb:latest
+    ports:
+      - 19984:5984
+    environment:
+      DB_URL: http://localhost:19984/member_db
+    networks:
+      - meditrack
+
+  peer1.medplus.meditrack.com:
+    container_name: peer1.medplus.meditrack.com
+    image: hyperledger/fabric-peer:latest
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: peer node start
+    environment:
+      - FABRIC_LOGGING_SPEC=info
+      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
+      - CORE_CHAINCODE_LOGGING_SHIM=debug
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_PEER_ID=peer1.medplus.meditrack.com
+      - CORE_PEER_ADDRESS=peer1.medplus.meditrack.com:7051
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_meditrack
+      - CORE_PEER_LOCALMSPID=medplusMSP
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb15:5984
+    ports:
+      - 22051:7051
+      - 22053:7053
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./channel-artifacts:/etc/hyperledger/configtx
+      - ./crypto-config/peerOrganizations/medplus.meditrack.com/peers/peer1.medplus.meditrack.com/msp:/etc/hyperledger/peer/msp
+      - ./crypto-config/peerOrganizations/medplus.meditrack.com/users:/etc/hyperledger/msp/users
+    depends_on:
+      - orderer.meditrack.com
+      - couchdb15
+    networks:
+      - meditrack
+
+  couchdb15:
+    container_name: couchdb15
+    image: hyperledger/fabric-couchdb:latest
+    ports:
+      - 20984:5984
+    environment:
+      DB_URL: http://localhost:20984/member_db
+    networks:
+      - meditrack
