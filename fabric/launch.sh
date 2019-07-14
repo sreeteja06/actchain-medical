@@ -59,7 +59,7 @@ function instantiate_chaincode(){
 }
 
 function queryChaincode(){
-    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@manu.meditrack.com/msp" peer0.manu.meditrack.com peer chaincode query -C ourchannel -n exam6 -c '{"Args":["getChannelID"]}'
+    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@manu.meditrack.com/msp" peer0.manu.meditrack.com peer chaincode query -C ourchannel -n exam8 -c '{"Args":["getChannelID"]}'
     docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@phar.meditrack.com/msp" peer0.phar.meditrack.com peer chaincode query -C ourchannel -n exam6 -c '{"Args":["getChannelID"]}'
 
 }
