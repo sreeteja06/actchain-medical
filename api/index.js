@@ -14,8 +14,8 @@ var blockListener = require('./helpers/blocklistener');
 
 hfc.addConfigFile('./config/config.json');
 var host = 'localhost';
-var username = 'M002';
-var orgName = 'manu';
+var username = ''//'M002';
+var orgName = ''//'manu';
 var channelName = hfc.getConfigSetting('channelName');
 var chaincodeName = hfc.getConfigSetting('chaincodeName');
 var peers = hfc.getConfigSetting('peers');
@@ -150,6 +150,8 @@ app.post(
   '/createMedicine',
   awaitHandler(async (req, res) => {
     let args = [];
+    username = req.body.username;
+    orgName = req.body.orgName;
     args.push(req.body.medicineId);
     args.push(req.body.name);
     args.push(req.body.username);
@@ -182,6 +184,8 @@ app.post(
 app.get(
   '/medicineInfo',
   awaitHandler(async (req, res) => {
+    username = req.query.username;
+    orgName = req.query.orgName;
     let args = [];
     console.log('req query of the request ' + JSON.stringify(req.query));
     args.push(req.query.medicineId);
@@ -202,6 +206,8 @@ app.get(
 app.get(
   '/getMedicinesByOwner',
   awaitHandler(async (req, res) => {
+    username = req.query.username;
+    orgName = req.query.orgName;
     let args = [];
     console.log('req query of the request ' + JSON.stringify(req.query));
     args.push(req.query.id);
@@ -225,6 +231,8 @@ app.get(
 app.get(
   '/getMedicinesByHolder',
   awaitHandler(async (req, res) => {
+    username = req.query.username;
+    orgName = req.query.orgName;
     let args = [];
     console.log('req query of the request ' + JSON.stringify(req.query));
     args.push(req.query.id);
@@ -248,6 +256,8 @@ app.get(
 app.post(
   '/logisticsAcceptMedicine',
   awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
     let args = [];
     console.log('req query of the request ' + JSON.stringify(req.body));
     args.push(req.body.medid);
@@ -269,6 +279,8 @@ app.post(
 app.post(
   '/FinalAcceptMedicine',
   awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
     let args = [];
     console.log('req query of the request ' + JSON.stringify(req.body));
     args.push(req.body.medid);
@@ -290,6 +302,8 @@ app.post(
 app.post(
   '/updateLocation',
   awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
     let args = [];
     args.push(req.body.medicineId);
     args.push(req.body.location);
@@ -315,6 +329,8 @@ app.post(
 app.post(
   '/sendMedicine',
   awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
     let args = [];
     args.push(req.body.medicineId);
     args.push(req.body.logistics);
@@ -341,6 +357,8 @@ app.post(
 app.get(
   '/getRecievedMedicines',
   awaitHandler(async (req, res) => {
+    username = req.query.username;
+    orgName = req.query.orgName;
     let args = [];
     console.log('req query of the request ' + JSON.stringify(req.query));
     args.push(req.query.id);
@@ -363,6 +381,8 @@ app.get(
 app.post(
   '/acceptMedicine',
   awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
     let args = [];
     args.push(req.body.medicineId);
     args.push(req.body.id);
@@ -388,6 +408,8 @@ app.post(
 app.post(
   '/sendRequest',
   awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
     let args = [];
     args.push(req.body.medicineId);
     args.push(req.body.id);
@@ -410,6 +432,8 @@ app.post(
 app.get(
   '/logisticRecievingList',
   awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
     let args = [];
     console.log('req query of the request ' + JSON.stringify(req.query));
     args.push(req.query.id);
@@ -431,6 +455,8 @@ app.get(
 app.get(
   '/getRequests',
   awaitHandler(async (req, res) => {
+    username = req.query.username;
+    orgName = req.query.orgName;
     let args = [];
     console.log('req query of the request ' + JSON.stringify(req.query));
     args.push(req.query.id);
@@ -453,6 +479,8 @@ app.get(
 app.get(
   '/getSentRequests',
   awaitHandler(async (req, res) => {
+    username = req.query.username;
+    orgName = req.query.orgName;
     let args = [];
     console.log('req query of the request ' + JSON.stringify(req.query));
     args.push(req.query.id);
@@ -476,6 +504,8 @@ app.get(
 app.get(
   '/recieveFromManu',
   awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
     let args = [];
     console.log('req query of the request ' + JSON.stringify(req.query));
     args.push(req.query.id);
@@ -497,6 +527,8 @@ app.get(
 app.post(
   '/acceptRequest',
   awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
     let args = [];
     args.push(req.body.medicineId);
     args.push(req.body.id);
@@ -523,6 +555,8 @@ app.post(
 app.post(
   '/denyRequest',
   awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
     let args = [];
     args.push(req.body.medicineId);
     args.push(req.body.distId);
@@ -549,6 +583,8 @@ app.post(
 app.post(
   '/addExtraCondition',
   awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
     let args = [];
     args.push(req.body.medicineId);
     args.push(req.body.extraConditionName);
@@ -576,6 +612,8 @@ app.post(
 app.post(
   '/updateExtraCondition',
   awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
     let args = [];
     args.push(req.body.medicineId);
     args.push(req.body.extraConditionName);
@@ -602,6 +640,8 @@ app.post(
 app.get(
   '/getChannelID',
   awaitHandler(async (req, res) => {
+    username = req.query.username;
+    orgName = req.query.orgName;
     let args = [];
     let fn = 'getChannelID';
     let message = await query.queryChaincode(
@@ -619,6 +659,8 @@ app.get(
 app.delete(
   '/deleteMedicine',
   awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
     let args = [];
     args.push(req.body.medicineId);
     const fn = 'deleteMedicine';
@@ -644,6 +686,8 @@ app.delete(
 app.get(
   '/getCreator',
   awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
     let args = [];
     console.log('req query of the request ' + JSON.stringify(req.query));
     const fn = 'getCreator';
@@ -666,6 +710,8 @@ app.get(
 app.get(
   '/getHistory',
   awaitHandler(async (req, res) => {
+    username = req.query.username;
+    orgName = req.query.orgName;
     let args = [];
     console.log('req query of the request ' + JSON.stringify(req.query));
     args.push(req.query.medicineId);
