@@ -16,7 +16,10 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.get('/suplied', async function(req, res){
    let response;
     try{
-      response=await axios.get('http://localhost:3000/getMedicinesByOwner?id=M001')
+      response=await axios.get('http://localhost:3000/getMedicinesByOwner?id=M001',{
+        username: 'M001',
+        orgName: 'manu',
+      }) 
     }catch(e){
       console.log(e);
       res.sendStatus(500);
@@ -29,7 +32,11 @@ app.get('/suplied', async function(req, res){
 app.get('/manufacturer',async function(req,res){
     let response;
     try{
-      response=await axios.get('http://localhost:3000/getMedicinesByOwner?id=M001')
+      response=await axios.get('http://localhost:3000/getMedicinesByOwner?id=M001',
+      {
+        username: 'M001',
+        orgName: 'manu',
+      })
     }catch(e){
       console.log(e);
       res.sendStatus(500);
@@ -50,7 +57,11 @@ app.get('/history',async function(req,res){
   let response;
    console.log(req.query.medicineId);
     try{
-      response = await axios.get(`http://localhost:3000/getHistory?medicineId=${req.query.medicineId}`);
+      response = await axios.get(`http://localhost:3000/getHistory?medicineId=${req.query.medicineId}`,
+      {
+        username: 'M001',
+        orgName: 'manu',
+      });
     }catch(e){
       console.log(e);
       res.sendStatus(500);
@@ -112,15 +123,18 @@ app.get('/createMed', async (req, res) => {
     }
   });
 
+ 
+
 app.get('/sendMed',async function(req,res){
     let response;
     try {
       response = await axios.post(
         'http://localhost:3000/sendMedicine',
-        { medicineId: req.query.medid, medicineId: req.query.medid,
-          medicineId: req.query.medid,
+        { medicineId: req.query.medid, 
           logistics: req.query.logi,
-          sendTo: req.query.sendto
+          sendTo: req.query.sendto,
+          username: 'M001',
+          orgName: 'manu',
         }
       );
       res.render('tx', { data: response.data });
@@ -138,8 +152,10 @@ app.get('/acceptRes',async function(req,res){
     response = await axios.post( 'http://localhost:3000/logisticsAcceptMedicine',
       {
         medid: req.query.medid,
-        logiId: req.query.logiId
-       
+        logiId: req.query.logiId,
+        username: 'M001',
+        orgName: 'manu',
+        
       }
  ); 
   } catch (e) {
@@ -157,7 +173,11 @@ app.get('/acceptRes',async function(req,res){
 
 app.get('/pharMaStock',async function(req,res){
   let response;
-  try{ response = await axios.get('http://localhost:3000/getMedicinesByHolder?id=P001')
+  try{ response = await axios.get('http://localhost:3000/getMedicinesByHolder?id=P001',
+  {
+    username: 'M001',
+    orgName: 'manu',
+  })
 
   }catch(e){console.log(e);res.sendStatus(500);}
   res.render('pharMaStock',{data:response.data});
@@ -168,7 +188,11 @@ app.get('/pharMarequested',async function(req,res){
 
   let response;
     try{
-      response=await axios.get('http://localhost:3000/getSentRequests?id=P001')
+      response=await axios.get('http://localhost:3000/getSentRequests?id=P001',
+      {
+        username: 'M001',
+        orgName: 'manu',
+      })
     }catch(e){
       console.log(e);
       res.sendStatus(500);
@@ -188,6 +212,9 @@ app.get('/sendReq',async function(req,res){
         {
           medicineId: req.query.medid,
           id: 'P001',
+          username: 'M001',
+          orgName: 'manu',
+          
         });
       res.render('tx', { data: response.data });
     } catch (e) {
@@ -200,7 +227,11 @@ app.get('/sendReq',async function(req,res){
 app.get('/recievingList', async function(req,res){
   let response;
   try{
-    response = await axios.get('http://localhost:3000/logisticRecievingList?id=l001');
+    response = await axios.get('http://localhost:3000/logisticRecievingList?id=l001',
+    {
+        username: 'M001',
+        orgName: 'manu',     
+    });
   }catch(err){
     console.log(err);
     res.sendStatus(500);
@@ -212,7 +243,9 @@ app.get('/stock', async function(req,res){
   let response;
   try{
     response = await axios.get('http://localhost:3000/getMedicinesByHolder',{
-      id:'D001'
+      id:'D001',
+      username: 'M001',
+      orgName: 'manu',
     });
   }catch(err){
     console.log(err);
@@ -229,7 +262,11 @@ app.get('/stock', async function(req,res){
 app.get('/distributor', async function(req, res){
   let response;
    try{
-     response=await axios.get('http://localhost:3000/getRequests?id=D001');
+     response=await axios.get('http://localhost:3000/getRequests?id=D001',
+      {
+        username: 'M001',
+        orgName: 'manu',
+      });
    }catch(e){
      console.log(e);
      res.sendStatus(500);
@@ -242,7 +279,11 @@ app.get('/distributor', async function(req, res){
  app.get('/stockdis', async function(req, res){
   let response;
    try{
-     response=await axios.get('http://localhost:3000/getMedicinesByHolder?id=D001');
+     response=await axios.get('http://localhost:3000/getMedicinesByHolder?id=D001',
+     {
+      username: 'M001',
+      orgName: 'manu',
+    });
    }catch(e){
      console.log(e);
      res.sendStatus(500);
@@ -255,13 +296,31 @@ app.get('/distributor', async function(req, res){
 app.get('/recieveFromManu', async function(req,res){
   let response;
   try{
-    response =await axios.get('http://localhost:3000/recieveFromManu?id=D001');
+    response =await axios.get('http://localhost:3000/getRecievedMedicines?id=D001',
+    {
+      username: 'M001',
+      orgName: 'manu',
+    });
   }catch(e){console.log(e);
     res.sendStatus(500);
   }
   res.render('DistRecieveManu',{data:response.data})
 });
 
+
+app.get('/recieveToPharma', async function(req,res){
+  let response;
+  try{
+    response =await axios.get('http://localhost:3000/getRecievedMedicines?id=P001',
+    {
+      username: 'M001',
+      orgName: 'manu',
+    });
+  }catch(e){console.log(e);
+    res.sendStatus(500);
+  }
+  res.render('pharmaRecieve',{data:response.data})
+});
 
 app.get('/acceptReq', async function(req,res){
   let response;
@@ -270,7 +329,9 @@ app.get('/acceptReq', async function(req,res){
     {
       medicineId: req.query.medicineId,
 	    id: req.query.id,
-	    logisId: 'l001',
+      logisId: 'l001',
+      username: 'M001',
+      orgName: 'manu',
     });
     res.render('tx', { data: response.data });
   }catch(e){
@@ -278,16 +339,17 @@ app.get('/acceptReq', async function(req,res){
     res.sendStatus(500);
   }
 });
-
+ 
 app.get('/acceptResFinal',async function(req,res){
   let response;
   console.log("==========================================================================================================")
   try {
-    response = await axios.post( 'http://localhost:3000/FinalAcceptMedicine',
+    response = await axios.post( 'http://localhost:3000/acceptMedicine',
       {
         medid: req.query.medid,
-        sendTo: req.query.sendTo
-       
+        sendTo: req.query.sendTo,
+        username: 'M001',
+        orgName: 'manu',
       })
   } catch (e) {
     console.log(e);

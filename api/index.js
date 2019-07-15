@@ -52,7 +52,7 @@ wss.on('connection', function connection(ws) {
     console.log('##### Websocket Server received message: %s', message);
   });
 
-  ws.send('something');
+  ws.send('something'); 
 });
 
 app.use(function(req, res, next) {
@@ -276,28 +276,28 @@ app.post(
   })
 );
 
-app.post(
-  '/FinalAcceptMedicine',
-  awaitHandler(async (req, res) => {
-    username = req.body.username;
-    orgName = req.body.orgName;
-    let args = [];
-    console.log('req query of the request ' + JSON.stringify(req.body));
-    args.push(req.body.medid);
-    args.push(req.body.sendTo);
-    const fn = 'FinalAcceptMedicine';
-    let message = await invoke.invokeChaincode(
-      peers,
-      channelName,
-      chaincodeName,
-      args,
-      fn,
-      username,
-      orgName
-    );
-    res.send(message);
-  })
-);
+// app.post(
+//   '/FinalAcceptMedicine',
+//   awaitHandler(async (req, res) => {
+//     username = req.body.username;
+//     orgName = req.body.orgName;
+//     let args = [];
+//     console.log('req query of the request ' + JSON.stringify(req.body));
+//     args.push(req.body.medid);
+//     args.push(req.body.sendTo);
+//     const fn = 'FinalAcceptMedicine';
+//     let message = await invoke.invokeChaincode(
+//       peers,
+//       channelName,
+//       chaincodeName,
+//       args,
+//       fn,
+//       username,
+//       orgName
+//     );
+//     res.send(message);
+//   })
+// );
 
 app.post(
   '/updateLocation',
@@ -501,29 +501,30 @@ app.get(
   })
 );
 
-app.get(
-  '/recieveFromManu',
-  awaitHandler(async (req, res) => {
-    username = req.body.username;
-    orgName = req.body.orgName;
-    let args = [];
-    console.log('req query of the request ' + JSON.stringify(req.query));
-    args.push(req.query.id);
-    const fn = 'recieveFromManu';
+// app.get(
+//   '/recieveFromManu',
+//   awaitHandler(async (req, res) => {
+//     username = req.body.username;
+//     orgName = req.body.orgName;
+//     let args = [];
+//     console.log('req query of the request ' + JSON.stringify(req.query));
+//     args.push(req.query.id);
+//     const fn = 'recieveFromManu';
 
-    console.log(args);
-    let message = await query.queryChaincode(
-      peers,
-      channelName,
-      chaincodeName,
-      args,
-      fn,
-      username,
-      orgName
-    );
-    res.send(message);
-  })
-);
+//     console.log(args);
+//     let message = await query.queryChaincode(
+//       peers,
+//       channelName,
+//       chaincodeName,
+//       args,
+//       fn,
+//       username,
+//       orgName
+//     );
+//     res.send(message);
+//   })
+// );
+
 app.post(
   '/acceptRequest',
   awaitHandler(async (req, res) => {

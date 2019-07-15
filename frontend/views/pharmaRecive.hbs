@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Logistics | meditrack</title>
+    <title>Delivered | meditrack</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -134,15 +134,15 @@
         <div class="row" >
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size:16px">
-                    <li class="active"><a href="#">Recieved</a></li>
+                    <li ><a href="/pharMarequest">Requests <span class="sr-only">(current)</span></a></li>
                     
-                    <li><a href="/stock">Stock</a></li>
-                   
+                    <li><a href="/pharMaStock">Stock</a></li>
+                    <li class=""><a href="/pharMarequested">Recieving(Manufacturer)</a></li>
                     
                 </ul>
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size: 16px">
-                   
-                    <li><a href="deliveredP.html">Delivered</a></li>
+                    <li class="active"><a href="/pharMarecieve">Recieving</a></li>
+                    <li><a href="/history">Medicicne History</a></li>
                     <li><a href="../manufacturer/track.html">Track Medicine</a></li>
                    
                 </ul>
@@ -160,15 +160,16 @@
                         </div>
                         
                     </div>
-                <h2 class="sub-header">Recieved</h2>
+                <h2 class="sub-header">Incoming Requests</h2>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>M-ID</th>
-                                <th>Medine name</th> 
-                                <th>Sent By</th>        
-                                <th>send To</th>
+                                <th>Medine name</th>
+                                <th>logistics</th>
+                                
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -176,24 +177,16 @@
                             <tr>
                                 <td>{{this.Key}}</td>
                                 <td>{{this.Record.name}}</td>
-                                <td>{{this.Record.holder}}</td>
-                                <td>{{this.Record.sendTo}}</td>
-                            <td><a href="/acceptRes?medid={{this.Key}}&logiId={{this.Record.requestLogistics}}"><button  type="button" class="btn btn-success btn-xs">Recieved</button></td>
+                                <td>{{this.Record.requestLogistics}}</td>
+                                
+                                <td><a href="/acceptResFinal?medid={{this.Key}}&logiId={{this.Record.requestLogistics}}"><button type="button" class="btn btn-success btn-xs">Recieved</button></a></td>
                             </tr>
                           
                            {{/each}}
                         </tbody>
                     </table>
                     
-                    <script>
-                        function agreeForm() {
-                          document.getElementById("myForm")
-                        }
-                        
-                        function denyForm() {
-                          document.getElementById("myForm").style.display = "none";
-                        }
-                        </script>
+                   
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

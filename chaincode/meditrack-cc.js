@@ -106,6 +106,10 @@ let Chaincode = class {
       medicine.logistics = '';
       medicine.requestLogistics = '';
       medicine.sendTo = '';
+      medicine.checkLogiD='';
+      medicine.checkDist='';
+      medicine.checkLogiP='';
+      medicine.checkPharma='';
       medicine.extraConditions = {
         [args[5]]: {
           //extraconditionname
@@ -177,6 +181,13 @@ let Chaincode = class {
       asset.holder=asset.requestLogistics;
       asset.logistics = asset.requestLogistics;
       asset.requestLogistics = '';
+      // let check=asset.sendTo;
+      // if(check.includes('D')){
+      //   medicine.checkLogiD=asset.logistics;
+      // }
+      // else if(check.includes('P')){
+      //   medicine.checkLogiP=asset.logistics;
+      // }
     }
     const buffer = Buffer.from(JSON.stringify(asset));
     await stub.putState(args[0].toString(), buffer);
