@@ -10,34 +10,81 @@ Organizations:
 
       AdminPrincipal: Role.MEMBER
 
-  - &cipla
 
-      Name: cipla
+  - &bayer
 
-      ID: ciplaMSP
+      Name: bayer
 
-      MSPDir: crypto-config/peerOrganizations/cipla.meditrack.com/msp
+      ID: bayerMSP
+
+      MSPDir: crypto-config/peerOrganizations/bayer.meditrack.com/msp
 
       AdminPrincipal: Role.MEMBER
 
       AnchorPeers:
 
-        - Host: peer0.cipla.meditrack.com
+        - Host: peer0.bayer.meditrack.com
+          Port: 7051
+      
+
+  - &aimco
+
+      Name: aimco
+
+      ID: aimcoMSP
+
+      MSPDir: crypto-config/peerOrganizations/aimco.meditrack.com/msp
+
+      AdminPrincipal: Role.MEMBER
+
+      AnchorPeers:
+
+        - Host: peer0.aimco.meditrack.com
           Port: 7051
 
-  - &drreddy
+  - &gaia
 
-      Name: drreddy
+      Name: gaia
 
-      ID: drreddyMSP
+      ID: gaiaMSP
 
-      MSPDir: crypto-config/peerOrganizations/drreddy.meditrack.com/msp
+      MSPDir: crypto-config/peerOrganizations/gaia.meditrack.com/msp
 
       AdminPrincipal: Role.MEMBER
 
       AnchorPeers:
 
-        - Host: peer0.drreddy.meditrack.com
+        - Host: peer0.gaia.meditrack.com
+          Port: 7051
+
+  - &migrow
+
+      Name: migrow
+
+      ID: migrowMSP
+
+      MSPDir: crypto-config/peerOrganizations/migrow.meditrack.com/msp
+
+      AdminPrincipal: Role.MEMBER
+
+      AnchorPeers:
+
+        - Host: peer0.migrow.meditrack.com
+          Port: 7051
+
+  - &fedx
+
+      Name: fedx
+
+      ID: fedxMSP
+
+      MSPDir: crypto-config/peerOrganizations/fedx.meditrack.com/msp
+
+      AdminPrincipal: Role.MEMBER
+
+      AnchorPeers:
+
+        - Host: peer0.fedx.meditrack.com
           Port: 7051
 
   - &dtdc
@@ -55,51 +102,6 @@ Organizations:
         - Host: peer0.dtdc.meditrack.com
           Port: 7051
 
-  - &bluedart
-
-      Name: bluedart
-
-      ID: bluedartMSP
-
-      MSPDir: crypto-config/peerOrganizations/bluedart.meditrack.com/msp
-
-      AdminPrincipal: Role.MEMBER
-
-      AnchorPeers:
-
-        - Host: peer0.bluedart.meditrack.com
-          Port: 7051
-
-  - &emcure
-
-      Name: emcure
-
-      ID: emcureMSP
-
-      MSPDir: crypto-config/peerOrganizations/emcure.meditrack.com/msp
-
-      AdminPrincipal: Role.MEMBER
-
-      AnchorPeers:
-
-        - Host: peer0.emcure.meditrack.com
-          Port: 7051
-
-  - &pharmdeal
-
-      Name: pharmdeal
-
-      ID: pharmdealMSP
-
-      MSPDir: crypto-config/peerOrganizations/pharmdeal.meditrack.com/msp
-
-      AdminPrincipal: Role.MEMBER
-
-      AnchorPeers:
-
-        - Host: peer0.pharmdeal.meditrack.com
-          Port: 7051
-
   - &apollo
 
       Name: apollo
@@ -115,19 +117,49 @@ Organizations:
         - Host: peer0.apollo.meditrack.com
           Port: 7051
 
-  - &medplus
+  - &care
 
-      Name: medplus
+      Name: care
 
-      ID: medplusMSP
+      ID: careMSP
 
-      MSPDir: crypto-config/peerOrganizations/medplus.meditrack.com/msp
+      MSPDir: crypto-config/peerOrganizations/care.meditrack.com/msp
 
       AdminPrincipal: Role.MEMBER
 
       AnchorPeers:
 
-        - Host: peer0.medplus.meditrack.com
+        - Host: peer0.care.meditrack.com
+          Port: 7051
+
+  - &cdsco
+
+      Name: cdsco
+
+      ID: cdscoMSP
+
+      MSPDir: crypto-config/peerOrganizations/cdsco.meditrack.com/msp
+
+      AdminPrincipal: Role.MEMBER
+
+      AnchorPeers:
+
+        - Host: peer0.cdsco.meditrack.com
+          Port: 7051
+
+  - &cibrc
+
+      Name: cibrc
+
+      ID: cibrcMSP
+
+      MSPDir: crypto-config/peerOrganizations/cibrc.meditrack.com/msp
+
+      AdminPrincipal: Role.MEMBER
+
+      AnchorPeers:
+
+        - Host: peer0.cibrc.meditrack.com
           Port: 7051
 
 Orderer: &OrdererDefaults
@@ -164,6 +196,20 @@ Capabilities:
     V1_2: false
     V1_1: false
 
+Channel: &ChannelDefaults
+    Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: ANY Readers
+        Writers:
+            Type: ImplicitMeta
+            Rule: ANY Writers
+        Admins:
+            Type: ImplicitMeta
+            Rule: MAJORITY Admins
+    Capabilities:
+        <<: *ChannelCapabilities
+
 Application: &ApplicationDefaults
 
   Organizations:
@@ -180,49 +226,86 @@ Profiles:
     Consortiums:
       ComposerConsortium:
         Organizations:
-          - *cipla
-          - *drreddy
+          - *bayer
+          - *aimco
+          - *gaia
+          - *migrow
+          - *fedx
           - *dtdc
-          - *bluedart
-          - *emcure
-          - *pharmdeal
           - *apollo
-          - *medplus
-      SalesComposerConsortium:
+          - *care
+          - *cdsco
+          - *cibrc
+      agritrackConsortium:
         Organizations:
-          - *cipla
-          - *drreddy
-          - *emcure
-          - *pharmdeal
+          - *bayer
+          - *aimco
+          - *migrow
+          - *dtdc
+          - *care
+          - *cibrc
+      meditrackConsortium:
+        Organizations:
+          - *bayer
+          - *gaia
+          - *fedx
           - *apollo
-          - *medplus
+          - *cdsco
 
   ChannelTest:
+    <<: *ChannelDefaults
     Consortium: ComposerConsortium
     Application:
       <<: *ApplicationDefaults
       Organizations:
-          - *cipla
-          - *drreddy
+          - *bayer
+          - *aimco
+          - *gaia
+          - *migrow
+          - *fedx
           - *dtdc
-          - *bluedart
-          - *emcure
-          - *pharmdeal
           - *apollo
-          - *medplus
+          - *care
+          - *cdsco
+          - *cibrc
       Capabilities:
           <<: *ApplicationCapabilities
-
-  SalesChannelTest:
-    Consortium: SalesComposerConsortium
+  agritrackChannel:
+    Consortium: agritrackConsortium
+    Orderer:
+      <<: *OrdererDefaults
+      Organizations:
+        - *OrdererOrg
+      Capabilities:
+        <<: *OrdererCapabilities
     Application:
       <<: *ApplicationDefaults
       Organizations:
-          - *cipla
-          - *drreddy
-          - *emcure
-          - *pharmdeal
+          - *bayer
+          - *aimco
+          - *migrow
+          - *dtdc
+          - *care
+          - *cibrc
+      Capabilities:
+          <<: *ApplicationCapabilities
+    
+  meditrackChannel:
+    <<: *ChannelDefaults
+    Consortium: meditrackConsortium
+    Orderer:
+      <<: *OrdererDefaults
+      Organizations:
+        - *OrdererOrg
+      Capabilities:
+        <<: *OrdererCapabilities
+    Application:
+      <<: *ApplicationDefaults
+      Organizations:
+          - *bayer
+          - *gaia
+          - *fedx
           - *apollo
-          - *medplus
+          - *cdsco
       Capabilities:
           <<: *ApplicationCapabilities

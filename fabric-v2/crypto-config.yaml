@@ -8,20 +8,47 @@ OrdererOrgs:
 
 PeerOrgs:
 
-  - Name: cipla
-    Domain: cipla.meditrack.com
+  - Name: bayer
+    Domain: bayer.meditrack.com
 
     Template:
-      Count: 2
+      Count: 1
 
     Users:
       Count: 3
 
-  - Name: drreddy
-    Domain: drreddy.meditrack.com
+  - Name: aimco
+    Domain: aimco.meditrack.com
 
     Template:
-      Count: 2
+      Count: 1
+
+    Users:
+      Count: 3
+
+  - Name: gaia
+    Domain: gaia.meditrack.com
+
+    Template:
+      Count: 1
+
+    Users:
+      Count: 3
+
+  - Name: migrow
+    Domain: migrow.meditrack.com
+
+    Template:
+      Count: 1
+
+    Users:
+      Count: 3
+
+  - Name: fedx
+    Domain: fedx.meditrack.com
+
+    Template:
+      Count: 1
 
     Users:
       Count: 3
@@ -30,34 +57,7 @@ PeerOrgs:
     Domain: dtdc.meditrack.com
 
     Template:
-      Count: 2
-
-    Users:
-      Count: 3
-
-  - Name: bluedart
-    Domain: bluedart.meditrack.com
-
-    Template:
-      Count: 2
-
-    Users:
-      Count: 3
-
-  - Name: emcure
-    Domain: emcure.meditrack.com
-
-    Template:
-      Count: 2
-
-    Users:
-      Count: 3
-
-  - Name: pharmdeal
-    Domain: pharmdeal.meditrack.com
-
-    Template:
-      Count: 2
+      Count: 1
 
     Users:
       Count: 3
@@ -66,16 +66,34 @@ PeerOrgs:
     Domain: apollo.meditrack.com
 
     Template:
-      Count: 2
+      Count: 1
 
     Users:
       Count: 3
 
-  - Name: medplus
-    Domain: medplus.meditrack.com
+  - Name: care
+    Domain: care.meditrack.com
 
     Template:
-      Count: 2
+      Count: 1
+
+    Users:
+      Count: 3
+
+  - Name: cdsco
+    Domain: cdsco.meditrack.com
+
+    Template:
+      Count: 1
+
+    Users:
+      Count: 3
+
+  - Name: cibrc
+    Domain: cibrc.meditrack.com
+
+    Template:
+      Count: 1
 
     Users:
       Count: 3
