@@ -173,13 +173,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                          {{#each data}}
+                          {{#each data}} 
                             <tr>
                                 <td>{{this.Key}}</td>
                                 <td>{{this.Record.name}}</td>
                                 <td>{{this.Record.requestLogistics}}</td>
                                 
-                                <td><a href="/acceptRes?medid={{this.Key}}&logiId={{this.Record.requestLogistics}}"><button type="button" class="btn btn-success btn-xs">Accept</button></a></td>
+                                <td><a href="/acceptResFinal?medid={{this.Key}}&logiId={{this.Record.requestLogistics}}"><button type="button" class="btn btn-success btn-xs">Recieved</button></a></td>
                             </tr>
                           
                            {{/each}}
