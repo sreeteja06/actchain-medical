@@ -8,6 +8,8 @@ services:
   restapi:
     container_name: restapi
     image: sreeteja06/actchain-medical-api
+    volumes:
+      - ../api:/usr/src/app
     ports:
       - 3000:3000
     networks: 

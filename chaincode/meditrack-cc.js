@@ -369,15 +369,15 @@ let Chaincode = class {
 
   async setPrivateMedicinePrice(stub, args){
     let price = {
-      price: args[0]
+      price: args[2]
     }
     const buffer = Buffer.from(JSON.stringify(price));
-    await stub.getPrivateData('PriceDetails', 'M001');
-    await stub.putPrivateData('PriceDetails', "M001" , buffer);
+    await stub.getPrivateData(args[1], args[0]);
+    await stub.putPrivateData(args[1], args[0], buffer);
   }
 
   async getPrivateMedcinePrice(stub, args){
-    return await stub.getPrivateData('PriceDetails', 'M001');
+    return await stub.getPrivateData(args[1], args[0]);
   }
 
 };

@@ -9,7 +9,6 @@ services:
             - 2181
             - 2888
             - 3888
-        tty: true
 
     kafka:
         image: hyperledger/fabric-kafka
@@ -22,7 +21,6 @@ services:
             - KAFKA_MIN_INSYNC_REPLICAS=2
         ports:
             - 9092
-        tty: true
 
     orderer:
         image: hyperledger/fabric-orderer
@@ -57,11 +55,9 @@ services:
         command: orderer
         ports:
           - '7050'
-        tty: true
 
     couchdb:
         image: hyperledger/fabric-couchdb
-        tty: true
 
     peer:
         image: hyperledger/fabric-peer
@@ -96,5 +92,4 @@ services:
         ports:
             - '7051'
             - '7053'
-        tty: true
 

@@ -188,6 +188,14 @@ Profiles:
           - *pharmdeal
           - *apollo
           - *medplus
+      SalesComposerConsortium:
+        Organizations:
+          - *cipla
+          - *drreddy
+          - *emcure
+          - *pharmdeal
+          - *apollo
+          - *medplus
 
   ChannelTest:
     Consortium: ComposerConsortium
@@ -198,6 +206,20 @@ Profiles:
           - *drreddy
           - *dtdc
           - *bluedart
+          - *emcure
+          - *pharmdeal
+          - *apollo
+          - *medplus
+      Capabilities:
+          <<: *ApplicationCapabilities
+
+  SalesChannelTest:
+    Consortium: SalesComposerConsortium
+    Application:
+      <<: *ApplicationDefaults
+      Organizations:
+          - *cipla
+          - *drreddy
           - *emcure
           - *pharmdeal
           - *apollo

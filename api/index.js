@@ -730,6 +730,55 @@ app.get(
   })
 );
 
+app.get('/getPriceDetails', awaitHandler(async (req, res)=>{
+  username = req.query.username;
+    orgName = req.query.orgName;
+    let args = [];
+    console.log('req query of the request ' + JSON.stringify(req.query));
+    args.push(req.query.medicineId);
+    args.push(req.query.pdname);
+    const fn = 'getPrivateMedcinePrice';
+    console.log(args);
+    let message = await query.queryChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
+app.post(
+  '/setPriceDetails',
+  awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
+    let args = [];
+    args.push(req.body.medicineId);
+    args.push(req.body.pdname);
+    args.push(req.body.price);
+    const fn = 'setPrivateMedicinePrice';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+
+    await blockListener.startBlockListener(channelName, username, orgName, wss);
+
+    res.send(message);
+  })
+);
 app.use(function(error, req, res, next) {
   res.status(500).json({ error: error.toString() });
 });

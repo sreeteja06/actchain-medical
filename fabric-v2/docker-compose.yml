@@ -5,6 +5,27 @@ networks:
 
 services:
 
+  restapi:
+    container_name: restapi
+    image: sreeteja06/actchain-medical-api
+    volumes:
+      - ../api:/usr/src/app
+    ports:
+      - 3000:3000
+    networks: 
+      - meditrack
+
+  restapi2:
+    container_name: restapi2
+    image: sreeteja06/actchain-medical-api2
+    volumes:
+      - ../api-v2:/usr/src/app
+    ports:
+      - 3001:3001
+    networks: 
+      - meditrack
+    tty: true
+
   orderer.meditrack.com:
     container_name: orderer.meditrack.com
     image: hyperledger/fabric-orderer:latest
