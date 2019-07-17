@@ -1,0 +1,62 @@
+{
+    "name": "ourchannel",
+    "description": "meditrack network",
+    "version": "1.0.0",
+    "client": {
+        "organization": "dtdc"
+    },
+    "channels": {
+        "ourchannel": {
+            "orderers": [
+                "orderer.meditrack.com"
+            ],
+            "peers": {
+                "peer0.dtdc.meditrack.com": {
+                    "endorsingPeer": true,
+                    "chaincodeQuery": true,
+                    "ledgerQuery": true,
+                    "eventSource": true
+                }
+            }
+        }
+    },
+    "organizations": {
+        "dtdc": {
+            "mspid": "dtdcMSP",
+            "peers": [
+                "peer0.dtdc.meditrack.com:7051"
+            ],
+            "certificateAuthorities": [
+                "ca.dtdc.meditrack.com:7054"
+            ]
+        }
+    },
+    "orderers": {
+        "orderer.meditrack.com:7050": {
+            "url": "grpc://orderer.meditrack.com:7050",
+            "tlsCACerts": {
+                "pem": "./tlsca.meditrack.com-cert.pem"
+            }
+        }
+    },
+    "peers": {
+        "peer0.dtdc.meditrack.com:7051": {
+            "url": "grpc://peer0.dtdc.meditrack.com:7051",
+            "tlsCACerts": {
+                "pem": "./tlsca.meditrack.com-cert.pem"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer0.dtdc.meditrack.com"
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "ca.dtdc.meditrack.com:7054": {
+            "url": "http://ca.dtdc.meditrack.com:7054",
+            "caName": "ca.dtdc.meditrack.com",
+            "tlsCACerts": {
+                "pem": "./tlsca.meditrack.com-cert.pem"
+            }
+        }
+    }
+}

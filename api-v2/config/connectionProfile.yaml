@@ -1,0 +1,323 @@
+# Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License").
+# You may not use this file except in compliance with the License.
+# A copy of the License is located at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# or in the "license" file accompanying this file. This file is distributed 
+# on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either 
+# express or implied. See the License for the specific language governing 
+# permissions and limitations under the License.
+
+name: "meditrack"
+x-type: "hlfv1"
+description: "meditrack Network"
+version: "1.0"
+
+client:
+  organization: "bayer"
+
+channels:
+  ourchannel:
+    orderers:
+      - orderer.meditrack.com 
+    peers:
+      peer0.bayer.meditrack.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer0.dtdc.meditrack.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer0.pharmdeal.meditrack.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer0.cipla.meditrack.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer0.bluedart.meditrack.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer0.apollo.meditrack.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer0.medplus.meditrack.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer0.drreddy.meditrack.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer1.emcure.meditrack.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer1.dtdc.meditrack.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer1.pharmdeal.meditrack.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer1.cipla.meditrack.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer1.bluedart.meditrack.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer1.apollo.meditrack.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer1.medplus.meditrack.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer1.drreddy.meditrack.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+
+organizations:
+  cipla:
+    mspid: ciplaMSP
+    peers:
+      - peer0.cipla.meditrack.com
+      - peer1.cipla.meditrack.com
+    certificateAuthorities:
+      - ca.cipla.meditrack.com
+  drreddy:
+    mspid: drreddyMSP
+    peers:
+      - peer0.drreddy.meditrack.com
+      - peer1.drreddy.meditrack.com
+    certificateAuthorities:
+      - ca.drreddy.meditrack.com
+  emcure:
+    mspid: emcureMSP
+    peers:
+      - peer0.emcure.meditrack.com
+      - peer1.emcure.meditrack.com
+    certificateAuthorities:
+      - ca.emcure.meditrack.com
+  pharmdeal:
+    mspid: pharmdealMSP
+    peers:
+      - peer0.pharmdeal.meditrack.com
+      - peer1.pharmdeal.meditrack.com
+    certificateAuthorities:
+      - ca.pharmdeal.meditrack.com
+  dtdc:
+    mspid: dtdcMSP
+    peers:
+      - peer0.dtdc.meditrack.com
+      - peer1.dtdc.meditrack.com
+    certificateAuthorities:
+      - ca.dtdc.meditrack.com
+  bluedart:
+    mspid: bluedartMSP
+    peers:
+      - peer0.bluedart.meditrack.com
+      - peer1.bluedart.meditrack.com
+    certificateAuthorities:
+      - ca.bluedart.meditrack.com
+  apollo:
+    mspid: apolloMSP
+    peers:
+      - peer0.apollo.meditrack.com
+      - peer1.apollo.meditrack.com
+    certificateAuthorities:
+      - ca.apollo.meditrack.com
+  medplus:
+    mspid: medplusMSP
+    peers:
+      - peer0.medplus.meditrack.com
+      - peer1.medplus.meditrack.com
+    certificateAuthorities:
+      - ca.medplus.meditrack.com
+
+orderers:
+  orderer.meditrack.com:
+    url: grpc://orderer.meditrack.com:7050
+    # grpcOptions:
+    #   ssl-target-name-override: orderer.meditrack.com
+    tlsCACerts:
+      path: ./tlsca.meditrack.com-cert.pem
+
+peers:
+  peer0.cipla.meditrack.com:
+    url: grpc://peer0.cipla.meditrack.com:7051
+    eventUrl: grpc://peer0.cipla.meditrack.com:7053
+    # grpcOptions:
+    #   ssl-target-name-override: 
+    tlsCACerts:
+      path: ./tlsca.meditrack.com-cert.pem
+  peer0.drreddy.meditrack.com:
+    url: grpc://peer0.drreddy.meditrack.com:7051
+    eventUrl: grpc://peer0.drreddy.meditrack.com:7053
+    tlsCACerts:
+      path: ./tlsca.meditrack.com-cert.pem
+  peer0.emcure.meditrack.com:
+    url: grpc://peer0.emcure.meditrack.com:7051
+    eventUrl: grpc://peer0.emcure.meditrack.com:7053
+    tlsCACerts:
+      path: ./tlsca.meditrack.com-cert.pem
+  peer0.pharmdeal.meditrack.com:
+    url: grpc://peer0.pharmdeal.meditrack.com:7051
+    eventUrl: grpc://peer0.pharmdeal.meditrack.com:7053
+    tlsCACerts:
+      path: ./tlsca.meditrack.com-cert.pem
+  peer0.dtdc.meditrack.com:
+    url: grpc://peer0.dtdc.meditrack.com:7051
+    eventUrl: grpc://peer0.dtdc.meditrack.com:7053 
+    tlsCACerts:
+      path: ./tlsca.meditrack.com-cert.pem
+  peer0.bluedart.meditrack.com:
+    url: grpc://peer0.bluedart.meditrack.com:7051
+    eventUrl: grpc://peer0.bluedart.meditrack.com:7053
+    tlsCACerts:
+      path: ./tlsca.meditrack.com-cert.pem
+  peer0.apollo.meditrack.com:
+    url: grpc://peer0.apollo.meditrack.com:7051
+    eventUrl: grpc://peer0.apollo.meditrack.com:7053
+    tlsCACerts:
+      path: ./tlsca.meditrack.com-cert.pem
+  peer0.medplus.meditrack.com:
+    url: grpc://peer0.medplus.meditrack.com:7051
+    eventUrl: grpc://peer0.medplus.meditrack.com:7053
+    tlsCACerts:
+      path: ./tlsca.meditrack.com-cert.pem
+  #peer1
+  peer1.cipla.meditrack.com:
+    url: grpc://peer1.cipla.meditrack.com:7051
+    eventUrl: grpc://peer1.cipla.meditrack.com:7053 
+    tlsCACerts:
+      path: ./tlsca.meditrack.com-cert.pem
+  peer1.drreddy.meditrack.com:
+    url: grpc://peer1.drreddy.meditrack.com:7051
+    eventUrl: grpc://peer1.drreddy.meditrack.com:7053
+    tlsCACerts:
+      path: ./tlsca.meditrack.com-cert.pem
+  peer1.emcure.meditrack.com:
+    url: grpc://peer1.emcure.meditrack.com:7051
+    eventUrl: grpc://peer1.emcure.meditrack.com:7053
+    tlsCACerts:
+      path: ./tlsca.meditrack.com-cert.pem
+  peer1.pharmdeal.meditrack.com:
+    url: grpc://peer1.pharmdeal.meditrack.com:7051
+    eventUrl: grpc://peer1.pharmdeal.meditrack.com:7053
+    tlsCACerts:
+      path: ./tlsca.meditrack.com-cert.pem
+  peer1.dtdc.meditrack.com:
+    url: grpc://peer1.dtdc.meditrack.com:7051
+    eventUrl: grpc://peer1.dtdc.meditrack.com:7053 
+    tlsCACerts:
+      path: ./tlsca.meditrack.com-cert.pem
+  peer1.bluedart.meditrack.com:
+    url: grpc://peer1.bluedart.meditrack.com:7051
+    eventUrl: grpc://peer1.bluedart.meditrack.com:7053
+    tlsCACerts:
+      path: ./tlsca.meditrack.com-cert.pem
+  peer1.apollo.meditrack.com:
+    url: grpc://peer1.apollo.meditrack.com:7051
+    eventUrl: grpc://peer1.apollo.meditrack.com:7053
+    tlsCACerts:
+      path: ./tlsca.meditrack.com-cert.pem
+  peer1.medplus.meditrack.com:
+    url: grpc://peer1.medplus.meditrack.com:7051
+    eventUrl: grpc://peer1.medplus.meditrack.com:7053
+    tlsCACerts:
+      path: ./tlsca.meditrack.com-cert.pem
+
+certificateAuthorities:
+  ca.cipla.meditrack.com:
+    url: http://ca.cipla.meditrack.com:7054
+    tlsCACerts:
+      path: ./tlsca.meditrack.com-cert.pem
+    registrar:
+      - enrollId: admin
+        enrollSecret: adminpw
+    caName: ca.cipla.meditrack.com
+  ca.drreddy.meditrack.com:
+    url: http://ca.drreddy.meditrack.com:7054
+    tlsCACerts:
+      path: ./tlsca.meditrack.com-cert.pem
+    registrar:
+      - enrollId: admin
+        enrollSecret: adminpw
+    caName: ca.drreddy.meditrack.com
+  ca.emcure.meditrack.com:
+    url: http://ca.emcure.meditrack.com:7054
+    tlsCACerts:
+      path: ./tlsca.meditrack.com-cert.pem
+    registrar:
+      - enrollId: admin
+        enrollSecret: adminpw
+    caName: ca.emcure.meditrack.com
+  ca.pharmdeal.meditrack.com:
+    url: http://ca.pharmdeal.meditrack.com:7054
+    tlsCACerts:
+      path: ./tlsca.meditrack.com-cert.pem
+    registrar:
+      - enrollId: admin
+        enrollSecret: adminpw
+    caName: ca.pharmdeal.meditrack.com
+  ca.dtdc.meditrack.com:
+    url: http://ca.dtdc.meditrack.com:7054
+    tlsCACerts:
+      path: ./tlsca.meditrack.com-cert.pem
+    registrar:
+      - enrollId: admin
+        enrollSecret: adminpw
+    caName: ca.dtdc.meditrack.com
+  ca.bluedart.meditrack.com:
+    url: http://ca.bluedart.meditrack.com:7054
+    tlsCACerts:
+      path: ./tlsca.meditrack.com-cert.pem
+    registrar:
+      - enrollId: admin
+        enrollSecret: adminpw
+    caName: ca.bluedart.meditrack.com
+  ca.apollo.meditrack.com:
+    url: http://ca.apollo.meditrack.com:7054
+    tlsCACerts:
+      path: ./tlsca.meditrack.com-cert.pem
+    registrar:
+      - enrollId: admin
+        enrollSecret: adminpw
+    caName: ca.apollo.meditrack.com
+  ca.medplus.meditrack.com:
+    url: http://ca.medplus.meditrack.com:7054
+    tlsCACerts:
+      path: ./tlsca.meditrack.com-cert.pem
+    registrar:
+      - enrollId: admin
+        enrollSecret: adminpw
+    caName: ca.medplus.meditrack.com

@@ -1,0 +1,62 @@
+{
+    "name": "ourchannel",
+    "description": "meditrack network",
+    "version": "1.0.0",
+    "client": {
+        "organization": "gaia"
+    },
+    "channels": {
+        "ourchannel": {
+            "orderers": [
+                "orderer.meditrack.com"
+            ],
+            "peers": {
+                "peer0.gaia.meditrack.com": {
+                    "endorsingPeer": true,
+                    "chaincodeQuery": true,
+                    "ledgerQuery": true,
+                    "eventSource": true
+                }
+            }
+        }
+    },
+    "organizations": {
+        "gaia": {
+            "mspid": "gaiaMSP",
+            "peers": [
+                "peer0.gaia.meditrack.com:7051"
+            ],
+            "certificateAuthorities": [
+                "ca.gaia.meditrack.com:7054"
+            ]
+        }
+    },
+    "orderers": {
+        "orderer.meditrack.com:7050": {
+            "url": "grpc://orderer.meditrack.com:7050",
+            "tlsCACerts": {
+                "pem": "./tlsca.meditrack.com-cert.pem"
+            }
+        }
+    },
+    "peers": {
+        "peer0.gaia.meditrack.com:7051": {
+            "url": "grpc://peer0.gaia.meditrack.com:7051",
+            "tlsCACerts": {
+                "pem": "./tlsca.meditrack.com-cert.pem"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer0.gaia.meditrack.com"
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "ca.gaia.meditrack.com:7054": {
+            "url": "http://ca.gaia.meditrack.com:7054",
+            "caName": "ca.gaia.meditrack.com",
+            "tlsCACerts": {
+                "pem": "./tlsca.meditrack.com-cert.pem"
+            }
+        }
+    }
+}

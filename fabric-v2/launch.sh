@@ -135,9 +135,9 @@ join_agritrack
 update_agritrackAnchorpeers
 
 function install_chaincode(){
-    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@bayer.meditrack.com/msp" peer0.bayer.meditrack.com peer chaincode install -l node -n test2 -p /etc/hyperledger/chaincode/ -v v0
+    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@bayer.meditrack.com/msp" peer0.bayer.meditrack.com peer chaincode install -l node -n test2 -p /etc/hyperledger/chaincode/meditrack -v v0
 }
 
 function instantiate_chaincode(){
-    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@bayer.meditrack.com/msp" peer0.bayer.meditrack.com peer chaincode instantiate -l node -o orderer.meditrack.com:7050 -C meditrack -n test2 -v v0 -c '{"Args":["init"]}'
+    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@bayer.meditrack.com/msp" peer0.bayer.meditrack.com peer chaincode instantiate -l node -o orderer.meditrack.com:7050 -C ourchannel -n test2 -v v0 -c '{"Args":["init"]}'
 }

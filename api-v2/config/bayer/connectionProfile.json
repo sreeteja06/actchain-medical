@@ -1,0 +1,67 @@
+{
+    "name": "meditrack",
+    "x-type": "hlfv1",
+    "description": "meditrack Network",
+    "version": "1.0",
+    "client": {
+        "organization": "bayer"
+    },
+    "channels": {
+        "ourchannel": {
+            "orderers": [
+                "orderer.meditrack.com"
+            ],
+            "peers": {
+                "peer0.bayer.meditrack.com": {
+                    "endorsingPeer": true,
+                    "chaincodeQuery": true,
+                    "ledgerQuery": true,
+                    "eventSource": true
+                }
+            }
+        }
+    },
+    "organizations": {
+        "bayer": {
+            "mspid": "bayerMSP",
+            "peers": [
+                "peer0.bayer.meditrack.com"
+            ],
+            "certificateAuthorities": [
+                "ca.bayer.meditrack.com"
+            ]
+        }
+    },
+    "orderers": {
+        "orderer.meditrack.com": {
+            "url": "grpc://orderer.meditrack.com:7050",
+            "tlsCACerts": {
+                "path": "./tlsca.meditrack.com-cert.pem"
+            }
+        }
+    },
+    "peers": {
+        "peer0.bayer.meditrack.com": {
+            "url": "grpc://peer0.bayer.meditrack.com:7051",
+            "eventUrl": "grpc://peer0.bayer.meditrack.com:7053",
+            "tlsCACerts": {
+                "path": "./tlsca.meditrack.com-cert.pem"
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "ca.bayer.meditrack.com": {
+            "url": "http://ca.bayer.meditrack.com:7054",
+            "tlsCACerts": {
+                "path": "./tlsca.meditrack.com-cert.pem"
+            },
+            "registrar": [
+                {
+                    "enrollId": "admin",
+                    "enrollSecret": "adminpw"
+                }
+            ],
+            "caName": "ca.bayer.meditrack.com"
+        }
+    }
+}
