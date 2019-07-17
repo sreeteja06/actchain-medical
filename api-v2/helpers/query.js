@@ -15,11 +15,12 @@
 
 'use strict';
 
-const { FileSystemWallet, Gateway } = require('fabric-network');
-const fs = require('fs');
-const path = require('path');
+const { FileSystemWallet, Gateway } = require( 'fabric-network' );
+const fs = require( 'fs' );
+const path = require( 'path' );
 
-async function query( functionName, args,channelName, contractName, orgName, userName) {
+async function query( functionName, args, channelName, contractName, orgName, userName ) {
+  let gateway
   try {
     const ccpPath = path.join(
       __dirname,
@@ -28,40 +29,44 @@ async function query( functionName, args,channelName, contractName, orgName, use
       orgName,
       'connectionProfile.json'
     );
-    const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
-    const ccp = JSON.parse(ccpJSON.toString());
+    const ccpJSON = fs.readFileSync( ccpPath, 'utf8' );
+    const ccp = JSON.parse( ccpJSON.toString() );
 
-    const walletPath = path.join(__dirname, 'wallet', orgName);
-    const wallet = new FileSystemWallet(walletPath);
-    console.log(`Wallet path: ${walletPath}`);
+    const walletPath = path.join( __dirname, 'wallet', orgName );
+    const wallet = new FileSystemWallet( walletPath );
+    console.log( `Wallet path: ${ walletPath }` );
 
-    const userExists = await wallet.exists(userName);
-    if (!userExists) {
+    const userExists = await wallet.exists( userName );
+    if ( !userExists ) {
       console.log(
         'An identity for the user ' + userName + ' does not exist in the wallet'
       );
-      console.log('Run the registerUser.js application before retrying');
+      console.log( 'Run the registerUser.js application before retrying' );
       return;
     }
 
-    const gateway = new Gateway();
-    await gateway.connect(ccp, {
+    gateway = new Gateway();
+    await gateway.connect( ccp, {
       wallet,
       identity: userName,
       discovery: { enabled: false }
-    });
-    const network = await gateway.getNetwork(channelName);
+    } );
+    const network = await gateway.getNetwork( channelName );
 
-    const contract = network.getContract(contractName);
-
-    const result = await contract.evaluateTransaction(functionName, args);
+    const contract = network.getContract( contractName );
+    args = JSON.stringify(args);
+    let result = await contract.evaluateTransaction( functionName, args );
 
     console.log(
-      `Transaction has been evaluated, result is: ${result.toString()}`
+      `Transaction has been evaluated, result is: ${ result.toString() }`
     );
-  } catch (error) {
-    console.error(`Failed to evaluate transaction: ${error}`);
-    process.exit(1);
+    result = result.toString();
+    return result;
+  } catch ( error ) {
+    console.error( `Failed to evaluate transaction: ${ error }` );
+    process.exit( 1 );
+  } finally{
+    await gateway.disconnect();
   }
 }
 

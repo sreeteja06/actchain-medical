@@ -9,14 +9,14 @@
  * There are two ways to write error-free programs; only the third one works.
  * And remeber it is not a bug, it is an undocumented feature
  */
-const FabricCAServices = require('fabric-ca-client');
+const FabricCAServices = require( 'fabric-ca-client' );
 const {
   FileSystemWallet,
   Gateway,
   X509WalletMixin
-} = require('fabric-network');
-const fs = require('fs');
-const path = require('path');
+} = require( 'fabric-network' );
+const fs = require( 'fs' );
+const path = require( 'path' );
 
 const regAdmin = async orgName => {
   var appAdmin = 'admin';
@@ -24,41 +24,42 @@ const regAdmin = async orgName => {
   var orgMSPID = orgName + 'MSP';
   var caURL = 'http://ca.' + orgName + '.meditrack.com:7054';
   try {
-    const ca = new FabricCAServices(caURL);
-    const walletPath = path.join(__dirname, 'wallet', orgName);
-    const wallet = new FileSystemWallet(walletPath);
-    console.log(`Wallet path: ${walletPath}`);
-    const adminExists = await wallet.exists(appAdmin);
-    if (adminExists) {
+    const ca = new FabricCAServices( caURL );
+    const walletPath = path.join( __dirname, 'wallet', orgName );
+    const wallet = new FileSystemWallet( walletPath );
+    console.log( `Wallet path: ${ walletPath }` );
+    const adminExists = await wallet.exists( appAdmin );
+    if ( adminExists ) {
       console.log(
         'An identity for the admin user "admin" already exists in the wallet'
       );
       return;
     }
-    const enrollment = await ca.enroll({
+    const enrollment = await ca.enroll( {
       enrollmentID: appAdmin,
       enrollmentSecret: appAdminSecret
-    });
+    } );
     const identity = X509WalletMixin.createIdentity(
       orgMSPID,
       enrollment.certificate,
       enrollment.key.toBytes()
     );
-    wallet.import(appAdmin, identity);
+    wallet.import( appAdmin, identity );
     console.log(
       'msg: Successfully enrolled admin user ' +
-        appAdmin +
-        ' and imported it into the wallet'
+      appAdmin +
+      ' and imported it into the wallet'
     );
-  } catch (e) {
-    console.log(e.stack);
+    return;
+  } catch ( e ) {
+    console.log( e.stack );
   }
 };
 
-const regUser = async (orgName, userName) => {
-  const ccpPath = path.join(__dirname, '..' , 'config' , orgName ,'connectionProfile.json');
-  const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
-  const ccp = JSON.parse(ccpJSON);
+const regUser = async ( orgName, userName ) => {
+  const ccpPath = path.join( __dirname, '..', 'config', orgName, 'connectionProfile.json' );
+  const ccpJSON = fs.readFileSync( ccpPath, 'utf8' );
+  const ccp = JSON.parse( ccpJSON );
   try {
     let appAdmin = 'admin';
     let orgMSPID = orgName + 'MSP';
@@ -66,31 +67,31 @@ const regUser = async (orgName, userName) => {
       enabled: true,
       asLocalhost: false
     };
-    const walletPath = path.join(__dirname, 'wallet', orgName);
-    const wallet = new FileSystemWallet(walletPath);
-    console.log(`Wallet path: ${walletPath}`);
-    const userExists = await wallet.exists(userName);
-    if (userExists) {
+    const walletPath = path.join( __dirname, 'wallet', orgName );
+    const wallet = new FileSystemWallet( walletPath );
+    console.log( `Wallet path: ${ walletPath }` );
+    const userExists = await wallet.exists( userName );
+    if ( userExists ) {
       console.log(
-        `An identity for the user ${userName} already exists in the wallet`
+        `An identity for the user ${ userName } already exists in the wallet`
       );
       return;
     }
-    const adminExists = await wallet.exists(appAdmin);
-    if (!adminExists) {
+    const adminExists = await wallet.exists( appAdmin );
+    if ( !adminExists ) {
       console.log(
-        `An identity for the admin user ${appAdmin} does not exist in the wallet`
+        `An identity for the admin user ${ appAdmin } does not exist in the wallet`
       );
-      console.log('Registering the admin');
-      regAdmin(orgName);
+      console.log( 'Registering the admin' );
+      regAdmin( orgName );
       return;
     }
     const gateway = new Gateway();
-    await gateway.connect(ccp, {
+    await gateway.connect( ccp, {
       wallet,
       identity: appAdmin,
       discovery: gatewayDiscovery
-    });
+    } );
     const ca = gateway.getClient().getCertificateAuthority();
     const adminIdentity = gateway.getCurrentIdentity();
     const secret = await ca.register(
@@ -102,25 +103,30 @@ const regUser = async (orgName, userName) => {
       adminIdentity
     );
 
-    console.log('secret:');
-    console.log(secret);
-    const enrollment = await ca.enroll({
+    console.log( 'secret:' );
+    console.log( secret );
+    const enrollment = await ca.enroll( {
       enrollmentID: userName,
       enrollmentSecret: secret
-    });
+    } );
     const userIdentity = X509WalletMixin.createIdentity(
       orgMSPID,
       enrollment.certificate,
       enrollment.key.toBytes()
     );
-    wallet.import(userName, userIdentity);
+    wallet.import( userName, userIdentity );
     console.log(
       'Successfully registered and enrolled admin user ' +
-        userName +
-        ' and imported it into the wallet'
+      userName +
+      ' and imported it into the wallet'
     );
-  } catch (e) {
-    console.log('Error Registering the user' + e.stack);
+    return {
+      userName,
+      secret
+    }
+  } catch ( e ) {
+    console.log( 'Error Registering the user' + e.stack );
+    return e
   }
 };
 // regUser('bayer', 'user2');

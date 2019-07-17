@@ -12,8 +12,9 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm i fabric-ca-client
 RUN npm install
+RUN rm -r helpers/wallet
 COPY . .
-EXPOSE 3001
+EXPOSE 3000
 CMD [ "node", "index.js" ]
 
 #docker build -t sreeteja06/actchain-medical-api2 .

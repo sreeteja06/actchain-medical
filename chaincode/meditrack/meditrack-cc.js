@@ -94,6 +94,7 @@ let Chaincode = class {
   }
   async createMedicine(stub, args) {        //TODO: add attributes into medicine to support track page
     try {
+      args = JSON.parse(args);
       console.log('============= START : createMedicine ===========');
       console.log('##### createMedicine arguments: ' + JSON.stringify(args));
       let medicine = {};
@@ -126,6 +127,7 @@ let Chaincode = class {
     }
   }
   async logisticRecievingList(stub,args){
+    args = JSON.parse(args);
     let queryString = '{"selector":{"requestLogistics":"' + args[0] + '"}}}'; //*logistics id
     return await queryByString(
       stub,
@@ -136,6 +138,7 @@ let Chaincode = class {
   }
 
   async getMedicinesByOwner(stub, args) {
+    args = JSON.parse(args);
     let queryString = '{"selector":{"owner":{"$eq":"' + args[0] + '"}}}'; //*manufacture id
     return await queryByString(
       stub,
@@ -145,6 +148,7 @@ let Chaincode = class {
   
 
   async getMedicinesByHolder(stub, args) {
+    args = JSON.parse(args);
     let queryString = '{"selector":{"holder":"' + args[0] + '"}}}'; //*holder
     return await queryByString(
       stub,
@@ -153,11 +157,13 @@ let Chaincode = class {
   }
 
   async readMedicine(stub, args) {
+    args = JSON.parse(args);
     //medicineID
     return queryByKey(stub, args[0].toString());
   }
 
   async updateLocation(stub, args) {
+    args = JSON.parse(args);
     let asset = await queryByKey(stub, args[0].toString()); //*medicineID
     asset = JSON.parse(asset.toString());
     asset.location = args[1]; //*NEwLocation
@@ -166,6 +172,7 @@ let Chaincode = class {
   }
 
   async sendMedicine(stub, args) {
+    args = JSON.parse(args);
     let asset = await queryByKey(stub, args[0].toString()); //*medicineID
     asset = JSON.parse(asset.toString());
     asset.requestLogistics = args[1]; //*logisticsID
@@ -175,6 +182,7 @@ let Chaincode = class {
   }
 
   async logisticsAcceptMedicine(stub, args){
+    args = JSON.parse(args);
     let asset = await queryByKey(stub, args[0].toString()); //*medicineID
     asset = JSON.parse(asset.toString());
     if (args[1].toString() == asset.requestLogistics.toString()) {  //*logistics Id
@@ -194,6 +202,7 @@ let Chaincode = class {
   }
 
   async getRecievedMedicines(stub, args) {
+    args = JSON.parse(args);
     let queryString = '{"selector":{"sendTo":{"$eq":"' + args[0] + '"}}}';  //*send to id, dist id for distrubutor, phar id for pharmacy
     return await queryByString(
       stub,
@@ -202,6 +211,7 @@ let Chaincode = class {
   }
 
   async acceptMedicine(stub, args) {
+    args = JSON.parse(args);
     let asset = await queryByKey(stub, args[0].toString()); //*medicine id
     asset = JSON.parse(asset.toString());
     if (args[1].toString() == asset.sendTo.toString()) {//*dist id or phar id
@@ -216,6 +226,7 @@ let Chaincode = class {
   }
 
   async sendRequest(stub, args) {
+    args = JSON.parse(args);
     let asset = await queryByKey(stub, args[0].toString()); //*medicineID
     asset = JSON.parse(asset.toString());
     asset.requestId = args[1]; //*phar ID
@@ -225,6 +236,7 @@ let Chaincode = class {
   }
 
   async getRequests(stub, args) {
+    args = JSON.parse(args);
     let queryString =
       '{"selector":{"request":"true", "holder":"' + args[0] + '"}}';  //*dist ID
     return await queryByString(
@@ -234,6 +246,7 @@ let Chaincode = class {
   }
 
   async getSentRequests(stub, args) {
+    args = JSON.parse(args);
     let queryString = '{"selector":{"requestId":{"$eq":"' + args[0] + '"}}}'; //*phar ID
     return await queryByString(
       stub,
@@ -242,6 +255,7 @@ let Chaincode = class {
   }
   
  async recieveFromManu(stub,args){
+   args = JSON.parse(args);
   let queryString = '{"selector":{"sendTo":"' + args[0] + '"}}}';  //*phar id or dist id
   return await queryByString(stub,queryString);
  }
@@ -261,6 +275,7 @@ let Chaincode = class {
   }
 
   async denyRequest(stub ,args){
+    args = JSON.parse(args);
     let asset = await queryByKey(stub, args[0].toString()); //*medicineid
     if (args[1].toString() == asset.holder.toString()) { //*dist ID
       asset.requestId = '';
@@ -271,6 +286,7 @@ let Chaincode = class {
   }
 
   async addExtraCondition(stub, args) {
+    args = JSON.parse(args);
     let asset = await queryByKey(stub, args[0].toString()); //*medicineID
     asset = JSON.parse(asset.toString());
     asset.extraConditions[args[1]] = {
@@ -284,6 +300,7 @@ let Chaincode = class {
   }
 
   async updateExtraCondition(stub, args) {
+    args = JSON.parse(args);
     let asset = await queryByKey(stub, args[0].toString()); //medicineID
     asset = JSON.parse(asset.toString());
     asset.extraConditions[args[1]].present = args[2]; // conditionname //update value
@@ -320,6 +337,7 @@ let Chaincode = class {
   }
 
   async deleteMedicine(stub, args) {
+    args = JSON.parse(args);
     await stub.deleteState(args[0].toString()); //medicineID
   }
 
@@ -336,6 +354,7 @@ let Chaincode = class {
   }
 
   async queryHistoryForKey(stub, args) {
+    args = JSON.parse(args);
     let historyIterator = await stub.getHistoryForKey(args[0]); //medicineID
     console.log(
       '##### queryHistoryForKey historyIterator: ' +
@@ -379,6 +398,7 @@ let Chaincode = class {
   }
 
   async setPrivateMedicinePrice(stub, args){
+    args = JSON.parse(args);
     let price = {
       price: args[2]
     }
@@ -388,6 +408,7 @@ let Chaincode = class {
   }
 
   async getPrivateMedcinePrice(stub, args){
+    args = JSON.parse(args);
     return await stub.getPrivateData(args[1], args[0]);
   }
 
