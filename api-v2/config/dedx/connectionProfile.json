@@ -3,7 +3,7 @@
     "description": "meditrack network",
     "version": "1.0.0",
     "client": {
-        "organization": "gaia"
+        "organization": "dedx"
     },
     "channels": {
         "ourchannel": {
@@ -11,7 +11,7 @@
                 "orderer.meditrack.com"
             ],
             "peers": {
-                "peer0.gaia.meditrack.com": {
+                "peer0.dedx.meditrack.com": {
                     "endorsingPeer": true,
                     "chaincodeQuery": true,
                     "ledgerQuery": true,
@@ -21,13 +21,13 @@
         }
     },
     "organizations": {
-        "gaia": {
-            "mspid": "gaiaMSP",
+        "dedx": {
+            "mspid": "dedxMSP",
             "peers": [
-                "peer0.gaia.meditrack.com:7051"
+                "peer0.dedx.meditrack.com:7051"
             ],
             "certificateAuthorities": [
-                "ca.gaia.meditrack.com:7054"
+                "ca.dedx.meditrack.com:7054"
             ]
         }
     },
@@ -40,20 +40,20 @@
         }
     },
     "peers": {
-        "peer0.gaia.meditrack.com:7051": {
-            "url": "grpc://peer0.gaia.meditrack.com:7051",
+        "peer0.dedx.meditrack.com:7051": {
+            "url": "grpc://peer0.dedx.meditrack.com:7051",
             "tlsCACerts": {
                 "pem": "./tlsca.meditrack.com-cert.pem"
             },
             "grpcOptions": {
-                "ssl-target-name-override": "peer0.gaia.meditrack.com"
+                "ssl-target-name-override": "peer0.dedx.meditrack.com"
             }
         }
     },
     "certificateAuthorities": {
-        "ca.gaia.meditrack.com:7054": {
-            "url": "http://ca.gaia.meditrack.com:7054",
-            "caName": "ca.gaia.meditrack.com",
+        "ca.dedx.meditrack.com:7054": {
+            "url": "http://ca.dedx.meditrack.com:7054",
+            "caName": "ca.dedx.meditrack.com",
             "tlsCACerts": {
                 "pem": "./tlsca.meditrack.com-cert.pem"
             }

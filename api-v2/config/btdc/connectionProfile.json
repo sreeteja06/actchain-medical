@@ -3,7 +3,7 @@
     "description": "meditrack network",
     "version": "1.0.0",
     "client": {
-        "organization": "fedx"
+        "organization": "btdc"
     },
     "channels": {
         "ourchannel": {
@@ -11,7 +11,7 @@
                 "orderer.meditrack.com"
             ],
             "peers": {
-                "peer0.fedx.meditrack.com": {
+                "peer0.btdc.meditrack.com": {
                     "endorsingPeer": true,
                     "chaincodeQuery": true,
                     "ledgerQuery": true,
@@ -21,13 +21,13 @@
         }
     },
     "organizations": {
-        "fedx": {
-            "mspid": "fedxMSP",
+        "btdc": {
+            "mspid": "btdcMSP",
             "peers": [
-                "peer0.fedx.meditrack.com:7051"
+                "peer0.btdc.meditrack.com:7051"
             ],
             "certificateAuthorities": [
-                "ca.fedx.meditrack.com:7054"
+                "ca.btdc.meditrack.com:7054"
             ]
         }
     },
@@ -40,20 +40,20 @@
         }
     },
     "peers": {
-        "peer0.fedx.meditrack.com:7051": {
-            "url": "grpc://peer0.fedx.meditrack.com:7051",
+        "peer0.btdc.meditrack.com:7051": {
+            "url": "grpc://peer0.btdc.meditrack.com:7051",
             "tlsCACerts": {
                 "pem": "./tlsca.meditrack.com-cert.pem"
             },
             "grpcOptions": {
-                "ssl-target-name-override": "peer0.fedx.meditrack.com"
+                "ssl-target-name-override": "peer0.btdc.meditrack.com"
             }
         }
     },
     "certificateAuthorities": {
-        "ca.fedx.meditrack.com:7054": {
-            "url": "http://ca.fedx.meditrack.com:7054",
-            "caName": "ca.fedx.meditrack.com",
+        "ca.btdc.meditrack.com:7054": {
+            "url": "http://ca.btdc.meditrack.com:7054",
+            "caName": "ca.btdc.meditrack.com",
             "tlsCACerts": {
                 "pem": "./tlsca.meditrack.com-cert.pem"
             }

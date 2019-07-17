@@ -11,125 +11,125 @@ Organizations:
       AdminPrincipal: Role.MEMBER
 
 
-  - &bayer
+  - &mayer
 
-      Name: bayer
+      Name: mayer
 
-      ID: bayerMSP
+      ID: mayerMSP
 
-      MSPDir: crypto-config/peerOrganizations/bayer.meditrack.com/msp
+      MSPDir: crypto-config/peerOrganizations/mayer.meditrack.com/msp
 
       AdminPrincipal: Role.MEMBER
 
       AnchorPeers:
 
-        - Host: peer0.bayer.meditrack.com
+        - Host: peer0.mayer.meditrack.com
           Port: 7051
       
 
-  - &aimco
+  - &aimko
 
-      Name: aimco
+      Name: aimko
 
-      ID: aimcoMSP
+      ID: aimkoMSP
 
-      MSPDir: crypto-config/peerOrganizations/aimco.meditrack.com/msp
+      MSPDir: crypto-config/peerOrganizations/aimko.meditrack.com/msp
 
       AdminPrincipal: Role.MEMBER
 
       AnchorPeers:
 
-        - Host: peer0.aimco.meditrack.com
+        - Host: peer0.aimko.meditrack.com
           Port: 7051
 
-  - &gaia
+  - &baia
 
-      Name: gaia
+      Name: baia
 
-      ID: gaiaMSP
+      ID: baiaMSP
 
-      MSPDir: crypto-config/peerOrganizations/gaia.meditrack.com/msp
+      MSPDir: crypto-config/peerOrganizations/baia.meditrack.com/msp
 
       AdminPrincipal: Role.MEMBER
 
       AnchorPeers:
 
-        - Host: peer0.gaia.meditrack.com
+        - Host: peer0.baia.meditrack.com
           Port: 7051
 
-  - &migrow
+  - &bigrow
 
-      Name: migrow
+      Name: bigrow
 
-      ID: migrowMSP
+      ID: bigrowMSP
 
-      MSPDir: crypto-config/peerOrganizations/migrow.meditrack.com/msp
+      MSPDir: crypto-config/peerOrganizations/bigrow.meditrack.com/msp
 
       AdminPrincipal: Role.MEMBER
 
       AnchorPeers:
 
-        - Host: peer0.migrow.meditrack.com
+        - Host: peer0.bigrow.meditrack.com
           Port: 7051
 
-  - &fedx
+  - &dedx
 
-      Name: fedx
+      Name: dedx
 
-      ID: fedxMSP
+      ID: dedxMSP
 
-      MSPDir: crypto-config/peerOrganizations/fedx.meditrack.com/msp
+      MSPDir: crypto-config/peerOrganizations/dedx.meditrack.com/msp
 
       AdminPrincipal: Role.MEMBER
 
       AnchorPeers:
 
-        - Host: peer0.fedx.meditrack.com
+        - Host: peer0.dedx.meditrack.com
           Port: 7051
 
-  - &dtdc
+  - &btdc
 
-      Name: dtdc
+      Name: btdc
 
-      ID: dtdcMSP
+      ID: btdcMSP
 
-      MSPDir: crypto-config/peerOrganizations/dtdc.meditrack.com/msp
+      MSPDir: crypto-config/peerOrganizations/btdc.meditrack.com/msp
 
       AdminPrincipal: Role.MEMBER
 
       AnchorPeers:
 
-        - Host: peer0.dtdc.meditrack.com
+        - Host: peer0.btdc.meditrack.com
           Port: 7051
 
-  - &apollo
+  - &abollo
 
-      Name: apollo
+      Name: abollo
 
-      ID: apolloMSP
+      ID: abolloMSP
 
-      MSPDir: crypto-config/peerOrganizations/apollo.meditrack.com/msp
+      MSPDir: crypto-config/peerOrganizations/abollo.meditrack.com/msp
 
       AdminPrincipal: Role.MEMBER
 
       AnchorPeers:
 
-        - Host: peer0.apollo.meditrack.com
+        - Host: peer0.abollo.meditrack.com
           Port: 7051
 
-  - &care
+  - &fare
 
-      Name: care
+      Name: fare
 
-      ID: careMSP
+      ID: fareMSP
 
-      MSPDir: crypto-config/peerOrganizations/care.meditrack.com/msp
+      MSPDir: crypto-config/peerOrganizations/fare.meditrack.com/msp
 
       AdminPrincipal: Role.MEMBER
 
       AnchorPeers:
 
-        - Host: peer0.care.meditrack.com
+        - Host: peer0.fare.meditrack.com
           Port: 7051
 
   - &cdsco
@@ -226,30 +226,30 @@ Profiles:
     Consortiums:
       ComposerConsortium:
         Organizations:
-          - *bayer
-          - *aimco
-          - *gaia
-          - *migrow
-          - *fedx
-          - *dtdc
-          - *apollo
-          - *care
+          - *mayer
+          - *aimko
+          - *baia
+          - *bigrow
+          - *dedx
+          - *btdc
+          - *abollo
+          - *fare
           - *cdsco
           - *cibrc
       agritrackConsortium:
         Organizations:
-          - *bayer
-          - *aimco
-          - *migrow
-          - *dtdc
-          - *care
+          - *mayer
+          - *aimko
+          - *bigrow
+          - *btdc
+          - *fare
           - *cibrc
       meditrackConsortium:
         Organizations:
-          - *bayer
-          - *gaia
-          - *fedx
-          - *apollo
+          - *mayer
+          - *baia
+          - *dedx
+          - *abollo
           - *cdsco
 
   ChannelTest:
@@ -258,14 +258,14 @@ Profiles:
     Application:
       <<: *ApplicationDefaults
       Organizations:
-          - *bayer
-          - *aimco
-          - *gaia
-          - *migrow
-          - *fedx
-          - *dtdc
-          - *apollo
-          - *care
+          - *mayer
+          - *aimko
+          - *baia
+          - *bigrow
+          - *dedx
+          - *btdc
+          - *abollo
+          - *fare
           - *cdsco
           - *cibrc
       Capabilities:
@@ -281,11 +281,11 @@ Profiles:
     Application:
       <<: *ApplicationDefaults
       Organizations:
-          - *bayer
-          - *aimco
-          - *migrow
-          - *dtdc
-          - *care
+          - *mayer
+          - *aimko
+          - *bigrow
+          - *btdc
+          - *fare
           - *cibrc
       Capabilities:
           <<: *ApplicationCapabilities
@@ -302,10 +302,10 @@ Profiles:
     Application:
       <<: *ApplicationDefaults
       Organizations:
-          - *bayer
-          - *gaia
-          - *fedx
-          - *apollo
+          - *mayer
+          - *baia
+          - *dedx
+          - *abollo
           - *cdsco
       Capabilities:
           <<: *ApplicationCapabilities

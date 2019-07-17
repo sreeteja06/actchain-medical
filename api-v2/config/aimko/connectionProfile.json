@@ -3,7 +3,7 @@
     "description": "meditrack network",
     "version": "1.0.0",
     "client": {
-        "organization": "care"
+        "organization": "aimko"
     },
     "channels": {
         "ourchannel": {
@@ -11,7 +11,7 @@
                 "orderer.meditrack.com"
             ],
             "peers": {
-                "peer0.care.meditrack.com": {
+                "peer0.aimko.meditrack.com": {
                     "endorsingPeer": true,
                     "chaincodeQuery": true,
                     "ledgerQuery": true,
@@ -21,13 +21,13 @@
         }
     },
     "organizations": {
-        "care": {
-            "mspid": "careMSP",
+        "aimko": {
+            "mspid": "aimkoMSP",
             "peers": [
-                "peer0.care.meditrack.com:7051"
+                "peer0.aimko.meditrack.com:7051"
             ],
             "certificateAuthorities": [
-                "ca.care.meditrack.com:7054"
+                "ca.aimko.meditrack.com:7054"
             ]
         }
     },
@@ -40,20 +40,20 @@
         }
     },
     "peers": {
-        "peer0.care.meditrack.com:7051": {
-            "url": "grpc://peer0.care.meditrack.com:7051",
+        "peer0.aimko.meditrack.com:7051": {
+            "url": "grpc://peer0.aimko.meditrack.com:7051",
             "tlsCACerts": {
                 "pem": "./tlsca.meditrack.com-cert.pem"
             },
             "grpcOptions": {
-                "ssl-target-name-override": "peer0.care.meditrack.com"
+                "ssl-target-name-override": "peer0.aimko.meditrack.com"
             }
         }
     },
     "certificateAuthorities": {
-        "ca.care.meditrack.com:7054": {
-            "url": "http://ca.care.meditrack.com:7054",
-            "caName": "ca.care.meditrack.com",
+        "ca.aimko.meditrack.com:7054": {
+            "url": "http://ca.aimko.meditrack.com:7054",
+            "caName": "ca.aimko.meditrack.com",
             "tlsCACerts": {
                 "pem": "./tlsca.meditrack.com-cert.pem"
             }

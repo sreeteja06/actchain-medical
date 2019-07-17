@@ -12,7 +12,6 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm i fabric-ca-client
 RUN npm install
-RUN rm -r helpers/wallet
 COPY . .
 EXPOSE 3000
 CMD [ "node", "index.js" ]

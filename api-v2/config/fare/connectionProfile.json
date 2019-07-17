@@ -3,7 +3,7 @@
     "description": "meditrack network",
     "version": "1.0.0",
     "client": {
-        "organization": "aimco"
+        "organization": "fare"
     },
     "channels": {
         "ourchannel": {
@@ -11,7 +11,7 @@
                 "orderer.meditrack.com"
             ],
             "peers": {
-                "peer0.aimco.meditrack.com": {
+                "peer0.fare.meditrack.com": {
                     "endorsingPeer": true,
                     "chaincodeQuery": true,
                     "ledgerQuery": true,
@@ -21,13 +21,13 @@
         }
     },
     "organizations": {
-        "aimco": {
-            "mspid": "aimcoMSP",
+        "fare": {
+            "mspid": "fareMSP",
             "peers": [
-                "peer0.aimco.meditrack.com:7051"
+                "peer0.fare.meditrack.com:7051"
             ],
             "certificateAuthorities": [
-                "ca.aimco.meditrack.com:7054"
+                "ca.fare.meditrack.com:7054"
             ]
         }
     },
@@ -40,20 +40,20 @@
         }
     },
     "peers": {
-        "peer0.aimco.meditrack.com:7051": {
-            "url": "grpc://peer0.aimco.meditrack.com:7051",
+        "peer0.fare.meditrack.com:7051": {
+            "url": "grpc://peer0.fare.meditrack.com:7051",
             "tlsCACerts": {
                 "pem": "./tlsca.meditrack.com-cert.pem"
             },
             "grpcOptions": {
-                "ssl-target-name-override": "peer0.aimco.meditrack.com"
+                "ssl-target-name-override": "peer0.fare.meditrack.com"
             }
         }
     },
     "certificateAuthorities": {
-        "ca.aimco.meditrack.com:7054": {
-            "url": "http://ca.aimco.meditrack.com:7054",
-            "caName": "ca.aimco.meditrack.com",
+        "ca.fare.meditrack.com:7054": {
+            "url": "http://ca.fare.meditrack.com:7054",
+            "caName": "ca.fare.meditrack.com",
             "tlsCACerts": {
                 "pem": "./tlsca.meditrack.com-cert.pem"
             }

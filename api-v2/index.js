@@ -122,10 +122,7 @@ app.post(
     args.push( req.body.extraConditionsName );
     args.push( req.body.extraConditionsRequiredValue );
     args.push( req.body.extraConditionsCondition );
-    // args = ['002', 'hello', 'pee', '23-04-19', 'tel'];
     const fn = 'createMedicine';
-    // let username = req.body.username;
-    // let orgName = req.body.orgName;
 
     let message = await invoke( fn, args, channelName, chaincodeName, orgName, username );
 

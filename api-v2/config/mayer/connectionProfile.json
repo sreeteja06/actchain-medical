@@ -4,7 +4,7 @@
     "description": "meditrack Network",
     "version": "1.0",
     "client": {
-        "organization": "bayer"
+        "organization": "mayer"
     },
     "channels": {
         "ourchannel": {
@@ -12,7 +12,7 @@
                 "orderer.meditrack.com"
             ],
             "peers": {
-                "peer0.bayer.meditrack.com": {
+                "peer0.mayer.meditrack.com": {
                     "endorsingPeer": true,
                     "chaincodeQuery": true,
                     "ledgerQuery": true,
@@ -22,13 +22,13 @@
         }
     },
     "organizations": {
-        "bayer": {
-            "mspid": "bayerMSP",
+        "mayer": {
+            "mspid": "mayerMSP",
             "peers": [
-                "peer0.bayer.meditrack.com"
+                "peer0.mayer.meditrack.com"
             ],
             "certificateAuthorities": [
-                "ca.bayer.meditrack.com"
+                "ca.mayer.meditrack.com"
             ]
         }
     },
@@ -41,17 +41,17 @@
         }
     },
     "peers": {
-        "peer0.bayer.meditrack.com": {
-            "url": "grpc://peer0.bayer.meditrack.com:7051",
-            "eventUrl": "grpc://peer0.bayer.meditrack.com:7053",
+        "peer0.mayer.meditrack.com": {
+            "url": "grpc://peer0.mayer.meditrack.com:7051",
+            "eventUrl": "grpc://peer0.mayer.meditrack.com:7053",
             "tlsCACerts": {
                 "path": "./tlsca.meditrack.com-cert.pem"
             }
         }
     },
     "certificateAuthorities": {
-        "ca.bayer.meditrack.com": {
-            "url": "http://ca.bayer.meditrack.com:7054",
+        "ca.mayer.meditrack.com": {
+            "url": "http://ca.mayer.meditrack.com:7054",
             "tlsCACerts": {
                 "path": "./tlsca.meditrack.com-cert.pem"
             },
@@ -61,7 +61,7 @@
                     "enrollSecret": "adminpw"
                 }
             ],
-            "caName": "ca.bayer.meditrack.com"
+            "caName": "ca.mayer.meditrack.com"
         }
     }
 }

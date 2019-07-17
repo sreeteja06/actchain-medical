@@ -3,7 +3,7 @@
     "description": "meditrack network",
     "version": "1.0.0",
     "client": {
-        "organization": "apollo"
+        "organization": "abollo"
     },
     "channels": {
         "ourchannel": {
@@ -11,7 +11,7 @@
                 "orderer.meditrack.com"
             ],
             "peers": {
-                "peer0.apollo.meditrack.com": {
+                "peer0.abollo.meditrack.com": {
                     "endorsingPeer": true,
                     "chaincodeQuery": true,
                     "ledgerQuery": true,
@@ -21,13 +21,13 @@
         }
     },
     "organizations": {
-        "apollo": {
-            "mspid": "apolloMSP",
+        "abollo": {
+            "mspid": "abolloMSP",
             "peers": [
-                "peer0.apollo.meditrack.com:7051"
+                "peer0.abollo.meditrack.com:7051"
             ],
             "certificateAuthorities": [
-                "ca.apollo.meditrack.com:7054"
+                "ca.abollo.meditrack.com:7054"
             ]
         }
     },
@@ -40,20 +40,20 @@
         }
     },
     "peers": {
-        "peer0.apollo.meditrack.com:7051": {
-            "url": "grpc://peer0.apollo.meditrack.com:7051",
+        "peer0.abollo.meditrack.com:7051": {
+            "url": "grpc://peer0.abollo.meditrack.com:7051",
             "tlsCACerts": {
                 "pem": "./tlsca.meditrack.com-cert.pem"
             },
             "grpcOptions": {
-                "ssl-target-name-override": "peer0.apollo.meditrack.com"
+                "ssl-target-name-override": "peer0.abollo.meditrack.com"
             }
         }
     },
     "certificateAuthorities": {
-        "ca.apollo.meditrack.com:7054": {
-            "url": "http://ca.apollo.meditrack.com:7054",
-            "caName": "ca.apollo.meditrack.com",
+        "ca.abollo.meditrack.com:7054": {
+            "url": "http://ca.abollo.meditrack.com:7054",
+            "caName": "ca.abollo.meditrack.com",
             "tlsCACerts": {
                 "pem": "./tlsca.meditrack.com-cert.pem"
             }

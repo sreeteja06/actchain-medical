@@ -3,7 +3,7 @@
     "description": "meditrack network",
     "version": "1.0.0",
     "client": {
-        "organization": "dtdc"
+        "organization": "baia"
     },
     "channels": {
         "ourchannel": {
@@ -11,7 +11,7 @@
                 "orderer.meditrack.com"
             ],
             "peers": {
-                "peer0.dtdc.meditrack.com": {
+                "peer0.baia.meditrack.com": {
                     "endorsingPeer": true,
                     "chaincodeQuery": true,
                     "ledgerQuery": true,
@@ -21,13 +21,13 @@
         }
     },
     "organizations": {
-        "dtdc": {
-            "mspid": "dtdcMSP",
+        "baia": {
+            "mspid": "baiaMSP",
             "peers": [
-                "peer0.dtdc.meditrack.com:7051"
+                "peer0.baia.meditrack.com:7051"
             ],
             "certificateAuthorities": [
-                "ca.dtdc.meditrack.com:7054"
+                "ca.baia.meditrack.com:7054"
             ]
         }
     },
@@ -40,20 +40,20 @@
         }
     },
     "peers": {
-        "peer0.dtdc.meditrack.com:7051": {
-            "url": "grpc://peer0.dtdc.meditrack.com:7051",
+        "peer0.baia.meditrack.com:7051": {
+            "url": "grpc://peer0.baia.meditrack.com:7051",
             "tlsCACerts": {
                 "pem": "./tlsca.meditrack.com-cert.pem"
             },
             "grpcOptions": {
-                "ssl-target-name-override": "peer0.dtdc.meditrack.com"
+                "ssl-target-name-override": "peer0.baia.meditrack.com"
             }
         }
     },
     "certificateAuthorities": {
-        "ca.dtdc.meditrack.com:7054": {
-            "url": "http://ca.dtdc.meditrack.com:7054",
-            "caName": "ca.dtdc.meditrack.com",
+        "ca.baia.meditrack.com:7054": {
+            "url": "http://ca.baia.meditrack.com:7054",
+            "caName": "ca.baia.meditrack.com",
             "tlsCACerts": {
                 "pem": "./tlsca.meditrack.com-cert.pem"
             }

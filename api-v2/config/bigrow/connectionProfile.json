@@ -3,7 +3,7 @@
     "description": "meditrack network",
     "version": "1.0.0",
     "client": {
-        "organization": "migrow"
+        "organization": "bigrow"
     },
     "channels": {
         "ourchannel": {
@@ -11,7 +11,7 @@
                 "orderer.meditrack.com"
             ],
             "peers": {
-                "peer0.migrow.meditrack.com": {
+                "peer0.bigrow.meditrack.com": {
                     "endorsingPeer": true,
                     "chaincodeQuery": true,
                     "ledgerQuery": true,
@@ -21,13 +21,13 @@
         }
     },
     "organizations": {
-        "migrow": {
-            "mspid": "migrowMSP",
+        "bigrow": {
+            "mspid": "bigrowMSP",
             "peers": [
-                "peer0.migrow.meditrack.com:7051"
+                "peer0.bigrow.meditrack.com:7051"
             ],
             "certificateAuthorities": [
-                "ca.migrow.meditrack.com:7054"
+                "ca.bigrow.meditrack.com:7054"
             ]
         }
     },
@@ -40,20 +40,20 @@
         }
     },
     "peers": {
-        "peer0.migrow.meditrack.com:7051": {
-            "url": "grpc://peer0.migrow.meditrack.com:7051",
+        "peer0.bigrow.meditrack.com:7051": {
+            "url": "grpc://peer0.bigrow.meditrack.com:7051",
             "tlsCACerts": {
                 "pem": "./tlsca.meditrack.com-cert.pem"
             },
             "grpcOptions": {
-                "ssl-target-name-override": "peer0.migrow.meditrack.com"
+                "ssl-target-name-override": "peer0.bigrow.meditrack.com"
             }
         }
     },
     "certificateAuthorities": {
-        "ca.migrow.meditrack.com:7054": {
-            "url": "http://ca.migrow.meditrack.com:7054",
-            "caName": "ca.migrow.meditrack.com",
+        "ca.bigrow.meditrack.com:7054": {
+            "url": "http://ca.bigrow.meditrack.com:7054",
+            "caName": "ca.bigrow.meditrack.com",
             "tlsCACerts": {
                 "pem": "./tlsca.meditrack.com-cert.pem"
             }

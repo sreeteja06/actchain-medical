@@ -7,43 +7,43 @@ export FABRIC_CFG_PATH=$PWD
 ./cryptogen generate --config=./crypto-config.yaml
 ./configtxgen -profile ProfileTest -outputBlock ./channel-artifacts/genesis.block
 ./configtxgen -profile ChannelTest -outputCreateChannelTx ./channel-artifacts/channel.tx   -channelID ourchannel
-./configtxgen -profile ChannelTest -outputAnchorPeersUpdate ./channel-artifacts/bayerMSPanchors.tx -channelID ourchannel -asOrg bayer
-./configtxgen -profile ChannelTest -outputAnchorPeersUpdate ./channel-artifacts/aimcoMSPanchors.tx -channelID ourchannel -asOrg aimco
-./configtxgen -profile ChannelTest -outputAnchorPeersUpdate ./channel-artifacts/gaiaMSPanchors.tx -channelID ourchannel -asOrg gaia
-./configtxgen -profile ChannelTest -outputAnchorPeersUpdate ./channel-artifacts/migrowMSPanchors.tx -channelID ourchannel -asOrg migrow
-./configtxgen -profile ChannelTest -outputAnchorPeersUpdate ./channel-artifacts/fedxMSPanchors.tx -channelID ourchannel -asOrg fedx
-./configtxgen -profile ChannelTest -outputAnchorPeersUpdate ./channel-artifacts/dtdcMSPanchors.tx -channelID ourchannel -asOrg dtdc
-./configtxgen -profile ChannelTest -outputAnchorPeersUpdate ./channel-artifacts/apolloMSPanchors.tx -channelID ourchannel -asOrg apollo
-./configtxgen -profile ChannelTest -outputAnchorPeersUpdate ./channel-artifacts/careMSPanchors.tx -channelID ourchannel -asOrg care
+./configtxgen -profile ChannelTest -outputAnchorPeersUpdate ./channel-artifacts/mayerMSPanchors.tx -channelID ourchannel -asOrg mayer
+./configtxgen -profile ChannelTest -outputAnchorPeersUpdate ./channel-artifacts/aimkoMSPanchors.tx -channelID ourchannel -asOrg aimko
+./configtxgen -profile ChannelTest -outputAnchorPeersUpdate ./channel-artifacts/baiaMSPanchors.tx -channelID ourchannel -asOrg baia
+./configtxgen -profile ChannelTest -outputAnchorPeersUpdate ./channel-artifacts/bigrowMSPanchors.tx -channelID ourchannel -asOrg bigrow
+./configtxgen -profile ChannelTest -outputAnchorPeersUpdate ./channel-artifacts/dedxMSPanchors.tx -channelID ourchannel -asOrg dedx
+./configtxgen -profile ChannelTest -outputAnchorPeersUpdate ./channel-artifacts/btdcMSPanchors.tx -channelID ourchannel -asOrg btdc
+./configtxgen -profile ChannelTest -outputAnchorPeersUpdate ./channel-artifacts/abolloMSPanchors.tx -channelID ourchannel -asOrg abollo
+./configtxgen -profile ChannelTest -outputAnchorPeersUpdate ./channel-artifacts/fareMSPanchors.tx -channelID ourchannel -asOrg fare
 ./configtxgen -profile ChannelTest -outputAnchorPeersUpdate ./channel-artifacts/cdscoMSPanchors.tx -channelID ourchannel -asOrg cdsco
 ./configtxgen -profile ChannelTest -outputAnchorPeersUpdate ./channel-artifacts/cibrcMSPanchors.tx -channelID ourchannel -asOrg cibrc
 }
 
 
 function join_channel() {
-docker exec peer0.bayer.meditrack.com peer channel create -o orderer.meditrack.com:7050 -c ourchannel -f /etc/hyperledger/configtx/channel.tx
-docker exec peer0.bayer.meditrack.com cp ourchannel.block /etc/hyperledger/configtx
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@bayer.meditrack.com/msp" peer0.bayer.meditrack.com peer channel join -b /etc/hyperledger/configtx/ourchannel.block
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@aimco.meditrack.com/msp" peer0.aimco.meditrack.com peer channel join -b /etc/hyperledger/configtx/ourchannel.block
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@gaia.meditrack.com/msp" peer0.gaia.meditrack.com peer channel join -b /etc/hyperledger/configtx/ourchannel.block
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@migrow.meditrack.com/msp" peer0.migrow.meditrack.com peer channel join -b /etc/hyperledger/configtx/ourchannel.block
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@fedx.meditrack.com/msp" peer0.fedx.meditrack.com peer channel join -b /etc/hyperledger/configtx/ourchannel.block
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@dtdc.meditrack.com/msp" peer0.dtdc.meditrack.com peer channel join -b /etc/hyperledger/configtx/ourchannel.block
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@apollo.meditrack.com/msp" peer0.apollo.meditrack.com peer channel join -b /etc/hyperledger/configtx/ourchannel.block
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@care.meditrack.com/msp" peer0.care.meditrack.com peer channel join -b /etc/hyperledger/configtx/ourchannel.block
+docker exec peer0.mayer.meditrack.com peer channel create -o orderer.meditrack.com:7050 -c ourchannel -f /etc/hyperledger/configtx/channel.tx
+docker exec peer0.mayer.meditrack.com cp ourchannel.block /etc/hyperledger/configtx
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@mayer.meditrack.com/msp" peer0.mayer.meditrack.com peer channel join -b /etc/hyperledger/configtx/ourchannel.block
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@aimko.meditrack.com/msp" peer0.aimko.meditrack.com peer channel join -b /etc/hyperledger/configtx/ourchannel.block
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@baia.meditrack.com/msp" peer0.baia.meditrack.com peer channel join -b /etc/hyperledger/configtx/ourchannel.block
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@bigrow.meditrack.com/msp" peer0.bigrow.meditrack.com peer channel join -b /etc/hyperledger/configtx/ourchannel.block
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@dedx.meditrack.com/msp" peer0.dedx.meditrack.com peer channel join -b /etc/hyperledger/configtx/ourchannel.block
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@btdc.meditrack.com/msp" peer0.btdc.meditrack.com peer channel join -b /etc/hyperledger/configtx/ourchannel.block
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@abollo.meditrack.com/msp" peer0.abollo.meditrack.com peer channel join -b /etc/hyperledger/configtx/ourchannel.block
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@fare.meditrack.com/msp" peer0.fare.meditrack.com peer channel join -b /etc/hyperledger/configtx/ourchannel.block
 docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@cdsco.meditrack.com/msp" peer0.cdsco.meditrack.com peer channel join -b /etc/hyperledger/configtx/ourchannel.block
 docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@cibrc.meditrack.com/msp" peer0.cibrc.meditrack.com peer channel join -b /etc/hyperledger/configtx/ourchannel.block
 }
 
 function update_anchorPeers(){
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@bayer.meditrack.com/msp" peer0.bayer.meditrack.com peer channel update -f /etc/hyperledger/configtx/bayerMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@aimco.meditrack.com/msp" peer0.aimco.meditrack.com peer channel update -f /etc/hyperledger/configtx/aimcoMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@gaia.meditrack.com/msp" peer0.gaia.meditrack.com peer channel update -f /etc/hyperledger/configtx/gaiaMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@migrow.meditrack.com/msp" peer0.migrow.meditrack.com peer channel update -f /etc/hyperledger/configtx/migrowMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@fedx.meditrack.com/msp" peer0.fedx.meditrack.com peer channel update -f /etc/hyperledger/configtx/fedxMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@dtdc.meditrack.com/msp" peer0.dtdc.meditrack.com peer channel update -f /etc/hyperledger/configtx/dtdcMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@apollo.meditrack.com/msp" peer0.apollo.meditrack.com peer channel update -f /etc/hyperledger/configtx/apolloMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@care.meditrack.com/msp" peer0.care.meditrack.com peer channel update -f /etc/hyperledger/configtx/careMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@mayer.meditrack.com/msp" peer0.mayer.meditrack.com peer channel update -f /etc/hyperledger/configtx/mayerMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@aimko.meditrack.com/msp" peer0.aimko.meditrack.com peer channel update -f /etc/hyperledger/configtx/aimkoMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@baia.meditrack.com/msp" peer0.baia.meditrack.com peer channel update -f /etc/hyperledger/configtx/baiaMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@bigrow.meditrack.com/msp" peer0.bigrow.meditrack.com peer channel update -f /etc/hyperledger/configtx/bigrowMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@dedx.meditrack.com/msp" peer0.dedx.meditrack.com peer channel update -f /etc/hyperledger/configtx/dedxMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@btdc.meditrack.com/msp" peer0.btdc.meditrack.com peer channel update -f /etc/hyperledger/configtx/btdcMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@abollo.meditrack.com/msp" peer0.abollo.meditrack.com peer channel update -f /etc/hyperledger/configtx/abolloMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@fare.meditrack.com/msp" peer0.fare.meditrack.com peer channel update -f /etc/hyperledger/configtx/fareMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
 docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@cdsco.meditrack.com/msp" peer0.cdsco.meditrack.com peer channel update -f /etc/hyperledger/configtx/cdscoMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
 docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@cibrc.meditrack.com/msp" peer0.cibrc.meditrack.com peer channel update -f /etc/hyperledger/configtx/cibrcMSPanchors.tx -c ourchannel -o orderer.meditrack.com:7050
 }
@@ -63,28 +63,28 @@ mkdir channel-artifacts/meditrack
 export CHANNEL_NAME=meditrack
 export FABRIC_CFG_PATH=$PWD
 ./configtxgen -profile meditrackChannel -outputCreateChannelTx ./channel-artifacts/meditrack/channel.tx   -channelID meditrack
-./configtxgen -profile meditrackChannel -outputAnchorPeersUpdate ./channel-artifacts/meditrack/bayerMSPanchors.tx -channelID meditrack -asOrg bayer
-./configtxgen -profile meditrackChannel -outputAnchorPeersUpdate ./channel-artifacts/meditrack/gaiaMSPanchors.tx -channelID meditrack -asOrg gaia
-./configtxgen -profile meditrackChannel -outputAnchorPeersUpdate ./channel-artifacts/meditrack/fedxMSPanchors.tx -channelID meditrack -asOrg fedx
-./configtxgen -profile meditrackChannel -outputAnchorPeersUpdate ./channel-artifacts/meditrack/apolloMSPanchors.tx -channelID meditrack -asOrg apollo
+./configtxgen -profile meditrackChannel -outputAnchorPeersUpdate ./channel-artifacts/meditrack/mayerMSPanchors.tx -channelID meditrack -asOrg mayer
+./configtxgen -profile meditrackChannel -outputAnchorPeersUpdate ./channel-artifacts/meditrack/baiaMSPanchors.tx -channelID meditrack -asOrg baia
+./configtxgen -profile meditrackChannel -outputAnchorPeersUpdate ./channel-artifacts/meditrack/dedxMSPanchors.tx -channelID meditrack -asOrg dedx
+./configtxgen -profile meditrackChannel -outputAnchorPeersUpdate ./channel-artifacts/meditrack/abolloMSPanchors.tx -channelID meditrack -asOrg abollo
 ./configtxgen -profile meditrackChannel -outputAnchorPeersUpdate ./channel-artifacts/meditrack/cdscoMSPanchors.tx -channelID meditrack -asOrg cdsco
 }
 
 function join_meditrack(){
-docker exec peer0.bayer.meditrack.com peer channel create -o orderer.meditrack.com:7050 -c meditrack -f /etc/hyperledger/configtx/meditrack/channel.tx
-docker exec peer0.bayer.meditrack.com cp meditrack.block /etc/hyperledger/configtx/meditrack
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@bayer.meditrack.com/msp" peer0.bayer.meditrack.com peer channel join -b /etc/hyperledger/configtx/meditrack/meditrack.block
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@gaia.meditrack.com/msp" peer0.gaia.meditrack.com peer channel join -b /etc/hyperledger/configtx/meditrack/meditrack.block
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@fedx.meditrack.com/msp" peer0.fedx.meditrack.com peer channel join -b /etc/hyperledger/configtx/meditrack/meditrack.block
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@apollo.meditrack.com/msp" peer0.apollo.meditrack.com peer channel join -b /etc/hyperledger/configtx/meditrack/meditrack.block
+docker exec peer0.mayer.meditrack.com peer channel create -o orderer.meditrack.com:7050 -c meditrack -f /etc/hyperledger/configtx/meditrack/channel.tx
+docker exec peer0.mayer.meditrack.com cp meditrack.block /etc/hyperledger/configtx/meditrack
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@mayer.meditrack.com/msp" peer0.mayer.meditrack.com peer channel join -b /etc/hyperledger/configtx/meditrack/meditrack.block
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@baia.meditrack.com/msp" peer0.baia.meditrack.com peer channel join -b /etc/hyperledger/configtx/meditrack/meditrack.block
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@dedx.meditrack.com/msp" peer0.dedx.meditrack.com peer channel join -b /etc/hyperledger/configtx/meditrack/meditrack.block
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@abollo.meditrack.com/msp" peer0.abollo.meditrack.com peer channel join -b /etc/hyperledger/configtx/meditrack/meditrack.block
 docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@cdsco.meditrack.com/msp" peer0.cdsco.meditrack.com peer channel join -b /etc/hyperledger/configtx/meditrack/meditrack.block
 }
 
 function update_meditrackAnchorpeers(){
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@bayer.meditrack.com/msp" peer0.bayer.meditrack.com peer channel update -f /etc/hyperledger/configtx/meditrack/bayerMSPanchors.tx -c meditrack -o orderer.meditrack.com:7050
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@gaia.meditrack.com/msp" peer0.gaia.meditrack.com peer channel update -f /etc/hyperledger/configtx/meditrack/gaiaMSPanchors.tx -c meditrack -o orderer.meditrack.com:7050
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@fedx.meditrack.com/msp" peer0.fedx.meditrack.com peer channel update -f /etc/hyperledger/configtx/meditrack/fedxMSPanchors.tx -c meditrack -o orderer.meditrack.com:7050
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@apollo.meditrack.com/msp" peer0.apollo.meditrack.com peer channel update -f /etc/hyperledger/configtx/meditrack/apolloMSPanchors.tx -c meditrack -o orderer.meditrack.com:7050
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@mayer.meditrack.com/msp" peer0.mayer.meditrack.com peer channel update -f /etc/hyperledger/configtx/meditrack/mayerMSPanchors.tx -c meditrack -o orderer.meditrack.com:7050
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@baia.meditrack.com/msp" peer0.baia.meditrack.com peer channel update -f /etc/hyperledger/configtx/meditrack/baiaMSPanchors.tx -c meditrack -o orderer.meditrack.com:7050
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@dedx.meditrack.com/msp" peer0.dedx.meditrack.com peer channel update -f /etc/hyperledger/configtx/meditrack/dedxMSPanchors.tx -c meditrack -o orderer.meditrack.com:7050
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@abollo.meditrack.com/msp" peer0.abollo.meditrack.com peer channel update -f /etc/hyperledger/configtx/meditrack/abolloMSPanchors.tx -c meditrack -o orderer.meditrack.com:7050
 docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@cdsco.meditrack.com/msp" peer0.cdsco.meditrack.com peer channel update -f /etc/hyperledger/configtx/meditrack/cdscoMSPanchors.tx -c meditrack -o orderer.meditrack.com:7050
 }
 
@@ -93,31 +93,31 @@ mkdir channel-artifacts/agritrack
 export CHANNEL_NAME=agritrack
 export FABRIC_CFG_PATH=$PWD
 ./configtxgen -profile agritrackChannel -outputCreateChannelTx ./channel-artifacts/agritrack/channel.tx   -channelID agritrack
-./configtxgen -profile agritrackChannel -outputAnchorPeersUpdate ./channel-artifacts/agritrack/bayerMSPanchors.tx -channelID agritrack -asOrg bayer
-./configtxgen -profile agritrackChannel -outputAnchorPeersUpdate ./channel-artifacts/agritrack/aimcoMSPanchors.tx -channelID agritrack -asOrg aimco
-./configtxgen -profile agritrackChannel -outputAnchorPeersUpdate ./channel-artifacts/agritrack/migrowMSPanchors.tx -channelID agritrack -asOrg migrow
-./configtxgen -profile agritrackChannel -outputAnchorPeersUpdate ./channel-artifacts/agritrack/dtdcMSPanchors.tx -channelID agritrack -asOrg dtdc
-./configtxgen -profile agritrackChannel -outputAnchorPeersUpdate ./channel-artifacts/agritrack/careMSPanchors.tx -channelID agritrack -asOrg care
+./configtxgen -profile agritrackChannel -outputAnchorPeersUpdate ./channel-artifacts/agritrack/mayerMSPanchors.tx -channelID agritrack -asOrg mayer
+./configtxgen -profile agritrackChannel -outputAnchorPeersUpdate ./channel-artifacts/agritrack/aimkoMSPanchors.tx -channelID agritrack -asOrg aimko
+./configtxgen -profile agritrackChannel -outputAnchorPeersUpdate ./channel-artifacts/agritrack/bigrowMSPanchors.tx -channelID agritrack -asOrg bigrow
+./configtxgen -profile agritrackChannel -outputAnchorPeersUpdate ./channel-artifacts/agritrack/btdcMSPanchors.tx -channelID agritrack -asOrg btdc
+./configtxgen -profile agritrackChannel -outputAnchorPeersUpdate ./channel-artifacts/agritrack/fareMSPanchors.tx -channelID agritrack -asOrg fare
 ./configtxgen -profile agritrackChannel -outputAnchorPeersUpdate ./channel-artifacts/agritrack/cibrcMSPanchors.tx -channelID agritrack -asOrg cibrc
 }
 
 function join_agritrack(){
-docker exec peer0.bayer.meditrack.com peer channel create -o orderer.meditrack.com:7050 -c agritrack -f /etc/hyperledger/configtx/agritrack/channel.tx
-docker exec peer0.bayer.meditrack.com cp agritrack.block /etc/hyperledger/configtx/agritrack
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@bayer.meditrack.com/msp" peer0.bayer.meditrack.com peer channel join -b /etc/hyperledger/configtx/agritrack/agritrack.block
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@aimco.meditrack.com/msp" peer0.aimco.meditrack.com peer channel join -b /etc/hyperledger/configtx/agritrack/agritrack.block
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@migrow.meditrack.com/msp" peer0.migrow.meditrack.com peer channel join -b /etc/hyperledger/configtx/agritrack/agritrack.block
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@dtdc.meditrack.com/msp" peer0.dtdc.meditrack.com peer channel join -b /etc/hyperledger/configtx/agritrack/agritrack.block
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@care.meditrack.com/msp" peer0.care.meditrack.com peer channel join -b /etc/hyperledger/configtx/agritrack/agritrack.block
+docker exec peer0.mayer.meditrack.com peer channel create -o orderer.meditrack.com:7050 -c agritrack -f /etc/hyperledger/configtx/agritrack/channel.tx
+docker exec peer0.mayer.meditrack.com cp agritrack.block /etc/hyperledger/configtx/agritrack
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@mayer.meditrack.com/msp" peer0.mayer.meditrack.com peer channel join -b /etc/hyperledger/configtx/agritrack/agritrack.block
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@aimko.meditrack.com/msp" peer0.aimko.meditrack.com peer channel join -b /etc/hyperledger/configtx/agritrack/agritrack.block
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@bigrow.meditrack.com/msp" peer0.bigrow.meditrack.com peer channel join -b /etc/hyperledger/configtx/agritrack/agritrack.block
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@btdc.meditrack.com/msp" peer0.btdc.meditrack.com peer channel join -b /etc/hyperledger/configtx/agritrack/agritrack.block
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@fare.meditrack.com/msp" peer0.fare.meditrack.com peer channel join -b /etc/hyperledger/configtx/agritrack/agritrack.block
 docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@cibrc.meditrack.com/msp" peer0.cibrc.meditrack.com peer channel join -b /etc/hyperledger/configtx/agritrack/agritrack.block
 }
 
 function update_agritrackAnchorpeers(){
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@bayer.meditrack.com/msp" peer0.bayer.meditrack.com peer channel update -f /etc/hyperledger/configtx/agritrack/bayerMSPanchors.tx -c agritrack -o orderer.meditrack.com:7050
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@aimco.meditrack.com/msp" peer0.aimco.meditrack.com peer channel update -f /etc/hyperledger/configtx/agritrack/aimcoMSPanchors.tx -c agritrack -o orderer.meditrack.com:7050
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@migrow.meditrack.com/msp" peer0.migrow.meditrack.com peer channel update -f /etc/hyperledger/configtx/agritrack/migrowMSPanchors.tx -c agritrack -o orderer.meditrack.com:7050
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@dtdc.meditrack.com/msp" peer0.dtdc.meditrack.com peer channel update -f /etc/hyperledger/configtx/agritrack/dtdcMSPanchors.tx -c agritrack -o orderer.meditrack.com:7050
-docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@care.meditrack.com/msp" peer0.care.meditrack.com peer channel update -f /etc/hyperledger/configtx/agritrack/careMSPanchors.tx -c agritrack -o orderer.meditrack.com:7050
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@mayer.meditrack.com/msp" peer0.mayer.meditrack.com peer channel update -f /etc/hyperledger/configtx/agritrack/mayerMSPanchors.tx -c agritrack -o orderer.meditrack.com:7050
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@aimko.meditrack.com/msp" peer0.aimko.meditrack.com peer channel update -f /etc/hyperledger/configtx/agritrack/aimkoMSPanchors.tx -c agritrack -o orderer.meditrack.com:7050
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@bigrow.meditrack.com/msp" peer0.bigrow.meditrack.com peer channel update -f /etc/hyperledger/configtx/agritrack/bigrowMSPanchors.tx -c agritrack -o orderer.meditrack.com:7050
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@btdc.meditrack.com/msp" peer0.btdc.meditrack.com peer channel update -f /etc/hyperledger/configtx/agritrack/btdcMSPanchors.tx -c agritrack -o orderer.meditrack.com:7050
+docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@fare.meditrack.com/msp" peer0.fare.meditrack.com peer channel update -f /etc/hyperledger/configtx/agritrack/fareMSPanchors.tx -c agritrack -o orderer.meditrack.com:7050
 docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@cibrc.meditrack.com/msp" peer0.cibrc.meditrack.com peer channel update -f /etc/hyperledger/configtx/agritrack/cibrcMSPanchors.tx -c agritrack -o orderer.meditrack.com:7050
 }
 
@@ -134,10 +134,20 @@ agritrack_Channel
 join_agritrack
 update_agritrackAnchorpeers
 
-function install_chaincode(){
-    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@bayer.meditrack.com/msp" peer0.bayer.meditrack.com peer chaincode install -l node -n test3 -p /etc/hyperledger/chaincode/meditrack -v v0
+function install_chaincode_meditrack(){
+    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@mayer.meditrack.com/msp" peer0.mayer.meditrack.com peer chaincode install -l node -n test3 -p /etc/hyperledger/chaincode/meditrack -v v0
 }
 
-function instantiate_chaincode(){
-    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@bayer.meditrack.com/msp" peer0.bayer.meditrack.com peer chaincode instantiate -l node -o orderer.meditrack.com:7050 -C ourchannel -n test3 -v v0 -c '{"Args":["init"]}'
+function instantiate_chaincode_meditrack(){
+    docker cp ./privatedataConfig/privateDataCollectionMeditrack.json peer0.mayer.meditrack.com:/opt/gopath/src/github.com/hyperledger/fabric/
+    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@mayer.meditrack.com/msp" peer0.mayer.meditrack.com peer chaincode instantiate -l node -o orderer.meditrack.com:7050 -C meditrack -n test3 -v v0 -c '{"Args":["init"]}' --collections-config privateDataCollectionMeditrack.json
+}
+
+function install_chain_agritrack(){
+    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@mayer.meditrack.com/msp" peer0.mayer.meditrack.com peer chaincode install -l node -n agriTest -p /etc/hyperledger/chaincode/agritrack -v v0
+}
+
+function instantiate_chaincode_meditrack(){
+    docker cp ./privatedataConfig/privateDataCollectionAgritrack.json peer0.mayer.meditrack.com:/opt/gopath/src/github.com/hyperledger/fabric/
+    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@mayer.meditrack.com/msp" peer0.mayer.meditrack.com peer chaincode instantiate -l node -o orderer.meditrack.com:7050 -C agritrack -n agriTest -v v0 -c '{"Args":["init"]}' --collections-config privateDataCollectionAgritrack.json
 }

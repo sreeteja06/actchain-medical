@@ -8,8 +8,8 @@ OrdererOrgs:
 
 PeerOrgs:
 
-  - Name: bayer
-    Domain: bayer.meditrack.com
+  - Name: mayer
+    Domain: mayer.meditrack.com
 
     Template:
       Count: 1
@@ -17,8 +17,8 @@ PeerOrgs:
     Users:
       Count: 3
 
-  - Name: aimco
-    Domain: aimco.meditrack.com
+  - Name: aimko
+    Domain: aimko.meditrack.com
 
     Template:
       Count: 1
@@ -26,8 +26,8 @@ PeerOrgs:
     Users:
       Count: 3
 
-  - Name: gaia
-    Domain: gaia.meditrack.com
+  - Name: baia
+    Domain: baia.meditrack.com
 
     Template:
       Count: 1
@@ -35,8 +35,8 @@ PeerOrgs:
     Users:
       Count: 3
 
-  - Name: migrow
-    Domain: migrow.meditrack.com
+  - Name: bigrow
+    Domain: bigrow.meditrack.com
 
     Template:
       Count: 1
@@ -44,8 +44,8 @@ PeerOrgs:
     Users:
       Count: 3
 
-  - Name: fedx
-    Domain: fedx.meditrack.com
+  - Name: dedx
+    Domain: dedx.meditrack.com
 
     Template:
       Count: 1
@@ -53,8 +53,8 @@ PeerOrgs:
     Users:
       Count: 3
 
-  - Name: dtdc
-    Domain: dtdc.meditrack.com
+  - Name: btdc
+    Domain: btdc.meditrack.com
 
     Template:
       Count: 1
@@ -62,8 +62,8 @@ PeerOrgs:
     Users:
       Count: 3
 
-  - Name: apollo
-    Domain: apollo.meditrack.com
+  - Name: abollo
+    Domain: abollo.meditrack.com
 
     Template:
       Count: 1
@@ -71,8 +71,8 @@ PeerOrgs:
     Users:
       Count: 3
 
-  - Name: care
-    Domain: care.meditrack.com
+  - Name: fare
+    Domain: fare.meditrack.com
 
     Template:
       Count: 1

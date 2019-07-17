@@ -151,22 +151,22 @@ services:
     networks:
       - meditrack
 
-  ca.bayer.meditrack.com:
+  ca.mayer.meditrack.com:
     image: hyperledger/fabric-ca:latest
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
-      - FABRIC_CA_SERVER_CA_NAME=ca.bayer.meditrack.com
+      - FABRIC_CA_SERVER_CA_NAME=ca.mayer.meditrack.com
     ports:
       - "7054:7054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.bayer.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.mayer.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
     volumes:
-      - ./crypto-config/peerOrganizations/bayer.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
-    container_name: ca.bayer.meditrack.com
+      - ./crypto-config/peerOrganizations/mayer.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.mayer.meditrack.com
     networks:
       - meditrack
 
-  peer0.bayer.meditrack.com:
-    container_name: peer0.bayer.meditrack.com
+  peer0.mayer.meditrack.com:
+    container_name: peer0.mayer.meditrack.com
     image: hyperledger/fabric-peer:latest
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric
     command: peer node start
@@ -175,10 +175,10 @@ services:
       - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
       - CORE_CHAINCODE_LOGGING_SHIM=DEBUG
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
-      - CORE_PEER_ID=peer0.bayer.meditrack.com
-      - CORE_PEER_ADDRESS=peer0.bayer.meditrack.com:7051
+      - CORE_PEER_ID=peer0.mayer.meditrack.com
+      - CORE_PEER_ADDRESS=peer0.mayer.meditrack.com:7051
       - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric-v2_meditrack
-      - CORE_PEER_LOCALMSPID=bayerMSP
+      - CORE_PEER_LOCALMSPID=mayerMSP
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb0:5984
@@ -189,8 +189,8 @@ services:
       - /var/run/:/host/var/run/
       - ../chaincode:/etc/hyperledger/chaincode
       - ./channel-artifacts:/etc/hyperledger/configtx
-      - ./crypto-config/peerOrganizations/bayer.meditrack.com/peers/peer0.bayer.meditrack.com/msp:/etc/hyperledger/peer/msp
-      - ./crypto-config/peerOrganizations/bayer.meditrack.com/users:/etc/hyperledger/msp/users
+      - ./crypto-config/peerOrganizations/mayer.meditrack.com/peers/peer0.mayer.meditrack.com/msp:/etc/hyperledger/peer/msp
+      - ./crypto-config/peerOrganizations/mayer.meditrack.com/users:/etc/hyperledger/msp/users
     depends_on:
       - orderer.meditrack.com
       - couchdb0
@@ -207,22 +207,22 @@ services:
     networks:
       - meditrack
 
-  ca.aimco.meditrack.com:
+  ca.aimko.meditrack.com:
     image: hyperledger/fabric-ca:latest
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
-      - FABRIC_CA_SERVER_CA_NAME=ca.aimco.meditrack.com
+      - FABRIC_CA_SERVER_CA_NAME=ca.aimko.meditrack.com
     ports:
       - "8054:7054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.aimco.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.aimko.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
     volumes:
-      - ./crypto-config/peerOrganizations/aimco.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
-    container_name: ca.aimco.meditrack.com
+      - ./crypto-config/peerOrganizations/aimko.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.aimko.meditrack.com
     networks:
       - meditrack
 
-  peer0.aimco.meditrack.com:
-    container_name: peer0.aimco.meditrack.com
+  peer0.aimko.meditrack.com:
+    container_name: peer0.aimko.meditrack.com
     image: hyperledger/fabric-peer:latest
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric
     command: peer node start
@@ -231,10 +231,10 @@ services:
       - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
       - CORE_CHAINCODE_LOGGING_SHIM=DEBUG
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
-      - CORE_PEER_ID=peer0.aimco.meditrack.com
-      - CORE_PEER_ADDRESS=peer0.aimco.meditrack.com:7051
+      - CORE_PEER_ID=peer0.aimko.meditrack.com
+      - CORE_PEER_ADDRESS=peer0.aimko.meditrack.com:7051
       - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric-v2_meditrack
-      - CORE_PEER_LOCALMSPID=aimcoMSP
+      - CORE_PEER_LOCALMSPID=aimkoMSP
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb1:5984
@@ -245,8 +245,8 @@ services:
       - /var/run/:/host/var/run/
       - ../chaincode:/etc/hyperledger/chaincode
       - ./channel-artifacts:/etc/hyperledger/configtx
-      - ./crypto-config/peerOrganizations/aimco.meditrack.com/peers/peer0.aimco.meditrack.com/msp:/etc/hyperledger/peer/msp
-      - ./crypto-config/peerOrganizations/aimco.meditrack.com/users:/etc/hyperledger/msp/users
+      - ./crypto-config/peerOrganizations/aimko.meditrack.com/peers/peer0.aimko.meditrack.com/msp:/etc/hyperledger/peer/msp
+      - ./crypto-config/peerOrganizations/aimko.meditrack.com/users:/etc/hyperledger/msp/users
     depends_on:
       - orderer.meditrack.com
       - couchdb1
@@ -263,22 +263,22 @@ services:
     networks:
       - meditrack
 
-  ca.gaia.meditrack.com:
+  ca.baia.meditrack.com:
     image: hyperledger/fabric-ca:latest
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
-      - FABRIC_CA_SERVER_CA_NAME=ca.gaia.meditrack.com
+      - FABRIC_CA_SERVER_CA_NAME=ca.baia.meditrack.com
     ports:
       - "9054:7054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.gaia.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.baia.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
     volumes:
-      - ./crypto-config/peerOrganizations/gaia.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
-    container_name: ca.gaia.meditrack.com
+      - ./crypto-config/peerOrganizations/baia.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.baia.meditrack.com
     networks:
       - meditrack
 
-  peer0.gaia.meditrack.com:
-    container_name: peer0.gaia.meditrack.com
+  peer0.baia.meditrack.com:
+    container_name: peer0.baia.meditrack.com
     image: hyperledger/fabric-peer:latest
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric
     command: peer node start
@@ -287,10 +287,10 @@ services:
       - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
       - CORE_CHAINCODE_LOGGING_SHIM=DEBUG
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
-      - CORE_PEER_ID=peer0.gaia.meditrack.com
-      - CORE_PEER_ADDRESS=peer0.gaia.meditrack.com:7051
+      - CORE_PEER_ID=peer0.baia.meditrack.com
+      - CORE_PEER_ADDRESS=peer0.baia.meditrack.com:7051
       - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric-v2_meditrack
-      - CORE_PEER_LOCALMSPID=gaiaMSP
+      - CORE_PEER_LOCALMSPID=baiaMSP
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb2:5984
@@ -301,8 +301,8 @@ services:
       - /var/run/:/host/var/run/
       - ../chaincode:/etc/hyperledger/chaincode
       - ./channel-artifacts:/etc/hyperledger/configtx
-      - ./crypto-config/peerOrganizations/gaia.meditrack.com/peers/peer0.gaia.meditrack.com/msp:/etc/hyperledger/peer/msp
-      - ./crypto-config/peerOrganizations/gaia.meditrack.com/users:/etc/hyperledger/msp/users
+      - ./crypto-config/peerOrganizations/baia.meditrack.com/peers/peer0.baia.meditrack.com/msp:/etc/hyperledger/peer/msp
+      - ./crypto-config/peerOrganizations/baia.meditrack.com/users:/etc/hyperledger/msp/users
     depends_on:
       - orderer.meditrack.com
       - couchdb2
@@ -319,22 +319,22 @@ services:
     networks:
       - meditrack
 
-  ca.migrow.meditrack.com:
+  ca.bigrow.meditrack.com:
     image: hyperledger/fabric-ca:latest
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
-      - FABRIC_CA_SERVER_CA_NAME=ca.migrow.meditrack.com
+      - FABRIC_CA_SERVER_CA_NAME=ca.bigrow.meditrack.com
     ports:
       - "10054:7054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.migrow.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.bigrow.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
     volumes:
-      - ./crypto-config/peerOrganizations/migrow.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
-    container_name: ca.migrow.meditrack.com
+      - ./crypto-config/peerOrganizations/bigrow.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.bigrow.meditrack.com
     networks:
       - meditrack
 
-  peer0.migrow.meditrack.com:
-    container_name: peer0.migrow.meditrack.com
+  peer0.bigrow.meditrack.com:
+    container_name: peer0.bigrow.meditrack.com
     image: hyperledger/fabric-peer:latest
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric
     command: peer node start
@@ -343,10 +343,10 @@ services:
       - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
       - CORE_CHAINCODE_LOGGING_SHIM=DEBUG
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
-      - CORE_PEER_ID=peer0.migrow.meditrack.com
-      - CORE_PEER_ADDRESS=peer0.migrow.meditrack.com:7051
+      - CORE_PEER_ID=peer0.bigrow.meditrack.com
+      - CORE_PEER_ADDRESS=peer0.bigrow.meditrack.com:7051
       - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric-v2_meditrack
-      - CORE_PEER_LOCALMSPID=migrowMSP
+      - CORE_PEER_LOCALMSPID=bigrowMSP
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb3:5984
@@ -357,8 +357,8 @@ services:
       - /var/run/:/host/var/run/
       - ../chaincode:/etc/hyperledger/chaincode
       - ./channel-artifacts:/etc/hyperledger/configtx
-      - ./crypto-config/peerOrganizations/migrow.meditrack.com/peers/peer0.migrow.meditrack.com/msp:/etc/hyperledger/peer/msp
-      - ./crypto-config/peerOrganizations/migrow.meditrack.com/users:/etc/hyperledger/msp/users
+      - ./crypto-config/peerOrganizations/bigrow.meditrack.com/peers/peer0.bigrow.meditrack.com/msp:/etc/hyperledger/peer/msp
+      - ./crypto-config/peerOrganizations/bigrow.meditrack.com/users:/etc/hyperledger/msp/users
     depends_on:
       - orderer.meditrack.com
       - couchdb3
@@ -375,22 +375,22 @@ services:
     networks:
       - meditrack
 
-  ca.fedx.meditrack.com:
+  ca.dedx.meditrack.com:
     image: hyperledger/fabric-ca:latest
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
-      - FABRIC_CA_SERVER_CA_NAME=ca.fedx.meditrack.com
+      - FABRIC_CA_SERVER_CA_NAME=ca.dedx.meditrack.com
     ports:
       - "11054:7054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.fedx.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.dedx.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
     volumes:
-      - ./crypto-config/peerOrganizations/fedx.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
-    container_name: ca.fedx.meditrack.com
+      - ./crypto-config/peerOrganizations/dedx.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.dedx.meditrack.com
     networks:
       - meditrack
 
-  peer0.fedx.meditrack.com:
-    container_name: peer0.fedx.meditrack.com
+  peer0.dedx.meditrack.com:
+    container_name: peer0.dedx.meditrack.com
     image: hyperledger/fabric-peer:latest
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric
     command: peer node start
@@ -399,10 +399,10 @@ services:
       - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
       - CORE_CHAINCODE_LOGGING_SHIM=DEBUG
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
-      - CORE_PEER_ID=peer0.fedx.meditrack.com
-      - CORE_PEER_ADDRESS=peer0.fedx.meditrack.com:7051
+      - CORE_PEER_ID=peer0.dedx.meditrack.com
+      - CORE_PEER_ADDRESS=peer0.dedx.meditrack.com:7051
       - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric-v2_meditrack
-      - CORE_PEER_LOCALMSPID=fedxMSP
+      - CORE_PEER_LOCALMSPID=dedxMSP
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb4:5984
@@ -413,8 +413,8 @@ services:
       - /var/run/:/host/var/run/
       - ../chaincode:/etc/hyperledger/chaincode
       - ./channel-artifacts:/etc/hyperledger/configtx
-      - ./crypto-config/peerOrganizations/fedx.meditrack.com/peers/peer0.fedx.meditrack.com/msp:/etc/hyperledger/peer/msp
-      - ./crypto-config/peerOrganizations/fedx.meditrack.com/users:/etc/hyperledger/msp/users
+      - ./crypto-config/peerOrganizations/dedx.meditrack.com/peers/peer0.dedx.meditrack.com/msp:/etc/hyperledger/peer/msp
+      - ./crypto-config/peerOrganizations/dedx.meditrack.com/users:/etc/hyperledger/msp/users
     depends_on:
       - orderer.meditrack.com
       - couchdb4
@@ -431,22 +431,22 @@ services:
     networks:
       - meditrack
 
-  ca.dtdc.meditrack.com:
+  ca.btdc.meditrack.com:
     image: hyperledger/fabric-ca:latest
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
-      - FABRIC_CA_SERVER_CA_NAME=ca.dtdc.meditrack.com
+      - FABRIC_CA_SERVER_CA_NAME=ca.btdc.meditrack.com
     ports:
       - "12054:7054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.dtdc.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.btdc.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
     volumes:
-      - ./crypto-config/peerOrganizations/dtdc.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
-    container_name: ca.dtdc.meditrack.com
+      - ./crypto-config/peerOrganizations/btdc.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.btdc.meditrack.com
     networks:
       - meditrack
 
-  peer0.dtdc.meditrack.com:
-    container_name: peer0.dtdc.meditrack.com
+  peer0.btdc.meditrack.com:
+    container_name: peer0.btdc.meditrack.com
     image: hyperledger/fabric-peer:latest
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric
     command: peer node start
@@ -455,10 +455,10 @@ services:
       - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
       - CORE_CHAINCODE_LOGGING_SHIM=DEBUG
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
-      - CORE_PEER_ID=peer0.dtdc.meditrack.com
-      - CORE_PEER_ADDRESS=peer0.dtdc.meditrack.com:7051
+      - CORE_PEER_ID=peer0.btdc.meditrack.com
+      - CORE_PEER_ADDRESS=peer0.btdc.meditrack.com:7051
       - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric-v2_meditrack
-      - CORE_PEER_LOCALMSPID=dtdcMSP
+      - CORE_PEER_LOCALMSPID=btdcMSP
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb5:5984
@@ -469,8 +469,8 @@ services:
       - /var/run/:/host/var/run/
       - ../chaincode:/etc/hyperledger/chaincode
       - ./channel-artifacts:/etc/hyperledger/configtx
-      - ./crypto-config/peerOrganizations/dtdc.meditrack.com/peers/peer0.dtdc.meditrack.com/msp:/etc/hyperledger/peer/msp
-      - ./crypto-config/peerOrganizations/dtdc.meditrack.com/users:/etc/hyperledger/msp/users
+      - ./crypto-config/peerOrganizations/btdc.meditrack.com/peers/peer0.btdc.meditrack.com/msp:/etc/hyperledger/peer/msp
+      - ./crypto-config/peerOrganizations/btdc.meditrack.com/users:/etc/hyperledger/msp/users
     depends_on:
       - orderer.meditrack.com
       - couchdb5
@@ -487,22 +487,22 @@ services:
     networks:
       - meditrack
 
-  ca.apollo.meditrack.com:
+  ca.abollo.meditrack.com:
     image: hyperledger/fabric-ca:latest
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
-      - FABRIC_CA_SERVER_CA_NAME=ca.apollo.meditrack.com
+      - FABRIC_CA_SERVER_CA_NAME=ca.abollo.meditrack.com
     ports:
       - "13054:7054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.apollo.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.abollo.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
     volumes:
-      - ./crypto-config/peerOrganizations/apollo.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
-    container_name: ca.apollo.meditrack.com
+      - ./crypto-config/peerOrganizations/abollo.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.abollo.meditrack.com
     networks:
       - meditrack
 
-  peer0.apollo.meditrack.com:
-    container_name: peer0.apollo.meditrack.com
+  peer0.abollo.meditrack.com:
+    container_name: peer0.abollo.meditrack.com
     image: hyperledger/fabric-peer:latest
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric
     command: peer node start
@@ -511,10 +511,10 @@ services:
       - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
       - CORE_CHAINCODE_LOGGING_SHIM=DEBUG
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
-      - CORE_PEER_ID=peer0.apollo.meditrack.com
-      - CORE_PEER_ADDRESS=peer0.apollo.meditrack.com:7051
+      - CORE_PEER_ID=peer0.abollo.meditrack.com
+      - CORE_PEER_ADDRESS=peer0.abollo.meditrack.com:7051
       - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric-v2_meditrack
-      - CORE_PEER_LOCALMSPID=apolloMSP
+      - CORE_PEER_LOCALMSPID=abolloMSP
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb6:5984
@@ -525,8 +525,8 @@ services:
       - /var/run/:/host/var/run/
       - ../chaincode:/etc/hyperledger/chaincode
       - ./channel-artifacts:/etc/hyperledger/configtx
-      - ./crypto-config/peerOrganizations/apollo.meditrack.com/peers/peer0.apollo.meditrack.com/msp:/etc/hyperledger/peer/msp
-      - ./crypto-config/peerOrganizations/apollo.meditrack.com/users:/etc/hyperledger/msp/users
+      - ./crypto-config/peerOrganizations/abollo.meditrack.com/peers/peer0.abollo.meditrack.com/msp:/etc/hyperledger/peer/msp
+      - ./crypto-config/peerOrganizations/abollo.meditrack.com/users:/etc/hyperledger/msp/users
     depends_on:
       - orderer.meditrack.com
       - couchdb6
@@ -543,22 +543,22 @@ services:
     networks:
       - meditrack
 
-  ca.care.meditrack.com:
+  ca.fare.meditrack.com:
     image: hyperledger/fabric-ca:latest
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
-      - FABRIC_CA_SERVER_CA_NAME=ca.care.meditrack.com
+      - FABRIC_CA_SERVER_CA_NAME=ca.fare.meditrack.com
     ports:
       - "14054:7054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.care.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.fare.meditrack.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/*_sk -b admin:adminpw -d'
     volumes:
-      - ./crypto-config/peerOrganizations/care.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
-    container_name: ca.care.meditrack.com
+      - ./crypto-config/peerOrganizations/fare.meditrack.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.fare.meditrack.com
     networks:
       - meditrack
 
-  peer0.care.meditrack.com:
-    container_name: peer0.care.meditrack.com
+  peer0.fare.meditrack.com:
+    container_name: peer0.fare.meditrack.com
     image: hyperledger/fabric-peer:latest
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric
     command: peer node start
@@ -567,10 +567,10 @@ services:
       - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
       - CORE_CHAINCODE_LOGGING_SHIM=DEBUG
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
-      - CORE_PEER_ID=peer0.care.meditrack.com
-      - CORE_PEER_ADDRESS=peer0.care.meditrack.com:7051
+      - CORE_PEER_ID=peer0.fare.meditrack.com
+      - CORE_PEER_ADDRESS=peer0.fare.meditrack.com:7051
       - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric-v2_meditrack
-      - CORE_PEER_LOCALMSPID=careMSP
+      - CORE_PEER_LOCALMSPID=fareMSP
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb7:5984
@@ -581,8 +581,8 @@ services:
       - /var/run/:/host/var/run/
       - ../chaincode:/etc/hyperledger/chaincode
       - ./channel-artifacts:/etc/hyperledger/configtx
-      - ./crypto-config/peerOrganizations/care.meditrack.com/peers/peer0.care.meditrack.com/msp:/etc/hyperledger/peer/msp
-      - ./crypto-config/peerOrganizations/care.meditrack.com/users:/etc/hyperledger/msp/users
+      - ./crypto-config/peerOrganizations/fare.meditrack.com/peers/peer0.fare.meditrack.com/msp:/etc/hyperledger/peer/msp
+      - ./crypto-config/peerOrganizations/fare.meditrack.com/users:/etc/hyperledger/msp/users
     depends_on:
       - orderer.meditrack.com
       - couchdb7
