@@ -1,0 +1,788 @@
+{
+	"info": {
+		"_postman_id": "ec7960a2-a61b-48b8-83f9-5a1f7bdf8a3b",
+		"name": "meditrack",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "home",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/health",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createMedicine",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"medicineId\": \"001\",\n\t\"name\": \"critic\",\n\t\"username\": \"bayerUser\",\n\t\"expDate\": \"10/08/1998\",\n\t\"location\": \"hyd\",\n\t\"extraConditionsName\": \"temp\",\n\t\"extraConditionsRequiredValue\": \"45\",\n\t\"extraConditionsCondition\": \"lesser\",\n\t\"orgName\": \"bayer\",\n\t\"channelName\": \"ourchannel\",\n\t\"chaincodeName\": \"test3\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/createMedicine",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"createMedicine"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"mayerUser\",\n\t\"orgName\": \"mayer\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/users",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "medicineInfo",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/medicineInfo?medicineId=001&username=bayerUser&orgName=bayer&channelName=ourchannel&chaincodeName=test3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"medicineInfo"
+					],
+					"query": [
+						{
+							"key": "medicineId",
+							"value": "001"
+						},
+						{
+							"key": "username",
+							"value": "bayerUser"
+						},
+						{
+							"key": "orgName",
+							"value": "bayer"
+						},
+						{
+							"key": "channelName",
+							"value": "ourchannel"
+						},
+						{
+							"key": "chaincodeName",
+							"value": "test3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getChannelID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/getChannelID?username=M002&orgName=manu&channelName=ourchannel&chaincodeName=test3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"getChannelID"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "M002"
+						},
+						{
+							"key": "orgName",
+							"value": "manu"
+						},
+						{
+							"key": "channelName",
+							"value": "ourchannel"
+						},
+						{
+							"key": "chaincodeName",
+							"value": "test3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getHistory",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/getHistory?medicineId=001&username=M002&orgName=manu&channelName=ourchannel&chaincodeName=test3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"getHistory"
+					],
+					"query": [
+						{
+							"key": "medicineId",
+							"value": "001"
+						},
+						{
+							"key": "username",
+							"value": "M002"
+						},
+						{
+							"key": "orgName",
+							"value": "manu"
+						},
+						{
+							"key": "channelName",
+							"value": "ourchannel"
+						},
+						{
+							"key": "chaincodeName",
+							"value": "test3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getMedicinesByOwner",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/getMedicinesByOwner?id=M001&username=M002&orgName=manu&channelName=ourchannel&chaincodeName=test3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"getMedicinesByOwner"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "M001"
+						},
+						{
+							"key": "username",
+							"value": "M002"
+						},
+						{
+							"key": "orgName",
+							"value": "manu"
+						},
+						{
+							"key": "channelName",
+							"value": "ourchannel"
+						},
+						{
+							"key": "chaincodeName",
+							"value": "test3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateLocation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"medicineId\": \"001\",\n\t\"location\": \"hyderabad\",\n\t\"username\":\"M002\",\n\t\"orgName\":\"manu\",\n\t\"channelName\": \"ourchannel\",\n\t\"chaincodeName\": \"test3\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/updateLocation",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"updateLocation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sendMedicine",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"medicineId\": \"001\",\n\t\"logistics\": \"l001\",\n\t\"sendTo\": \"praneeth\",\n\t\"username\":\"M002\",\n\t\"orgName\":\"manu\",\n\t\"channelName\": \"ourchannel\",\n\t\"chaincodeName\": \"test3\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/sendMedicine",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"sendMedicine"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getRecievedMedicines",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/getRecievedMedicines?id=praneeth&username=M002&orgName=manu&channelName=ourchannel&chaincodeName=test3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"getRecievedMedicines"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "praneeth"
+						},
+						{
+							"key": "username",
+							"value": "M002"
+						},
+						{
+							"key": "orgName",
+							"value": "manu"
+						},
+						{
+							"key": "channelName",
+							"value": "ourchannel"
+						},
+						{
+							"key": "chaincodeName",
+							"value": "test3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "acceptMedicine",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"medicineId\":\"001\",\n\t\"id\":\"krishna\",\n\t\"username\":\"M002\",\n\t\"orgName\":\"manu\",\n\t\"channelName\": \"ourchannel\",\n\t\"chaincodeName\": \"test3\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/acceptMedicine",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"acceptMedicine"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sendRequest",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"medicineId\":\"001\",\n\t\"id\":\"krishna\",\n\t\"username\":\"M002\",\n\t\"orgName\":\"manu\",\n\t\"channelName\": \"ourchannel\",\n\t\"chaincodeName\": \"test3\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/sendRequest",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"sendRequest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getRequests",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/getRequests?id=sree&username=M002&orgName=manu&channelName=ourchannel&chaincodeName=test3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"getRequests"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "sree"
+						},
+						{
+							"key": "username",
+							"value": "M002"
+						},
+						{
+							"key": "orgName",
+							"value": "manu"
+						},
+						{
+							"key": "channelName",
+							"value": "ourchannel"
+						},
+						{
+							"key": "chaincodeName",
+							"value": "test3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSentRequests",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/getSentRequests?id=krishna&username=M002&orgName=manu&channelName=ourchannel&chaincodeName=test3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"getSentRequests"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "krishna"
+						},
+						{
+							"key": "username",
+							"value": "M002"
+						},
+						{
+							"key": "orgName",
+							"value": "manu"
+						},
+						{
+							"key": "channelName",
+							"value": "ourchannel"
+						},
+						{
+							"key": "chaincodeName",
+							"value": "test3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "acceptRequest",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"medicineId\":\"001\",\n\t\"id\":\"sree\",\n\t\"logisId\":\"l001\",\n\t\"username\":\"M002\",\n\t\"orgName\":\"manu\",\n\t\"channelName\": \"ourchannel\",\n\t\"chaincodeName\": \"test3\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/acceptRequest",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"acceptRequest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateExtraCondition",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"medicineId\": \"001\",\n\t\"extraConditionName\": \"temp\",\n\t\"extraConditionsUpdateValue\": \"40\",\n\t\"username\":\"M002\",\n\t\"orgName\":\"manu\",\n\t\"channelName\": \"ourchannel\",\n\t\"chaincodeName\": \"test3\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/updateExtraCondition",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"updateExtraCondition"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteMedicine",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"medicineId\": \"001\",\n\t\"username\":\"M002\",\n\t\"orgName\":\"manu\",\n\t\"channelName\": \"ourchannel\",\n\t\"chaincodeName\": \"test3\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/deleteMedicine",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"deleteMedicine"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getMedicinesByHolder",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/getMedicinesByHolder?id=M002&username=M002&orgName=manu&channelName=ourchannel&chaincodeName=test3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"getMedicinesByHolder"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "M002"
+						},
+						{
+							"key": "username",
+							"value": "M002"
+						},
+						{
+							"key": "orgName",
+							"value": "manu"
+						},
+						{
+							"key": "channelName",
+							"value": "ourchannel"
+						},
+						{
+							"key": "chaincodeName",
+							"value": "test3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logisticsAcceptMedicine",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"medicineId\": \"001\",\n\t\"logiId\": \"L001\",\n\t\"username\":\"M002\",\n\t\"orgName\":\"manu\",\n\t\"channelName\": \"ourchannel\",\n\t\"chaincodeName\": \"test3\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/logisticsAcceptMedicine",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"logisticsAcceptMedicine"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPriceDetails",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/getPriceDetails?username=C001&orgName=cipla&medicineId=001&pdname=PDciplaemcure&channelName=ourchannel&chaincodeName=test3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"getPriceDetails"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "C001"
+						},
+						{
+							"key": "orgName",
+							"value": "cipla"
+						},
+						{
+							"key": "medicineId",
+							"value": "001"
+						},
+						{
+							"key": "pdname",
+							"value": "PDciplaemcure"
+						},
+						{
+							"key": "channelName",
+							"value": "ourchannel"
+						},
+						{
+							"key": "chaincodeName",
+							"value": "test3"
+						}
+					]
+				},
+				"description": "private data"
+			},
+			"response": []
+		},
+		{
+			"name": "setPriceDetails",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"C001\",\n\t\"orgName\":\"dtdc\",\n\t\"medicineId\":\"001\",\n\t\"pdname\":\"PDciplapharmdeal\",\n\t\"price\":\"30\",\n\t\"channelName\": \"ourchannel\",\n\t\"chaincodeName\": \"test3\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/setPriceDetails",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"setPriceDetails"
+					]
+				},
+				"description": "private data set price details"
+			},
+			"response": []
+		}
+	]
+}

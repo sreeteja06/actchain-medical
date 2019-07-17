@@ -114,6 +114,8 @@ app.post(
     let args = [];
     username = req.body.username;
     orgName = req.body.orgName;
+    channelName = req.body.channelName;
+    chaincodeName = req.body.chaincodeName;
     args.push( req.body.medicineId );
     args.push( req.body.name );
     args.push( req.body.username );
@@ -135,6 +137,8 @@ app.get(
   awaitHandler( async ( req, res ) => {
     username = req.query.username;
     orgName = req.query.orgName;
+    channelName = req.query.channelName;
+    chaincodeName = req.query.chaincodeName;
     let args = [];
     console.log( 'req query of the request ' + JSON.stringify( req.query ) );
     args.push( req.query.medicineId );
@@ -149,6 +153,8 @@ app.get(
   awaitHandler( async ( req, res ) => {
     username = req.query.username;
     orgName = req.query.orgName;
+    channelName = req.query.channelName;
+    chaincodeName = req.query.chaincodeName;
     let args = [];
     console.log( 'req query of the request ' + JSON.stringify( req.query ) );
     args.push( req.query.id );
@@ -166,6 +172,8 @@ app.get(
   awaitHandler( async ( req, res ) => {
     username = req.query.username;
     orgName = req.query.orgName;
+    channelName = req.query.channelName;
+    chaincodeName = req.query.chaincodeName;
     let args = [];
     console.log( 'req query of the request ' + JSON.stringify( req.query ) );
     args.push( req.query.id );
@@ -183,6 +191,8 @@ app.post(
   awaitHandler( async ( req, res ) => {
     username = req.body.username;
     orgName = req.body.orgName;
+    channelName = req.body.channelName;
+    chaincodeName = req.body.chaincodeName;
     let args = [];
     console.log( 'req query of the request ' + JSON.stringify( req.body ) );
     args.push( req.body.medid );
@@ -221,6 +231,8 @@ app.post(
   awaitHandler( async ( req, res ) => {
     username = req.body.username;
     orgName = req.body.orgName;
+    channelName = req.body.channelName;
+    chaincodeName = req.body.chaincodeName;
     let args = [];
     args.push( req.body.medicineId );
     args.push( req.body.location );
@@ -238,6 +250,8 @@ app.post(
   awaitHandler( async ( req, res ) => {
     username = req.body.username;
     orgName = req.body.orgName;
+    channelName = req.body.channelName;
+    chaincodeName = req.body.chaincodeName;
     let args = [];
     args.push( req.body.medicineId );
     args.push( req.body.logistics );
@@ -256,6 +270,8 @@ app.get(
   awaitHandler( async ( req, res ) => {
     username = req.query.username;
     orgName = req.query.orgName;
+    channelName = req.query.channelName;
+    chaincodeName = req.query.chaincodeName;
     let args = [];
     console.log( 'req query of the request ' + JSON.stringify( req.query ) );
     args.push( req.query.id );
@@ -272,6 +288,8 @@ app.post(
   awaitHandler( async ( req, res ) => {
     username = req.body.username;
     orgName = req.body.orgName;
+    channelName = req.body.channelName;
+    chaincodeName = req.body.chaincodeName;
     let args = [];
     args.push( req.body.medicineId );
     args.push( req.body.id );
@@ -289,6 +307,8 @@ app.post(
   awaitHandler( async ( req, res ) => {
     username = req.body.username;
     orgName = req.body.orgName;
+    channelName = req.body.channelName;
+    chaincodeName = req.body.chaincodeName;
     let args = [];
     args.push( req.body.medicineId );
     args.push( req.body.id );
@@ -305,6 +325,8 @@ app.get(
   awaitHandler( async ( req, res ) => {
     username = req.body.username;
     orgName = req.body.orgName;
+    channelName = req.body.channelName;
+    chaincodeName = req.body.chaincodeName;
     let args = [];
     console.log( 'req query of the request ' + JSON.stringify( req.query ) );
     args.push( req.query.id );
@@ -320,6 +342,8 @@ app.get(
   awaitHandler( async ( req, res ) => {
     username = req.query.username;
     orgName = req.query.orgName;
+    channelName = req.query.channelName;
+    chaincodeName = req.query.chaincodeName;
     let args = [];
     console.log( 'req query of the request ' + JSON.stringify( req.query ) );
     args.push( req.query.id );
@@ -336,6 +360,8 @@ app.get(
   awaitHandler( async ( req, res ) => {
     username = req.query.username;
     orgName = req.query.orgName;
+    channelName = req.query.channelName;
+    chaincodeName = req.query.chaincodeName;
     let args = [];
     console.log( 'req query of the request ' + JSON.stringify( req.query ) );
     args.push( req.query.id );
@@ -377,6 +403,8 @@ app.post(
   awaitHandler( async ( req, res ) => {
     username = req.body.username;
     orgName = req.body.orgName;
+    channelName = req.body.channelName;
+    chaincodeName = req.body.chaincodeName;
     let args = [];
     args.push( req.body.medicineId );
     args.push( req.body.id );
@@ -395,6 +423,8 @@ app.post(
   awaitHandler( async ( req, res ) => {
     username = req.body.username;
     orgName = req.body.orgName;
+    channelName = req.body.channelName;
+    chaincodeName = req.body.chaincodeName;
     let args = [];
     args.push( req.body.medicineId );
     args.push( req.body.distId );
@@ -411,6 +441,8 @@ app.post(
   awaitHandler( async ( req, res ) => {
     username = req.body.username;
     orgName = req.body.orgName;
+    channelName = req.body.channelName;
+    chaincodeName = req.body.chaincodeName;
     let args = [];
     args.push( req.body.medicineId );
     args.push( req.body.extraConditionName );
@@ -428,6 +460,8 @@ app.post(
   awaitHandler( async ( req, res ) => {
     username = req.body.username;
     orgName = req.body.orgName;
+    channelName = req.body.channelName;
+    chaincodeName = req.body.chaincodeName;
     let args = [];
     args.push( req.body.medicineId );
     args.push( req.body.extraConditionName );
@@ -446,6 +480,8 @@ app.get(
   awaitHandler( async ( req, res ) => {
     username = req.query.username;
     orgName = req.query.orgName;
+    channelName = req.query.channelName;
+    chaincodeName = req.query.chaincodeName;
     let args = [];
     let fn = 'getChannelID';
     let message = await query( fn, args, channelName, chaincodeName, orgName, username );
@@ -457,6 +493,8 @@ app.delete(
   awaitHandler( async ( req, res ) => {
     username = req.body.username;
     orgName = req.body.orgName;
+    channelName = req.body.channelName;
+    chaincodeName = req.body.chaincodeName;
     let args = [];
     args.push( req.body.medicineId );
     const fn = 'deleteMedicine';
@@ -473,6 +511,8 @@ app.get(
   awaitHandler( async ( req, res ) => {
     username = req.body.username;
     orgName = req.body.orgName;
+    channelName = req.body.channelName;
+    chaincodeName = req.body.chaincodeName;
     let args = [];
     console.log( 'req query of the request ' + JSON.stringify( req.query ) );
     const fn = 'getCreator';
@@ -489,6 +529,8 @@ app.get(
   awaitHandler( async ( req, res ) => {
     username = req.query.username;
     orgName = req.query.orgName;
+    channelName = req.query.channelName;
+    chaincodeName = req.query.chaincodeName;
     let args = [];
     console.log( 'req query of the request ' + JSON.stringify( req.query ) );
     args.push( req.query.medicineId );
@@ -502,6 +544,8 @@ app.get(
 app.get( '/getPriceDetails', awaitHandler( async ( req, res ) => {
   username = req.query.username;
   orgName = req.query.orgName;
+  channelName = req.query.channelName;
+  chaincodeName = req.query.chaincodeName;
   let args = [];
   console.log( 'req query of the request ' + JSON.stringify( req.query ) );
   args.push( req.query.medicineId );
@@ -517,6 +561,8 @@ app.post(
   awaitHandler( async ( req, res ) => {
     username = req.body.username;
     orgName = req.body.orgName;
+    channelName = req.body.channelName;
+    chaincodeName = req.body.chaincodeName;
     let args = [];
     args.push( req.body.medicineId );
     args.push( req.body.pdname );
