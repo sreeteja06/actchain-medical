@@ -721,6 +721,7 @@ app.get('/getPesticidePriceDetails', awaitHandler(async (req, res)=>{
     res.send(message);
   })
 );
+///////////////
 app.post(
   '/setPesticidePriceDetails/',
   awaitHandler(async (req, res) => {
