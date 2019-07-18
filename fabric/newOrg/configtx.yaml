@@ -1,8 +1,0 @@
-Organizations:
-    - &neworg
-        Name: neworgMSP
-        ID: neworgMSP
-        MSPDir: crypto-config/peerOrganizations/neworg.meditrack.com/msp
-        AnchorPeers:
-            - Host: peer0.neworg.meditrack.com
-              Port: 11051

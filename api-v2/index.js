@@ -418,6 +418,380 @@ app.post(
     res.send( message );
   } )
 );
+
+app.post(
+  '/createPesticide',
+  awaitHandler(async (req, res) => {
+    let args = [];
+    username = req.body.username;
+    orgName = req.body.orgName;
+    args.push(req.body.pesticideId);
+    args.push(req.body.name);
+    args.push(req.body.username);
+    args.push(req.body.expDate);
+    args.push(req.body.location);
+    args.push(req.body.extraConditionsName);
+    args.push(req.body.extraConditionsRequiredValue);
+    args.push(req.body.extraConditionsCondition);
+    // args = ['002', 'hello', 'pee', '23-04-19', 'tel'];
+    const fn = 'createPesticide';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+
+    await blockListener.startBlockListener(channelName, username, orgName, wss);
+
+    res.send(message);
+  })
+);
+
+app.get(
+  '/pesticideInfo',
+  awaitHandler(async (req, res) => {
+    username = req.query.username;
+    orgName = req.query.orgName;
+    let args = [];
+    console.log('req query of the request ' + JSON.stringify(req.query));
+    args.push(req.query.pesticideId);
+    const fn = 'readPesticide';
+    let message = await query.queryChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
+
+app.get(
+  '/getPesticidesByOwner',
+  awaitHandler(async (req, res) => {
+    username = req.query.username;
+    orgName = req.query.orgName;
+    let args = [];
+    console.log('req query of the request ' + JSON.stringify(req.query));
+    args.push(req.query.id);
+    const fn = 'getPesticidesByOwner';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+    console.log(args);
+    let message = await query.queryChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
+
+app.get(
+  '/getPesticidesByHolder',
+  awaitHandler(async (req, res) => {
+    username = req.query.username;
+    orgName = req.query.orgName;
+    let args = [];
+    console.log('req query of the request ' + JSON.stringify(req.query));
+    args.push(req.query.id);
+    const fn = 'getPesticidesByHolder';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+    console.log(args);
+    let message = await query.queryChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
+
+app.post(
+  '/logisticsAcceptPesticide',
+  awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
+    let args = [];
+    console.log('req query of the request ' + JSON.stringify(req.body));
+    args.push(req.body.pesticideId);
+    args.push(req.body.logiId);
+    const fn = 'logisticsAcceptPesticide';
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
+
+
+
+app.post(
+  '/sendPesticide',
+  awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
+    let args = [];
+    args.push(req.body.pesticideId);
+    args.push(req.body.logistics);
+    args.push(req.body.sendTo);
+    const fn = 'sendPesticide';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+
+    await blockListener.startBlockListener(channelName, username, orgName, wss);
+
+    res.send(message);
+  })
+);
+app.get(
+  '/getRecievedPesticides',
+  awaitHandler(async (req, res) => {
+    username = req.query.username;
+    orgName = req.query.orgName;
+    let args = [];
+    console.log('req query of the request ' + JSON.stringify(req.query));
+    args.push(req.query.id);
+    const fn = 'getRecievedPesticides';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+    console.log(args);
+    let message = await query.queryChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
+app.post(
+  '/acceptPesticide',
+  awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
+    let args = [];
+    args.push(req.body.pesticideId);
+    args.push(req.body.id);
+    const fn = 'acceptPesticide';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+
+    await blockListener.startBlockListener(channelName, username, orgName, wss);
+
+    res.send(message);
+  })
+);
+app.post(
+  '/sendRequestPesticide',
+  awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
+    let args = [];
+    args.push(req.body.pesticideId);
+    args.push(req.body.id);
+    const fn = 'sendRequest';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
+
+
+app.post(
+  '/acceptRequestPesticide',
+  awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
+    let args = [];
+    args.push(req.body.pesticideId);
+    args.push(req.body.id);
+    args.push(req.body.logisId);
+    const fn = 'acceptRequest';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+
+    await blockListener.startBlockListener(channelName, username, orgName, wss);
+
+    res.send(message);
+  })
+);
+app.post(
+  '/denyRequestPesticide',
+  awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
+    let args = [];
+    args.push(req.body.pesticideId);
+    args.push(req.body.distId);
+    const fn = 'denyRequest';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+
+    await blockListener.startBlockListener(channelName, username, orgName, wss);
+
+    res.send(message);
+  })
+);
+
+app.delete(
+  '/deletePesticide',
+  awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
+    let args = [];
+    args.push(req.body.pesticideId);
+    const fn = 'deletePesticide';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+
+    await blockListener.startBlockListener(channelName, username, orgName, wss);
+
+    res.send(message);
+  })
+);
+
+app.get('/getPesticidePriceDetails', awaitHandler(async (req, res)=>{
+  username = req.query.username;
+    orgName = req.query.orgName;
+    let args = [];
+    console.log('req query of the request ' + JSON.stringify(req.query));
+    args.push(req.query.pesticideId);
+    args.push(req.query.pdname);
+    const fn = 'getPrivatePesticidePrice';
+    console.log(args);
+    let message = await query.queryChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
+app.post(
+  '/setPesticidePriceDetails/',
+  awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
+    let args = [];
+    args.push(req.body.pesticideId);
+    args.push(req.body.pdname);
+    args.push(req.body.price);
+    const fn = 'setPrivatePesticidePrice';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+
+    await blockListener.startBlockListener(channelName, username, orgName, wss);
+
+    res.send(message);
+  })
+);
+app.use(function(error, req, res, next) {
+  res.status(500).json({ error: error.toString() });
+});
+
 app.post(
   '/denyRequest',
   awaitHandler( async ( req, res ) => {
@@ -574,6 +948,381 @@ app.post(
     res.send( message );
   } )
 );
+
+
+app.post(
+  '/createPesticide',
+  awaitHandler(async (req, res) => {
+    let args = [];
+    username = req.body.username;
+    orgName = req.body.orgName;
+    args.push(req.body.pesticideId);
+    args.push(req.body.name);
+    args.push(req.body.username);
+    args.push(req.body.expDate);
+    args.push(req.body.location);
+    args.push(req.body.extraConditionsName);
+    args.push(req.body.extraConditionsRequiredValue);
+    args.push(req.body.extraConditionsCondition);
+    // args = ['002', 'hello', 'pee', '23-04-19', 'tel'];
+    const fn = 'createPesticide';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+
+    await blockListener.startBlockListener(channelName, username, orgName, wss);
+
+    res.send(message);
+  })
+);
+
+app.get(
+  '/pesticideInfo',
+  awaitHandler(async (req, res) => {
+    username = req.query.username;
+    orgName = req.query.orgName;
+    let args = [];
+    console.log('req query of the request ' + JSON.stringify(req.query));
+    args.push(req.query.pesticideId);
+    const fn = 'readPesticide';
+    let message = await query.queryChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
+
+app.get(
+  '/getPesticidesByOwner',
+  awaitHandler(async (req, res) => {
+    username = req.query.username;
+    orgName = req.query.orgName;
+    let args = [];
+    console.log('req query of the request ' + JSON.stringify(req.query));
+    args.push(req.query.id);
+    const fn = 'getPesticidesByOwner';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+    console.log(args);
+    let message = await query.queryChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
+
+app.get(
+  '/getPesticidesByHolder',
+  awaitHandler(async (req, res) => {
+    username = req.query.username;
+    orgName = req.query.orgName;
+    let args = [];
+    console.log('req query of the request ' + JSON.stringify(req.query));
+    args.push(req.query.id);
+    const fn = 'getPesticidesByHolder';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+    console.log(args);
+    let message = await query.queryChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
+
+app.post(
+  '/logisticsAcceptPesticide',
+  awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
+    let args = [];
+    console.log('req query of the request ' + JSON.stringify(req.body));
+    args.push(req.body.pesticideId);
+    args.push(req.body.logiId);
+    const fn = 'logisticsAcceptPesticide';
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
+
+
+
+app.post(
+  '/sendPesticide',
+  awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
+    let args = [];
+    args.push(req.body.pesticideId);
+    args.push(req.body.logistics);
+    args.push(req.body.sendTo);
+    const fn = 'sendPesticide';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+
+    await blockListener.startBlockListener(channelName, username, orgName, wss);
+
+    res.send(message);
+  })
+);
+app.get(
+  '/getRecievedPesticides',
+  awaitHandler(async (req, res) => {
+    username = req.query.username;
+    orgName = req.query.orgName;
+    let args = [];
+    console.log('req query of the request ' + JSON.stringify(req.query));
+    args.push(req.query.id);
+    const fn = 'getRecievedPesticides';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+    console.log(args);
+    let message = await query.queryChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
+app.post(
+  '/acceptPesticide',
+  awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
+    let args = [];
+    args.push(req.body.pesticideId);
+    args.push(req.body.id);
+    const fn = 'acceptPesticide';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+
+    await blockListener.startBlockListener(channelName, username, orgName, wss);
+
+    res.send(message);
+  })
+);
+app.post(
+  '/sendRequestPesticide',
+  awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
+    let args = [];
+    args.push(req.body.pesticideId);
+    args.push(req.body.id);
+    const fn = 'sendRequest';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
+
+
+app.post(
+  '/acceptRequestPesticide',
+  awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
+    let args = [];
+    args.push(req.body.pesticideId);
+    args.push(req.body.id);
+    args.push(req.body.logisId);
+    const fn = 'acceptRequest';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+
+    await blockListener.startBlockListener(channelName, username, orgName, wss);
+
+    res.send(message);
+  })
+);
+app.post(
+  '/denyRequestPesticide',
+  awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
+    let args = [];
+    args.push(req.body.pesticideId);
+    args.push(req.body.distId);
+    const fn = 'denyRequest';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+
+    await blockListener.startBlockListener(channelName, username, orgName, wss);
+
+    res.send(message);
+  })
+);
+
+app.delete(
+  '/deletePesticide',
+  awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
+    let args = [];
+    args.push(req.body.pesticideId);
+    const fn = 'deletePesticide';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+
+    await blockListener.startBlockListener(channelName, username, orgName, wss);
+
+    res.send(message);
+  })
+);
+
+app.get('/getPesticidePriceDetails', awaitHandler(async (req, res)=>{
+  username = req.query.username;
+    orgName = req.query.orgName;
+    let args = [];
+    console.log('req query of the request ' + JSON.stringify(req.query));
+    args.push(req.query.pesticideId);
+    args.push(req.query.pdname);
+    const fn = 'getPrivatePesticidePrice';
+    console.log(args);
+    let message = await query.queryChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
+app.post(
+  '/setPesticidePriceDetails/',
+  awaitHandler(async (req, res) => {
+    username = req.body.username;
+    orgName = req.body.orgName;
+    let args = [];
+    args.push(req.body.pesticideId);
+    args.push(req.body.pdname);
+    args.push(req.body.price);
+    const fn = 'setPrivatePesticidePrice';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+
+    let message = await invoke.invokeChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+
+    await blockListener.startBlockListener(channelName, username, orgName, wss);
+
+    res.send(message);
+  })
+);
+app.use(function(error, req, res, next) {
+  res.status(500).json({ error: error.toString() });
+});
+
 app.use( function ( error, req, res, next ) {
   res.status( 500 ).json( { error: error.toString() } );
 } );
