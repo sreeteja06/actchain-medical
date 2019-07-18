@@ -97,6 +97,7 @@ let Chaincode = class {
       args = JSON.parse( args );
       console.log( '============= START : createMedicine ===========' );
       console.log( '##### createMedicine arguments: ' + JSON.stringify( args ) );
+    
       let medicine = {};
       medicine.docType = 'medicine';
       medicine.name = args[1];
@@ -106,7 +107,7 @@ let Chaincode = class {
       medicine.location = args[4];
       medicine.logistics = '';
       medicine.requestLogistics = '';
-      medicine.sendTo = '';
+      medicine.sendTo = 'none';
       medicine.checkLogiD = '';
       medicine.checkDist = '';
       medicine.checkLogiP = '';
@@ -137,7 +138,7 @@ let Chaincode = class {
 
   }
 
-  async getMedicinesByOwner( stub, args ) {
+  async getProductByOwner( stub, args ) {
     args = JSON.parse( args );
     let queryString = '{"selector":{"owner":{"$eq":"' + args[0] + '"}}}'; //*manufacture id
     return await queryByString(
@@ -148,11 +149,11 @@ let Chaincode = class {
 
   async getMedicinesByHolderStock( stub, args ) {
     args = JSON.parse( args );
-    let queryString = '{"selector":{"sendTo":"\'\'", "holder":"' + args[0] + '"}}';  //*holder
+    let queryString = '{"selector":{"sendTo":"none", "holder":"' + args[0] + '"}}';  //*holder
     return await queryByString( stub, queryString );
   }
 
-  async getMedicinesByHolder( stub, args ) {
+  async getProductByHolder( stub, args ) {
     args = JSON.parse( args );
     let queryString = '{"selector":{"holder":"' + args[0] + '"}}}'; //*holder
     return await queryByString(
@@ -161,7 +162,7 @@ let Chaincode = class {
     );
   }
 
-  async readMedicine( stub, args ) {
+  async readProduct( stub, args ) {
     args = JSON.parse( args );
     //medicineID
     return queryByKey( stub, args[0].toString() );
@@ -176,7 +177,7 @@ let Chaincode = class {
     await stub.putState( args[0].toString(), buffer );
   }
 
-  async sendMedicine( stub, args ) {
+  async sendProduct( stub, args ) {
     args = JSON.parse( args );
     let asset = await queryByKey( stub, args[0].toString() ); //*medicineID
     asset = JSON.parse( asset.toString() );
@@ -186,7 +187,7 @@ let Chaincode = class {
     await stub.putState( args[0].toString(), buffer );
   }
 
-  async logisticsAcceptMedicine( stub, args ) {
+  async logisticsAcceptProduct( stub, args ) {
     args = JSON.parse( args );
     let asset = await queryByKey( stub, args[0].toString() ); //*medicineID
     asset = JSON.parse( asset.toString() );
@@ -204,7 +205,7 @@ let Chaincode = class {
     await stub.putState( args[0].toString(), buffer );
   }
 
-  async getRecievedMedicines( stub, args ) {
+  async getRecievedProduct( stub, args ) {
     args = JSON.parse( args );
     let queryString = '{"selector":{"sendTo":{"$eq":"' + args[0] + '"}}}';  //*send to id, dist id for distrubutor, phar id for pharmacy
     return await queryByString(
@@ -213,7 +214,7 @@ let Chaincode = class {
     );
   }
 
-  async acceptMedicine( stub, args ) {
+  async acceptProduct( stub, args ) {
     args = JSON.parse( args );
     let asset = await queryByKey( stub, args[0].toString() ); //*medicine id
     asset = JSON.parse( asset.toString() );
@@ -262,11 +263,7 @@ let Chaincode = class {
     );
   }
 
-  async recieveFromManu( stub, args ) {
-    args = JSON.parse( args );
-    let queryString = '{"selector":{"sendTo":"' + args[0] + '"}}}';  //*phar id or dist id
-    return await queryByString( stub, queryString );
-  }
+ 
   async acceptRequest( stub, args ) {
     let asset = await queryByKey( stub, args[0].toString() ); //*medicineid
     asset = JSON.parse( asset.toString() );
@@ -344,19 +341,13 @@ let Chaincode = class {
     }
   }
 
-  async deleteMedicine( stub, args ) {
+  async deleteProduct( stub, args ) {
     args = JSON.parse( args );
     await stub.deleteState( args[0].toString() ); //medicineID
   }
 
   async getChannelID( stub ) {
     let x = await stub.getChannelID();
-    console.log( x );
-    return Buffer.from( x.toString() );
-  }
-
-  async getCreator( stub ) {
-    let x = await stub.getCreator();
     console.log( x );
     return Buffer.from( x.toString() );
   }
@@ -405,7 +396,7 @@ let Chaincode = class {
     }
   }
 
-  async setPrivateMedicinePrice( stub, args ) {
+  async setPrivateProductPrice( stub, args ) {
     args = JSON.parse( args );
     let price = {
       price: args[2],
@@ -416,7 +407,7 @@ let Chaincode = class {
     await stub.putPrivateData( args[1], args[0], buffer );
   }
 
-  async getPrivateMedcinePrice( stub, args ) {
+  async getPrivateProductPrice( stub, args ) {
     args = JSON.parse( args );
     return await stub.getPrivateData( args[1], args[0] );
   }

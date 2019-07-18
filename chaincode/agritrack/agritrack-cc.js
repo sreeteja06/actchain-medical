@@ -137,7 +137,7 @@ let Chaincode = class {
     
   }
 
-  async getPesticidesByOwner(stub, args) {
+  async getProductByOwner(stub, args) {
     args = JSON.parse(args);
     let queryString = '{"selector":{"owner":{"$eq":"' + args[0] + '"}}}'; //*manufacture id
     return await queryByString(
@@ -147,7 +147,7 @@ let Chaincode = class {
   }
   
 
-  async getPesticidesByHolder(stub, args) {
+  async getProductsByHolder(stub, args) {
     args = JSON.parse(args);
     let queryString = '{"selector":{"holder":"' + args[0] + '"}}}'; //*holder
     return await queryByString(
@@ -156,7 +156,7 @@ let Chaincode = class {
     );
   }
 
-  async readPesticide(stub, args) {
+  async readProduct(stub, args) {
     args = JSON.parse(args);
     //pesticideID
     return queryByKey(stub, args[0].toString());
@@ -171,7 +171,7 @@ let Chaincode = class {
     await stub.putState(args[0].toString(), buffer);
   }
 
-  async sendPesticide(stub, args) {
+  async sendProduct(stub, args) {
     args = JSON.parse(args);
     let asset = await queryByKey(stub, args[0].toString()); //*pesticideID
     asset = JSON.parse(asset.toString());
@@ -181,7 +181,7 @@ let Chaincode = class {
     await stub.putState(args[0].toString(), buffer);
   }
 
-  async logisticsAcceptPesticide(stub, args){
+  async logisticsAcceptProduct(stub, args){
     args = JSON.parse(args);
     let asset = await queryByKey(stub, args[0].toString()); //*pesticideID
     asset = JSON.parse(asset.toString());
@@ -189,19 +189,13 @@ let Chaincode = class {
       asset.holder=asset.requestLogistics;
       asset.logistics = asset.requestLogistics;
       asset.requestLogistics = '';
-      // let check=asset.sendTo;
-      // if(check.includes('D')){
-      //   pesticide.checkLogiD=asset.logistics;
-      // }
-      // else if(check.includes('P')){
-      //   pesticide.checkLogiP=asset.logistics;
-      // }
+   
     }
     const buffer = Buffer.from(JSON.stringify(asset));
     await stub.putState(args[0].toString(), buffer);
   }
 
-  async getRecievedPesticides(stub, args) {
+  async getRecievedProduct(stub, args) {
     args = JSON.parse(args);
     let queryString = '{"selector":{"sendTo":{"$eq":"' + args[0] + '"}}}';  //*send to id, dist id for distrubutor, phar id for pharmacy
     return await queryByString(
@@ -210,7 +204,7 @@ let Chaincode = class {
     );
   }
 
-  async acceptPesticide(stub, args) {
+  async acceptProduct(stub, args) {
     args = JSON.parse(args);
     let asset = await queryByKey(stub, args[0].toString()); //*pesticide id
     asset = JSON.parse(asset.toString());
@@ -253,12 +247,7 @@ let Chaincode = class {
       queryString //id of the person
     );
   }
-  
- async recieveFromManu(stub,args){
-   args = JSON.parse(args);
-  let queryString = '{"selector":{"sendTo":"' + args[0] + '"}}}';  //*phar id or dist id
-  return await queryByString(stub,queryString);
- }
+
   async acceptRequest(stub, args) {
     let asset = await queryByKey(stub, args[0].toString()); //*pesticideid
     asset = JSON.parse(asset.toString());
@@ -336,19 +325,13 @@ let Chaincode = class {
     }
   }
 
-  async deletePesticide(stub, args) {
+  async deleteProduct(stub, args) {
     args = JSON.parse(args);
     await stub.deleteState(args[0].toString()); //pesticideID
   }
 
   async getChannelID(stub) {
     let x = await stub.getChannelID();
-    console.log(x);
-    return Buffer.from(x.toString());
-  }
-
-  async getCreator(stub) {
-    let x = await stub.getCreator();
     console.log(x);
     return Buffer.from(x.toString());
   }
@@ -397,17 +380,18 @@ let Chaincode = class {
     }
   }
 
-  async setPrivatePesticidePrice(stub, args){
+  async setPrivateProductPrice(stub, args){
     args = JSON.parse(args);
     let price = {
       price: args[2]
     }
+
     const buffer = Buffer.from(JSON.stringify(price));
     await stub.getPrivateData(args[1], args[0]);
     await stub.putPrivateData(args[1], args[0], buffer);
   }
 
-  async getPrivatePesticidePrice(stub, args){
+  async getPrivateProductPrice(stub, args){
     args = JSON.parse(args);
     return await stub.getPrivateData(args[1], args[0]);
   }
