@@ -182,6 +182,8 @@ services:
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb0:5984
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.mayer.meditrack.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.mayer.meditrack.com:7051
     ports:
       - 7051:7051
       - 7053:7053
@@ -238,6 +240,8 @@ services:
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb1:5984
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.aimko.meditrack.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.aimko.meditrack.com:7051
     ports:
       - 8051:7051
       - 8053:7053
@@ -294,6 +298,8 @@ services:
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb2:5984
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.baia.meditrack.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.baia.meditrack.com:7051
     ports:
       - 9051:7051
       - 9053:7053
@@ -350,6 +356,8 @@ services:
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb3:5984
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.bigrow.meditrack.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.bigrow.meditrack.com:7051
     ports:
       - 10051:7051
       - 10053:7053
@@ -406,6 +414,8 @@ services:
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb4:5984
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.dedx.meditrack.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.dedx.meditrack.com:7051
     ports:
       - 11051:7051
       - 11053:7053
@@ -462,6 +472,8 @@ services:
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb5:5984
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.btdc.meditrack.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.btdc.meditrack.com:7051
     ports:
       - 12051:7051
       - 12053:7053
@@ -518,6 +530,8 @@ services:
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb6:5984
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.abollo.meditrack.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.abollo.meditrack.com:7051
     ports:
       - 13051:7051
       - 13053:7053
@@ -574,6 +588,8 @@ services:
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb7:5984
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.fare.meditrack.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.fare.meditrack.com:7051
     ports:
       - 14051:7051
       - 14053:7053
@@ -630,6 +646,8 @@ services:
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb8:5984
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.cdsco.meditrack.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.cdsco.meditrack.com:7051
     ports:
       - 15051:7051
       - 15053:7053
@@ -686,6 +704,8 @@ services:
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb9:5984
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.cibrc.meditrack.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.cibrc.meditrack.com:7051
     ports:
       - 16051:7051
       - 16053:7053
