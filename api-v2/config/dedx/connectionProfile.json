@@ -1,12 +1,26 @@
 {
-    "name": "ourchannel",
-    "description": "meditrack network",
-    "version": "1.0.0",
+    "name": "meditrack",
+    "x-type": "hlfv1",
+    "description": "meditrack Network",
+    "version": "1.0",
     "client": {
         "organization": "dedx"
     },
     "channels": {
         "ourchannel": {
+            "orderers": [
+                "orderer.meditrack.com"
+            ],
+            "peers": {
+                "peer0.dedx.meditrack.com": {
+                    "endorsingPeer": true,
+                    "chaincodeQuery": true,
+                    "ledgerQuery": true,
+                    "eventSource": true
+                }
+            }
+        },
+        "meditrack": {
             "orderers": [
                 "orderer.meditrack.com"
             ],
@@ -24,39 +38,43 @@
         "dedx": {
             "mspid": "dedxMSP",
             "peers": [
-                "peer0.dedx.meditrack.com:7051"
+                "peer0.dedx.meditrack.com"
             ],
             "certificateAuthorities": [
-                "ca.dedx.meditrack.com:7054"
+                "ca.dedx.meditrack.com"
             ]
         }
     },
     "orderers": {
-        "orderer.meditrack.com:7050": {
+        "orderer.meditrack.com": {
             "url": "grpc://orderer.meditrack.com:7050",
             "tlsCACerts": {
-                "pem": "./tlsca.meditrack.com-cert.pem"
+                "path": "./tlsca.meditrack.com-cert.pem"
             }
         }
     },
     "peers": {
-        "peer0.dedx.meditrack.com:7051": {
+        "peer0.dedx.meditrack.com": {
             "url": "grpc://peer0.dedx.meditrack.com:7051",
+            "eventUrl": "grpc://peer0.dedx.meditrack.com:7053",
             "tlsCACerts": {
-                "pem": "./tlsca.meditrack.com-cert.pem"
-            },
-            "grpcOptions": {
-                "ssl-target-name-override": "peer0.dedx.meditrack.com"
+                "path": "./tlsca.meditrack.com-cert.pem"
             }
         }
     },
     "certificateAuthorities": {
-        "ca.dedx.meditrack.com:7054": {
+        "ca.dedx.meditrack.com": {
             "url": "http://ca.dedx.meditrack.com:7054",
-            "caName": "ca.dedx.meditrack.com",
             "tlsCACerts": {
-                "pem": "./tlsca.meditrack.com-cert.pem"
-            }
+                "path": "./tlsca.meditrack.com-cert.pem"
+            },
+            "registrar": [
+                {
+                    "enrollId": "admin",
+                    "enrollSecret": "adminpw"
+                }
+            ],
+            "caName": "ca.dedx.meditrack.com"
         }
     }
 }

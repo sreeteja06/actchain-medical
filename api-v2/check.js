@@ -15,15 +15,15 @@ const invoke = require( './helpers/invoke' );
 const blockListener = require( './helpers/blockListener' );
 
 // regUser('bayer', 'bayerUser')
-let args = ["002"];
-query('queryHistoryForKey', args, 'ourchannel', 'test3', 'bayer', 'bayerUser');
-
-args = ['002', 'citric', 'bayer', '10/09/1998', 'hyderabad', 'temp', '45', 'lesser'];
-args = JSON.stringify( args );
-res = invoke( 'createMedicine', args, 'ourchannel', 'test3', 'bayer', 'bayerUser',true );
-console.log(res);
-// blockListener( 'ourchannel', 'bayer', 'bayerUser' );
+let args = ["001"];
+invoke('getMedicinesByHolderStock', args, 'ourchannel', 'test3', 'mayer', 'mayerUser');
 
 // args = ['002', 'citric', 'bayer', '10/09/1998', 'hyderabad', 'temp', '45', 'lesser'];
 // args = JSON.stringify( args );
 // res = invoke( 'createMedicine', args, 'ourchannel', 'test3', 'bayer', 'bayerUser' );
+// console.log(res);
+// blockListener( 'ourchannel', 'bayer', 'bayerUser' );
+
+// args = ['002', 'citric', 'bayer', '10/09/1998', 'hyderabad', 'temp', '45', 'lesser'];
+// args = JSON.stringify( args );
+// res = invoke( 'createMedicine', args, 'meditrack', 'test3', 'mayer', 'mayerUser' );

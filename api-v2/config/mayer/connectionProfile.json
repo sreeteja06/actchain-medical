@@ -19,6 +19,32 @@
                     "eventSource": true
                 }
             }
+        },
+        "meditrack": {
+            "orderers": [
+                "orderer.meditrack.com"
+            ],
+            "peers": {
+                "peer0.mayer.meditrack.com": {
+                    "endorsingPeer": true,
+                    "chaincodeQuery": true,
+                    "ledgerQuery": true,
+                    "eventSource": true
+                }
+            }
+        },
+        "agritrack": {
+            "orderers": [
+                "orderer.meditrack.com"
+            ],
+            "peers": {
+                "peer0.mayer.meditrack.com": {
+                    "endorsingPeer": true,
+                    "chaincodeQuery": true,
+                    "ledgerQuery": true,
+                    "eventSource": true
+                }
+            }
         }
     },
     "organizations": {
