@@ -64,7 +64,7 @@ async function query( functionName, args, channelName, contractName, orgName, us
     return result;
   } catch ( error ) {
     console.error( `Failed to evaluate transaction: ${ error }` );
-    process.exit( 1 );
+    return error;
   } finally{
     await gateway.disconnect();
   }
