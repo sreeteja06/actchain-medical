@@ -1,0 +1,103 @@
+{
+	"name": "fabric-v2_meditrack",
+	"version": "1.0.0",
+	"license": "Apache-2.0",
+	"client": {
+		"tlsEnable": false,
+		"adminUser": "admin",
+		"adminPassword": "adminpw",
+		"enableAuthentication": false,
+		"organization": "mayer",
+		"connection": {
+			"timeout": {
+				"peer": {
+					"endorser": "300"
+				},
+				"orderer": "300"
+			}
+		}
+	},
+	"channels": {
+		"ourchannel": {
+			"peers": {
+				"peer0.mayer.meditrack.com": {
+					"endorsingPeer": true,
+					"chaincodeQuery": true,
+					"ledgerQuery": true,
+					"eventSource": true
+				}
+			},
+			"connection": {
+				"timeout": {
+					"peer": {
+						"endorser": "6000",
+						"eventHub": "6000",
+						"eventReg": "6000"
+					}
+				}
+			}
+		},
+		"meditrack": {
+			"peers": {
+				"peer0.mayer.meditrack.com": {
+					"endorsingPeer": true,
+					"chaincodeQuery": true,
+					"ledgerQuery": true,
+					"eventSource": true
+				}
+			},
+			"connection": {
+				"timeout": {
+					"peer": {
+						"endorser": "6000",
+						"eventHub": "6000",
+						"eventReg": "6000"
+					}
+				}
+			}
+		},
+		"agritrack": {
+			"peers": {
+				"peer0.mayer.meditrack.com": {
+					"endorsingPeer": true,
+					"chaincodeQuery": true,
+					"ledgerQuery": true,
+					"eventSource": true
+				}
+			},
+			"connection": {
+				"timeout": {
+					"peer": {
+						"endorser": "6000",
+						"eventHub": "6000",
+						"eventReg": "6000"
+					}
+				}
+			}
+		}
+	},
+	"organizations": {
+		"mayer": {
+			"mspid": "mayerMSP",
+			"fullpath": true,
+			"adminPrivateKey": {
+				"path": "/tmp/crypto/1a6815a2d17b5ebaf52c45741d2566e5a567ce6d658015f40ed78b2f29bd631f_sk"
+			},
+			"signedCert": {
+				"path": "/tmp/crypto/Admin@mayer.meditrack.com-cert.pem"
+			}
+		}
+	},
+	"peers": {
+		"peer0.mayer.meditrack.com": {
+			"tlsCACerts": {
+				"path": "/tmp/crypto/ca.crt"
+			},
+			"url": "grpc://peer0.mayer.meditrack.com:7051",
+			"eventUrl": "grpc://peer0.mayer.meditrack.com:7053",
+			"grpcOptions": {
+				"ssl-target-name-override": "peer0.mayer.meditrack.com"
+			}
+		}
+	}
+}

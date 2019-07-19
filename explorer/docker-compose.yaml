@@ -1,0 +1,49 @@
+# SPDX-License-Identifier: Apache-2.0
+version: '2.1'
+
+volumes:
+  pgdata:
+  walletstore:
+  grafana-storage:
+  prometheus-storage:
+
+networks:
+  meditrack:
+    external:
+      name: fabric-v2_meditrack
+
+services:
+
+  explorerdb.meditrack.com:
+    image: hyperledger/explorer-db:latest
+    container_name: explorerdb.meditrack.com
+    hostname: explorerdb.meditrack.com
+    environment:
+      - DATABASE_DATABASE=fabricexplorer
+      - DATABASE_USERNAME=hppoc
+      - DATABASE_PASSWORD=password
+    volumes:
+      - ./postgreSQL/db/createdb.sh:/docker-entrypoint-initdb.d/createdb.sh
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - meditrack
+
+  explorer.meditrack.com:
+    image: hyperledger/explorer:latest
+    container_name: explorer.meditrack.com
+    hostname: explorer.meditrack.com
+    environment:
+      - DATABASE_HOST=explorerdb.meditrack.com
+      - DATABASE_USERNAME=hppoc
+      - DATABASE_PASSWD=password
+      - DISCOVERY_AS_LOCALHOST=false
+    volumes:
+      - ./helpers/config.json:/opt/explorer/app/platform/fabric/config.json
+      - ./helpers/connection-profile:/opt/explorer/app/platform/fabric/connection-profile
+      - ./helpers/crypto:/tmp/crypto
+      - walletstore:/opt/wallet
+    command: sh -c "sleep 16&& node /opt/explorer/main.js && tail -f /dev/null"
+    ports:
+      - 8090:8080
+    networks:
+      - meditrack
