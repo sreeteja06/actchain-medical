@@ -49,7 +49,7 @@ docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@cibrc.m
 }
 
 function clean_it() {
-docker rm -f $(docker ps -a -q)
+docker-compose -f docker-compose.yml down -v
 rm -rf crypto-config/*
 rm -rf channel-artifacts/*
 }

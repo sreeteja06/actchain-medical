@@ -40,7 +40,7 @@ services:
     volumes:
       - ./helpers/config.json:/opt/explorer/app/platform/fabric/config.json
       - ./helpers/connection-profile:/opt/explorer/app/platform/fabric/connection-profile
-      - ./helpers/crypto:/tmp/crypto
+      - ../fabric-v2/crypto-config/peerOrganizations/mayer.meditrack.com:/tmp/crypto
       - walletstore:/opt/wallet
     command: sh -c "sleep 16&& node /opt/explorer/main.js && tail -f /dev/null"
     ports:

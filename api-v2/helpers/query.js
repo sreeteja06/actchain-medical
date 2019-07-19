@@ -54,7 +54,7 @@ async function query( functionName, args, channelName, contractName, orgName, us
     const network = await gateway.getNetwork( channelName );
 
     const contract = network.getContract( contractName );
-    args = JSON.stringify(args);
+    args = JSON.stringify( args );
     let result = await contract.evaluateTransaction( functionName, args );
 
     console.log(
@@ -65,8 +65,10 @@ async function query( functionName, args, channelName, contractName, orgName, us
   } catch ( error ) {
     console.error( `Failed to evaluate transaction: ${ error }` );
     return error;
-  } finally{
-    await gateway.disconnect();
+  } finally {
+    if ( gateway ) {
+      await gateway.disconnect();
+    }
   }
 }
 

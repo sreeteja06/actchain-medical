@@ -81,17 +81,17 @@
 			"mspid": "mayerMSP",
 			"fullpath": true,
 			"adminPrivateKey": {
-				"path": "/tmp/crypto/1a6815a2d17b5ebaf52c45741d2566e5a567ce6d658015f40ed78b2f29bd631f_sk"
+				"path": "/tmp/crypto/users/Admin@mayer.meditrack.com/msp/keystore/734efb9d1fc603c8e3e926262b0918c9386f51d215272b163571999db9a8293f_sk"
 			},
 			"signedCert": {
-				"path": "/tmp/crypto/Admin@mayer.meditrack.com-cert.pem"
+				"path": "/tmp/crypto/users/Admin@mayer.meditrack.com/msp/signcerts/Admin@mayer.meditrack.com-cert.pem"
 			}
 		}
 	},
 	"peers": {
 		"peer0.mayer.meditrack.com": {
 			"tlsCACerts": {
-				"path": "/tmp/crypto/ca.crt"
+				"path": "/tmp/crypto/peers/peer0.mayer.meditrack.com/tls/ca.crt"
 			},
 			"url": "grpc://peer0.mayer.meditrack.com:7051",
 			"eventUrl": "grpc://peer0.mayer.meditrack.com:7053",

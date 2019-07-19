@@ -3,6 +3,9 @@ version: '2'
 networks:
   meditrack:
 
+volumes:
+  wallet:
+
 services:
 
   restapi2:
@@ -10,6 +13,7 @@ services:
     image: sreeteja06/actchain-medical-api2
     volumes:
       - ../api-v2:/usr/src/app
+      - wallet:/usr/src/app/helpers/wallet
     ports:
       - 3000:3000
     networks: 

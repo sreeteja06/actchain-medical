@@ -51,14 +51,14 @@ async function invoke( functionName, args, channelName, contractName, orgName, u
         const network = await gateway.getNetwork( channelName );
 
         const contract = network.getContract( contractName );
-        
+
         let txId, status, blockNo;
 
         let tx = await contract.createTransaction( functionName );
         let proResolve;
-        let pro = new Promise((resolve, reject)=>{
+        let pro = new Promise( ( resolve, reject ) => {
             proResolve = resolve;
-        });
+        } );
         const lis = await tx.addCommitListener( ( err, transactionId, status, blockNumber ) => {
             if ( err ) {
                 console.error( err );
@@ -68,10 +68,10 @@ async function invoke( functionName, args, channelName, contractName, orgName, u
             txId = transactionId;
             status = status;
             blockNo = blockNumber;
-            proResolve(); 
+            proResolve();
             console.log( `Transaction ID: ${ transactionId } Status: ${ status } Block number: ${ blockNumber }` );
         } )
-        args = JSON.stringify(args);
+        args = JSON.stringify( args );
         let result = await tx.submit( args );
         console.log(
             `Transaction has been submitted, result is: ${ result.toString() }`
@@ -86,8 +86,10 @@ async function invoke( functionName, args, channelName, contractName, orgName, u
     } catch ( error ) {
         console.error( `Failed to evaluate transaction: ${ error }` );
         return error
-    } finally{
-        await gateway.disconnect();
+    } finally {
+        if ( gateway ) {
+            await gateway.disconnect();
+        }
     }
 }
 

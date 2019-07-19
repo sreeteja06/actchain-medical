@@ -2,7 +2,7 @@
 	"network-configs": {
 		"first-network": {
 			"name": "firstnetwork",
-			"profile": "./connection-profile/first-network.json"
+			"profile": "./connection-profile/meditrack.json"
 		}
 	},
 	"license": "Apache-2.0"
