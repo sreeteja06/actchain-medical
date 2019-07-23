@@ -13,3 +13,7 @@ chaincode/package-lock.json
 chaincode/npm-install-27776.sh
 /fabric-v2/crypto-config
 /fabric-v2/channel-artifacts
+fabric-v2/docker-compose.yml
+fabric-v2/docker-compose-base.yml
+.gitignore
+fabric-v2/docker-compose-base.yml
