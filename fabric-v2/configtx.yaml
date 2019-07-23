@@ -1,3 +1,14 @@
+#/*
+# *     _____________  ___  
+#      / ___/ ___/ _ \/ _ \ 
+#     (__  ) /  /  __/  __/ 
+#    /____/_/   \___/\___  
+# * File Created: Tuesday, 23rd July 2019 11:13:05 am
+# * Author: SreeTeja06 (sreeteja.muthyala@gmail.com)
+#
+# * There are two ways to write error-free programs; only the third one works.
+# * And remeber it is not a bug, it is an undocumented feature
+# */
 Organizations:
 
   - &OrdererOrg
@@ -10,6 +21,16 @@ Organizations:
 
       AdminPrincipal: Role.MEMBER
 
+      Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('OrdererMSP.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('OrdererMSP.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('OrdererMSP.admin')"
 
   - &mayer
 
@@ -20,6 +41,17 @@ Organizations:
       MSPDir: crypto-config/peerOrganizations/mayer.meditrack.com/msp
 
       AdminPrincipal: Role.MEMBER
+
+      Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('mayerMSP.admin', 'mayerMSP.peer', 'mayerMSP.client', 'mayerMSP.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('mayerMSP.admin', 'mayerMSP.client', 'mayerMSP.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('mayerMSP.admin', 'mayerMSP.member')"
 
       AnchorPeers:
 
@@ -37,6 +69,17 @@ Organizations:
 
       AdminPrincipal: Role.MEMBER
 
+      Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('aimkoMSP.admin', 'aimkoMSP.peer', 'aimkoMSP.client', 'aimkoMSP.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('aimkoMSP.admin', 'aimkoMSP.client', 'aimkoMSP.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('aimkoMSP.admin', 'aimkoMSP.member')"
+
       AnchorPeers:
 
         - Host: peer0.aimko.meditrack.com
@@ -51,6 +94,17 @@ Organizations:
       MSPDir: crypto-config/peerOrganizations/baia.meditrack.com/msp
 
       AdminPrincipal: Role.MEMBER
+
+      Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('baiaMSP.admin', 'baiaMSP.peer', 'baiaMSP.client', 'baiaMSP.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('baiaMSP.admin', 'baiaMSP.client', 'baiaMSP.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('baiaMSP.admin', 'baiaMSP.member')"
 
       AnchorPeers:
 
@@ -67,6 +121,17 @@ Organizations:
 
       AdminPrincipal: Role.MEMBER
 
+      Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('bigrowMSP.admin', 'bigrowMSP.peer', 'bigrowMSP.client', 'bigrowMSP.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('bigrowMSP.admin', 'bigrowMSP.client', 'bigrowMSP.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('bigrowMSP.admin', 'bigrowMSP.member')"
+
       AnchorPeers:
 
         - Host: peer0.bigrow.meditrack.com
@@ -81,6 +146,17 @@ Organizations:
       MSPDir: crypto-config/peerOrganizations/dedx.meditrack.com/msp
 
       AdminPrincipal: Role.MEMBER
+
+      Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('dedxMSP.admin', 'dedxMSP.peer', 'dedxMSP.client', 'dedxMSP.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('dedxMSP.admin', 'dedxMSP.client', 'dedxMSP.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('dedxMSP.admin', 'dedxMSP.member')"
 
       AnchorPeers:
 
@@ -97,6 +173,17 @@ Organizations:
 
       AdminPrincipal: Role.MEMBER
 
+      Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('btdcMSP.admin', 'btdcMSP.peer', 'btdcMSP.client', 'btdcMSP.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('btdcMSP.admin', 'btdcMSP.client', 'btdcMSP.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('btdcMSP.admin', 'btdcMSP.member')"
+
       AnchorPeers:
 
         - Host: peer0.btdc.meditrack.com
@@ -111,6 +198,17 @@ Organizations:
       MSPDir: crypto-config/peerOrganizations/abollo.meditrack.com/msp
 
       AdminPrincipal: Role.MEMBER
+
+      Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('abolloMSP.admin', 'abolloMSP.peer', 'abolloMSP.client', 'abolloMSP.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('abolloMSP.admin', 'abolloMSP.client', 'abolloMSP.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('abolloMSP.admin', 'abolloMSP.member')"
 
       AnchorPeers:
 
@@ -127,6 +225,17 @@ Organizations:
 
       AdminPrincipal: Role.MEMBER
 
+      Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('fareMSP.admin', 'fareMSP.peer', 'fareMSP.client', 'fareMSP.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('fareMSP.admin', 'fareMSP.client', 'fareMSP.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('fareMSP.admin', 'fareMSP.member')"
+
       AnchorPeers:
 
         - Host: peer0.fare.meditrack.com
@@ -142,6 +251,17 @@ Organizations:
 
       AdminPrincipal: Role.MEMBER
 
+      Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('cdscoMSP.admin', 'cdscoMSP.peer', 'cdscoMSP.client', 'cdscoMSP.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('cdscoMSP.admin', 'cdscoMSP.client', 'cdscoMSP.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('cdscoMSP.admin', 'cdscoMSP.member')"
+
       AnchorPeers:
 
         - Host: peer0.cdsco.meditrack.com
@@ -156,6 +276,17 @@ Organizations:
       MSPDir: crypto-config/peerOrganizations/cibrc.meditrack.com/msp
 
       AdminPrincipal: Role.MEMBER
+
+      Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('cibrcMSP.admin', 'cibrcMSP.peer', 'cibrcMSP.client', 'cibrcMSP.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('cibrcMSP.admin', 'cibrcMSP.client', 'cibrcMSP.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('cibrcMSP.admin', 'cibrcMSP.member')"
 
       AnchorPeers:
 
@@ -176,6 +307,20 @@ Orderer: &OrdererDefaults
     MaxMessageCount: 10
     AbsoluteMaxBytes: 98 MB
     PreferredMaxBytes: 512 KB
+
+  Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        Admins:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Admins"
+        BlockValidation:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
 
   Kafka:
     Brokers:
@@ -213,6 +358,17 @@ Channel: &ChannelDefaults
 Application: &ApplicationDefaults
 
   Organizations:
+
+  Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        Admins:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Admins"
 
 Profiles:
 
