@@ -98,21 +98,21 @@ let Chaincode = class {
       console.log( '============= START : createMedicine ===========' );
       console.log( '##### createMedicine arguments: ' + JSON.stringify( args ) );
     
-      let medicine = {};
-      medicine.docType = 'medicine';
-      medicine.name = args[1];
-      medicine.holder = args[2];
-      medicine.owner = args[2];
-      medicine.expDate = args[3];
-      medicine.location = args[4];
-      medicine.logistics = '';
-      medicine.requestLogistics = '';
-      medicine.sendTo = 'none';
-      medicine.checkLogiD = '';
-      medicine.checkDist = '';
-      medicine.checkLogiP = '';
-      medicine.checkPharma = '';
-      medicine.extraConditions = {
+      let product = {};
+      product.docType = 'medicine';
+      product.name = args[1];
+      product.holder = args[2];
+      product.owner = args[2];
+      product.expDate = args[3];
+      product.location = args[4];
+      product.logistics = '';
+      product.requestLogistics = '';
+      product.sendTo = 'none';
+      product.checkLogiD = '';
+      product.checkDist = '';
+      product.checkLogiP = '';
+      product.checkPharma = '';
+      product.extraConditions = {
         [args[5]]: {
           //extraconditionname
           required: args[6], //extraconditionrequiredvalue
@@ -120,8 +120,8 @@ let Chaincode = class {
           condition: args[7] //extra condition contdition
         }
       };
-      console.log( medicine );
-      const buffer = Buffer.from( JSON.stringify( medicine ) );
+      console.log( product );
+      const buffer = Buffer.from( JSON.stringify( product ) );
       await stub.putState( args[0].toString(), buffer );
     } catch ( err ) {
       return shim.error( err );
@@ -147,7 +147,7 @@ let Chaincode = class {
     );
   }
 
-  async getMedicinesByHolderStock( stub, args ) {
+  async getProductByHolderStock( stub, args ) {
     args = JSON.parse( args );
     let queryString = '{"selector":{"sendTo":"none", "holder":"' + args[0] + '"}}';  //*holder
     return await queryByString( stub, queryString );
@@ -214,6 +214,15 @@ let Chaincode = class {
     );
   }
 
+  async getProductsByOwner( stub, args ) {
+    args = JSON.parse( args );
+    let queryString = '{"selector":{"owner":{"$eq":"' + args[0] + '"}}}';  //*send to id, dist id for distrubutor, phar id for pharmacy
+    return await queryByString(
+      stub,
+      queryString //id who eants to get the recieved medicines
+    );
+  }
+
   async acceptProduct( stub, args ) {
     args = JSON.parse( args );
     let asset = await queryByKey( stub, args[0].toString() ); //*medicine id
@@ -252,6 +261,7 @@ let Chaincode = class {
       stub,
       queryString //id of who needs to get the requests
     );
+
   }
 
   async getSentRequests( stub, args ) {
@@ -265,6 +275,7 @@ let Chaincode = class {
 
  
   async acceptRequest( stub, args ) {
+    args = JSON.parse(args);
     let asset = await queryByKey( stub, args[0].toString() ); //*medicineid
     asset = JSON.parse( asset.toString() );
 

@@ -244,7 +244,7 @@ app.get(
     let args = [];
     console.log( 'req query of the request ' + JSON.stringify( req.query ) );
     args.push( req.query.id );
-    const fn = 'getRecievedProducts';
+    const fn = 'getRecievedProduct';
     // let username = req.body.username;
     // let orgName = req.body.orgName;
     console.log( args );
@@ -252,6 +252,26 @@ app.get(
     res.send( message );
   } )
 );
+
+app.get(
+  '/getProductsByOwner',
+  awaitHandler( async ( req, res ) => {
+    username = req.query.username;
+    orgName = req.query.orgName;
+    channelName = req.query.channelName;
+    chaincodeName = req.query.chaincodeName;
+    let args = [];
+    console.log( 'req query of the request ' + JSON.stringify( req.query ) );
+    args.push( req.query.id );
+    const fn = 'getProductsByOwner';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+    console.log( args );
+    let message = await query( fn, args, channelName, chaincodeName, orgName, username );
+    res.send( message );
+  } )
+);
+
 app.post(
   '/acceptProduct',
   awaitHandler( async ( req, res ) => {
@@ -406,7 +426,32 @@ app.get(
     let args = [];
     console.log('req query of the request ' + JSON.stringify(req.query));
     args.push(req.query.id);
-    const fn = 'getPesticidesByHolder';
+    const fn = 'getProductByHolder';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+    console.log(args);
+    let message = await query.queryChaincode(
+      peers,
+      channelName,
+      chaincodeName,
+      args,
+      fn,
+      username,
+      orgName
+    );
+    res.send(message);
+  })
+);
+
+app.get(
+  '/getProductByHolderStock',
+  awaitHandler(async (req, res) => {
+    username = req.query.username;
+    orgName = req.query.orgName;
+    let args = [];
+    console.log('req query of the request ' + JSON.stringify(req.query));
+    args.push(req.query.id);
+    const fn = 'getProductByHolderStock';
     // let username = req.body.username;
     // let orgName = req.body.orgName;
     console.log(args);
