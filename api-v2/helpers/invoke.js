@@ -39,7 +39,7 @@ async function invoke( functionName, args, channelName, contractName, orgName, u
                 'An identity for the user ' + userName + ' does not exist in the wallet'
             );
             console.log( 'Run the registerUser.js application before retrying' );
-            return;
+            throw new Error( 'An identity for the user ' + userName + ' does not exist in the wallet');
         }
 
         gateway = new Gateway();
@@ -63,7 +63,7 @@ async function invoke( functionName, args, channelName, contractName, orgName, u
             if ( err ) {
                 console.error( err );
                 proResolve();
-                return;
+                throw new Error(err);
             }
             txId = transactionId;
             status = status;

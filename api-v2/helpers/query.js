@@ -42,7 +42,7 @@ async function query( functionName, args, channelName, contractName, orgName, us
         'An identity for the user ' + userName + ' does not exist in the wallet'
       );
       console.log( 'Run the registerUser.js application before retrying' );
-      return;
+      throw new Error( 'An identity for the user ' + userName + ' does not exist in the wallet' );      
     }
 
     gateway = new Gateway();

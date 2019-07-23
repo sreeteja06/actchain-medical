@@ -81,7 +81,7 @@
 			"mspid": "mayerMSP",
 			"fullpath": true,
 			"adminPrivateKey": {
-				"path": "/tmp/crypto/users/Admin@mayer.meditrack.com/msp/keystore/734efb9d1fc603c8e3e926262b0918c9386f51d215272b163571999db9a8293f_sk"
+				"path": "/tmp/crypto/users/Admin@mayer.meditrack.com/msp/keystore/57defa505b628b3070a49d50536a591378604e78fe3529ccc9f48b5860f1c2d1_sk"
 			},
 			"signedCert": {
 				"path": "/tmp/crypto/users/Admin@mayer.meditrack.com/msp/signcerts/Admin@mayer.meditrack.com-cert.pem"

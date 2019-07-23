@@ -33,7 +33,7 @@ const regAdmin = async orgName => {
       console.log(
         'An identity for the admin user "admin" already exists in the wallet'
       );
-      return;
+      return 'already admin exists';
     }
     const enrollment = await ca.enroll( {
       enrollmentID: appAdmin,
@@ -50,7 +50,6 @@ const regAdmin = async orgName => {
       appAdmin +
       ' and imported it into the wallet'
     );
-    return;
   } catch ( e ) {
     console.log( e.stack );
   }
@@ -75,7 +74,7 @@ const regUser = async ( orgName, userName ) => {
       console.log(
         `An identity for the user ${ userName } already exists in the wallet`
       );
-      return;
+      return 'User already registered';
     }
     const adminExists = await wallet.exists( appAdmin );
     if ( !adminExists ) {
@@ -84,7 +83,6 @@ const regUser = async ( orgName, userName ) => {
       );
       console.log( 'Registering the admin' );
       regAdmin( orgName );
-      return;
     }
     const gateway = new Gateway();
     await gateway.connect( ccp, {
