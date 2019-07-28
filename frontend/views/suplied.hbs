@@ -38,7 +38,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand " href="#" style="color: white;display: inline-block"><img style="display: inline;margin-right: 4px"src="cardiogram.svg" height="30px" width="30px">Meditrack</a>
+                <a class="navbar-brand " href="#" style="color: white;display: inline-block"><img style="display: inline;margin-right: 4px"src="../cardiogram.svg" height="30px" width="30px">Meditrack</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -58,18 +58,18 @@
         <div class="row" style="padding: ">
             <div class="col-sm-3 col-md-2 sidebar" style="padding: ">
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size:16px">
-                    <li class=""><a href="/manufacturer">Manufactured <span class="sr-only">(current)</span></a></li>
-                    
-                    <li class="active"><a href="/supplied">Supplied medicine</a></li>
+                    <li ><a href="/manuFirst?orgName={{orgName}}&userName={{userName}}&channelName={{channelName}}&chaincodeName={{chaincodeName}}">Requests from Distributor <span class="sr-only">(current)</span></a></li>
+                    <li><a href="/manufacturer?orgName={{orgName}}&userName={{userName}}&channel={{channelName}}&chaincodeName={{chaincodeName}}">manufactured medicine</a></li>
+                    <li  class="active"><a href="/suplied">Supplied medicine</a></li>
                     
                 </ul>
 
                 
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size: 16px">
-                    <li><a href="/create">Create medine</a></li>
+                    <li><a href="/create?orgName={{orgName}}&userName={{userName}}&channel={{channel}}&chaincodeName={{chaincodeName}}">Create medine</a></li>
 
-                    <li><a href="/track">Track Medicines</a></li>
-                    <li><a href="/history">History of Medicines</a></li>
+                    <li><a href="/track?orgName={{orgName}}&userName={{userName}}&channel={{channel}}&chaincodeName={{chaincodeName}}">Track Medicines</a></li>
+                    <li><a href="/history?orgName={{orgName}}&userName={{userName}}&channel={{channel}}&chaincodeName={{chaincodeName}}">History of Medicines</a></li>
 
                    
                    

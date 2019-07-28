@@ -68,8 +68,7 @@
     <br><br>
         <center><h1 style="font-size: 50px">Login</h1></center>
     <br><br><br>
-   <div class="Row"style="display: inline-block" style="margin-top:10%">
-
+  
 <div class="Column" id="div1"><div class="Column">  <s="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top: 5%;display: inline;">
                 
 
@@ -78,9 +77,15 @@
         width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail"></a>
    
    <center> <span class="text-muted" style="color:black;font-size: 20px">Manufacturer</span></center>
-   <form action="#" id="form1" style="display: none"><br>
+   
+   <form action="/manuFirst" id="form1" style="display: none"><br>
+     <input type="radio" id="chaincode" name="chaincode" value="test5"> agritrack
+    <input type="radio" id="chaincode" name="chaincode" value="test4" checked> meditrack<br><br>
+     <label>Organization</label>
+    <input type="text" id="orgName" name="orgName" value="mayer" readonly><br><br>
+    <input type=text id="channelName" name="channelName" value="ouchannel" hidden>
     <label>Username</label>
-    <input type="text"><br><br>
+    <input type="text" id="userName" name="userName" ><br><br>
     <label>Password</label>
     <input type="password"><br><br>
     <input class="btn btn-primary btn-xs" type="submit">
@@ -96,13 +101,20 @@
         width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail"></a>
    
     <center><span style="color:black;font-size: 20px">Distributor</span></center>
-    <form  id ="form2"action="#" style="display: none"><br>
-     <label>Username</label>
-     <input type="text"><br><br>
-     <label>Password</label>
-     <input type="password"><br><br>
-     <input class="btn btn-primary btn-xs" type="submit">
-     <input value="Distributor" hidden>
+    <form  id ="form2" action="/distributor" method="GET" style="display: none"><br>
+          <label>Distributor</label>
+          <input type="radio" name="chaincode" value="test4"> BAIA
+            <input type="radio" name="chaincode" value="test5"> AIMCO<br>
+            <label>Organization</label>
+             <input type="text" id="orgName" name="orgName"  ><br><br>
+            <label>Username</label>
+            <input type="text" id="userName" name="userName" ><br><br>
+            <input type=text id="channelName" name="channelName" value="ouchannel" hidden>
+            
+            <label>Password</label>
+            <input type="password"><br><br>
+            <input class="btn btn-primary btn-xs" type="submit">
+            <input value="Distributor" hidden>
     </form>
 
 
@@ -116,13 +128,17 @@
         width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail"></a>
    
    <center> <span style="color:black;font-size: 20px" >Logistics</span></center>
-   <form action="#" id="form3" style="display: none"><br>
+   <form action="/stock" id="form3" style="display: none"><br>
+   <label>Logistics</label>
+   <input type=text id="channelName" name="channelName" value="ouchannel" hidden>
+     <input type="radio" name="chaincode" value="test4"> DEDX
+    <input type="radio" name="chaincode" value="test5"> BTDC<br>
     <label>Username</label>
     <input type="text"><br><br>
     <label>Password</label>
     <input type="password"><br><br>
     <input class="btn btn-primary btn-xs" type="submit">
-    <input value="Manufacturer" hidden>
+    <input value="logistics" hidden>
    </form>
 
 
@@ -136,41 +152,77 @@
         width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail"></a>
    
     <center><span style="color:black;font-size: 20px">Pharmacy</span></center>
-    <form id="form4" action="GET" style="display: none"><br>
+    <form id="form4" method="GET" action="/pharMarequested" style="display: none"><br>
+    <label>Pharmacy</label>
+        <input type="radio" id="chaincode" name="chaincode" value="test4">ABOLLO
+        <input type="radio" id="chaincode" name="chaincode" value="test5"> FARE<br>
         <label>Username</label>
         <input type="text"><br><br>
         <label>Password</label>
         <input type="password"><br><br>
         <input class="btn btn-primary btn-xs" type="submit">
-        <input value="Manufacturer" hidden> 
+        <input type=text id="channelName" name="channelName" value="ouchannel" hidden>
        </form>
     
 
 </div>
+<div class="Column" id="div5"><div class="Column">  <s="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top: 5%;display: inline;">
+                
+
+    
+   <a onclick="closeForm5()" href="# "> <img src="../download.png"
+        width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail"></a>
+   
+   <center> <span class="text-muted" style="color:black;font-size: 20px">Inspector</span></center>
+   <form action="/inspector?orgName={{orgName}}&userName={{userName}}&chaincodeName={{chaincode}}&channel={{channel}}" id="form5" style="display: none"><br>
+     <label>Organization</label>
+    <input type="radio" name="chaincode" value="test4">cdsco
+    <input type="radio" name="chaincode" value="test5"> FARE<br>
+    <label>Username</label>
+    <input type="text"><br><br>
+    <label>Password</label>
+    <input type="password"><br><br>
+    <input class="btn btn-primary btn-xs" type="submit">
+    <input type=text id="channelName" name="channelName" value="ouchannel" hidden>
+   </form>
+
+</div></div>
 </div>     <button  style="display: none"onclick="goback()"type="button"id="but"value="menu">Menu</button>
 <script>
    
     
     function closeForm1() {
       document.getElementById("div2").style.display = "none";
+      document.getElementById("div5").style.display = "none";
       document.getElementById("div3").style.display = "none";
       document.getElementById("div4").style.display = "none";
       document.getElementById("but").style.display = "block";
       document.getElementById("form1").style.display = "block";
     }
+     function closeForm5() {
+         document.getElementById("div1").style.display = "none";
+      document.getElementById("div2").style.display = "none";
+      document.getElementById("div3").style.display = "none";
+      document.getElementById("div4").style.display = "none";
+      document.getElementById("but").style.display = "block";
+      document.getElementById("form5").style.display = "block";
+    }
     function closeForm2() {
+         document.getElementById("div5").style.display = "none";
       document.getElementById("div1").style.display = "none";
       document.getElementById("div3").style.display = "none";
       document.getElementById("div4").style.display = "none";
       document.getElementById("but").style.display = "block";
       document.getElementById("form2").style.display = "block";
     } function closeForm3() {
+         document.getElementById("div5").style.display = "none";
       document.getElementById("div2").style.display = "none";
       document.getElementById("div1").style.display = "none";
       document.getElementById("div4").style.display = "none";
       document.getElementById("but").style.display = "block";
       document.getElementById("form3").style.display = "block";
     } function closeForm4() {
+         document.getElementById("div5").style.display = "none";
       document.getElementById("div2").style.display = "none";
       document.getElementById("div3").style.display = "none";
       document.getElementById("div1").style.display = "none";
@@ -180,6 +232,7 @@
     function goback(){
         document.getElementById("div2").style.display = "";
       document.getElementById("div3").style.display = "";
+      document.getElementById("div5").style.display = "";
       document.getElementById("div4").style.display = "";
       document.getElementById("div1").style.display = "";
       document.getElementById("but").style.display = "none";
@@ -187,6 +240,7 @@
       document.getElementById("form2").style.display = "none";
       document.getElementById("form3").style.display = "none";
       document.getElementById("form4").style.display = "none";
+      document.getElementById("form5").style.display = "none";
 
       
     }

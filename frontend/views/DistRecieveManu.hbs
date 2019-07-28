@@ -134,15 +134,14 @@
         <div class="row" >
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size:16px">
-                    <li ><a href="#">Incoming Requests(Pharmacy) <span class="sr-only">(current)</span></a></li>
+                    <li ><a href="/distributor?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Incoming Requests(Pharmacy) <span class="sr-only">(current)</span></a></li>
                     
-                    <li><a href="stock.html">Stock</a></li>
-                    <li class="active"><a href="">Recieving(Manufacturer)</a></li>
+                    <li><a href="/stockdis?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Stock</a></li>
+                    <li class="active"><a href="#">Recieving(Manufacturer)</a></li>
                     
                 </ul>
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size: 16px">
                    
-                    <li><a href="Delivered.html">Delivered</a></li>
                     <li><a href="../manufacturer/track.html">Track Medicine</a></li>
                    
                 </ul>
@@ -155,7 +154,7 @@
                         <div class="col-xs-6 col-sm-3 placeholder">
                             <img src="../download.png"
                                 width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                            <h4>D-Id :327587545M</h4>
+                            <h4>D-Id :{{userName}}</h4>
                             <span class="text-muted"></span>
                         </div>
                         
@@ -179,7 +178,7 @@
                                 <td>{{this.Record.name}}</td>
                                 <td>{{this.Record.requestLogistics}}</td>
                                 
-                                <td><a href="/acceptResFinal?medid={{this.Key}}&logiId={{this.Record.requestLogistics}}"><button type="button" class="btn btn-success btn-xs">Recieved</button></a></td>
+                                <td><a href="/acceptResFinal?productID={{this.Key}}&chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}"><button type="button" class="btn btn-success btn-xs">Recieved</button></a></td>
                             </tr>
                           
                            {{/each}}
