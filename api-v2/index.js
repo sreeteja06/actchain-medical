@@ -390,6 +390,8 @@ app.post(
     let args = [];
     username = req.body.username;
     orgName = req.body.orgName;
+    channelName = req.body.channelName;
+    chaincodeName = req.body.chaincodeName;
     args.push(req.body.productID);
     args.push(req.body.name);
     args.push(req.body.username);
@@ -403,15 +405,7 @@ app.post(
     // let username = req.body.username;
     // let orgName = req.body.orgName;
 
-    let message = await invoke.invokeChaincode(
-      peers,
-      channelName,
-      chaincodeName,
-      args,
-      fn,
-      username,
-      orgName
-    );
+    let message = await invoke( fn, args, channelName, chaincodeName, orgName, username );
 
     await blockListener.startBlockListener(channelName, username, orgName, wss);
 
@@ -423,6 +417,8 @@ app.get(
   awaitHandler(async (req, res) => {
     username = req.query.username;
     orgName = req.query.orgName;
+    channelName = req.query.channelName;
+    chaincodeName = req.query.chaincodeName;
     let args = [];
     console.log('req query of the request ' + JSON.stringify(req.query));
     args.push(req.query.id);
@@ -430,15 +426,7 @@ app.get(
     // let username = req.body.username;
     // let orgName = req.body.orgName;
     console.log(args);
-    let message = await query.queryChaincode(
-      peers,
-      channelName,
-      chaincodeName,
-      args,
-      fn,
-      username,
-      orgName
-    );
+    let message = await query( fn, args, channelName, chaincodeName, orgName, username );
     res.send(message);
   })
 );
@@ -448,6 +436,8 @@ app.get(
   awaitHandler(async (req, res) => {
     username = req.query.username;
     orgName = req.query.orgName;
+    channelName = req.query.channelName;
+    chaincodeName = req.query.chaincodeName;
     let args = [];
     console.log('req query of the request ' + JSON.stringify(req.query));
     args.push(req.query.id);
@@ -455,15 +445,7 @@ app.get(
     // let username = req.body.username;
     // let orgName = req.body.orgName;
     console.log(args);
-    let message = await query.queryChaincode(
-      peers,
-      channelName,
-      chaincodeName,
-      args,
-      fn,
-      username,
-      orgName
-    );
+    let message = await query( fn, args, channelName, chaincodeName, orgName, username );
     res.send(message);
   })
 );
@@ -472,22 +454,16 @@ app.get(
 
 app.get('/getPrivatePriceDetails', awaitHandler(async (req, res)=>{
   username = req.query.username;
-    orgName = req.query.orgName;
+  orgName = req.query.orgName;
+  channelName = req.query.channelName;
+  chaincodeName = req.query.chaincodeName;
     let args = [];
     console.log('req query of the request ' + JSON.stringify(req.query));
     args.push(req.query.productID);
     args.push(req.query.pdname);
     const fn = 'getPrivateProductPrice';
     console.log(args);
-    let message = await query.queryChaincode(
-      peers,
-      channelName,
-      chaincodeName,
-      args,
-      fn,
-      username,
-      orgName
-    );
+    let message = await query( fn, args, channelName, chaincodeName, orgName, username );
     res.send(message);
   })
 );
@@ -496,6 +472,8 @@ app.post(
   awaitHandler(async (req, res) => {
     username = req.body.username;
     orgName = req.body.orgName;
+    channelName = req.body.channelName;
+    chaincodeName = req.body.chaincodeName;
     let args = [];
     args.push(req.body.productID);
     args.push(req.body.pdname);
@@ -504,15 +482,7 @@ app.post(
     // let username = req.body.username;
     // let orgName = req.body.orgName;
 
-    let message = await invoke.invokeChaincode(
-      peers,
-      channelName,
-      chaincodeName,
-      args,
-      fn,
-      username,
-      orgName
-    );
+    let message = await invoke( fn, args, channelName, chaincodeName, orgName, username );
 
     await blockListener.startBlockListener(channelName, username, orgName, wss);
 
