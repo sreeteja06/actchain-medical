@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Pharmacy|meditrack</title>
+    <title>Dashboard Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -113,7 +113,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand " href="#" style="color: white;display: inline-block"><img style="display: inline;margin-right: 4px"src="../cardiogram.svg" height="30px" width="30px">Meditrack</a>
+                <a class="navbar-brand " href="#" style="color: white;display: inline-block"><img style="display: inline;margin-right: 4px"src="cardiogram.svg" height="30px" width="30px">Meditrack</a>
             </div>
             
             <div id="navbar" class="navbar-collapse collapse">
@@ -134,16 +134,19 @@
         <div class="row" >
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size:16px">
-                  
-                        <li ><a href="/pharMarequest?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Request</a></li>
-                    <li ><a href="/pharmaStock?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Stock</a></li>
-                    <li class="active"><a href="#">Requested</a></li>
+                    <li class="active"><a href="#">Requests from Distributor <span class="sr-only">(current)</span></a></li>
+                    <li><a href="/manufacturer?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">manufactured medicine</a></li>
+                    <li><a href="/suplied?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Supplied medicine</a></li>
                     
                 </ul>
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size: 16px">
-                   
-                   <li><a href="/history?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">History of Medicines</a></li>
-                    <li><a href="../manufacturer/track.html">Track Medicine</a></li>
+                    <li><a href="/create?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Create medine</a></li>
+
+                    <li><a href="/track?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Track Medicines</a></li>
+                    <li><a href="/history?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">History of Medicines</a></li>
+
+                    
+
                    
                 </ul>
 
@@ -153,42 +156,66 @@
                 
                     <div class="row placeholders" style="margin-left: -110px">
                         <div class="col-xs-6 col-sm-3 placeholder">
-                            <img src="../download.png"
+                            <img src="download.png"
                                 width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                            <h4>P-Id :327587545M</h4>p
+                            <h4>M-Id :{{userName}} {{chaincodeName}}</h4>
                             <span class="text-muted"></span>
                         </div>
                         
                     </div>
-                <h2 class="sub-header">Requested Medicines</h2>
+                <h2 class="sub-header">Requests from Distributors</h2>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                               
                                 <th>M-ID</th>
                                 <th>Medine name</th>
+                                <th>Requested by</th>
                                 <th>Expiry</th>
-                               
-                                
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                           {{#each data}}
                             <tr>
-                               
                                 <td>{{this.Key}}</td>
-                                <td>{{this.Record.name}}l</td>
-                                <td>{{this.Record.location}}</td>
-                               
-                              
-                                </tr>
-                                {{/each}}
-                                
-                           
+                                <td>{{this.Record.name}}</td>
+                                <td>{{this.Record.requestId}}</td>
+                                <td>{{this.Record.expDate}}</td>
+                                <td><button type="button" class="btn btn-primary btn-xs" onclick="openform({{this.Key}})">Accept</button>
+                                <button type="button" style="margin-left: 5px" class="btn btn-danger btn-xs">Deny</button> </td>
+                            </tr>
+                            {{/each}}
                         </tbody>
                     </table>
-                   
+                    <div class="form-popup" id="myForm" style="display: none">
+                        <form action="/acceptRequest?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}" class="form-container">
+                          <h1>Send Medicine</h1>
+                      
+                          <label for="email"><b>Medicine ID</b></label>
+                          <input type="text" placeholder="Enter Medicine ID" name="productID" id="productID" value="" required readonly>
+                      
+                          <label for="psw"><b>Logistics</b></label>
+                          <input type="text" placeholder="Enter Logistics" name="logi" required>
+
+                          <label for="psw"><b>Send to</b></label>
+                          <input type="text" placeholder="Enter Distributor/Pharmacy" name="sendto" required>
+                      
+                          <button action="/acceptReq?&chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}" type="submit" class="btn" onclick="closeForm()">Send</button>
+                          <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+                        </form>
+                      </div>
+                    <script>
+                        function openform(Key) {
+                          console.log("done");
+                          document.getElementById("medid").value = Key;
+                          document.getElementById("myForm").style.display = "block"; 
+                        }
+                        
+                        function closeForm() {
+                          document.getElementById("myForm").style.display = "none";
+                        }
+                        </script>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

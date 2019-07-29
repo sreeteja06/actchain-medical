@@ -136,13 +136,13 @@
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size:16px">
                   
                         <li class="active"><a href="#">Request</a></li>
-                    <li ><a href="/pharMaStock">Stock</a></li>
-                    <li ><a href="/pharMarequested">Requested</a></li>
+                    <li ><a href="/pharMaStock?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Stock</a></li>
+                    <li ><a href="/pharMarequested?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Requested</a></li>
                     
                 </ul>
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size: 16px">
                    
-                   <li><a href="/history">History of Medicines</a></li>
+                   <li><a href="/history?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">History of Medicines</a></li>
                     <li><a href="../manufacturer/track.html">Track Medicine</a></li>
                    
                 </ul>
@@ -155,19 +155,19 @@
                         <div class="col-xs-6 col-sm-3 placeholder">
                             <img src="../download.png"
                                 width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                            <h4>P-Id :327587545M</h4>
+                            <h4>P-Id :{{userName}}</h4>
                             <span class="text-muted"></span>
                         </div>
                         
                     </div>
                 <h2 class="sub-header">Request Medicines</h2>
-                <form action="/sendReq" method="GET" class="text-center" style="color: #757575;display: inline-block">
+                <form action="/sendReq?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}" method="GET" class="text-center" style="color: #757575;display: inline-block">
 
                           
                         <!-- Med Id -->
                         <div class="md-form mt-0">
                                 <label for="materialRegisterFormEmail">Medicinne id</label>
-                            <input type="text" id="medid" name="medid" class="form-control" >
+                            <input type="text" id="productID" name="productID" class="form-control" >
                             
                         </div>
                       <br>
