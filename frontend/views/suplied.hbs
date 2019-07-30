@@ -59,17 +59,17 @@
             <div class="col-sm-3 col-md-2 sidebar" style="padding: ">
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size:16px">
                     <li ><a href="/manuFirst?orgName={{orgName}}&userName={{userName}}&channelName={{channelName}}&chaincodeName={{chaincodeName}}">Requests from Distributor <span class="sr-only">(current)</span></a></li>
-                    <li><a href="/manufacturer?orgName={{orgName}}&userName={{userName}}&channel={{channelName}}&chaincodeName={{chaincodeName}}">manufactured medicine</a></li>
-                    <li  class="active"><a href="/suplied">Supplied medicine</a></li>
+                    <li><a href="/manufacturer?orgName={{orgName}}&userName={{userName}}&channelName={{channelName}}&chaincodeName={{chaincodeName}}">Stock</a></li>
+                    <li  class="active"><a href="/suplied">Manufactured medicine</a></li>
                     
                 </ul>
 
                 
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size: 16px">
-                    <li><a href="/create?orgName={{orgName}}&userName={{userName}}&channel={{channel}}&chaincodeName={{chaincodeName}}">Create medine</a></li>
+                    {{!-- <li><a href="/create?orgName={{orgName}}&userName={{userName}}&channel={{channel}}&chaincodeName={{chaincodeName}}">Create medine</a></li> --}}
 
-                    <li><a href="/track?orgName={{orgName}}&userName={{userName}}&channel={{channel}}&chaincodeName={{chaincodeName}}">Track Medicines</a></li>
-                    <li><a href="/history?orgName={{orgName}}&userName={{userName}}&channel={{channel}}&chaincodeName={{chaincodeName}}">History of Medicines</a></li>
+                    <li><a href="/trackindex?orgName={{orgName}}&userName={{userName}}&channel={{channel}}&chaincodeName={{chaincodeName}}">Track Medicines</a></li>
+                    <li><a href="/historyindex?orgName={{orgName}}&userName={{userName}}&channel={{channel}}&chaincodeName={{chaincodeName}}">History of Medicines</a></li>
 
                    
                    
@@ -83,7 +83,7 @@
                     <div class="col-xs-6 col-sm-3 placeholder">
                         <img src="download.png"
                             width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                        <h4>M-Id :327587545M</h4>
+                        <h4>M-Id :{{userName}}</h4>
                         <span class="text-muted"></span>
                     </div>
                     

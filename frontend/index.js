@@ -5,7 +5,7 @@ const util=require('util');
 const path = require('path');
 
 let app = express();
-const URL = `ec2-user@ec2-18-219-122-111.us-east-2.compute.amazonaws.com`;
+const URL = `ec2-52-14-88-206.us-east-2.compute.amazonaws.com`;
 app.set('view engine', 'hbs');
 
 //hbs.registerPartials(path.join(__dirname,'views/partials'));
@@ -14,87 +14,99 @@ app.use(express.static(path.join(__dirname, '/public')));
 
 
 app.get('/suplied', async function(req, res){
-   let response;
-    try{
-      response=await axios.get(`http://${URL}:3000/getProductsByOwner?username=${req.query.userName}&orgName=${req.query.orgName}&channelName=${req.query.channelName}&chaincodeName=${req.query.channelName}&id=${req.query.userName}` ) 
-    }catch(e){
-      console.log(e);
-      res.sendStatus(500);
-    }
-    console.log(response);
-    res.render('suplied',{data:response.data,channelName:req.query.channelName,chaincodeName:req.query.chaincodeName,userName:req.query.userName,orgName:req.query.orgName});
+      let response;
+        try{
+          response=await axios.get(`http://${URL}:3000/getProductByOwner?id=${req.query.userName}&username=${req.query.userName}&orgName=${req.query.orgName}&channelName=${req.query.channelName}&chaincodeName=${req.query.chaincodeName}` ) 
+        }catch(e){
+          console.log(e);
+          res.sendStatus(500);
+        }
+        console.log(response);
+        res.render('suplied',{data:response.data,channelName:req.query.channelName,chaincodeName:req.query.chaincodeName,userName:req.query.userName,orgName:req.query.orgName});
   });
 
-
+  
 app.get('/manufacturer',async function(req,res){
-    let response;
-    // let chaincodename;
-    // if(req.query.channel=="meditrack"){
-    //   chaincodename='test4';
-    // }else chaincodename='test4';
-    try{
-      response=await axios.get(`http://${URL}:3000/getProductsByOwner?username=mayerUser&orgName=mayer&channelName=ourchannel&chaincodeName=test4&id=mayerUser`);
-      // { id:'mayerUser',
-      //   username: 'mayerUser',
-      //   orgName: 'mayer',
-      //   channelName : 'ourchannel',
-      //   chaincodeName: 'test4'
-      // })
-    }catch(e){
-      console.log(e);
-      res.sendStatus(500);
-    }
-    console.log(response);
-    res.render('manufacturer',{data:response.data,userName:req.query.userName,orgName:req.query.orgName,channelName:req.query.channelName,chaincodeName:req.query.chaincode});
+        let response;
+        try{
+          response=await axios.get(`http://${URL}:3000/getProductByHolderStock?id=${req.query.userName}&username=${req.query.userName}&orgName=${req.query.orgName}&channelName=${req.query.channelName}&chaincodeName=${req.query.chaincodeName}` ) 
+        }catch(e){
+          console.log(e);
+          res.sendStatus(500);
+        }
+        console.log(response);
+        res.render('manufacturer',{data:response.data,channelName:req.query.channelName,chaincodeName:req.query.chaincodeName,userName:req.query.userName,orgName:req.query.orgName});
 });
 
 app.get('/manuFirst',async function(req,res){
-  let response;
-  try{
-    response=await axios.get(`http://${URL}:3000/getRequests?id=mayerUser&username=mayerUser&orgName=mayer&channelName=ourchannel&chaincodeName=test4`)
+        let response;
+        try{
+          response=await axios.get(`http://${URL}:3000/getRequests?id=${req.query.userName}&username=${req.query.userName}&orgName=${req.query.orgName}&channelName=${req.query.channelName}&chaincodeName=${req.query.chaincodeName}`);
+        }catch(e){
+          console.log(e);
+          res.sendStatus(500);
+        }
+        console.log(response);
+        res.render('requestFromDist',{data:response.data,userName:req.query.userName,orgName:req.query.orgName,channelName:req.query.channelName,chaincodeName:req.query.chaincodeName});
+});
 
-  }catch(e){
-    console.log(e);
-    res.sendStatus(500);
-  }
-  console.log(response);
-  
-  res.render('requestFromDist',{data:response.data,userName:req.query.userName,orgName:req.query.orgName,channelName:req.query.channelName,chaincodeName:req.query.chaincode});
+app.get('/create',async function(req,res){
+        res.render('create');
 });
-app.get('/create',function(req,res){
-    res.render('create');
-});
+
 app.get('/historyindex',async function(req,res){
- 
-  res.render('historyindex');
+        res.render('historyindex',{userName:req.query.userName,orgName:req.query.orgName,channelName:req.query.channelName,chaincodeName:req.query.chaincodeName});
 });
 
+app.get('/trackindex',async function(req,res){
+  res.render('trackindex',{userName:req.query.userName,orgName:req.query.orgName,channelName:req.query.channelName,chaincodeName:req.query.chaincodeName});
+});
 app.get('/history',async function(req,res){
-  let response;
-   console.log(req.query.productID);
-    try{
-      response = await axios.get(`http://${URL}:3000/getHistory`,
-      { productID:req.query.productID,
-        username:req.query.userName,
-        orgName:req.query.orgName,
-        channelName:req.query.channelName,
-        chaincodeName:req.query.chaincodeName
-      });
-    }catch(e){
-      console.log(e);
-      res.sendStatus(500);
-    }
-    console.log(response);
-    res.render('history',{data:response.data,userName:req.query.userName,orgName:req.query.orgName,channelName:req.query.channelName,chaincodeName:req.query.chaincode} );
+        let response;
+        console.log(req.query);
+          try{
+            response = await axios.get(`http://${URL}:3000/getHistory?productID=${req.query.productID}&username=${req.query.userName}&orgName=${req.query.orgName}&channelName=${req.query.channelName}&chaincodeName=${req.query.chaincodeName}`);
+          }catch(e){
+            console.log(e);
+            res.sendStatus(500);
+          }
+          console.log(response);
+          res.render('history',{data:response.data,userName:req.query.userName,orgName:req.query.orgName,channelName:req.query.channelName,chaincodeName:req.query.chaincode} );
   });
   
 
 app.get('/',function(req,res){
-  res.render('login');
+          res.render('login');
 });
 
-app.get('/track',function(req,res){
-  res.render('track');
+app.get('/track',async function(req,res){
+          let response;
+          try{
+              response=await axios.get(`http://${URL}:3000/productInfo?productID=${req.query.productID}&username=${req.query.userName}&orgName=${req.query.orgName}&channelName=${req.query.channelName}&chaincodeName=${req.query.chaincode}`,
+              )
+            }catch(e){
+              console.log(e);
+              res.sendStatus(500);
+            }
+            console.log(response.data);
+            let arr =[] ;
+            arr.push(response.data.owner);
+            if(response.data.checkDist){
+              arr.push(response.data.checkDist);
+            }
+            if(response.data.checkLogiD){
+              arr.push(response.data.checkLogiD);
+            }
+            if(response.data.checkLogiP){
+              arr.push(response.data.checkLogiP);
+            }
+            if(response.data.checkPharma){
+              arr.push(response.data.checkPharma);
+            }
+            console.log(req.query.productID);
+          res.render('track',{
+            data: arr, productID:req.query.productID
+        });
 });
 
 app.get('/createMed', async (req, res) => {
@@ -105,17 +117,19 @@ app.get('/createMed', async (req, res) => {
         {
           productID: req.query.productID,
           name: req.query.productName,
-          username: 'M001',
+          username: req.query.userName,
           expDate: req.query.exp,
           location: req.query.loc,
           extraConditionsName: '0',
           extraConditionsRequiredValue: '0',
           extraConditionsCondition: '0',
-          orgName: 'manu'
+          orgName: req.query.orgName,
+          channelName:req.query.channelName,
+          chaincodeName:req.query.chaincodeName
         }
       );
-      
-      res.render('tx', { data: response.data });
+      console.log(response.data)
+      res.render('tx', { data: response.data});
     } catch (e) {
       console.log(e);
       res.sendStatus(500);
@@ -126,11 +140,10 @@ app.get('/createMed', async (req, res) => {
 
 app.get('/sendMed',async function(req,res){
     let response;
+    console.log(req.query);
     try {
-      response = await axios.post(
-        `http://${URL}:3000/sendProduct`,
-        
-        { productID: req.query.productID, 
+      response = await axios.post( `http://${URL}:3000/sendProduct`,    
+        { productID: req.query.medid, 
           logistics: req.query.logi,
           sendTo: req.query.sendto,
           username:req.query.userName,
@@ -139,7 +152,8 @@ app.get('/sendMed',async function(req,res){
           chaincodeName:req.query.chaincodeName
         }
       );
-      res.render('tx', { data: response.data });
+      console.log(response.data);
+      res.render('tx', { data: response.data});
     } catch (e) {
       console.log(e);
       res.sendStatus(500);
@@ -166,227 +180,208 @@ app.get('/acceptRes',async function(req,res){
     console.log(e);
     res.sendStatus(500);
   }
-  Console.log(response.data);
+  console.log(response.data);
   res.render('tx', { data: response.data });
 });
-//recieved 
-
-
 
 // pharmacy
 
 app.get('/pharMaStock',async function(req,res){
-  let response;
-  try{ response = await axios.get(`http://${URL}:3000/getProductsByHolder`,
-  {      id:req.query.id,
-        username: req.query.userName,
-        orgName:req.query.orgName,
-        channelName:req.query.channelName,
-        chaincodeName:req.query.chaincodeName
-  })
-
-  }catch(e){console.log(e);res.sendStatus(500);}
-  res.render('pharMaStock',{data:response.data,userName:req.query.userName,orgName:req.query.orgName,channelName:req.query.channelName,chaincodeName:req.query.chaincode});
+          let response;
+          console.log(req.query);
+          try{ response = await axios.get(`http://${URL}:3000/getProductByHolder?id=${req.query.userName}&username=${req.query.userName}&orgName=${req.query.orgName}&channelName=${req.query.channelName}&chaincodeName=${req.query.chaincodeName}`);
+        }catch(e){
+          console.log(e);
+          res.sendStatus(500);
+        }
+          res.render('pharMaStock',{data:response.data,userName:req.query.userName,orgName:req.query.orgName,channelName:req.query.channelName,chaincodeName:req.query.chaincodeName});
 });
 
 
 app.get('/pharMarequested',async function(req,res){
 
-  let response;
-    try{
-      response=await axios.get(`http://${URL}:3000/getSentRequests`,
-      {  id:req.query.id,
-        username:req.query.userName,
-        orgName:req.query.orgName,
-        channelName:req.query.channelName,
-        chaincodeName:req.query.chaincodeName
-      })
-    }catch(e){
-      console.log(e);
-      res.sendStatus(500);
-    }
-    console.log(response.data);
-    res.render('pharMarequested',{data:response.data,userName:req.query.userName,orgName:req.query.orgName,channelName:req.query.channelName,chaincodeName:req.query.chaincode});
+      let response;
+        try{
+          response=await axios.get(`http://${URL}:3000/getSentRequests?id=${req.query.userName}&username=${req.query.userName}&orgName=${req.query.orgName}&channelName=${req.query.channelName}&chaincodeName=${req.query.chaincodeName}`,
+          )
+        }catch(e){
+          console.log(e);
+          res.sendStatus(500);
+        }
+        console.log(response.data);
+        res.render('pharMarequested',{data:response.data,userName:req.query.userName,orgName:req.query.orgName,channelName:req.query.channelName,chaincodeName:req.query.chaincodeName});
 });
 
 app.get('/pharMarequest',async function(req,res){
-    res.render('pharMarequest',{userName:req.query.userName,orgName:req.query.orgName,channelName:req.query.channelName,chaincodeName:req.query.chaincode});
+        console.log(req.query);
+        res.render('pharMarequest',{userName:req.query.userName,orgName:req.query.orgName,channelName:req.query.channelName,chaincodeName:req.query.chaincodeName});
 });
 
 
 //send Request
 
 app.get('/sendReq',async function(req,res){
-  let response;
-    try {
-      response = await axios.post(
-        'http://${URL}:3000/sendRequest',
-        {
-          productID: req.query.productID,
-          id:req.query.userName,
-          username:req.query.userName,
-          orgName:req.query.orgName,
-          channelName:req.query.channelName,
-          chaincodeName:req.query.chaincodeName
-          
-        });
-      res.render('tx', { data: response.data });
-    } catch (e) {
-      console.log(e);
-      res.sendStatus(500);
+        let response;
+        console
+          try {
+            response = await axios.post(
+              `http://${URL}:3000/sendRequest`,
+              {
+                productID: req.query.productID,
+                id:req.query.userName,
+                username:req.query.userName,
+                orgName:req.query.orgName,
+                channelName:req.query.channelName,
+                chaincodeName:req.query.chaincodeName
+                
+              });
+             res.render('tx', { data: response.data });
+               } catch (e) {
+                console.log(e);
+                res.sendStatus(500);
     }
 });
 //////////////////////////////////logistics///////////////////////////////////////////////
 //logisticseve list of logistics
-app.get('/recievingList', async function(req,res){
-  let response;
-  try{
-    response = await axios.get(`http://${URL}:3000/logisticRecievingList`,
-    { id: req.query.id,
-      username:req.query.userName,
-      orgName:req.query.orgName,
-      channelName:req.query.channelName,
-      chaincodeName:req.query.chaincodeName
-    });
-  }catch(err){
-    console.log(err);
-    res.sendStatus(500);
-  }
-  res.render('accept',{data:response.data,userName:req.query.userName,orgName:req.query.orgName,channelName:req.query.channelName,chaincodeName:req.query.chaincode});
+app.get('/recievingList',async function(req,res){
+        let response;
+          try {
+            response = await axios.get(
+              `http://${URL}:3000/logisticRecievingList?id=${req.query.userName}&username=${req.query.userName}&orgName=${req.query.orgName}&channelName=${req.query.channelName}&chaincodeName=${req.query.chaincodeName}`
+              );
+            } catch (e) {
+            console.log(e);
+            res.sendStatus(500);
+          }
+          console.log(response.data);
+          res.render('accept',{data:response.data,userName:req.query.userName,orgName:req.query.orgName,channelName:req.query.channelName,chaincodeName:req.query.chaincodeName});
+
 });
 
 app.get('/stock', async function(req,res){
-  let response;
-  try{
-    response = await axios.get(`http://${URL}:3000/getProductsByHolder`,{
-      id:req.query.userName,
-      username:req.query.userName,
-      orgName:req.query.orgName,
-      channelName:req.query.channelName,
-      chaincodeName:req.query.chaincodeName
-    });
-  }catch(err){
-    console.log(err);
-    res.sendStatus(500);
-  }
-  
-  res.render('logiStock',{data:response.data,userName:req.query.userName,orgName:req.query.orgName,channelName:req.query.channelName,chaincodeName:req.query.chaincodeName});
-});
+          let response;
+          try{
+            response=await axios.get(`http://${URL}:3000/getProductByHolder?id=${req.query.userName}&username=${req.query.userName}&orgName=${req.query.orgName}&channelName=${req.query.channelName}&chaincodeName=${req.query.chaincodeName}`,
+            );
+          }catch(e){
+            console.log(e);
+            res.sendStatus(500);
+          } 
+          console.log(response.data);
+          res.render('logiStock',{data:response.data,userName:req.query.userName,orgName:req.query.orgName,channelName:req.query.channelName,chaincodeName:req.query.chaincodeName});
+ });
 
 
 
 
 /////////////////////////////////distributor/////////////////////////////////////
 app.get('/distributor', async function(req, res){
-  let response;
-   try{
-     response=await axios.get(`http://${URL}:3000/getRecievedProducts?id=baiaUser&username=baiaUser&orgName=baia&channelName=ourchannel&chaincodeName=test4`,
-      // {    id:req.query.userName,
-      //      username:req.query.userName,
-      //      orgName:req.query.orgName,
-      //      channelName:req.query.channelName,
-      //      chaincodeName:req.query.chaincodeName}
-      ); }
-      catch(e){
-     console.log(e);
-     res.sendStatus(500);
-   }
-  
-   
-   res.render('distributor',{data:response.data,userName:req.query.userName,orgName:req.query.orgName,channelName:req.query.channelName,chaincodeName:req.query.chaincode});
+        let response;
+        console.log(req.query);
+        try{
+          response=await axios.get(`http://${URL}:3000/getRequests?id=${req.query.userName}&username=${req.query.userName}&orgName=${req.query.orgName}&channelName=${req.query.channelName}&chaincodeName=${req.query.chaincodeName}`
+          ); }
+            catch(e){
+          console.log(e);
+          res.sendStatus(500);
+        }
+        console.log(response.data);
+        
+        res.render('distributor',{data:response.data,userName:req.query.userName,orgName:req.query.orgName,channelName:req.query.channelName,chaincodeName:req.query.chaincodeName});
  });
 
- app.get('/stockdis', async function(req, res){
-  let response;
-   try{
-     response=await axios.get(`http://${URL}:3000/getProductsByHolder`,
-     { id :req.query.id,
-      username:req.query.userName,
-      orgName:req.query.orgName,
-      channelName:req.query.channelName,
-      chaincodeName:req.query.chaincodeName
-    });
-   }catch(e){
-     console.log(e);
-     res.sendStatus(500);
-   } 
-   console.log(response.data);
-   res.render('stockdis',{data:response.data,userName:req.query.userName,orgName:req.query.orgName,channelName:req.query.channelName,chaincodeName:req.query.chaincode});
- });
+app.get('/distreq',function(req,res){
+        res.render('distrequest',{userName:req.query.userName,orgName:req.query.orgName,channelName:req.query.channelName,chaincodeName:req.query.chaincodeName});
+})
+
+app.get('/stockdis', async function(req, res){
+        let response;
+        try{
+          response=await axios.get(`http://${URL}:3000/getProductByHolder?id=${req.query.userName}&username=${req.query.userName}&orgName=${req.query.orgName}&channelName=${req.query.channelName}&chaincodeName=${req.query.chaincodeName}`,
+          );
+        }catch(e){
+          console.log(e);
+          res.sendStatus(500);
+        } 
+        res.render('stockdis',{data:response.data,userName:req.query.userName,orgName:req.query.orgName,channelName:req.query.channelName,chaincodeName:req.query.chaincodeName});
+        });
 
 
 app.get('/recieveFromManu', async function(req,res){
-  let response;
-  try{
-    response =await axios.get(`http://${URL}:3000/getRecievedProducts?id=baiaUser&username=baiaUser&orgName=baia&channelName=ourchannel&chaincodeName=test4`,
-   
-    );
-  }catch(e){console.log(e);
-    res.sendStatus(500);
-  }
-  console.log(response.data);
-  res.render('DistRecieveManu',{data:response.data,userName:req.query.userName,orgName:req.query.orgName,channelName:req.query.channelName,chaincodeName:req.query.chaincode})
+        let response;
+        try{
+        response = await axios.get(`http://${URL}:3000/getRecievedProducts?id=${req.query.userName}&username=${req.query.userName}&orgName=${req.query.orgName}&channelName=${req.query.channelName}&chaincodeName=test4`,
+          );
+        }catch(e){console.log(e);
+          res.sendStatus(500);
+        }
+        console.log(response.data);
+        res.render('DistRecieveManu',{data:response.data,userName:req.query.userName,orgName:req.query.orgName,channelName:req.query.channelName,chaincodeName:req.query.chaincodeName})
 });
 
 
 app.get('/recieveToPharma', async function(req,res){
-  let response;
-  try{
-    response =await axios.get(`http://${URL}:3000/getRecievedProducts?id=abolloUser`,
-    {
-      username:req.query.userName,
-      orgName:req.query.orgName,
-      channelName:req.query.channelName,
-      chaincodeName:req.query.chaincodeName
-    });
-  }catch(e){console.log(e);
-    res.sendStatus(500);
-  }
-  res.render('pharmaRecieve',{data:response.data,userName:req.query.userName,orgName:req.query.orgName,channelName:req.query.channelName,chaincodeName:req.query.chaincode})
+        let response;
+        try{
+          response =await axios.get(`http://${URL}:3000/getRecievedProducts?id=abolloUser&username=abolloUser&orgName=abollo&channelName=meditrack&chaincodeName=test4`);
+        }catch(e){console.log(e);
+          res.sendStatus(500);
+        }
+        res.render('pharmaRecive',{data:response.data,userName:req.query.userName,orgName:req.query.orgName,channelName:req.query.channelName,chaincodeName:req.query.chaincodeName})
 });
 
 app.get('/acceptReq', async function(req,res){
-  let response;
-  try{
-    response=await axios.post(`http://${URL}:3000/acceptRequest`,
-    {
-      productID: req.query.productID,
-	    id: req.query.id,
-      logisId: req.query.logi,
-      username:req.query.userName,
-      orgName:req.query.orgName,
-      channelName:req.query.channelName,
-      chaincodeName:req.query.chaincodeName
-    });
-    res.render('tx', { data: response.data });
-  }catch(e){
-    console.log(e);
-    res.sendStatus(500);
-  }
+        let response;
+        try{
+          response=await axios.post(`http://${URL}:3000/acceptRequest`,
+          {
+            productID: req.query.productID,
+            id: req.query.id,
+            logisId: req.query.logi,
+            username:req.query.userName,
+            orgName:req.query.orgName,
+            channelName:req.query.channelName,
+            chaincodeName:req.query.chaincodeName
+          });
+          res.render('tx', { data: response.data });
+        }catch(e){
+          console.log(e);
+          res.sendStatus(500);
+        }
 });
  
 app.get('/acceptResFinal',async function(req,res){
   let response;
-  console.log("==========================================================================================================");
-  console.
-  try {
-    response = await axios.post( `http://${URL}:3000/acceptProduct`,
-      {
-        productID: req.query.productID,
-        id:req.query.userName,
-        username:req.query.userName,
-        orgName:req.query.orgName,
-        channelName:req.query.channelName,
-        chaincodeName:req.query.chaincodeName
-      })
-  } catch (e) {
+          try{
+            response = await axios.post( `http://${URL}:3000/acceptProduct`,
+                {
+                  productID:req.query.productID,
+                  id:req.query.userName,
+                  username:req.query.userName,
+                  orgName:req.query.orgName,
+                  channelName: req.query.channelName,
+                  chaincodeName:req.query.chaincodeName
+                })}
+              catch(e){
+                console.log(e);
+                res.sendStatus(500);
+              }
+          console.log(response.data);
+          res.render('tx', { data: response.data })}
+);
+
+////////////////////////inspector/////////////////////////////////////////////
+app.get('/cdscoManu',async function(req,res){
+  let response;
+  try{
+    response=await axios.get(`http://${URL}:3000/getProductByOwner?id=mayerUser&username=mayerUser&orgName=mayer&channelName=ourchannel&chaincodeName=test4` ) 
+  }catch(e){
     console.log(e);
     res.sendStatus(500);
   }
-  
-  res.render('tx', { data: response.data });
+  console.log(response);
+  res.render('cdscoManu',{data:response.data,channelName:req.query.channelName,chaincodeName:req.query.chaincodeName,userName:req.query.userName,orgName:req.query.orgName});
 });
-
 
 app.listen(4000, ()=>{
     console.log(`****************** SERVER STARTED ************************

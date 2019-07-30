@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Delivered | meditrack</title>
+    <title>Dashboard Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -118,7 +118,7 @@
             
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="/logout">logout</a></li>
                     <li><a href="#">Settings</a></li>
                     <li><a href="#">Profile</a></li>
                     <li><a href="#">Help</a></li>
@@ -134,17 +134,14 @@
         <div class="row" >
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size:16px">
-                    <li ><a href="/distributor?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Incoming Requests(Pharmacy) <span class="sr-only">(current)</span></a></li>
-                    <li><a href="/distreq?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Request Manufacturer</a></li>
-                    <li class="active"><a href="/stockdis">Stock</a></li>
-                    <li><a href="/recieveFromManu?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Recieving(Manufacturer)</a></li>
+                    <li class="active"><a href="/manufactured?orgName={{orgName}}&userNameName={{userName}}&channelName={{channelName}}&chaincodeName={{chaincodeName}}">Inventory</a></li>
                     
                 </ul>
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size: 16px">
-                   
-                                      <li><a href="/historyindex?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">History of Medicines</a></li>
-                    <li><a href="/trackindex?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Track Medicine</a></li>
-                   
+
+                    <li><a href="/trackindex?orgName=mayer&userName=mayerUser&channelName=ourchannel&chaincodeName=test4">Track Medicines</a></li>
+                    <li><a href="/historyindex?orgName=mayer&userName=mayerUser&channelName=ourchannel&chaincodeName=test4">History of Medicines</a></li>
+
                 </ul>
 
             </div>
@@ -153,23 +150,22 @@
                 
                     <div class="row placeholders" style="margin-left: -110px">
                         <div class="col-xs-6 col-sm-3 placeholder">
-                            <img src="../download.png"
+                            <img src="download.png"
                                 width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                            <h4>D-Id :{{userName}}</h4>
+                            <h4>Inspector-Id :{{userName}}</h4>
                             <span class="text-muted"></span>
                         </div>
                         
                     </div>
-                <h2 class="sub-header">Stock</h2>
+                <h2 class="sub-header">Medicines Manufactured</h2>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>M-ID</th>
                                 <th>Medine name</th>
-                                <th>sent From</th>
                                 <th>expiry</th>
-                                
+                                <th>Location</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -177,18 +173,14 @@
                             <tr>
                                 <td>{{this.Key}}</td>
                                 <td>{{this.Record.name}}</td>
-                                <td>{{this.Record.owner}}</td>
                                 <td>{{this.Record.expDate}}</td>
-                                </tr>
-                          
-                           {{/each}}
+                                <td>{{this.Record.location}}</td>
+                            </tr>
+                            {{/each}}
                         </tbody>
                     </table>
-                    
-                   
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+
+
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"
         integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
         crossorigin="anonymous"></script>

@@ -5,25 +5,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>Delivered | meditrack</title>
-
-    <!-- Bootstrap core CSS -->
+    <title>recieving | meditrack</title>
     <link href="../css/bootstrap.min.css" rel="stylesheet">
-
-
-    <!-- Custom styles for this template -->
-    <link href="../css/dashboard.css" rel="stylesheet">
-
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <link href="../css/dashboard.css" rel="stylesheet">   
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -135,14 +121,14 @@
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size:16px">
                     <li ><a href="/distributor?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Incoming Requests(Pharmacy) <span class="sr-only">(current)</span></a></li>
-                    
+                    <li><a href="/distreq?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Request Manufacturer</a></li>         
                     <li><a href="/stockdis?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Stock</a></li>
                     <li class="active"><a href="#">Recieving(Manufacturer)</a></li>
                     
                 </ul>
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size: 16px">
-                   
-                    <li><a href="../manufacturer/track.html">Track Medicine</a></li>
+                  <li><a href="/historyindex?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">History of Medicines</a></li>
+                    <li><a href="/trackindex?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Track Medicine</a></li>
                    
                 </ul>
 
@@ -176,9 +162,9 @@
                             <tr>
                                 <td>{{this.Key}}</td>
                                 <td>{{this.Record.name}}</td>
-                                <td>{{this.Record.requestLogistics}}</td>
+                                <td>{{this.Record.logistics}}</td>
                                 
-                                <td><a href="/acceptResFinal?productID={{this.Key}}&chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}"><button type="button" class="btn btn-success btn-xs">Recieved</button></a></td>
+                                <td><a href="/acceptResFinal?productID={{this.Key}}&chaincodeName={{../chaincodeName}}&channelName={{../channelName}}&userName={{../userName}}&orgName={{../orgName}}"><button type="button" class="btn btn-success btn-xs">Recieved</button></a></td>
                             </tr>
                           
                            {{/each}}
@@ -186,17 +172,13 @@
                     </table>
                     
                    
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+    
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"
         integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
         crossorigin="anonymous"></script>
     <script>window.jQuery || document.write( '<script src="../../assets/js/vendor/jquery.min.js"><\/script>' )</script>
     <script src="../../dist/js/bootstrap.min.js"></script>
-    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <script src="../../assets/js/vendor/holder.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 </body>
 

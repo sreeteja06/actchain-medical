@@ -134,16 +134,16 @@
         <div class="row" >
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size:16px">
-                    <li class="active"><a href="#">Requests from Distributor <span class="sr-only">(current)</span></a></li>
-                    <li><a href="/manufacturer?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">manufactured medicine</a></li>
-                    <li><a href="/suplied?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Supplied medicine</a></li>
+                    <li class="active"><a href="#">Requests from Distributor </a></li>
+                    <li><a href="/manufacturer?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Stock</a></li>
+                    <li><a href="/suplied?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Manufactured medicine</a></li>
                     
                 </ul>
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size: 16px">
-                    <li><a href="/create?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Create medine</a></li>
+                    {{!-- <li><a href="/create?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Create medine</a></li> --}}
 
-                    <li><a href="/track?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Track Medicines</a></li>
-                    <li><a href="/history?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">History of Medicines</a></li>
+                    <li><a href="/trackindex?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Track Medicines</a></li>
+                    <li><a href="/historyindex?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">History of Medicines</a></li>
 
                     
 
@@ -182,16 +182,20 @@
                                 <td>{{this.Record.name}}</td>
                                 <td>{{this.Record.requestId}}</td>
                                 <td>{{this.Record.expDate}}</td>
-                                <td><button type="button" class="btn btn-primary btn-xs" onclick="openform({{this.Key}})">Accept</button>
+                                <td><button type="button" class="btn btn-primary btn-xs" onclick="openform({{this.Key}},'{{this.Record.requestId}}')">Accept</button>
                                 <button type="button" style="margin-left: 5px" class="btn btn-danger btn-xs">Deny</button> </td>
                             </tr>
                             {{/each}}
                         </tbody>
                     </table>
                     <div class="form-popup" id="myForm" style="display: none">
-                        <form action="/acceptRequest?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}" class="form-container">
+                        <form action="/acceptReq" class="form-container">
                           <h1>Send Medicine</h1>
-                      
+                          <input type="hidden" name="chaincodeName" value="{{chaincodeName}}">
+                          <input type="hidden" name="channelName" value="{{channelName}}">
+                          <input type="hidden" name="userName" value="{{userName}}">
+                          <input type="hidden" name="orgName" value="{{orgName}}">
+                  
                           <label for="email"><b>Medicine ID</b></label>
                           <input type="text" placeholder="Enter Medicine ID" name="productID" id="productID" value="" required readonly>
                       
@@ -199,16 +203,17 @@
                           <input type="text" placeholder="Enter Logistics" name="logi" required>
 
                           <label for="psw"><b>Send to</b></label>
-                          <input type="text" placeholder="Enter Distributor/Pharmacy" name="sendto" required>
+                          <input type="text" placeholder="Enter Distributor/Pharmacy" name="sendto" id="sendto" required>
                       
-                          <button action="/acceptReq?&chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}" type="submit" class="btn" onclick="closeForm()">Send</button>
+                          <button  type="submit" class="btn" onclick="closeForm()">Send</button>
                           <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
                         </form>
                       </div>
                     <script>
-                        function openform(Key) {
+                        function openform(Key,sendto) {
                           console.log("done");
-                          document.getElementById("medid").value = Key;
+                          document.getElementById("productID").value = Key;
+                           document.getElementById("sendto").value = sendto;
                           document.getElementById("myForm").style.display = "block"; 
                         }
                         

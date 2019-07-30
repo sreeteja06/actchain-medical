@@ -135,15 +135,14 @@
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size:16px">
                    <li ><a href="/manuFirst?orgName={{orgName}}&userName={{userName}}&channelName={{channelName}}&chaincodeName={{chaincodeName}}">Requests from Distributor <span class="sr-only">(current)</span></a></li>
-                    <li class="active"><a href="/manufactured?orgName={{orgName}}&userNameName={{userName}}&channelName={{channelName}}&chaincodeName={{chaincodeName}}">manufactured medicine</a></li>
-                    <li><a href="/suplied?orgName={{orgName}}&userName={{userName}}&channelName={{channelName}}&chaincodeName={{chaincodeName}}">Supplied medicine</a></li>
+                    <li class="active"><a href="/manufactured?orgName={{orgName}}&userNameName={{userName}}&channelName={{channelName}}&chaincodeName={{chaincodeName}}">Stock</a></li>
+                    <li><a href="/suplied?orgName={{orgName}}&userName={{userName}}&channelName={{channelName}}&chaincodeName={{chaincodeName}}">Manufactured medicine</a></li>
                     
                 </ul>
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size: 16px">
-                    <li><a href="/create">Create medine</a></li>
 
-                    <li><a href="/track?orgName={{orgName}}&userName={{userName}}&channelName={{channelName}}&chaincodeName={{chaincodeName}}">Track Medicines</a></li>
-                    <li><a href="/history?orgName={{orgName}}&userName={{userName}}&channelName={{channelName}}&chaincodeName={{chaincodeName}}">History of Medicines</a></li>
+                    <li><a href="/trackindex?orgName={{orgName}}&userName={{userName}}&channelName={{channelName}}&chaincodeName={{chaincodeName}}">Track Medicines</a></li>
+                    <li><a href="/historyindex?orgName={{orgName}}&userName={{userName}}&channelName={{channelName}}&chaincodeName={{chaincodeName}}">History of Medicines</a></li>
 
                 </ul>
 
@@ -153,7 +152,7 @@
                 
                     <div class="row placeholders" style="margin-left: -110px">
                         <div class="col-xs-6 col-sm-3 placeholder">
-                            <img src="download.png"
+                            <img src="../download.png"
                                 width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
                             <h4>M-Id :{{userName}}{{chaincodeName}}</h4>
                             <span class="text-muted"></span>

@@ -61,17 +61,17 @@
         <div class="row" >
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size:16px">
-                    <li class=""><a href="/manufacturer">Manufactured <span class="sr-only">(current)</span></a></li>
-                    
-                    <li class=""><a href="/suplied">Supplied medicine</a></li>
+                    <li ><a href="/distributor?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Incoming requests<span class="sr-only">(current)</span></a></li>
+                     <li><a href="/manufacturer?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">manufactured medicine</a></li>
+                    <li><a href="/suplied?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Supplied medicine</a></li>
                     
                 </ul>
 
                 
                 <ul class="nav nav-sidebar" style="padding: 5px;font-size: 16px">
-                    <li class="active"><a href="">Create medine</a></li>
-                    <li><a href="/track">Track Medicines</a></li>
-                    <li><a href="/history">History of Medicines</a></li>
+                    {{!-- <li class="active"><a href="">Create medine</a></li> --}}
+                    <li><a href="/track?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">Track Medicines</a></li>
+                    <li><a href="/historyindex?chaincodeName={{chaincodeName}}&channelName={{channelName}}&userName={{userName}}&orgName={{orgName}}">History of Medicines</a></li>
                    
                 </ul>
 
@@ -89,14 +89,17 @@
 
         <!-- Form -->
         <form action="/createMed" method="GET" class="text-center" style="color: #757575;">
-
+               <input type="hidden" name="chaincodeName" value="{{chaincodeName}}">
+                    <input type="hidden" name="channelName" value="{{channelName}}">
+                    <input type="hidden" name="userName" value="{{userName}}">
+                    <input type="hidden" name="orgName" value="{{orgName}}">
             <div class="form-row">
                 <div class="col">
                     <!-- First name -->
                     <div class="md-form">
                         
                         <label for="medname">Medicine name</label>
-                        <input type="text" id="medname" name="medname" class="form-control">
+                        <input type="text" id="productName" name="productName" class="form-control">
                     </div>
                 </div>
                 <div class="col">
@@ -104,7 +107,7 @@
                     <div class="md-form">
                         
                         <label for="medid">Medicine ID</label>
-                        <input type="text" id="medid" name="medid" class="form-control">
+                        <input type="text" id="productID" name="productID" class="form-control">
                     </div>
                 </div>
             </div>
@@ -116,31 +119,13 @@
                 
             </div>
 
-            <!-- Password -->
             <div class="md-form">
                 
                 <label for="loc">location</label>
-                <input type="text" id="loc" name="loc"class="form-control">
+                <input type="text" id="loc" name="loc" class="form-control">
                 
     
             </div>
-
-            <!-- Phone number -->
-            {{!-- <div class="md-form">
-                    <label for="exc">Extra Condition</label>
-                <input type="text" id="exc" class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock">
-               
-                
-            </div>
-            <div class="md-form">
-                    <label for="excn">Extra Condition Name</label>
-                <input type="text" id="" class="excn" aria-describedby="materialRegisterFormPhoneHelpBlock">
-               
-                
-            </div> --}}
-
-           
-            <!-- Sign up button -->
             <br>
              <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" style="color: white;background-color: rgb(92, 155, 238)" type="submit">Create</button>
     

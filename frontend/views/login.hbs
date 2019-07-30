@@ -79,11 +79,14 @@
    <center> <span class="text-muted" style="color:black;font-size: 20px">Manufacturer</span></center>
    
    <form action="/manuFirst" id="form1" style="display: none"><br>
-     <input type="radio" id="chaincode" name="chaincode" value="test5"> agritrack
-    <input type="radio" id="chaincode" name="chaincode" value="test4" checked> meditrack<br><br>
+   <label>Chaincode </label>
+     <input type="radio" id="chaincodeName" name="chaincodeName" value="test5"> agritrack-cc
+    <input type="radio" id="chaincodeName" name="chaincodeName" value="test4" checked> meditrack-cc<br><br>
+    <label>Channel Name</label>
+          <input type="radio" name="channelName" value="meditrack" checked> meditrack
+            <input type="radio" name="channelName" value="agritrack"> agritrack<br><br>
      <label>Organization</label>
     <input type="text" id="orgName" name="orgName" value="mayer" readonly><br><br>
-    <input type=text id="channelName" name="channelName" value="ouchannel" hidden>
     <label>Username</label>
     <input type="text" id="userName" name="userName" ><br><br>
     <label>Password</label>
@@ -102,14 +105,18 @@
    
     <center><span style="color:black;font-size: 20px">Distributor</span></center>
     <form  id ="form2" action="/distributor" method="GET" style="display: none"><br>
-          <label>Distributor</label>
-          <input type="radio" name="chaincode" value="test4"> BAIA
-            <input type="radio" name="chaincode" value="test5"> AIMCO<br>
+          
+          <label>Chaincode</label>
+          <input type="radio" name="chaincodeName" value="test4" checked> meditrack-cc
+            <input type="radio" name="chaincodeName" value="test5"> agritrack-cc<br><br>
+            <label>Channel Name</label>
+          <input type="radio" name="channelName" value="meditrack" checked> meditrack
+            <input type="radio" name="channelName" value="agritrack"> agritrack<br><br>
             <label>Organization</label>
              <input type="text" id="orgName" name="orgName"  ><br><br>
             <label>Username</label>
             <input type="text" id="userName" name="userName" ><br><br>
-            <input type=text id="channelName" name="channelName" value="ouchannel" hidden>
+          
             
             <label>Password</label>
             <input type="password"><br><br>
@@ -128,13 +135,18 @@
         width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail"></a>
    
    <center> <span style="color:black;font-size: 20px" >Logistics</span></center>
-   <form action="/stock" id="form3" style="display: none"><br>
-   <label>Logistics</label>
-   <input type=text id="channelName" name="channelName" value="ouchannel" hidden>
-     <input type="radio" name="chaincode" value="test4"> DEDX
-    <input type="radio" name="chaincode" value="test5"> BTDC<br>
+   <form action="/stock" id="form3" method="GET" style="display: none"><br>
+   <label>Chaincode</label>
+     <input type="radio" name="chaincodeName" value="test4" checked> meditrack
+    <input type="radio" name="chaincodeName" value="test5"> agritrack<br><br>
+    <label>Channel Name</label>
+          <input type="radio" name="channelName" value="meditrack" checked> meditrack
+            <input type="radio" name="channelName" value="agritrack"> agritrack<br><br>
+    <label>Organization</label>
+             <input type="text" id="orgName" name="orgName"  ><br><br>
     <label>Username</label>
-    <input type="text"><br><br>
+    <input type="text" id="userName" name="userName"><br><br>
+    
     <label>Password</label>
     <input type="password"><br><br>
     <input class="btn btn-primary btn-xs" type="submit">
@@ -153,15 +165,19 @@
    
     <center><span style="color:black;font-size: 20px">Pharmacy</span></center>
     <form id="form4" method="GET" action="/pharMarequested" style="display: none"><br>
-    <label>Pharmacy</label>
-        <input type="radio" id="chaincode" name="chaincode" value="test4">ABOLLO
-        <input type="radio" id="chaincode" name="chaincode" value="test5"> FARE<br>
+    <label>Chaincode</label>
+        <input type="radio" id="chaincodeName" name="chaincodeName" value="test4" checked>meditrack
+        <input type="radio" id="chaincodeName" name="chaincodeName" value="test5"> agritrack<br><br>
+        <label>Channel Name</label>
+          <input type="radio" name="channelName" value="meditrack" checked> meditrack
+            <input type="radio" name="channelName" value="agritrack"> agritrack<br><br>
+        <label>Organization</label>
+        <input type="text" id="orgName" name="orgName"  ><br><br>
         <label>Username</label>
-        <input type="text"><br><br>
+        <input type="text" id="userName" name="userName"><br><br>
         <label>Password</label>
         <input type="password"><br><br>
         <input class="btn btn-primary btn-xs" type="submit">
-        <input type=text id="channelName" name="channelName" value="ouchannel" hidden>
        </form>
     
 
@@ -174,20 +190,25 @@
         width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail"></a>
    
    <center> <span class="text-muted" style="color:black;font-size: 20px">Inspector</span></center>
-   <form action="/inspector?orgName={{orgName}}&userName={{userName}}&chaincodeName={{chaincode}}&channel={{channel}}" id="form5" style="display: none"><br>
-     <label>Organization</label>
-    <input type="radio" name="chaincode" value="test4">cdsco
-    <input type="radio" name="chaincode" value="test5"> FARE<br>
+   <form action="/cdscoManu" id="form5" style="display: none"><br>
+     <label>Chaincode</label>
+    <input type="radio" name="chaincodeName" value="test4" checked>meditrack-cc
+    <input type="radio" name="chaincodeName" value="test5"> agritrack-cc<br><br>
+    <label>Channel Name</label>
+          <input type="radio" name="channelName" value="meditrack" checked> meditrack
+            <input type="radio" name="channelName" value="agritrack"> agritrack<br><br>
+    <label>Organization</label>
+    <input type="text" name="orgName" id="orgName" ><br><br>
     <label>Username</label>
-    <input type="text"><br><br>
+
+    <input type="text" id="userName" name="userName"><br><br>
     <label>Password</label>
     <input type="password"><br><br>
     <input class="btn btn-primary btn-xs" type="submit">
-    <input type=text id="channelName" name="channelName" value="ouchannel" hidden>
    </form>
-
+<br>
 </div></div>
-</div>     <button  style="display: none"onclick="goback()"type="button"id="but"value="menu">Menu</button>
+</div>  <br>  <button  style="display: none"onclick="goback()"type="button"id="but"value="menu">Menu</button>
 <script>
    
     

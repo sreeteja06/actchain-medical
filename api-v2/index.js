@@ -11,8 +11,8 @@ var invoke = require( './helpers/invoke' );
 var host = 'localhost';
 var username = ''//'M002';
 var orgName = ''//'manu';
-var channelName = 'ourchannel';
-var chaincodeName = 'test3';
+var channelName = 'meditrack';
+var chaincodeName = 'test4';
 
 let app = express();
 app.options( '*', cors() );
@@ -226,9 +226,6 @@ app.post(
     args.push( req.body.logistics );
     args.push( req.body.sendTo );
     const fn = 'sendProduct';
-    // let username = req.body.username;
-    // let orgName = req.body.orgName;
-
     let message = await invoke( fn, args, channelName, chaincodeName, orgName, username );
 
     res.send( message );
@@ -274,22 +271,20 @@ app.get(
 
 app.post(
   '/acceptProduct',
-  awaitHandler( async ( req, res ) => {
-    username = req.body.username;
-    orgName = req.body.orgName;
-    channelName = req.body.channelName;
-    chaincodeName = req.body.chaincodeName;
-    let args = [];
-    args.push( req.body.productID );
-    args.push( req.body.id );
-    const fn = 'acceptProduct';
-    // let username = req.body.username;
-    // let orgName = req.body.orgName;
+awaitHandler( async ( req, res ) => {
+username = req.body.username;
+orgName = req.body.orgName;
+channelName = req.body.channelName;
+chaincodeName = req.body.chaincodeName;
+let args = [];
+args.push( req.body.productID );
+args.push( req.body.id );
+const fn = 'acceptProduct';
 
-    let message = await invoke( fn, args, channelName, chaincodeName, orgName, username );
+let message = await invoke( fn, args, channelName, chaincodeName, orgName, username );
 
-    res.send( message );
-  } )
+res.send( message );
+} )
 );
 app.post(
   '/sendRequest',
@@ -302,9 +297,6 @@ app.post(
     args.push( req.body.productID );
     args.push( req.body.id );
     const fn = 'sendRequest';
-    // let username = req.body.username;
-    // let orgName = req.body.orgName;
-
     let message = await invoke( fn, args, channelName, chaincodeName, orgName, username );
     res.send( message );
   } )
@@ -312,16 +304,16 @@ app.post(
 app.get(
   '/logisticRecievingList',
   awaitHandler( async ( req, res ) => {
-    username = req.body.username;
-    orgName = req.body.orgName;
-    channelName = req.body.channelName;
-    chaincodeName = req.body.chaincodeName;
+    username = req.query.username;
+    orgName = req.query.orgName;
+    channelName = req.query.channelName;
+    chaincodeName = req.query.chaincodeName;
     let args = [];
     console.log( 'req query of the request ' + JSON.stringify( req.query ) );
     args.push( req.query.id );
     const fn = 'logisticRecievingList';
+    console.log( args );
     let message = await query( fn, args, channelName, chaincodeName, orgName, username );
-
     res.send( message );
   } )
 );
@@ -388,6 +380,8 @@ app.post(
   '/createPesticide',
   awaitHandler(async (req, res) => {
     let args = [];
+    channelName = req.body.channelName;
+    chaincodeName = req.body.chaincodeName;
     username = req.body.username;
     orgName = req.body.orgName;
     args.push(req.body.productID);
@@ -403,14 +397,8 @@ app.post(
     // let username = req.body.username;
     // let orgName = req.body.orgName;
 
-    let message = await invoke.invokeChaincode(
-      peers,
-      channelName,
-      chaincodeName,
-      args,
-      fn,
-      username,
-      orgName
+    let message = await invoke(
+      fn, args, channelName, chaincodeName, orgName, username 
     );
 
     await blockListener.startBlockListener(channelName, username, orgName, wss);
@@ -423,6 +411,8 @@ app.get(
   awaitHandler(async (req, res) => {
     username = req.query.username;
     orgName = req.query.orgName;
+    chaincodeName =req.query.chaincodeName;
+    channelName = req.query.channelName;
     let args = [];
     console.log('req query of the request ' + JSON.stringify(req.query));
     args.push(req.query.id);
@@ -430,14 +420,8 @@ app.get(
     // let username = req.body.username;
     // let orgName = req.body.orgName;
     console.log(args);
-    let message = await query.queryChaincode(
-      peers,
-      channelName,
-      chaincodeName,
-      args,
-      fn,
-      username,
-      orgName
+    let message = await query(
+      fn, args, channelName, chaincodeName, orgName, username 
     );
     res.send(message);
   })
@@ -448,6 +432,8 @@ app.get(
   awaitHandler(async (req, res) => {
     username = req.query.username;
     orgName = req.query.orgName;
+    channelName = req.query.channelName;
+    chaincodeName = req.query.chaincodeName;
     let args = [];
     console.log('req query of the request ' + JSON.stringify(req.query));
     args.push(req.query.id);
@@ -455,14 +441,8 @@ app.get(
     // let username = req.body.username;
     // let orgName = req.body.orgName;
     console.log(args);
-    let message = await query.queryChaincode(
-      peers,
-      channelName,
-      chaincodeName,
-      args,
-      fn,
-      username,
-      orgName
+    let message = await query(
+      fn, args, channelName, chaincodeName, orgName, username 
     );
     res.send(message);
   })
@@ -473,20 +453,16 @@ app.get(
 app.get('/getPrivatePriceDetails', awaitHandler(async (req, res)=>{
   username = req.query.username;
     orgName = req.query.orgName;
+    channelName = req.query.channelName;
+    chaincodeName = req.query.chaincodeName;
     let args = [];
     console.log('req query of the request ' + JSON.stringify(req.query));
     args.push(req.query.productID);
     args.push(req.query.pdname);
     const fn = 'getPrivateProductPrice';
     console.log(args);
-    let message = await query.queryChaincode(
-      peers,
-      channelName,
-      chaincodeName,
-      args,
-      fn,
-      username,
-      orgName
+    let message = await query(
+      fn, args, channelName, chaincodeName, orgName, username 
     );
     res.send(message);
   })
@@ -496,6 +472,8 @@ app.post(
   awaitHandler(async (req, res) => {
     username = req.body.username;
     orgName = req.body.orgName;
+    channelName = req.body.channelName;
+    chaincodeName = req.body.chaincodeName;
     let args = [];
     args.push(req.body.productID);
     args.push(req.body.pdname);
@@ -504,14 +482,8 @@ app.post(
     // let username = req.body.username;
     // let orgName = req.body.orgName;
 
-    let message = await invoke.invokeChaincode(
-      peers,
-      channelName,
-      chaincodeName,
-      args,
-      fn,
-      username,
-      orgName
+    let message = await invoke(
+      fn, args, channelName, chaincodeName, orgName, username 
     );
 
     await blockListener.startBlockListener(channelName, username, orgName, wss);
