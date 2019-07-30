@@ -384,6 +384,8 @@ app.post(
     chaincodeName = req.body.chaincodeName;
     username = req.body.username;
     orgName = req.body.orgName;
+    channelName = req.body.channelName;
+    chaincodeName = req.body.chaincodeName;
     args.push(req.body.productID);
     args.push(req.body.name);
     args.push(req.body.username);
@@ -397,9 +399,7 @@ app.post(
     // let username = req.body.username;
     // let orgName = req.body.orgName;
 
-    let message = await invoke(
-      fn, args, channelName, chaincodeName, orgName, username 
-    );
+    let message = await invoke( fn, args, channelName, chaincodeName, orgName, username );
 
     await blockListener.startBlockListener(channelName, username, orgName, wss);
 
@@ -411,8 +411,8 @@ app.get(
   awaitHandler(async (req, res) => {
     username = req.query.username;
     orgName = req.query.orgName;
-    chaincodeName =req.query.chaincodeName;
     channelName = req.query.channelName;
+    chaincodeName = req.query.chaincodeName;
     let args = [];
     console.log('req query of the request ' + JSON.stringify(req.query));
     args.push(req.query.id);
@@ -420,9 +420,7 @@ app.get(
     // let username = req.body.username;
     // let orgName = req.body.orgName;
     console.log(args);
-    let message = await query(
-      fn, args, channelName, chaincodeName, orgName, username 
-    );
+    let message = await query( fn, args, channelName, chaincodeName, orgName, username );
     res.send(message);
   })
 );
@@ -441,9 +439,7 @@ app.get(
     // let username = req.body.username;
     // let orgName = req.body.orgName;
     console.log(args);
-    let message = await query(
-      fn, args, channelName, chaincodeName, orgName, username 
-    );
+    let message = await query( fn, args, channelName, chaincodeName, orgName, username );
     res.send(message);
   })
 );
@@ -482,9 +478,7 @@ app.post(
     // let username = req.body.username;
     // let orgName = req.body.orgName;
 
-    let message = await invoke(
-      fn, args, channelName, chaincodeName, orgName, username 
-    );
+    let message = await invoke( fn, args, channelName, chaincodeName, orgName, username );
 
     await blockListener.startBlockListener(channelName, username, orgName, wss);
 
