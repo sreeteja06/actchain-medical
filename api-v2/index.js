@@ -401,8 +401,6 @@ app.post(
 
     let message = await invoke( fn, args, channelName, chaincodeName, orgName, username );
 
-    await blockListener.startBlockListener(channelName, username, orgName, wss);
-
     res.send(message);
   })
 );

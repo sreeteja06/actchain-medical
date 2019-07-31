@@ -149,10 +149,18 @@ install_chaincode_meditrack
 instantiate_chaincode_meditrack
 
 function install_chain_agritrack(){
-    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@mayer.meditrack.com/msp" peer0.mayer.meditrack.com peer chaincode install -l node -n agriTest -p /etc/hyperledger/chaincode/agritrack -v v0
+    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@mayer.meditrack.com/msp" peer0.mayer.meditrack.com peer chaincode install -l node -n test5 -p /etc/hyperledger/chaincode/agritrack -v v1
+    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@bigrow.meditrack.com/msp" peer0.bigrow.meditrack.com peer chaincode install -l node -n test5 -p /etc/hyperledger/chaincode/agritrack -v v1
+    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@aimko.meditrack.com/msp" peer0.aimko.meditrack.com peer chaincode install -l node -n test5 -p /etc/hyperledger/chaincode/agritrack -v v1
+    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@cibrc.meditrack.com/msp" peer0.cibrc.meditrack.com peer chaincode install -l node -n test5 -p /etc/hyperledger/chaincode/agritrack -v v1
+    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@btdc.meditrack.com/msp" peer0.btdc.meditrack.com peer chaincode install -l node -n test5 -p /etc/hyperledger/chaincode/agritrack -v v1
+    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@fare.meditrack.com/msp" peer0.fare.meditrack.com peer chaincode install -l node -n test5 -p /etc/hyperledger/chaincode/agritrack -v v1
 }
 
 function instantiate_chaincode_agritrack(){
     docker cp ./privatedataConfig/privateDataCollectionAgritrack.json peer0.mayer.meditrack.com:/opt/gopath/src/github.com/hyperledger/fabric/
-    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@mayer.meditrack.com/msp" peer0.mayer.meditrack.com peer chaincode instantiate -l node -o orderer.meditrack.com:7050 -C agritrack -n agriTest -v v0 -c '{"Args":["init"]}' --collections-config privateDataCollectionAgritrack.json
+    docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@mayer.meditrack.com/msp" peer0.mayer.meditrack.com peer chaincode instantiate -l node -o orderer.meditrack.com:7050 -C agritrack -n test5 -v v1 -c '{"Args":["init"]}' --collections-config privateDataCollectionAgritrack.json
 }
+
+install_chain_agritrack
+instantiate_chaincode_agritrack
