@@ -1,7 +1,7 @@
 {
 	"network-configs": {
-		"first-network": {
-			"name": "firstnetwork",
+		"meditrack-network": {
+			"name": "meditrack-network",
 			"profile": "./connection-profile/meditrack.json"
 		}
 	},

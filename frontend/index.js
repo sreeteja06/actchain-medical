@@ -401,7 +401,11 @@ app.get('/acceptResFinal',async function(req,res){
 app.get('/cdscoManu',async function(req,res){
   let response;
   try{
-    response=await axios.get(`http://${URL}:3000/getProductByOwner?id=mayerUser&username=mayerUser&orgName=mayer&channelName=ourchannel&chaincodeName=test4` ) 
+    response = await axios.get(
+      `http://${URL}:3000/getProductByOwner?id=mayerUser&username=mayerUser&orgName=mayer&channelName=${
+        req.query.channelName
+      }&chaincodeName=${req.query.chaincodeName}`
+    ); 
   }catch(e){
     console.log(e);
     res.sendStatus(500);
