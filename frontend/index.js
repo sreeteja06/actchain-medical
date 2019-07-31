@@ -5,7 +5,7 @@ const util=require('util');
 const path = require('path');
 
 let app = express();
-const URL = `ec2-52-14-88-206.us-east-2.compute.amazonaws.com`;
+const URL = `ec2-18-188-187-101.us-east-2.compute.amazonaws.com`; 
 app.set('view engine', 'hbs');
 
 //hbs.registerPartials(path.join(__dirname,'views/partials'));
@@ -81,31 +81,58 @@ app.get('/',function(req,res){
 
 app.get('/track',async function(req,res){
           let response;
+          let productID = req.query.productID
           try{
-              response=await axios.get(`http://${URL}:3000/productInfo?productID=${req.query.productID}&username=${req.query.userName}&orgName=${req.query.orgName}&channelName=${req.query.channelName}&chaincodeName=${req.query.chaincode}`,
-              )
+              response = await axios.get(
+                `http://${URL}:3000/productInfo?productID=${
+                  req.query.productID
+                }&username=${req.query.userName}&orgName=${
+                  req.query.orgName
+                }&channelName=${
+                  req.query.channelName
+                }&chaincodeName=${req.query.chaincodeName}`
+              );
             }catch(e){
               console.log(e);
               res.sendStatus(500);
             }
             console.log(response.data);
             let arr =[] ;
-            arr.push(response.data.owner);
-            if(response.data.checkDist){
-              arr.push(response.data.checkDist);
+            let obj = {
+              key: 'Manufacturer',
+              value: response.data.owner
+            };
+            arr.push(obj);
+            if (response.data.checkLogiD) {
+              obj = {
+                key: 'Distributor logistics',
+                value: response.data.checkLogiD
+              };
+              arr.push(obj);
             }
-            if(response.data.checkLogiD){
-              arr.push(response.data.checkLogiD);
+            if(response.data.checkDist){
+              obj = {
+                key: 'Distributor',
+                value: response.data.checkDist
+              };
+              arr.push(obj);
             }
             if(response.data.checkLogiP){
-              arr.push(response.data.checkLogiP);
+              obj = {
+                key: 'Pharmacy logistics',
+                value: response.data.checkLogiP
+              };
+              arr.push(obj);
             }
             if(response.data.checkPharma){
-              arr.push(response.data.checkPharma);
+              obj = {
+                key: 'Pharmacy',
+                value: response.data.checkPharma
+              };
+              arr.push(obj);
             }
-            console.log(req.query.productID);
           res.render('track',{
-            data: arr, productID:req.query.productID
+            data: arr, productID
         });
 });
 
