@@ -4,7 +4,7 @@
     "description": "meditrack Network",
     "version": "1.0",
     "client": {
-        "organization": "dedx"
+        "organization": "logi1"
     },
     "channels": {
         "ourchannel": {
@@ -12,7 +12,7 @@
                 "orderer.meditrack.com"
             ],
             "peers": {
-                "peer0.dedx.meditrack.com": {
+                "peer0.logi1.meditrack.com": {
                     "endorsingPeer": true,
                     "chaincodeQuery": true,
                     "ledgerQuery": true,
@@ -25,7 +25,7 @@
                 "orderer.meditrack.com"
             ],
             "peers": {
-                "peer0.dedx.meditrack.com": {
+                "peer0.logi1.meditrack.com": {
                     "endorsingPeer": true,
                     "chaincodeQuery": true,
                     "ledgerQuery": true,
@@ -35,13 +35,13 @@
         }
     },
     "organizations": {
-        "dedx": {
-            "mspid": "dedxMSP",
+        "logi1": {
+            "mspid": "logi1MSP",
             "peers": [
-                "peer0.dedx.meditrack.com"
+                "peer0.logi1.meditrack.com"
             ],
             "certificateAuthorities": [
-                "ca.dedx.meditrack.com"
+                "ca.logi1.meditrack.com"
             ]
         }
     },
@@ -54,17 +54,17 @@
         }
     },
     "peers": {
-        "peer0.dedx.meditrack.com": {
-            "url": "grpc://peer0.dedx.meditrack.com:7051",
-            "eventUrl": "grpc://peer0.dedx.meditrack.com:7053",
+        "peer0.logi1.meditrack.com": {
+            "url": "grpc://peer0.logi1.meditrack.com:7051",
+            "eventUrl": "grpc://peer0.logi1.meditrack.com:7053",
             "tlsCACerts": {
                 "path": "./tlsca.meditrack.com-cert.pem"
             }
         }
     },
     "certificateAuthorities": {
-        "ca.dedx.meditrack.com": {
-            "url": "http://ca.dedx.meditrack.com:7054",
+        "ca.logi1.meditrack.com": {
+            "url": "http://ca.logi1.meditrack.com:7054",
             "tlsCACerts": {
                 "path": "./tlsca.meditrack.com-cert.pem"
             },
@@ -74,7 +74,7 @@
                     "enrollSecret": "adminpw"
                 }
             ],
-            "caName": "ca.dedx.meditrack.com"
+            "caName": "ca.logi1.meditrack.com"
         }
     }
 }

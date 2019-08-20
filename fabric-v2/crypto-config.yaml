@@ -8,8 +8,8 @@ OrdererOrgs:
 
 PeerOrgs:
 
-  - Name: mayer
-    Domain: mayer.meditrack.com
+  - Name: manu1
+    Domain: manu1.meditrack.com
 
     Template:
       Count: 1
@@ -17,8 +17,8 @@ PeerOrgs:
     Users:
       Count: 3
 
-  - Name: aimko
-    Domain: aimko.meditrack.com
+  - Name: manu2
+    Domain: manu2.meditrack.com
 
     Template:
       Count: 1
@@ -26,8 +26,8 @@ PeerOrgs:
     Users:
       Count: 3
 
-  - Name: baia
-    Domain: baia.meditrack.com
+  - Name: dist1
+    Domain: dist1.meditrack.com
 
     Template:
       Count: 1
@@ -35,8 +35,8 @@ PeerOrgs:
     Users:
       Count: 3
 
-  - Name: bigrow
-    Domain: bigrow.meditrack.com
+  - Name: dist2
+    Domain: dist2.meditrack.com
 
     Template:
       Count: 1
@@ -44,8 +44,8 @@ PeerOrgs:
     Users:
       Count: 3
 
-  - Name: dedx
-    Domain: dedx.meditrack.com
+  - Name: logi1
+    Domain: logi1.meditrack.com
 
     Template:
       Count: 1
@@ -53,8 +53,8 @@ PeerOrgs:
     Users:
       Count: 3
 
-  - Name: btdc
-    Domain: btdc.meditrack.com
+  - Name: logi2
+    Domain: logi2.meditrack.com
 
     Template:
       Count: 1
@@ -62,8 +62,8 @@ PeerOrgs:
     Users:
       Count: 3
 
-  - Name: abollo
-    Domain: abollo.meditrack.com
+  - Name: phar1
+    Domain: phar1.meditrack.com
 
     Template:
       Count: 1
@@ -71,8 +71,8 @@ PeerOrgs:
     Users:
       Count: 3
 
-  - Name: fare
-    Domain: fare.meditrack.com
+  - Name: phar2
+    Domain: phar2.meditrack.com
 
     Template:
       Count: 1
@@ -80,8 +80,8 @@ PeerOrgs:
     Users:
       Count: 3
 
-  - Name: cdsco
-    Domain: cdsco.meditrack.com
+  - Name: ia1
+    Domain: ia1.meditrack.com
 
     Template:
       Count: 1
@@ -89,8 +89,8 @@ PeerOrgs:
     Users:
       Count: 3
 
-  - Name: cibrc
-    Domain: cibrc.meditrack.com
+  - Name: ia2
+    Domain: ia2.meditrack.com
 
     Template:
       Count: 1

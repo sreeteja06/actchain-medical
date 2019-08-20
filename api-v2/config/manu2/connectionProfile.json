@@ -4,7 +4,7 @@
     "description": "meditrack Network",
     "version": "1.0",
     "client": {
-        "organization": "aimko"
+        "organization": "manu2"
     },
     "channels": {
         "ourchannel": {
@@ -12,7 +12,7 @@
                 "orderer.meditrack.com"
             ],
             "peers": {
-                "peer0.aimko.meditrack.com": {
+                "peer0.manu2.meditrack.com": {
                     "endorsingPeer": true,
                     "chaincodeQuery": true,
                     "ledgerQuery": true,
@@ -25,7 +25,7 @@
                 "orderer.meditrack.com"
             ],
             "peers": {
-                "peer0.aimko.meditrack.com": {
+                "peer0.manu2.meditrack.com": {
                     "endorsingPeer": true,
                     "chaincodeQuery": true,
                     "ledgerQuery": true,
@@ -35,13 +35,13 @@
         }
     },
     "organizations": {
-        "aimko": {
-            "mspid": "aimkoMSP",
+        "manu2": {
+            "mspid": "manu2MSP",
             "peers": [
-                "peer0.aimko.meditrack.com"
+                "peer0.manu2.meditrack.com"
             ],
             "certificateAuthorities": [
-                "ca.aimko.meditrack.com"
+                "ca.manu2.meditrack.com"
             ]
         }
     },
@@ -54,17 +54,17 @@
         }
     },
     "peers": {
-        "peer0.aimko.meditrack.com": {
-            "url": "grpc://peer0.aimko.meditrack.com:7051",
-            "eventUrl": "grpc://peer0.aimko.meditrack.com:7053",
+        "peer0.manu2.meditrack.com": {
+            "url": "grpc://peer0.manu2.meditrack.com:7051",
+            "eventUrl": "grpc://peer0.manu2.meditrack.com:7053",
             "tlsCACerts": {
                 "path": "./tlsca.meditrack.com-cert.pem"
             }
         }
     },
     "certificateAuthorities": {
-        "ca.aimko.meditrack.com": {
-            "url": "http://ca.aimko.meditrack.com:7054",
+        "ca.manu2.meditrack.com": {
+            "url": "http://ca.manu2.meditrack.com:7054",
             "tlsCACerts": {
                 "path": "./tlsca.meditrack.com-cert.pem"
             },
@@ -74,7 +74,7 @@
                     "enrollSecret": "adminpw"
                 }
             ],
-            "caName": "ca.aimko.meditrack.com"
+            "caName": "ca.manu2.meditrack.com"
         }
     }
 }

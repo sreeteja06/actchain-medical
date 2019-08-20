@@ -5,7 +5,7 @@ const util=require('util');
 const path = require('path');
 
 let app = express();
-const URL = `ec2-18-188-187-101.us-east-2.compute.amazonaws.com`; 
+const URL = `localhost`; 
 app.set('view engine', 'hbs');
 
 //hbs.registerPartials(path.join(__dirname,'views/partials'));

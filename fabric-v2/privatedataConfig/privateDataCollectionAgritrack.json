@@ -1,23 +1,23 @@
 [
     {
-        "name": "PDmayerbigrow",
-        "policy": "OR('mayerMSP.member', 'bigrowMSP.member')",
+        "name": "PDmanu1dist2",
+        "policy": "OR('manu1MSP.member', 'dist2MSP.member')",
         "requiredPeerCount": 0,
         "maxPeerCount": 3,
         "blockToLive": 1000000,
         "memberOnlyRead": true
     },
     {
-        "name": "PDaimkobigrow",
-        "policy": "OR('aimkoMSP.member', 'bigrowMSP.member')",
+        "name": "PDmanu2dist2",
+        "policy": "OR('manu2MSP.member', 'dist2MSP.member')",
         "requiredPeerCount": 0,
         "maxPeerCount": 3,
         "blockToLive": 1000000,
         "memberOnlyRead": true
     },
     {
-        "name": "PDbigrowfare",
-        "policy": "OR('bigrowMSP.member', 'fareMSP.member')",
+        "name": "PDdist2phar2",
+        "policy": "OR('dist2MSP.member', 'phar2MSP.member')",
         "requiredPeerCount": 0,
         "maxPeerCount": 3,
         "blockToLive": 1000000,

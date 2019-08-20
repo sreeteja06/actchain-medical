@@ -32,265 +32,265 @@ Organizations:
                 Type: Signature
                 Rule: "OR('OrdererMSP.admin')"
 
-  - &mayer
+  - &manu1
 
-      Name: mayer
+      Name: manu1
 
-      ID: mayerMSP
+      ID: manu1MSP
 
-      MSPDir: crypto-config/peerOrganizations/mayer.meditrack.com/msp
+      MSPDir: crypto-config/peerOrganizations/manu1.meditrack.com/msp
 
       AdminPrincipal: Role.MEMBER
 
       Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('mayerMSP.admin', 'mayerMSP.peer', 'mayerMSP.client', 'mayerMSP.member')"
+                Rule: "OR('manu1MSP.admin', 'manu1MSP.peer', 'manu1MSP.client', 'manu1MSP.member')"
             Writers:
                 Type: Signature
-                Rule: "OR('mayerMSP.admin', 'mayerMSP.client', 'mayerMSP.member')"
+                Rule: "OR('manu1MSP.admin', 'manu1MSP.client', 'manu1MSP.member')"
             Admins:
                 Type: Signature
-                Rule: "OR('mayerMSP.admin', 'mayerMSP.member')"
+                Rule: "OR('manu1MSP.admin', 'manu1MSP.member')"
 
       AnchorPeers:
 
-        - Host: peer0.mayer.meditrack.com
+        - Host: peer0.manu1.meditrack.com
           Port: 7051
       
 
-  - &aimko
+  - &manu2
 
-      Name: aimko
+      Name: manu2
 
-      ID: aimkoMSP
+      ID: manu2MSP
 
-      MSPDir: crypto-config/peerOrganizations/aimko.meditrack.com/msp
+      MSPDir: crypto-config/peerOrganizations/manu2.meditrack.com/msp
 
       AdminPrincipal: Role.MEMBER
 
       Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('aimkoMSP.admin', 'aimkoMSP.peer', 'aimkoMSP.client', 'aimkoMSP.member')"
+                Rule: "OR('manu2MSP.admin', 'manu2MSP.peer', 'manu2MSP.client', 'manu2MSP.member')"
             Writers:
                 Type: Signature
-                Rule: "OR('aimkoMSP.admin', 'aimkoMSP.client', 'aimkoMSP.member')"
+                Rule: "OR('manu2MSP.admin', 'manu2MSP.client', 'manu2MSP.member')"
             Admins:
                 Type: Signature
-                Rule: "OR('aimkoMSP.admin', 'aimkoMSP.member')"
+                Rule: "OR('manu2MSP.admin', 'manu2MSP.member')"
 
       AnchorPeers:
 
-        - Host: peer0.aimko.meditrack.com
+        - Host: peer0.manu2.meditrack.com
           Port: 7051
 
-  - &baia
+  - &dist1
 
-      Name: baia
+      Name: dist1
 
-      ID: baiaMSP
+      ID: dist1MSP
 
-      MSPDir: crypto-config/peerOrganizations/baia.meditrack.com/msp
+      MSPDir: crypto-config/peerOrganizations/dist1.meditrack.com/msp
 
       AdminPrincipal: Role.MEMBER
 
       Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('baiaMSP.admin', 'baiaMSP.peer', 'baiaMSP.client', 'baiaMSP.member')"
+                Rule: "OR('dist1MSP.admin', 'dist1MSP.peer', 'dist1MSP.client', 'dist1MSP.member')"
             Writers:
                 Type: Signature
-                Rule: "OR('baiaMSP.admin', 'baiaMSP.client', 'baiaMSP.member')"
+                Rule: "OR('dist1MSP.admin', 'dist1MSP.client', 'dist1MSP.member')"
             Admins:
                 Type: Signature
-                Rule: "OR('baiaMSP.admin', 'baiaMSP.member')"
+                Rule: "OR('dist1MSP.admin', 'dist1MSP.member')"
 
       AnchorPeers:
 
-        - Host: peer0.baia.meditrack.com
+        - Host: peer0.dist1.meditrack.com
           Port: 7051
 
-  - &bigrow
+  - &dist2
 
-      Name: bigrow
+      Name: dist2
 
-      ID: bigrowMSP
+      ID: dist2MSP
 
-      MSPDir: crypto-config/peerOrganizations/bigrow.meditrack.com/msp
+      MSPDir: crypto-config/peerOrganizations/dist2.meditrack.com/msp
 
       AdminPrincipal: Role.MEMBER
 
       Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('bigrowMSP.admin', 'bigrowMSP.peer', 'bigrowMSP.client', 'bigrowMSP.member')"
+                Rule: "OR('dist2MSP.admin', 'dist2MSP.peer', 'dist2MSP.client', 'dist2MSP.member')"
             Writers:
                 Type: Signature
-                Rule: "OR('bigrowMSP.admin', 'bigrowMSP.client', 'bigrowMSP.member')"
+                Rule: "OR('dist2MSP.admin', 'dist2MSP.client', 'dist2MSP.member')"
             Admins:
                 Type: Signature
-                Rule: "OR('bigrowMSP.admin', 'bigrowMSP.member')"
+                Rule: "OR('dist2MSP.admin', 'dist2MSP.member')"
 
       AnchorPeers:
 
-        - Host: peer0.bigrow.meditrack.com
+        - Host: peer0.dist2.meditrack.com
           Port: 7051
 
-  - &dedx
+  - &logi1
 
-      Name: dedx
+      Name: logi1
 
-      ID: dedxMSP
+      ID: logi1MSP
 
-      MSPDir: crypto-config/peerOrganizations/dedx.meditrack.com/msp
+      MSPDir: crypto-config/peerOrganizations/logi1.meditrack.com/msp
 
       AdminPrincipal: Role.MEMBER
 
       Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('dedxMSP.admin', 'dedxMSP.peer', 'dedxMSP.client', 'dedxMSP.member')"
+                Rule: "OR('logi1MSP.admin', 'logi1MSP.peer', 'logi1MSP.client', 'logi1MSP.member')"
             Writers:
                 Type: Signature
-                Rule: "OR('dedxMSP.admin', 'dedxMSP.client', 'dedxMSP.member')"
+                Rule: "OR('logi1MSP.admin', 'logi1MSP.client', 'logi1MSP.member')"
             Admins:
                 Type: Signature
-                Rule: "OR('dedxMSP.admin', 'dedxMSP.member')"
+                Rule: "OR('logi1MSP.admin', 'logi1MSP.member')"
 
       AnchorPeers:
 
-        - Host: peer0.dedx.meditrack.com
+        - Host: peer0.logi1.meditrack.com
           Port: 7051
 
-  - &btdc
+  - &logi2
 
-      Name: btdc
+      Name: logi2
 
-      ID: btdcMSP
+      ID: logi2MSP
 
-      MSPDir: crypto-config/peerOrganizations/btdc.meditrack.com/msp
+      MSPDir: crypto-config/peerOrganizations/logi2.meditrack.com/msp
 
       AdminPrincipal: Role.MEMBER
 
       Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('btdcMSP.admin', 'btdcMSP.peer', 'btdcMSP.client', 'btdcMSP.member')"
+                Rule: "OR('logi2MSP.admin', 'logi2MSP.peer', 'logi2MSP.client', 'logi2MSP.member')"
             Writers:
                 Type: Signature
-                Rule: "OR('btdcMSP.admin', 'btdcMSP.client', 'btdcMSP.member')"
+                Rule: "OR('logi2MSP.admin', 'logi2MSP.client', 'logi2MSP.member')"
             Admins:
                 Type: Signature
-                Rule: "OR('btdcMSP.admin', 'btdcMSP.member')"
+                Rule: "OR('logi2MSP.admin', 'logi2MSP.member')"
 
       AnchorPeers:
 
-        - Host: peer0.btdc.meditrack.com
+        - Host: peer0.logi2.meditrack.com
           Port: 7051
 
-  - &abollo
+  - &phar1
 
-      Name: abollo
+      Name: phar1
 
-      ID: abolloMSP
+      ID: phar1MSP
 
-      MSPDir: crypto-config/peerOrganizations/abollo.meditrack.com/msp
+      MSPDir: crypto-config/peerOrganizations/phar1.meditrack.com/msp
 
       AdminPrincipal: Role.MEMBER
 
       Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('abolloMSP.admin', 'abolloMSP.peer', 'abolloMSP.client', 'abolloMSP.member')"
+                Rule: "OR('phar1MSP.admin', 'phar1MSP.peer', 'phar1MSP.client', 'phar1MSP.member')"
             Writers:
                 Type: Signature
-                Rule: "OR('abolloMSP.admin', 'abolloMSP.client', 'abolloMSP.member')"
+                Rule: "OR('phar1MSP.admin', 'phar1MSP.client', 'phar1MSP.member')"
             Admins:
                 Type: Signature
-                Rule: "OR('abolloMSP.admin', 'abolloMSP.member')"
+                Rule: "OR('phar1MSP.admin', 'phar1MSP.member')"
 
       AnchorPeers:
 
-        - Host: peer0.abollo.meditrack.com
+        - Host: peer0.phar1.meditrack.com
           Port: 7051
 
-  - &fare
+  - &phar2
 
-      Name: fare
+      Name: phar2
 
-      ID: fareMSP
+      ID: phar2MSP
 
-      MSPDir: crypto-config/peerOrganizations/fare.meditrack.com/msp
+      MSPDir: crypto-config/peerOrganizations/phar2.meditrack.com/msp
 
       AdminPrincipal: Role.MEMBER
 
       Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('fareMSP.admin', 'fareMSP.peer', 'fareMSP.client', 'fareMSP.member')"
+                Rule: "OR('phar2MSP.admin', 'phar2MSP.peer', 'phar2MSP.client', 'phar2MSP.member')"
             Writers:
                 Type: Signature
-                Rule: "OR('fareMSP.admin', 'fareMSP.client', 'fareMSP.member')"
+                Rule: "OR('phar2MSP.admin', 'phar2MSP.client', 'phar2MSP.member')"
             Admins:
                 Type: Signature
-                Rule: "OR('fareMSP.admin', 'fareMSP.member')"
+                Rule: "OR('phar2MSP.admin', 'phar2MSP.member')"
 
       AnchorPeers:
 
-        - Host: peer0.fare.meditrack.com
+        - Host: peer0.phar2.meditrack.com
           Port: 7051
 
-  - &cdsco
+  - &ia1
 
-      Name: cdsco
+      Name: ia1
 
-      ID: cdscoMSP
+      ID: ia1MSP
 
-      MSPDir: crypto-config/peerOrganizations/cdsco.meditrack.com/msp
+      MSPDir: crypto-config/peerOrganizations/ia1.meditrack.com/msp
 
       AdminPrincipal: Role.MEMBER
 
       Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('cdscoMSP.admin', 'cdscoMSP.peer', 'cdscoMSP.client', 'cdscoMSP.member')"
+                Rule: "OR('ia1MSP.admin', 'ia1MSP.peer', 'ia1MSP.client', 'ia1MSP.member')"
             Writers:
                 Type: Signature
-                Rule: "OR('cdscoMSP.admin', 'cdscoMSP.client', 'cdscoMSP.member')"
+                Rule: "OR('ia1MSP.admin', 'ia1MSP.client', 'ia1MSP.member')"
             Admins:
                 Type: Signature
-                Rule: "OR('cdscoMSP.admin', 'cdscoMSP.member')"
+                Rule: "OR('ia1MSP.admin', 'ia1MSP.member')"
 
       AnchorPeers:
 
-        - Host: peer0.cdsco.meditrack.com
+        - Host: peer0.ia1.meditrack.com
           Port: 7051
 
-  - &cibrc
+  - &ia2
 
-      Name: cibrc
+      Name: ia2
 
-      ID: cibrcMSP
+      ID: ia2MSP
 
-      MSPDir: crypto-config/peerOrganizations/cibrc.meditrack.com/msp
+      MSPDir: crypto-config/peerOrganizations/ia2.meditrack.com/msp
 
       AdminPrincipal: Role.MEMBER
 
       Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('cibrcMSP.admin', 'cibrcMSP.peer', 'cibrcMSP.client', 'cibrcMSP.member')"
+                Rule: "OR('ia2MSP.admin', 'ia2MSP.peer', 'ia2MSP.client', 'ia2MSP.member')"
             Writers:
                 Type: Signature
-                Rule: "OR('cibrcMSP.admin', 'cibrcMSP.client', 'cibrcMSP.member')"
+                Rule: "OR('ia2MSP.admin', 'ia2MSP.client', 'ia2MSP.member')"
             Admins:
                 Type: Signature
-                Rule: "OR('cibrcMSP.admin', 'cibrcMSP.member')"
+                Rule: "OR('ia2MSP.admin', 'ia2MSP.member')"
 
       AnchorPeers:
 
-        - Host: peer0.cibrc.meditrack.com
+        - Host: peer0.ia2.meditrack.com
           Port: 7051
 
 Orderer: &OrdererDefaults
@@ -382,31 +382,31 @@ Profiles:
     Consortiums:
       ComposerConsortium:
         Organizations:
-          - *mayer
-          - *aimko
-          - *baia
-          - *bigrow
-          - *dedx
-          - *btdc
-          - *abollo
-          - *fare
-          - *cdsco
-          - *cibrc
+          - *manu1
+          - *manu2
+          - *dist1
+          - *dist2
+          - *logi1
+          - *logi2
+          - *phar1
+          - *phar2
+          - *ia1
+          - *ia2
       agritrackConsortium:
         Organizations:
-          - *mayer
-          - *aimko
-          - *bigrow
-          - *btdc
-          - *fare
-          - *cibrc
+          - *manu1
+          - *manu2
+          - *dist2
+          - *logi2
+          - *phar2
+          - *ia2
       meditrackConsortium:
         Organizations:
-          - *mayer
-          - *baia
-          - *dedx
-          - *abollo
-          - *cdsco
+          - *manu1
+          - *dist1
+          - *logi1
+          - *phar1
+          - *ia1
 
   ChannelTest:
     <<: *ChannelDefaults
@@ -414,16 +414,16 @@ Profiles:
     Application:
       <<: *ApplicationDefaults
       Organizations:
-          - *mayer
-          - *aimko
-          - *baia
-          - *bigrow
-          - *dedx
-          - *btdc
-          - *abollo
-          - *fare
-          - *cdsco
-          - *cibrc
+          - *manu1
+          - *manu2
+          - *dist1
+          - *dist2
+          - *logi1
+          - *logi2
+          - *phar1
+          - *phar2
+          - *ia1
+          - *ia2
       Capabilities:
           <<: *ApplicationCapabilities
   agritrackChannel:
@@ -437,12 +437,12 @@ Profiles:
     Application:
       <<: *ApplicationDefaults
       Organizations:
-          - *mayer
-          - *aimko
-          - *bigrow
-          - *btdc
-          - *fare
-          - *cibrc
+          - *manu1
+          - *manu2
+          - *dist2
+          - *logi2
+          - *phar2
+          - *ia2
       Capabilities:
           <<: *ApplicationCapabilities
     
@@ -458,10 +458,10 @@ Profiles:
     Application:
       <<: *ApplicationDefaults
       Organizations:
-          - *mayer
-          - *baia
-          - *dedx
-          - *abollo
-          - *cdsco
+          - *manu1
+          - *dist1
+          - *logi1
+          - *phar1
+          - *ia1
       Capabilities:
           <<: *ApplicationCapabilities

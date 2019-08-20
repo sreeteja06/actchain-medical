@@ -29,7 +29,7 @@ channels:
         chaincodeQuery: true
         ledgerQuery: true
         eventSource: true
-      peer0.btdc.meditrack.com:
+      peer0.logi2.meditrack.com:
         endorsingPeer: true
         chaincodeQuery: true
         ledgerQuery: true
@@ -49,7 +49,7 @@ channels:
         chaincodeQuery: true
         ledgerQuery: true
         eventSource: true
-      peer0.abollo.meditrack.com:
+      peer0.phar1.meditrack.com:
         endorsingPeer: true
         chaincodeQuery: true
         ledgerQuery: true
@@ -69,7 +69,7 @@ channels:
         chaincodeQuery: true
         ledgerQuery: true
         eventSource: true
-      peer1.btdc.meditrack.com:
+      peer1.logi2.meditrack.com:
         endorsingPeer: true
         chaincodeQuery: true
         ledgerQuery: true
@@ -89,7 +89,7 @@ channels:
         chaincodeQuery: true
         ledgerQuery: true
         eventSource: true
-      peer1.abollo.meditrack.com:
+      peer1.phar1.meditrack.com:
         endorsingPeer: true
         chaincodeQuery: true
         ledgerQuery: true
@@ -134,13 +134,13 @@ organizations:
       - peer1.pharmdeal.meditrack.com
     certificateAuthorities:
       - ca.pharmdeal.meditrack.com
-  btdc:
-    mspid: btdcMSP
+  logi2:
+    mspid: logi2MSP
     peers:
-      - peer0.btdc.meditrack.com
-      - peer1.btdc.meditrack.com
+      - peer0.logi2.meditrack.com
+      - peer1.logi2.meditrack.com
     certificateAuthorities:
-      - ca.btdc.meditrack.com
+      - ca.logi2.meditrack.com
   bluedart:
     mspid: bluedartMSP
     peers:
@@ -148,13 +148,13 @@ organizations:
       - peer1.bluedart.meditrack.com
     certificateAuthorities:
       - ca.bluedart.meditrack.com
-  abollo:
-    mspid: abolloMSP
+  phar1:
+    mspid: phar1MSP
     peers:
-      - peer0.abollo.meditrack.com
-      - peer1.abollo.meditrack.com
+      - peer0.phar1.meditrack.com
+      - peer1.phar1.meditrack.com
     certificateAuthorities:
-      - ca.abollo.meditrack.com
+      - ca.phar1.meditrack.com
   medplus:
     mspid: medplusMSP
     peers:
@@ -194,9 +194,9 @@ peers:
     eventUrl: grpc://peer0.pharmdeal.meditrack.com:7053
     tlsCACerts:
       path: ./tlsca.meditrack.com-cert.pem
-  peer0.btdc.meditrack.com:
-    url: grpc://peer0.btdc.meditrack.com:7051
-    eventUrl: grpc://peer0.btdc.meditrack.com:7053 
+  peer0.logi2.meditrack.com:
+    url: grpc://peer0.logi2.meditrack.com:7051
+    eventUrl: grpc://peer0.logi2.meditrack.com:7053 
     tlsCACerts:
       path: ./tlsca.meditrack.com-cert.pem
   peer0.bluedart.meditrack.com:
@@ -204,9 +204,9 @@ peers:
     eventUrl: grpc://peer0.bluedart.meditrack.com:7053
     tlsCACerts:
       path: ./tlsca.meditrack.com-cert.pem
-  peer0.abollo.meditrack.com:
-    url: grpc://peer0.abollo.meditrack.com:7051
-    eventUrl: grpc://peer0.abollo.meditrack.com:7053
+  peer0.phar1.meditrack.com:
+    url: grpc://peer0.phar1.meditrack.com:7051
+    eventUrl: grpc://peer0.phar1.meditrack.com:7053
     tlsCACerts:
       path: ./tlsca.meditrack.com-cert.pem
   peer0.medplus.meditrack.com:
@@ -235,9 +235,9 @@ peers:
     eventUrl: grpc://peer1.pharmdeal.meditrack.com:7053
     tlsCACerts:
       path: ./tlsca.meditrack.com-cert.pem
-  peer1.btdc.meditrack.com:
-    url: grpc://peer1.btdc.meditrack.com:7051
-    eventUrl: grpc://peer1.btdc.meditrack.com:7053 
+  peer1.logi2.meditrack.com:
+    url: grpc://peer1.logi2.meditrack.com:7051
+    eventUrl: grpc://peer1.logi2.meditrack.com:7053 
     tlsCACerts:
       path: ./tlsca.meditrack.com-cert.pem
   peer1.bluedart.meditrack.com:
@@ -245,9 +245,9 @@ peers:
     eventUrl: grpc://peer1.bluedart.meditrack.com:7053
     tlsCACerts:
       path: ./tlsca.meditrack.com-cert.pem
-  peer1.abollo.meditrack.com:
-    url: grpc://peer1.abollo.meditrack.com:7051
-    eventUrl: grpc://peer1.abollo.meditrack.com:7053
+  peer1.phar1.meditrack.com:
+    url: grpc://peer1.phar1.meditrack.com:7051
+    eventUrl: grpc://peer1.phar1.meditrack.com:7053
     tlsCACerts:
       path: ./tlsca.meditrack.com-cert.pem
   peer1.medplus.meditrack.com:
@@ -289,14 +289,14 @@ certificateAuthorities:
       - enrollId: admin
         enrollSecret: adminpw
     caName: ca.pharmdeal.meditrack.com
-  ca.btdc.meditrack.com:
-    url: http://ca.btdc.meditrack.com:7054
+  ca.logi2.meditrack.com:
+    url: http://ca.logi2.meditrack.com:7054
     tlsCACerts:
       path: ./tlsca.meditrack.com-cert.pem
     registrar:
       - enrollId: admin
         enrollSecret: adminpw
-    caName: ca.btdc.meditrack.com
+    caName: ca.logi2.meditrack.com
   ca.bluedart.meditrack.com:
     url: http://ca.bluedart.meditrack.com:7054
     tlsCACerts:
@@ -305,14 +305,14 @@ certificateAuthorities:
       - enrollId: admin
         enrollSecret: adminpw
     caName: ca.bluedart.meditrack.com
-  ca.abollo.meditrack.com:
-    url: http://ca.abollo.meditrack.com:7054
+  ca.phar1.meditrack.com:
+    url: http://ca.phar1.meditrack.com:7054
     tlsCACerts:
       path: ./tlsca.meditrack.com-cert.pem
     registrar:
       - enrollId: admin
         enrollSecret: adminpw
-    caName: ca.abollo.meditrack.com
+    caName: ca.phar1.meditrack.com
   ca.medplus.meditrack.com:
     url: http://ca.medplus.meditrack.com:7054
     tlsCACerts:

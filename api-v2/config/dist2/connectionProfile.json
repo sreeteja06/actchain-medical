@@ -4,7 +4,7 @@
     "description": "meditrack Network",
     "version": "1.0",
     "client": {
-        "organization": "bigrow"
+        "organization": "dist2"
     },
     "channels": {
         "ourchannel": {
@@ -12,7 +12,7 @@
                 "orderer.meditrack.com"
             ],
             "peers": {
-                "peer0.bigrow.meditrack.com": {
+                "peer0.dist2.meditrack.com": {
                     "endorsingPeer": true,
                     "chaincodeQuery": true,
                     "ledgerQuery": true,
@@ -25,7 +25,7 @@
                 "orderer.meditrack.com"
             ],
             "peers": {
-                "peer0.bigrow.meditrack.com": {
+                "peer0.dist2.meditrack.com": {
                     "endorsingPeer": true,
                     "chaincodeQuery": true,
                     "ledgerQuery": true,
@@ -35,13 +35,13 @@
         }
     },
     "organizations": {
-        "bigrow": {
-            "mspid": "bigrowMSP",
+        "dist2": {
+            "mspid": "dist2MSP",
             "peers": [
-                "peer0.bigrow.meditrack.com"
+                "peer0.dist2.meditrack.com"
             ],
             "certificateAuthorities": [
-                "ca.bigrow.meditrack.com"
+                "ca.dist2.meditrack.com"
             ]
         }
     },
@@ -54,17 +54,17 @@
         }
     },
     "peers": {
-        "peer0.bigrow.meditrack.com": {
-            "url": "grpc://peer0.bigrow.meditrack.com:7051",
-            "eventUrl": "grpc://peer0.bigrow.meditrack.com:7053",
+        "peer0.dist2.meditrack.com": {
+            "url": "grpc://peer0.dist2.meditrack.com:7051",
+            "eventUrl": "grpc://peer0.dist2.meditrack.com:7053",
             "tlsCACerts": {
                 "path": "./tlsca.meditrack.com-cert.pem"
             }
         }
     },
     "certificateAuthorities": {
-        "ca.bigrow.meditrack.com": {
-            "url": "http://ca.bigrow.meditrack.com:7054",
+        "ca.dist2.meditrack.com": {
+            "url": "http://ca.dist2.meditrack.com:7054",
             "tlsCACerts": {
                 "path": "./tlsca.meditrack.com-cert.pem"
             },
@@ -74,7 +74,7 @@
                     "enrollSecret": "adminpw"
                 }
             ],
-            "caName": "ca.bigrow.meditrack.com"
+            "caName": "ca.dist2.meditrack.com"
         }
     }
 }

@@ -4,7 +4,7 @@
     "description": "meditrack Network",
     "version": "1.0",
     "client": {
-        "organization": "fare"
+        "organization": "dist1"
     },
     "channels": {
         "ourchannel": {
@@ -12,7 +12,7 @@
                 "orderer.meditrack.com"
             ],
             "peers": {
-                "peer0.fare.meditrack.com": {
+                "peer0.dist1.meditrack.com": {
                     "endorsingPeer": true,
                     "chaincodeQuery": true,
                     "ledgerQuery": true,
@@ -20,12 +20,12 @@
                 }
             }
         },
-        "agritrack": {
+        "meditrack": {
             "orderers": [
                 "orderer.meditrack.com"
             ],
             "peers": {
-                "peer0.fare.meditrack.com": {
+                "peer0.dist1.meditrack.com": {
                     "endorsingPeer": true,
                     "chaincodeQuery": true,
                     "ledgerQuery": true,
@@ -35,13 +35,13 @@
         }
     },
     "organizations": {
-        "fare": {
-            "mspid": "fareMSP",
+        "dist1": {
+            "mspid": "dist1MSP",
             "peers": [
-                "peer0.fare.meditrack.com"
+                "peer0.dist1.meditrack.com"
             ],
             "certificateAuthorities": [
-                "ca.fare.meditrack.com"
+                "ca.dist1.meditrack.com"
             ]
         }
     },
@@ -54,17 +54,17 @@
         }
     },
     "peers": {
-        "peer0.fare.meditrack.com": {
-            "url": "grpc://peer0.fare.meditrack.com:7051",
-            "eventUrl": "grpc://peer0.fare.meditrack.com:7053",
+        "peer0.dist1.meditrack.com": {
+            "url": "grpc://peer0.dist1.meditrack.com:7051",
+            "eventUrl": "grpc://peer0.dist1.meditrack.com:7053",
             "tlsCACerts": {
                 "path": "./tlsca.meditrack.com-cert.pem"
             }
         }
     },
     "certificateAuthorities": {
-        "ca.fare.meditrack.com": {
-            "url": "http://ca.fare.meditrack.com:7054",
+        "ca.dist1.meditrack.com": {
+            "url": "http://ca.dist1.meditrack.com:7054",
             "tlsCACerts": {
                 "path": "./tlsca.meditrack.com-cert.pem"
             },
@@ -74,7 +74,7 @@
                     "enrollSecret": "adminpw"
                 }
             ],
-            "caName": "ca.fare.meditrack.com"
+            "caName": "ca.dist1.meditrack.com"
         }
     }
 }

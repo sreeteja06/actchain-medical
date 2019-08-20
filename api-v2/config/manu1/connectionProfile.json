@@ -4,7 +4,7 @@
     "description": "meditrack Network",
     "version": "1.0",
     "client": {
-        "organization": "abollo"
+        "organization": "manu1"
     },
     "channels": {
         "ourchannel": {
@@ -12,7 +12,7 @@
                 "orderer.meditrack.com"
             ],
             "peers": {
-                "peer0.abollo.meditrack.com": {
+                "peer0.manu1.meditrack.com": {
                     "endorsingPeer": true,
                     "chaincodeQuery": true,
                     "ledgerQuery": true,
@@ -25,7 +25,20 @@
                 "orderer.meditrack.com"
             ],
             "peers": {
-                "peer0.abollo.meditrack.com": {
+                "peer0.manu1.meditrack.com": {
+                    "endorsingPeer": true,
+                    "chaincodeQuery": true,
+                    "ledgerQuery": true,
+                    "eventSource": true
+                }
+            }
+        },
+        "agritrack": {
+            "orderers": [
+                "orderer.meditrack.com"
+            ],
+            "peers": {
+                "peer0.manu1.meditrack.com": {
                     "endorsingPeer": true,
                     "chaincodeQuery": true,
                     "ledgerQuery": true,
@@ -35,13 +48,13 @@
         }
     },
     "organizations": {
-        "abollo": {
-            "mspid": "abolloMSP",
+        "manu1": {
+            "mspid": "manu1MSP",
             "peers": [
-                "peer0.abollo.meditrack.com"
+                "peer0.manu1.meditrack.com"
             ],
             "certificateAuthorities": [
-                "ca.abollo.meditrack.com"
+                "ca.manu1.meditrack.com"
             ]
         }
     },
@@ -54,17 +67,17 @@
         }
     },
     "peers": {
-        "peer0.abollo.meditrack.com": {
-            "url": "grpc://peer0.abollo.meditrack.com:7051",
-            "eventUrl": "grpc://peer0.abollo.meditrack.com:7053",
+        "peer0.manu1.meditrack.com": {
+            "url": "grpc://peer0.manu1.meditrack.com:7051",
+            "eventUrl": "grpc://peer0.manu1.meditrack.com:7053",
             "tlsCACerts": {
                 "path": "./tlsca.meditrack.com-cert.pem"
             }
         }
     },
     "certificateAuthorities": {
-        "ca.abollo.meditrack.com": {
-            "url": "http://ca.abollo.meditrack.com:7054",
+        "ca.manu1.meditrack.com": {
+            "url": "http://ca.manu1.meditrack.com:7054",
             "tlsCACerts": {
                 "path": "./tlsca.meditrack.com-cert.pem"
             },
@@ -74,7 +87,7 @@
                     "enrollSecret": "adminpw"
                 }
             ],
-            "caName": "ca.abollo.meditrack.com"
+            "caName": "ca.manu1.meditrack.com"
         }
     }
 }
