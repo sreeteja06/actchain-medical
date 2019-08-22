@@ -50,8 +50,6 @@ docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@cibrc.m
 
 function clean_it() {
 docker-compose -f docker-compose.yml down -v
-# rm -rf crypto-config/*
-# rm -rf channel-artifacts/*
 }
 
 function start_network() {
@@ -133,8 +131,19 @@ function instantiate_chaincode_meditrack(){
     docker exec -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@mayer.meditrack.com/msp" peer0.mayer.meditrack.com peer chaincode instantiate -l node -o orderer.meditrack.com:7050 -C meditrack -n test4 -v v0 -c '{"Args":["init"]}' --collections-config privateDataCollectionMeditrack.json
 }
 
-clean_it
-# gen_needed
+if [ "$1" == "-r" ]
+then
+    echo "removing and genrating new crypto and channel artifacts"
+    rm -rf crypto-config/*
+    rm -rf channel-artifacts/*
+    clean_it
+    gen_needed
+    
+else
+    echo "using the existing crypto folders"
+    clean_it
+fi
+
 start_network
 sleep 20
 join_channel
