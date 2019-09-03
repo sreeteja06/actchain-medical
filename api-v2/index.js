@@ -11,18 +11,18 @@ var invoke = require( './helpers/invoke' );
 var host = 'localhost';
 var username = ''//'M002';
 var orgName = ''//'manu';
-var channelName = 'meditrack';
+var channelName = '';
 var chaincodeName = 'test4';
 
 let app = express();
 app.options( '*', cors() );
 app.use( cors() );
-app.use( bodyParser.json() );
-app.use(
-  bodyParser.urlencoded( {
-    extended: false
-  } )
-);
+  app.use( bodyParser.json() );
+  app.use(
+    bodyParser.urlencoded( {
+      extended: false
+    } )
+  );
 const port = process.env.PORT || 3000;
 
 var server = http.createServer( app ).listen( port, function () { } );

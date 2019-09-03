@@ -61,7 +61,7 @@ async function queryByString( stub, queryString ) {
 let Chaincode = class {
   async Init( stub ) {
     console.log(
-      '=========== Init: Instantiated / Upgraded ngo chaincode ==========='
+      '=========== Init: Instantiated / Upgraded  chaincode ==========='
     );
     return shim.success();
   }

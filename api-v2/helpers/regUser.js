@@ -71,7 +71,7 @@ const regUser = async ( orgName, userName ) => {
     console.log( `Wallet path: ${ walletPath }` );
     const userExists = await wallet.exists( userName );
     if ( userExists ) {
-      console.log(
+      console.logimport(
         `An identity for the user ${ userName } already exists in the wallet`
       );
       return 'User already registered';
@@ -117,7 +117,7 @@ const regUser = async ( orgName, userName ) => {
       'Successfully registered and enrolled admin user ' +
       userName +
       ' and imported it into the wallet'
-    );
+    );userName
     return {
       userName,
       secret

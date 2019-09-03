@@ -63,7 +63,7 @@ app.get('/trackindex',async function(req,res){
 });
 app.get('/history',async function(req,res){
         let response;
-        console.log(req.query);
+        console.log(req.query) ;
           try{
             response = await axios.get(`http://${URL}:3000/getHistory?productID=${req.query.productID}&username=${req.query.userName}&orgName=${req.query.orgName}&channelName=${req.query.channelName}&chaincodeName=${req.query.chaincodeName}`);
           }catch(e){
