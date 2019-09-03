@@ -105,7 +105,12 @@ app.post(
     orgName = req.body.orgName;
     channelName = req.body.channelName;
     chaincodeName = req.body.chaincodeName;
-    args.push( req.body.productID );
+    args.push( req.query.productID );
+    const fn = 'readProduct';
+    let message = await query( fn, args, channelName, chaincodeName, orgName, username );
+    if(message){
+      return res.status(400).send("Drug already exists");
+    } 
     args.push( req.body.name );
     args.push( req.username );
     args.push( req.body.expDate );
@@ -113,10 +118,10 @@ app.post(
     args.push( req.body.extraConditionsName );
     args.push( req.body.extraConditionsRequiredValue );
     args.push( req.body.extraConditionsCondition );
-    const fn = 'createMedicine';
+     fn = 'createMedicine';
 
-    let message = await invoke( fn, args, channelName, chaincodeName, orgName, username );
-
+    message = await invoke( fn, args, channelName, chaincodeName, orgName, username );
+    
     res.send( message );
   } )
 );
@@ -133,6 +138,7 @@ app.get(
     args.push( req.query.productID );
     const fn = 'readProduct';
     let message = await query( fn, args, channelName, chaincodeName, orgName, username );
+    
     res.send( message );
   } )
 );
