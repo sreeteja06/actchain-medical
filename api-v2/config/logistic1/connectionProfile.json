@@ -4,7 +4,7 @@
     "description": "meditrack Network",
     "version": "1.0",
     "client": {
-        "organization": "bigrow"
+        "organization": "logistic1"
     },
     "channels": {
         "ourchannel": {
@@ -12,7 +12,7 @@
                 "orderer.meditrack.com"
             ],
             "peers": {
-                "peer0.bigrow.meditrack.com": {
+                "peer0.logistic1.meditrack.com": {
                     "endorsingPeer": true,
                     "chaincodeQuery": true,
                     "ledgerQuery": true,
@@ -20,12 +20,12 @@
                 }
             }
         },
-        "agritrack": {
+        "meditrack": {
             "orderers": [
                 "orderer.meditrack.com"
             ],
             "peers": {
-                "peer0.bigrow.meditrack.com": {
+                "peer0.logistic1.meditrack.com": {
                     "endorsingPeer": true,
                     "chaincodeQuery": true,
                     "ledgerQuery": true,
@@ -35,13 +35,13 @@
         }
     },
     "organizations": {
-        "bigrow": {
-            "mspid": "bigrowMSP",
+        "logistic1": {
+            "mspid": "logistic1MSP",
             "peers": [
-                "peer0.bigrow.meditrack.com"
+                "peer0.logistic1.meditrack.com"
             ],
             "certificateAuthorities": [
-                "ca.bigrow.meditrack.com"
+                "ca.logistic1.meditrack.com"
             ]
         }
     },
@@ -54,17 +54,17 @@
         }
     },
     "peers": {
-        "peer0.bigrow.meditrack.com": {
-            "url": "grpc://peer0.bigrow.meditrack.com:7051",
-            "eventUrl": "grpc://peer0.bigrow.meditrack.com:7053",
+        "peer0.logistic1.meditrack.com": {
+            "url": "grpc://peer0.logistic1.meditrack.com:7051",
+            "eventUrl": "grpc://peer0.logistic1.meditrack.com:7053",
             "tlsCACerts": {
                 "path": "./tlsca.meditrack.com-cert.pem"
             }
         }
     },
     "certificateAuthorities": {
-        "ca.bigrow.meditrack.com": {
-            "url": "http://ca.bigrow.meditrack.com:7054",
+        "ca.logistic1.meditrack.com": {
+            "url": "http://ca.logistic1.meditrack.com:7054",
             "tlsCACerts": {
                 "path": "./tlsca.meditrack.com-cert.pem"
             },
@@ -74,7 +74,7 @@
                     "enrollSecret": "adminpw"
                 }
             ],
-            "caName": "ca.bigrow.meditrack.com"
+            "caName": "ca.logistic1.meditrack.com"
         }
     }
 }

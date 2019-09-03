@@ -413,11 +413,11 @@ app.get('/acceptResFinal',async function(req,res){
 );
 
 ////////////////////////inspector/////////////////////////////////////////////
-app.get('/cdscoManu',async function(req,res){
+app.get('/ia1Manu',async function(req,res){
   let response;
   try{
     response = await axios.get(
-      `http://${URL}:3000/getProductByOwner?id=mayerUser&username=mayerUser&orgName=mayer&channelName=${
+      `http://${URL}:3000/getProductByOwner?id=manuf1User&username=manuf1User&orgName=manuf1&channelName=${
         req.query.channelName
       }&chaincodeName=${req.query.chaincodeName}`
     ); 
@@ -426,7 +426,7 @@ app.get('/cdscoManu',async function(req,res){
     res.sendStatus(500);
   }
   console.log(response);
-  res.render('cdscoManu',{data:response.data,channelName:req.query.channelName,chaincodeName:req.query.chaincodeName,userName:req.query.userName,orgName:req.query.orgName});
+  res.render('ia1Manu',{data:response.data,channelName:req.query.channelName,chaincodeName:req.query.chaincodeName,userName:req.query.userName,orgName:req.query.orgName});
 });
 
 app.listen(4000, ()=>{

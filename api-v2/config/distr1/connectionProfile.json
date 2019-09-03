@@ -4,7 +4,7 @@
     "description": "meditrack Network",
     "version": "1.0",
     "client": {
-        "organization": "cdsco"
+        "organization": "distr1"
     },
     "channels": {
         "ourchannel": {
@@ -12,7 +12,7 @@
                 "orderer.meditrack.com"
             ],
             "peers": {
-                "peer0.cdsco.meditrack.com": {
+                "peer0.distr1.meditrack.com": {
                     "endorsingPeer": true,
                     "chaincodeQuery": true,
                     "ledgerQuery": true,
@@ -25,7 +25,7 @@
                 "orderer.meditrack.com"
             ],
             "peers": {
-                "peer0.cdsco.meditrack.com": {
+                "peer0.distr1.meditrack.com": {
                     "endorsingPeer": true,
                     "chaincodeQuery": true,
                     "ledgerQuery": true,
@@ -35,13 +35,13 @@
         }
     },
     "organizations": {
-        "cdsco": {
-            "mspid": "cdscoMSP",
+        "distr1": {
+            "mspid": "distr1MSP",
             "peers": [
-                "peer0.cdsco.meditrack.com"
+                "peer0.distr1.meditrack.com"
             ],
             "certificateAuthorities": [
-                "ca.cdsco.meditrack.com"
+                "ca.distr1.meditrack.com"
             ]
         }
     },
@@ -54,17 +54,17 @@
         }
     },
     "peers": {
-        "peer0.cdsco.meditrack.com": {
-            "url": "grpc://peer0.cdsco.meditrack.com:7051",
-            "eventUrl": "grpc://peer0.cdsco.meditrack.com:7053",
+        "peer0.distr1.meditrack.com": {
+            "url": "grpc://peer0.distr1.meditrack.com:7051",
+            "eventUrl": "grpc://peer0.distr1.meditrack.com:7053",
             "tlsCACerts": {
                 "path": "./tlsca.meditrack.com-cert.pem"
             }
         }
     },
     "certificateAuthorities": {
-        "ca.cdsco.meditrack.com": {
-            "url": "http://ca.cdsco.meditrack.com:7054",
+        "ca.distr1.meditrack.com": {
+            "url": "http://ca.distr1.meditrack.com:7054",
             "tlsCACerts": {
                 "path": "./tlsca.meditrack.com-cert.pem"
             },
@@ -74,7 +74,7 @@
                     "enrollSecret": "adminpw"
                 }
             ],
-            "caName": "ca.cdsco.meditrack.com"
+            "caName": "ca.distr1.meditrack.com"
         }
     }
 }

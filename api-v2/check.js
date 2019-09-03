@@ -16,7 +16,7 @@ const blockListener = require( './helpers/blockListener' );
 
 // regUser('bayer', 'bayerUser')
 let args = ["001"];
-invoke('getMedicinesByHolderStock', args, 'ourchannel', 'test3', 'mayer', 'mayerUser');
+invoke('getMedicinesByHolderStock', args, 'ourchannel', 'test3', 'manuf1', 'manuf1User');
 
 // args = ['002', 'citric', 'bayer', '10/09/1998', 'hyderabad', 'temp', '45', 'lesser'];
 // args = JSON.stringify( args );
@@ -26,4 +26,4 @@ invoke('getMedicinesByHolderStock', args, 'ourchannel', 'test3', 'mayer', 'mayer
 
 // args = ['002', 'citric', 'bayer', '10/09/1998', 'hyderabad', 'temp', '45', 'lesser'];
 // args = JSON.stringify( args );
-// res = invoke( 'createMedicine', args, 'meditrack', 'test3', 'mayer', 'mayerUser' );
+// res = invoke( 'createMedicine', args, 'meditrack', 'test3', 'manuf1', 'manuf1User' );

@@ -7,7 +7,7 @@
 		"adminUser": "admin",
 		"adminPassword": "adminpw",
 		"enableAuthentication": false,
-		"organization": "mayer",
+		"organization": "manuf1",
 		"connection": {
 			"timeout": {
 				"peer": {
@@ -20,7 +20,7 @@
 	"channels": {
 		"ourchannel": {
 			"peers": {
-				"peer0.mayer.meditrack.com": {
+				"peer0.manuf1.meditrack.com": {
 					"endorsingPeer": true,
 					"chaincodeQuery": true,
 					"ledgerQuery": true,
@@ -39,7 +39,7 @@
 		},
 		"meditrack": {
 			"peers": {
-				"peer0.mayer.meditrack.com": {
+				"peer0.manuf1.meditrack.com": {
 					"endorsingPeer": true,
 					"chaincodeQuery": true,
 					"ledgerQuery": true,
@@ -58,7 +58,7 @@
 		},
 		"agritrack": {
 			"peers": {
-				"peer0.mayer.meditrack.com": {
+				"peer0.manuf1.meditrack.com": {
 					"endorsingPeer": true,
 					"chaincodeQuery": true,
 					"ledgerQuery": true,
@@ -77,26 +77,26 @@
 		}
 	},
 	"organizations": {
-		"mayer": {
-			"mspid": "mayerMSP",
+		"manuf1": {
+			"mspid": "manuf1MSP",
 			"fullpath": true,
 			"adminPrivateKey": {
-				"path": "/tmp/crypto/users/Admin@mayer.meditrack.com/msp/keystore/ea1190440728915bfda4f1510ea5a4fbe55a9b41164fe6795bcc5291bde15e44_sk"
+				"path": "/tmp/crypto/users/Admin@manuf1.meditrack.com/msp/keystore/ea1190440728915bfda4f1510ea5a4fbe55a9b41164fe6795bcc5291bde15e44_sk"
 			},
 			"signedCert": {
-				"path": "/tmp/crypto/users/Admin@mayer.meditrack.com/msp/signcerts/Admin@mayer.meditrack.com-cert.pem"
+				"path": "/tmp/crypto/users/Admin@manuf1.meditrack.com/msp/signcerts/Admin@manuf1.meditrack.com-cert.pem"
 			}
 		}
 	},
 	"peers": {
-		"peer0.mayer.meditrack.com": {
+		"peer0.manuf1.meditrack.com": {
 			"tlsCACerts": {
-				"path": "/tmp/crypto/peers/peer0.mayer.meditrack.com/tls/ca.crt"
+				"path": "/tmp/crypto/peers/peer0.manuf1.meditrack.com/tls/ca.crt"
 			},
-			"url": "grpc://peer0.mayer.meditrack.com:7051",
-			"eventUrl": "grpc://peer0.mayer.meditrack.com:7053",
+			"url": "grpc://peer0.manuf1.meditrack.com:7051",
+			"eventUrl": "grpc://peer0.manuf1.meditrack.com:7053",
 			"grpcOptions": {
-				"ssl-target-name-override": "peer0.mayer.meditrack.com"
+				"ssl-target-name-override": "peer0.manuf1.meditrack.com"
 			}
 		}
 	}
