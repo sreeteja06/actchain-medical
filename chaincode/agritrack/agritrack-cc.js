@@ -92,26 +92,28 @@ let Chaincode = class {
     console.log('============= START : Initialize Ledger ===========');
     console.log('============= END : Initialize Ledger ===========');
   }
-  async createPesticide(stub, args) {        //TODO: add attributes into Pesticide to support track page
+  async createPesticide(stub, args) {
+    //TODO: add attributes into medicine to support track page
     try {
       args = JSON.parse(args);
-      console.log('============= START : createPesticide ===========');
-      console.log('##### createPesticide arguments: ' + JSON.stringify(args));
-      let pesticide = {};
-      pesticide.docType = 'pesticide';
-      pesticide.name = args[1];
-      pesticide.holder = args[2];
-      pesticide.owner = args[2];
-      pesticide.expDate = args[3];
-      pesticide.location = args[4];
-      pesticide.logistics = '';
-      pesticide.requestLogistics = '';
-      pesticide.sendTo = '';
-      pesticide.checkLogiD='';
-      pesticide.checkDist='';
-      pesticide.checkLogiP='';
-      pesticide.checkPharma='';
-      pesticide.extraConditions = {
+      console.log('============= START : createMedicine ===========');
+      console.log('##### createMedicine arguments: ' + JSON.stringify(args));
+
+      let product = {};
+      product.docType = 'medicine';
+      product.name = args[1];
+      product.holder = args[2];
+      product.owner = args[2];
+      product.expDate = args[3];
+      product.location = args[4];
+      product.logistics = '';
+      product.requestLogistics = '';
+      product.sendTo = 'none';
+      product.checkLogiD = '';
+      product.checkDist = '';
+      product.checkLogiP = '';
+      product.checkPharma = '';
+      product.extraConditions = {
         [args[5]]: {
           //extraconditionname
           required: args[6], //extraconditionrequiredvalue
@@ -119,52 +121,47 @@ let Chaincode = class {
           condition: args[7] //extra condition contdition
         }
       };
-      console.log(pesticide);
-      const buffer = Buffer.from(JSON.stringify(pesticide));
+      console.log(product);
+      const buffer = Buffer.from(JSON.stringify(product));
       await stub.putState(args[0].toString(), buffer);
     } catch (err) {
       return shim.error(err);
     }
   }
-  async logisticRecievingList(stub,args){
+  async logisticRecievingList(stub, args) {
     args = JSON.parse(args);
     let queryString = '{"selector":{"requestLogistics":"' + args[0] + '"}}}'; //*logistics id
-    return await queryByString(
-      stub,
-      queryString
-    );
-    
-    
+    return await queryByString(stub, queryString);
   }
 
   async getProductByOwner(stub, args) {
     args = JSON.parse(args);
     let queryString = '{"selector":{"owner":{"$eq":"' + args[0] + '"}}}'; //*manufacture id
-    return await queryByString(
-      stub,
-      queryString
-    );
+    return await queryByString(stub, queryString);
   }
-  
 
-  async getProductsByHolder(stub, args) {
+  async getProductByHolderStock(stub, args) {
+    args = JSON.parse(args);
+    let queryString =
+      '{"selector":{"sendTo":"none", "holder":"' + args[0] + '"}}'; //*holder
+    return await queryByString(stub, queryString);
+  }
+
+  async getProductByHolder(stub, args) {
     args = JSON.parse(args);
     let queryString = '{"selector":{"holder":"' + args[0] + '"}}}'; //*holder
-    return await queryByString(
-      stub,
-      queryString
-    );
+    return await queryByString(stub, queryString);
   }
 
   async readProduct(stub, args) {
     args = JSON.parse(args);
-    //pesticideID
+    //medicineID
     return queryByKey(stub, args[0].toString());
   }
 
   async updateLocation(stub, args) {
     args = JSON.parse(args);
-    let asset = await queryByKey(stub, args[0].toString()); //*pesticideID
+    let asset = await queryByKey(stub, args[0].toString()); //*medicineID
     asset = JSON.parse(asset.toString());
     asset.location = args[1]; //*NEwLocation
     const buffer = Buffer.from(JSON.stringify(asset));
@@ -173,7 +170,7 @@ let Chaincode = class {
 
   async sendProduct(stub, args) {
     args = JSON.parse(args);
-    let asset = await queryByKey(stub, args[0].toString()); //*pesticideID
+    let asset = await queryByKey(stub, args[0].toString()); //*medicineID
     asset = JSON.parse(asset.toString());
     asset.requestLogistics = args[1]; //*logisticsID
     asset.sendTo = args[2]; //*SendTo id - distrubuter id if sending to dist or pharmacy id if sending to phar
@@ -181,15 +178,20 @@ let Chaincode = class {
     await stub.putState(args[0].toString(), buffer);
   }
 
-  async logisticsAcceptProduct(stub, args){
+  async logisticsAcceptProduct(stub, args) {
     args = JSON.parse(args);
-    let asset = await queryByKey(stub, args[0].toString()); //*pesticideID
+    let asset = await queryByKey(stub, args[0].toString()); //*medicineID
     asset = JSON.parse(asset.toString());
-    if (args[1].toString() == asset.requestLogistics.toString()) {  //*logistics Id
-      asset.holder=asset.requestLogistics;
+    if (args[1].toString() == asset.requestLogistics.toString()) {
+      //*logistics Id
+      asset.holder = asset.requestLogistics;
       asset.logistics = asset.requestLogistics;
       asset.requestLogistics = '';
-   
+      if (!asset.checkLogiD) {
+        asset.checkLogiD = asset.logistics;
+      } else {
+        asset.checkLogiP = asset.logistics;
+      }
     }
     const buffer = Buffer.from(JSON.stringify(asset));
     await stub.putState(args[0].toString(), buffer);
@@ -197,23 +199,38 @@ let Chaincode = class {
 
   async getRecievedProduct(stub, args) {
     args = JSON.parse(args);
-    let queryString = '{"selector":{"sendTo":{"$eq":"' + args[0] + '"}}}';  //*send to id, dist id for distrubutor, phar id for pharmacy
+    let queryString = '{"selector":{"sendTo":{"$eq":"' + args[0] + '"}}}'; //*send to id, dist id for distrubutor, phar id for pharmacy
     return await queryByString(
       stub,
-      queryString //id who eants to get the recieved pesticides
+      queryString //id who eants to get the recieved medicines
+    );
+  }
+
+  async getProductsByOwner(stub, args) {
+    args = JSON.parse(args);
+    let queryString = '{"selector":{"owner":{"$eq":"' + args[0] + '"}}}'; //*send to id, dist id for distrubutor, phar id for pharmacy
+    return await queryByString(
+      stub,
+      queryString //id who eants to get the recieved medicines
     );
   }
 
   async acceptProduct(stub, args) {
     args = JSON.parse(args);
-    let asset = await queryByKey(stub, args[0].toString()); //*pesticide id
+    let asset = await queryByKey(stub, args[0].toString()); //*medicine id
     asset = JSON.parse(asset.toString());
-    if (args[1].toString() == asset.sendTo.toString()) {//*dist id or phar id
-      //id of who accepts the pesticides
+    if (args[1].toString() == asset.sendTo.toString()) {
+      //*dist id or phar id
+      //id of who accepts the medicines
       asset.holder = asset.sendTo;
       asset.logistics = '';
       asset.requestLogistics = '';
       asset.sendTo = '';
+      if (!asset.checkDist) {
+        asset.checkDist = asset.holder;
+      } else {
+        asset.checkPharma = asset.holder;
+      }
     }
     const buffer = Buffer.from(JSON.stringify(asset));
     await stub.putState(args[0].toString(), buffer);
@@ -221,7 +238,7 @@ let Chaincode = class {
 
   async sendRequest(stub, args) {
     args = JSON.parse(args);
-    let asset = await queryByKey(stub, args[0].toString()); //*pesticideID
+    let asset = await queryByKey(stub, args[0].toString()); //*medicineID
     asset = JSON.parse(asset.toString());
     asset.requestId = args[1]; //*phar ID
     asset.request = 'true';
@@ -232,7 +249,7 @@ let Chaincode = class {
   async getRequests(stub, args) {
     args = JSON.parse(args);
     let queryString =
-      '{"selector":{"request":"true", "holder":"' + args[0] + '"}}';  //*dist ID
+      '{"selector":{"request":"true", "holder":"' + args[0] + '"}}'; //*dist ID
     return await queryByString(
       stub,
       queryString //id of who needs to get the requests
@@ -249,24 +266,26 @@ let Chaincode = class {
   }
 
   async acceptRequest(stub, args) {
-    let asset = await queryByKey(stub, args[0].toString()); //*pesticideid
+    args = JSON.parse(args);
+    let asset = await queryByKey(stub, args[0].toString()); //*medicineid
     asset = JSON.parse(asset.toString());
-    
-      //id
-      asset.requestLogistics = args[2]; //*logistists id
-      asset.sendTo = asset.requestId;
-      asset.requestId = '';
-      asset.request = '';
-    
+
+    //id
+    asset.requestLogistics = args[2]; //*logistists id
+    asset.sendTo = asset.requestId;
+    asset.requestId = '';
+    asset.request = '';
+
     // asset.owner = '';
     const buffer = Buffer.from(JSON.stringify(asset));
     await stub.putState(args[0].toString(), buffer);
   }
 
-  async denyRequest(stub ,args){
+  async denyRequest(stub, args) {
     args = JSON.parse(args);
-    let asset = await queryByKey(stub, args[0].toString()); //*pesticideid
-    if (args[1].toString() == asset.holder.toString()) { //*dist ID
+    let asset = await queryByKey(stub, args[0].toString()); //*medicineid
+    if (args[1].toString() == asset.holder.toString()) {
+      //*dist ID
       asset.requestId = '';
       asset.request = '';
       const buffer = Buffer.from(JSON.stringify(asset));
@@ -276,7 +295,7 @@ let Chaincode = class {
 
   async addExtraCondition(stub, args) {
     args = JSON.parse(args);
-    let asset = await queryByKey(stub, args[0].toString()); //*pesticideID
+    let asset = await queryByKey(stub, args[0].toString()); //*medicineID
     asset = JSON.parse(asset.toString());
     asset.extraConditions[args[1]] = {
       //extra condition name
@@ -290,7 +309,7 @@ let Chaincode = class {
 
   async updateExtraCondition(stub, args) {
     args = JSON.parse(args);
-    let asset = await queryByKey(stub, args[0].toString()); //pesticideID
+    let asset = await queryByKey(stub, args[0].toString()); //medicineID
     asset = JSON.parse(asset.toString());
     asset.extraConditions[args[1]].present = args[2]; // conditionname //update value
     const buffer = Buffer.from(JSON.stringify(asset));
@@ -327,7 +346,7 @@ let Chaincode = class {
 
   async deleteProduct(stub, args) {
     args = JSON.parse(args);
-    await stub.deleteState(args[0].toString()); //pesticideID
+    await stub.deleteState(args[0].toString()); //medicineID
   }
 
   async getChannelID(stub) {
@@ -338,7 +357,7 @@ let Chaincode = class {
 
   async queryHistoryForKey(stub, args) {
     args = JSON.parse(args);
-    let historyIterator = await stub.getHistoryForKey(args[0]); //pesticideID
+    let historyIterator = await stub.getHistoryForKey(args[0]); //medicineID
     console.log(
       '##### queryHistoryForKey historyIterator: ' +
         util.inspect(historyIterator)
@@ -380,23 +399,20 @@ let Chaincode = class {
     }
   }
 
-  async setPrivateProductPrice(stub, args){
+  async setPrivateProductPrice(stub, args) {
     args = JSON.parse(args);
     let price = {
-      price: args[2]
-    }
-
+      price: args[2],
+      discount: args[3]
+    };
     const buffer = Buffer.from(JSON.stringify(price));
     await stub.getPrivateData(args[1], args[0]);
     await stub.putPrivateData(args[1], args[0], buffer);
   }
 
-  async getPrivateProductPrice(stub, args){
+  async getPrivateProductPrice(stub, args) {
     args = JSON.parse(args);
     return await stub.getPrivateData(args[1], args[0]);
   }
-
 };
 shim.start(new Chaincode());
-
-

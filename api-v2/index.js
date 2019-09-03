@@ -7,6 +7,7 @@ var http = require( 'http' );
 var regUser = require( './helpers/regUser' );
 var query = require( './helpers/query' );
 var invoke = require( './helpers/invoke' );
+const {authenticate} = require('./middleware/authentication');
 
 var host = 'localhost';
 var username = ''//'M002';
@@ -62,9 +63,7 @@ app.get(
   } )
 );
 
-app.get(
-  '/',
-  awaitHandler( async ( req, res ) => {
+app.get(  '/',  awaitHandler( async ( req, res ) => {
     res.send( `
       <h1>actchain-medical api is still on its way, fueling up in the gachibowli fuel station</h1>
       `);
@@ -99,16 +98,16 @@ app.post(
 );
 
 app.post(
-  '/createMedicine',
+  '/createMedicine', authenticate,
   awaitHandler( async ( req, res ) => {
     let args = [];
-    username = req.body.username;
+    username = req.username;
     orgName = req.body.orgName;
     channelName = req.body.channelName;
     chaincodeName = req.body.chaincodeName;
     args.push( req.body.productID );
     args.push( req.body.name );
-    args.push( req.body.username );
+    args.push( req.username );
     args.push( req.body.expDate );
     args.push( req.body.location );
     args.push( req.body.extraConditionsName );
@@ -123,9 +122,9 @@ app.post(
 );
 
 app.get(
-  '/productInfo',
+  '/productInfo', authenticate,
   awaitHandler( async ( req, res ) => {
-    username = req.query.username;
+    username = req.username;
     orgName = req.query.orgName;
     channelName = req.query.channelName;
     chaincodeName = req.query.chaincodeName;
@@ -139,9 +138,9 @@ app.get(
 );
 
 app.get(
-  '/getProductByOwner',
+  '/getProductByOwner', authenticate,
   awaitHandler( async ( req, res ) => {
-    username = req.query.username;
+    username = req.username;
     orgName = req.query.orgName;
     channelName = req.query.channelName;
     chaincodeName = req.query.chaincodeName;
@@ -160,9 +159,9 @@ app.get(
 
 
 app.post(
-  '/logisticsAcceptProduct',
+  '/logisticsAcceptProduct', authenticate,
   awaitHandler( async ( req, res ) => {
-    username = req.body.username;
+    username = req.username;
     orgName = req.body.orgName;
     channelName = req.body.channelName;
     chaincodeName = req.body.chaincodeName;
@@ -177,9 +176,9 @@ app.post(
 );
 
 app.post(
-  '/manufacturerStock',
+  '/manufacturerStock', authenticate,
   awaitHandler( async ( req, res ) => {
-    username = req.body.username;
+    username = req.username;
     orgName = req.body.orgName;
     channelName = req.body.channelName;
     chaincodeName = req.body.chaincodeName;
@@ -196,9 +195,9 @@ app.post(
 
 
 app.post(
-  '/updateLocation',
+  '/updateLocation', authenticate,
   awaitHandler( async ( req, res ) => {
-    username = req.body.username;
+    username = req.username;
     orgName = req.body.orgName;
     channelName = req.body.channelName;
     chaincodeName = req.body.chaincodeName;
@@ -215,9 +214,9 @@ app.post(
   } )
 );
 app.post(
-  '/sendProduct',
+  '/sendProduct', authenticate,
   awaitHandler( async ( req, res ) => {
-    username = req.body.username;
+    username = req.username;
     orgName = req.body.orgName;
     channelName = req.body.channelName;
     chaincodeName = req.body.chaincodeName;
@@ -232,9 +231,9 @@ app.post(
   } )
 );
 app.get(
-  '/getRecievedProducts',
+  '/getRecievedProducts', authenticate,
   awaitHandler( async ( req, res ) => {
-    username = req.query.username;
+    username = req.username;
     orgName = req.query.orgName;
     channelName = req.query.channelName;
     chaincodeName = req.query.chaincodeName;
@@ -251,9 +250,9 @@ app.get(
 );
 
 app.get(
-  '/getProductsByOwner',
+  '/getProductsByOwner', authenticate,
   awaitHandler( async ( req, res ) => {
-    username = req.query.username;
+    username = req.username;
     orgName = req.query.orgName;
     channelName = req.query.channelName;
     chaincodeName = req.query.chaincodeName;
@@ -270,9 +269,9 @@ app.get(
 );
 
 app.post(
-  '/acceptProduct',
+  '/acceptProduct', authenticate,
 awaitHandler( async ( req, res ) => {
-username = req.body.username;
+username = req.username;
 orgName = req.body.orgName;
 channelName = req.body.channelName;
 chaincodeName = req.body.chaincodeName;
@@ -287,9 +286,9 @@ res.send( message );
 } )
 );
 app.post(
-  '/sendRequest',
+  '/sendRequest', authenticate,
   awaitHandler( async ( req, res ) => {
-    username = req.body.username;
+    username = req.username;
     orgName = req.body.orgName;
     channelName = req.body.channelName;
     chaincodeName = req.body.chaincodeName;
@@ -302,9 +301,9 @@ app.post(
   } )
 );
 app.get(
-  '/logisticRecievingList',
+  '/logisticRecievingList', authenticate,
   awaitHandler( async ( req, res ) => {
-    username = req.query.username;
+    username = req.username;
     orgName = req.query.orgName;
     channelName = req.query.channelName;
     chaincodeName = req.query.chaincodeName;
@@ -319,9 +318,9 @@ app.get(
 );
 
 app.get(
-  '/getRequests',
+  '/getRequests', authenticate,
   awaitHandler( async ( req, res ) => {
-    username = req.query.username;
+    username = req.username;
     orgName = req.query.orgName;
     channelName = req.query.channelName;
     chaincodeName = req.query.chaincodeName;
@@ -337,9 +336,9 @@ app.get(
   } )
 );
 app.get(
-  '/getSentRequests',
+  '/getSentRequests', authenticate,
   awaitHandler( async ( req, res ) => {
-    username = req.query.username;
+    username = req.username;
     orgName = req.query.orgName;
     channelName = req.query.channelName;
     chaincodeName = req.query.chaincodeName;
@@ -356,9 +355,9 @@ app.get(
 );
 
 app.post(
-  '/acceptRequest',
+  '/acceptRequest', authenticate,
   awaitHandler( async ( req, res ) => {
-    username = req.body.username;
+    username = req.username;
     orgName = req.body.orgName;
     channelName = req.body.channelName;
     chaincodeName = req.body.chaincodeName;
@@ -377,18 +376,18 @@ app.post(
 );
 
 app.post(
-  '/createPesticide',
+  '/createPesticide', authenticate,
   awaitHandler(async (req, res) => {
     let args = [];
     channelName = req.body.channelName;
     chaincodeName = req.body.chaincodeName;
-    username = req.body.username;
+    username = req.username;
     orgName = req.body.orgName;
     channelName = req.body.channelName;
     chaincodeName = req.body.chaincodeName;
     args.push(req.body.productID);
     args.push(req.body.name);
-    args.push(req.body.username);
+    args.push(req.username);
     args.push(req.body.expDate);
     args.push(req.body.location);
     args.push(req.body.extraConditionsName);
@@ -401,15 +400,13 @@ app.post(
 
     let message = await invoke( fn, args, channelName, chaincodeName, orgName, username );
 
-    await blockListener.startBlockListener(channelName, username, orgName, wss);
-
     res.send(message);
   })
 );
 app.get(
-  '/getProductByHolder',
+  '/getProductByHolder', authenticate,
   awaitHandler(async (req, res) => {
-    username = req.query.username;
+    username = req.username;
     orgName = req.query.orgName;
     channelName = req.query.channelName;
     chaincodeName = req.query.chaincodeName;
@@ -426,9 +423,9 @@ app.get(
 );
 
 app.get(
-  '/getProductByHolderStock',
+  '/getProductByHolderStock', authenticate,
   awaitHandler(async (req, res) => {
-    username = req.query.username;
+    username = req.username;
     orgName = req.query.orgName;
     channelName = req.query.channelName;
     chaincodeName = req.query.chaincodeName;
@@ -446,8 +443,8 @@ app.get(
 
 
 
-app.get('/getPrivatePriceDetails', awaitHandler(async (req, res)=>{
-  username = req.query.username;
+app.get('/getPrivatePriceDetails',authenticate, awaitHandler(async (req, res)=>{
+  username = req.username;
     orgName = req.query.orgName;
     channelName = req.query.channelName;
     chaincodeName = req.query.chaincodeName;
@@ -464,9 +461,9 @@ app.get('/getPrivatePriceDetails', awaitHandler(async (req, res)=>{
   })
 );
 app.post(
-  '/setPrivatePriceDetails/',
+  '/setPrivatePriceDetails/', authenticate,
   awaitHandler(async (req, res) => {
-    username = req.body.username;
+    username = req.username;
     orgName = req.body.orgName;
     channelName = req.body.channelName;
     chaincodeName = req.body.chaincodeName;
@@ -480,16 +477,14 @@ app.post(
 
     let message = await invoke( fn, args, channelName, chaincodeName, orgName, username );
 
-    await blockListener.startBlockListener(channelName, username, orgName, wss);
-
     res.send(message);
   })
 );
 
 app.post(
-  '/denyRequest',
+  '/denyRequest', authenticate,
   awaitHandler( async ( req, res ) => {
-    username = req.body.username;
+    username = req.username;
     orgName = req.body.orgName;
     channelName = req.body.channelName;
     chaincodeName = req.body.chaincodeName;
@@ -505,9 +500,9 @@ app.post(
 );
 
 app.post(
-  '/addExtraCondition',
+  '/addExtraCondition', authenticate,
   awaitHandler( async ( req, res ) => {
-    username = req.body.username;
+    username = req.username;
     orgName = req.body.orgName;
     channelName = req.body.channelName;
     chaincodeName = req.body.chaincodeName;
@@ -524,9 +519,9 @@ app.post(
   } )
 );
 app.post(
-  '/updateExtraCondition',
+  '/updateExtraCondition', authenticate,
   awaitHandler( async ( req, res ) => {
-    username = req.body.username;
+    username = req.username;
     orgName = req.body.orgName;
     channelName = req.body.channelName;
     chaincodeName = req.body.chaincodeName;
@@ -544,9 +539,9 @@ app.post(
   } )
 );
 app.get(
-  '/getChannelID',
+  '/getChannelID', authenticate,
   awaitHandler( async ( req, res ) => {
-    username = req.query.username;
+    username = req.username;
     orgName = req.query.orgName;
     channelName = req.query.channelName;
     chaincodeName = req.query.chaincodeName;
@@ -557,9 +552,9 @@ app.get(
   } )
 );
 app.delete(
-  '/deleteProduct',
+  '/deleteProduct', authenticate,
   awaitHandler( async ( req, res ) => {
-    username = req.body.username;
+    username = req.username;
     orgName = req.body.orgName;
     channelName = req.body.channelName;
     chaincodeName = req.body.chaincodeName;
@@ -576,9 +571,9 @@ app.delete(
 
 
 app.get(
-  '/getHistory',
+  '/getHistory', authenticate,
   awaitHandler( async ( req, res ) => {
-    username = req.query.username;
+    username = req.username;
     orgName = req.query.orgName;
     channelName = req.query.channelName;
     chaincodeName = req.query.chaincodeName;
@@ -592,8 +587,8 @@ app.get(
   } )
 );
 
-app.get( '/getPriceDetails', awaitHandler( async ( req, res ) => {
-  username = req.query.username;
+app.get( '/getPriceDetails', authenticate, awaitHandler( async ( req, res ) => {
+  username = req.username;
   orgName = req.query.orgName;
   channelName = req.query.channelName;
   chaincodeName = req.query.chaincodeName;
@@ -608,9 +603,9 @@ app.get( '/getPriceDetails', awaitHandler( async ( req, res ) => {
 } )
 );
 app.post(
-  '/setPriceDetails',
+  '/setPriceDetails', authenticate,
   awaitHandler( async ( req, res ) => {
-    username = req.body.username;
+    username = req.username;
     orgName = req.body.orgName;
     channelName = req.body.channelName;
     chaincodeName = req.body.chaincodeName;

@@ -337,8 +337,15 @@ app.get('/stockdis', async function(req, res){
 app.get('/recieveFromManu', async function(req,res){
         let response;
         try{
-        response = await axios.get(`http://${URL}:3000/getRecievedProducts?id=${req.query.userName}&username=${req.query.userName}&orgName=${req.query.orgName}&channelName=${req.query.channelName}&chaincodeName=test4`,
-          );
+        response = await axios.get(
+          `http://${URL}:3000/getRecievedProducts?id=${
+            req.query.userName
+          }&username=${req.query.userName}&orgName=${
+            req.query.orgName
+          }&channelName=${req.query.channelName}&chaincodeName=${
+            req.query.chaincodeName
+          }`
+        );
         }catch(e){console.log(e);
           res.sendStatus(500);
         }
@@ -350,7 +357,15 @@ app.get('/recieveFromManu', async function(req,res){
 app.get('/recieveToPharma', async function(req,res){
         let response;
         try{
-          response =await axios.get(`http://${URL}:3000/getRecievedProducts?id=abolloUser&username=abolloUser&orgName=abollo&channelName=meditrack&chaincodeName=test4`);
+          response = await axios.get(
+            `http://${URL}:3000/getRecievedProducts?id=${
+              req.query.userName
+            }&username=${req.query.userName}&orgName=${
+              req.query.orgName
+            }&channelName=${req.query.channelName}&chaincodeName=${
+              req.query.chaincodeName
+            }`
+          );
         }catch(e){console.log(e);
           res.sendStatus(500);
         }
