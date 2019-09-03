@@ -245,6 +245,12 @@ app.get(
     // let orgName = req.body.orgName;
     console.log( args );
     let message = await query( fn, args, channelName, chaincodeName, orgName, username );
+    let filtered = []
+    for( let i = 0; i < message.length ; i++){
+      if(message[i].logistics != ""){
+        filtered.push(message[i]);
+      }
+    }
     res.send( message );
   } )
 );
@@ -602,6 +608,36 @@ app.get( '/getPriceDetails', authenticate, awaitHandler( async ( req, res ) => {
   res.send( message );
 } )
 );
+
+app.get( '/getProductAndHistory',
+  awaitHandler( async ( req, res ) => {
+    username = req.query.username;
+    orgName = req.query.orgName;
+    channelName = req.query.channelName;
+    chaincodeName = req.query.chaincodeName;
+    let args = [];
+    console.log( 'req query of the request ' + JSON.stringify( req.query ) );
+    args.push( req.query.id );
+    let fn = 'getProductByHolder';
+    // let username = req.body.username;
+    // let orgName = req.body.orgName;
+    console.log( args );
+    let message = await query( fn, args, channelName, chaincodeName, orgName, username );
+    message = JSON.parse( message );
+    fn = 'queryHistoryForKey'
+    let history, temp;
+    for ( let i = 0; i < message.length; i++ ) {
+      args = [];
+      args.push( message[i].Key.toString() );
+      history = await query( fn, args, channelName, chaincodeName, orgName, username );
+      temp = message[i];
+      temp.history = JSON.parse( history );
+      message[i] = temp;
+    }
+    res.send( message );
+  } ) );
+
+
 app.post(
   '/setPriceDetails', authenticate,
   awaitHandler( async ( req, res ) => {

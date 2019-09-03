@@ -4,7 +4,7 @@
     "description": "meditrack Network",
     "version": "1.0",
     "client": {
-        "organization": "btdc"
+        "organization": "manuf1"
     },
     "channels": {
         "ourchannel": {
@@ -12,7 +12,20 @@
                 "orderer.meditrack.com"
             ],
             "peers": {
-                "peer0.btdc.meditrack.com": {
+                "peer0.manuf1.meditrack.com": {
+                    "endorsingPeer": true,
+                    "chaincodeQuery": true,
+                    "ledgerQuery": true,
+                    "eventSource": true
+                }
+            }
+        },
+        "meditrack": {
+            "orderers": [
+                "orderer.meditrack.com"
+            ],
+            "peers": {
+                "peer0.manuf1.meditrack.com": {
                     "endorsingPeer": true,
                     "chaincodeQuery": true,
                     "ledgerQuery": true,
@@ -25,7 +38,7 @@
                 "orderer.meditrack.com"
             ],
             "peers": {
-                "peer0.btdc.meditrack.com": {
+                "peer0.manuf1.meditrack.com": {
                     "endorsingPeer": true,
                     "chaincodeQuery": true,
                     "ledgerQuery": true,
@@ -35,13 +48,13 @@
         }
     },
     "organizations": {
-        "btdc": {
-            "mspid": "btdcMSP",
+        "manuf1": {
+            "mspid": "manuf1MSP",
             "peers": [
-                "peer0.btdc.meditrack.com"
+                "peer0.manuf1.meditrack.com"
             ],
             "certificateAuthorities": [
-                "ca.btdc.meditrack.com"
+                "ca.manuf1.meditrack.com"
             ]
         }
     },
@@ -54,17 +67,17 @@
         }
     },
     "peers": {
-        "peer0.btdc.meditrack.com": {
-            "url": "grpc://peer0.btdc.meditrack.com:7051",
-            "eventUrl": "grpc://peer0.btdc.meditrack.com:7053",
+        "peer0.manuf1.meditrack.com": {
+            "url": "grpc://peer0.manuf1.meditrack.com:7051",
+            "eventUrl": "grpc://peer0.manuf1.meditrack.com:7053",
             "tlsCACerts": {
                 "path": "./tlsca.meditrack.com-cert.pem"
             }
         }
     },
     "certificateAuthorities": {
-        "ca.btdc.meditrack.com": {
-            "url": "http://ca.btdc.meditrack.com:7054",
+        "ca.manuf1.meditrack.com": {
+            "url": "http://ca.manuf1.meditrack.com:7054",
             "tlsCACerts": {
                 "path": "./tlsca.meditrack.com-cert.pem"
             },
@@ -74,7 +87,7 @@
                     "enrollSecret": "adminpw"
                 }
             ],
-            "caName": "ca.btdc.meditrack.com"
+            "caName": "ca.manuf1.meditrack.com"
         }
     }
 }

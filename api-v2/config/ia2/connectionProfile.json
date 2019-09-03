@@ -4,7 +4,7 @@
     "description": "meditrack Network",
     "version": "1.0",
     "client": {
-        "organization": "fare"
+        "organization": "ia2"
     },
     "channels": {
         "ourchannel": {
@@ -12,7 +12,7 @@
                 "orderer.meditrack.com"
             ],
             "peers": {
-                "peer0.fare.meditrack.com": {
+                "peer0.ia2.meditrack.com": {
                     "endorsingPeer": true,
                     "chaincodeQuery": true,
                     "ledgerQuery": true,
@@ -25,7 +25,7 @@
                 "orderer.meditrack.com"
             ],
             "peers": {
-                "peer0.fare.meditrack.com": {
+                "peer0.ia2.meditrack.com": {
                     "endorsingPeer": true,
                     "chaincodeQuery": true,
                     "ledgerQuery": true,
@@ -35,13 +35,13 @@
         }
     },
     "organizations": {
-        "fare": {
-            "mspid": "fareMSP",
+        "ia2": {
+            "mspid": "ia2MSP",
             "peers": [
-                "peer0.fare.meditrack.com"
+                "peer0.ia2.meditrack.com"
             ],
             "certificateAuthorities": [
-                "ca.fare.meditrack.com"
+                "ca.ia2.meditrack.com"
             ]
         }
     },
@@ -54,17 +54,17 @@
         }
     },
     "peers": {
-        "peer0.fare.meditrack.com": {
-            "url": "grpc://peer0.fare.meditrack.com:7051",
-            "eventUrl": "grpc://peer0.fare.meditrack.com:7053",
+        "peer0.ia2.meditrack.com": {
+            "url": "grpc://peer0.ia2.meditrack.com:7051",
+            "eventUrl": "grpc://peer0.ia2.meditrack.com:7053",
             "tlsCACerts": {
                 "path": "./tlsca.meditrack.com-cert.pem"
             }
         }
     },
     "certificateAuthorities": {
-        "ca.fare.meditrack.com": {
-            "url": "http://ca.fare.meditrack.com:7054",
+        "ca.ia2.meditrack.com": {
+            "url": "http://ca.ia2.meditrack.com:7054",
             "tlsCACerts": {
                 "path": "./tlsca.meditrack.com-cert.pem"
             },
@@ -74,7 +74,7 @@
                     "enrollSecret": "adminpw"
                 }
             ],
-            "caName": "ca.fare.meditrack.com"
+            "caName": "ca.ia2.meditrack.com"
         }
     }
 }
