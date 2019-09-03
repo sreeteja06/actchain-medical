@@ -93,11 +93,13 @@ let Chaincode = class {
     console.log( '============= END : Initialize Ledger ===========' );
   }
   async createMedicine( stub, args ) {        //TODO: add attributes into medicine to support track page
-    try {
       args = JSON.parse( args );
       console.log( '============= START : createMedicine ===========' );
       console.log( '##### createMedicine arguments: ' + JSON.stringify( args ) );
-    
+      const buffers = await stub.getState(args[0].toString());
+        if(!!buffers && buffers.length > 0){
+          throw new Error("drug already exists");
+        }
       let product = {};
       product.docType = 'medicine';
       product.name = args[1];
@@ -108,6 +110,7 @@ let Chaincode = class {
       product.logistics = '';
       product.requestLogistics = '';
       product.sendTo = 'none';
+      product.deliverTo='';
       product.checkLogiD = '';
       product.checkDist = '';
       product.checkLogiP = '';
@@ -124,9 +127,7 @@ let Chaincode = class {
       console.log( product );
       const buffer = Buffer.from( JSON.stringify( product ) );
       await stub.putState( args[0].toString(), buffer );
-    } catch ( err ) {
-      return shim.error( err );
-    }
+    
   }
   async logisticRecievingList( stub, args ) {
     args = JSON.parse( args );
@@ -236,6 +237,8 @@ let Chaincode = class {
       asset.logistics = '';
       asset.requestLogistics = '';
       asset.sendTo = '';
+      asset.location= asset.deliverTo;
+      asset.deliverTo='';
       if ( !asset.checkDist ) {
         asset.checkDist = asset.holder;
         asset.action = 'received by distributor';
@@ -259,6 +262,7 @@ let Chaincode = class {
     } else {
       asset.action = 'ordered by pharmacy';
     }
+    asset.deliverTo=args[2];
     const buffer = Buffer.from( JSON.stringify( asset ) );
     await stub.putState( args[0].toString(), buffer );
   }
@@ -295,9 +299,9 @@ let Chaincode = class {
     asset.requestId = '';
     asset.request = '';
     if ( !asset.checkDist ) {
-      asset.action = 'order accepted by distributor';
-    } else {
       asset.action = 'order accepted by manufacturer';
+    } else {
+      asset.action = 'order accepted by distributor ';
     }
     // asset.owner = '';
     const buffer = Buffer.from( JSON.stringify( asset ) );
