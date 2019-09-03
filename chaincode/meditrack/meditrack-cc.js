@@ -112,6 +112,7 @@ let Chaincode = class {
       product.checkDist = '';
       product.checkLogiP = '';
       product.checkPharma = '';
+      product.action = 'added drug';
       product.extraConditions = {
         [args[5]]: {
           //extraconditionname
@@ -173,6 +174,7 @@ let Chaincode = class {
     let asset = await queryByKey( stub, args[0].toString() ); //*medicineID
     asset = JSON.parse( asset.toString() );
     asset.location = args[1]; //*NEwLocation
+    asset.action = "updated location";
     const buffer = Buffer.from( JSON.stringify( asset ) );
     await stub.putState( args[0].toString(), buffer );
   }
@@ -195,6 +197,7 @@ let Chaincode = class {
       asset.holder = asset.requestLogistics;
       asset.logistics = asset.requestLogistics;
       asset.requestLogistics = '';
+      asset.action = 'received by logistics';
       if ( !asset.checkLogiD ) {
         asset.checkLogiD = asset.logistics;
       } else {
@@ -235,8 +238,10 @@ let Chaincode = class {
       asset.sendTo = '';
       if ( !asset.checkDist ) {
         asset.checkDist = asset.holder;
+        asset.action = 'received by distributor';
       } else {
         asset.checkPharma = asset.holder;
+        asset.action = 'received by pharmacy';
       }
     }
     const buffer = Buffer.from( JSON.stringify( asset ) );
@@ -249,6 +254,11 @@ let Chaincode = class {
     asset = JSON.parse( asset.toString() );
     asset.requestId = args[1]; //*phar ID
     asset.request = 'true';
+    if ( !asset.checkDist ) {
+      asset.action = 'ordered by distributor';
+    } else {
+      asset.action = 'ordered by pharmacy';
+    }
     const buffer = Buffer.from( JSON.stringify( asset ) );
     await stub.putState( args[0].toString(), buffer );
   }
@@ -284,7 +294,11 @@ let Chaincode = class {
     asset.sendTo = asset.requestId;
     asset.requestId = '';
     asset.request = '';
-
+    if ( !asset.checkDist ) {
+      asset.action = 'order accepted by distributor';
+    } else {
+      asset.action = 'order accepted by manufacturer';
+    }
     // asset.owner = '';
     const buffer = Buffer.from( JSON.stringify( asset ) );
     await stub.putState( args[0].toString(), buffer );
